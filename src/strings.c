@@ -1,4 +1,5 @@
 #include "global.h"
+#include "constants/item.h"
 #include "strings.h"
 #include "battle_pyramid_bag.h"
 #include "item_menu.h"
@@ -145,7 +146,8 @@ const u8 *const gPocketNamesStringsTable[] =
     [POCKET_POKE_BALLS] = COMPOUND_STRING("POKé BALLS"),
     [POCKET_TM_HM]      = COMPOUND_STRING("TMs & HMs"),
     [POCKET_BERRIES]    = COMPOUND_STRING("BERRIES"),
-    [POCKET_KEY_ITEMS]  = COMPOUND_STRING("KEY ITEMS")
+    [POCKET_KEY_ITEMS]  = COMPOUND_STRING("KEY ITEMS"),
+    [POCKET_EVIDENCE]   = COMPOUND_STRING("EVIDENCE")
 };
 
 const u8 gText_NumberItem_TMBerry[] = _("{NO}{STR_VAR_1}{CLEAR 3}{STR_VAR_2}");

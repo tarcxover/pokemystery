@@ -1087,6 +1087,7 @@ struct Bag
 {
     struct ItemSlot items[BAG_ITEMS_COUNT];
     struct ItemSlot keyItems[BAG_KEYITEMS_COUNT];
+    struct ItemSlot evidence[BAG_EVIDENCE_COUNT];
     struct ItemSlot pokeBalls[BAG_POKEBALLS_COUNT];
     struct ItemSlot TMsHMs[BAG_TMHM_COUNT];
     struct ItemSlot berries[BAG_BERRIES_COUNT];

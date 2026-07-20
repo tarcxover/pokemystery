@@ -1,4 +1,6 @@
 #include "global.h"
+#include "constants/global.h"
+#include "constants/item.h"
 #include "item.h"
 #include "berry.h"
 #include "pokeball.h"
@@ -100,6 +102,7 @@ struct ItemSlot NONNULL BagPocket_GetSlotData(struct BagPocket *pocket, u32 pock
     case POCKET_POKE_BALLS:
     case POCKET_TM_HM:
     case POCKET_BERRIES:
+    case POCKET_EVIDENCE:
         return BagPocket_GetSlotDataGeneric(pocket, pocketPos);
     case POCKET_DUMMY:
         return BagPocket_GetSlotDataPC(pocket, pocketPos);
@@ -123,6 +126,7 @@ void NONNULL BagPocket_SetSlotData(struct BagPocket *pocket, u32 pocketPos, stru
     case POCKET_POKE_BALLS:
     case POCKET_TM_HM:
     case POCKET_BERRIES:
+    case POCKET_EVIDENCE:
         BagPocket_SetSlotDataGeneric(pocket, pocketPos, newSlot);
         break;
     case POCKET_DUMMY:
@@ -151,6 +155,10 @@ void SetBagItemsPointers(void)
     gBagPockets[POCKET_KEY_ITEMS].itemSlots = gSaveBlock1Ptr->bag.keyItems;
     gBagPockets[POCKET_KEY_ITEMS].capacity = BAG_KEYITEMS_COUNT;
     gBagPockets[POCKET_KEY_ITEMS].id = POCKET_KEY_ITEMS;
+
+    gBagPockets[POCKET_EVIDENCE].itemSlots = gSaveBlock1Ptr->bag.evidence;
+    gBagPockets[POCKET_EVIDENCE].capacity = BAG_EVIDENCE_COUNT;
+    gBagPockets[POCKET_EVIDENCE].id = POCKET_EVIDENCE;
 
     gBagPockets[POCKET_POKE_BALLS].itemSlots = gSaveBlock1Ptr->bag.pokeBalls;
     gBagPockets[POCKET_POKE_BALLS].capacity = BAG_POKEBALLS_COUNT;
