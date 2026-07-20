@@ -1,3 +1,7 @@
+#include "constants/item.h"
+#include "constants/items.h"
+#include "graphics.h"
+#include "item.h"
 #if I_USE_EVO_HELD_ITEMS_FROM_BAG == TRUE
     #define EVO_HELD_ITEM_TYPE ITEM_USE_PARTY_MENU
     #define EVO_HELD_ITEM_FIELD_FUNC ItemUseOutOfBattle_EvolutionStone
@@ -16099,6 +16103,22 @@ const struct ItemInfo gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
+    [ITEM_LAPEL_FLOWER] =
+    {
+        .name = ITEM_NAME("Lapel Flower"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Someone dropped this\n"
+            "flower here. \n"
+            "There's no blood on it.\n"
+            "Who could it be?"),
+        .importance = 1,
+        .pocket = POCKET_EVIDENCE,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_Gracidea,
+        .iconPalette = gItemIconPalette_Gracidea,
+    }
 };
 
 #undef ITEM_NAME

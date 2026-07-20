@@ -1,7 +1,9 @@
 #ifndef GUARD_CONSTANTS_ITEMS_H
 #define GUARD_CONSTANTS_ITEMS_H
 
+#include "global.h"
 #include "metaprogram.h"
+#include "constants/evidence.h"
 #include "constants/tms_hms.h"
 #include "constants/berries.h"
 
@@ -837,6 +839,7 @@ enum __attribute__((packed)) Item
     #undef ENUM_HM
     #undef TO_TMHM_NUMS
 
+
     // Charms
     ITEM_OVAL_CHARM = 690,
     ITEM_SHINY_CHARM = 691,
@@ -1051,6 +1054,12 @@ enum __attribute__((packed)) Item
     ITEM_BAXCALIBRITE = 871,
     ITEM_TATSUGIRINITE = 872,
     ITEM_GLIMMORANITE = 873,
+
+    // Evidence Items
+    ITEM_EVIDENCE_START,
+    #define EVIDENCE_ITEMS(n, id)  CAT(ITEM_, id) = APPEND_COMMA(ITEM_EVIDENCE_START + n)
+    RECURSIVELY(R_ZIP(EVIDENCE_ITEMS, NUMBERS_256 ,(FOREACH_EVIDENCE(APPEND_COMMA))))
+    #undef EVIDENCE_ITEMS
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

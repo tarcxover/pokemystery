@@ -44,6 +44,7 @@
 #define _(x)        {x}
 #define __(x)       {x}
 #define COMPOUND_STRING(x) 0
+#define CSTR(x) COMPOUND_STRING(x)
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN
 #define INCBIN_U16  INCBIN
@@ -68,6 +69,13 @@
     a = b;                  \
     b = temp;               \
 }
+
+#define Swap(a, b)           \
+    do {                     \
+        __auto_type tmp = a; \
+        a = b;               \
+        b = tmp;             \
+    } while (0)
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #define max(a, b) ((a) >= (b) ? (a) : (b))

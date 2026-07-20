@@ -1,0 +1,18 @@
+#ifndef CONSTANTS_EVIDENCE_H
+#define CONSTANTS_EVIDENCE_H
+
+#define FOREACH_EVIDENCE(F) \
+    F(LAPEL_FLOWER)         \
+    F(BLOODY_DOORFRAME)     \
+    F(LOCKED_DOOR)          \
+    F(VICTIM_MURDERED)
+
+#define UNPACK_TO_EVD_ID(id) APPEND_COMMA(CAT(EVD_, id))
+#define COUNT_OF_EVIDENCE (0 FOREACH_EVIDENCE(PLUS_ONE))
+
+enum Evidence: u16 {
+    FOREACH_EVIDENCE(UNPACK_TO_EVD_ID)
+    EVD_COUNT = COUNT_OF_EVIDENCE,
+};
+
+#endif /* end of include guard: CONSTANTS_EVIDENCE_H */
