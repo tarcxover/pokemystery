@@ -104,6 +104,7 @@ static const u16 sDoorNullPalette26[16] = {};
 static const u8 sDoorAnimTiles_CableClub[] = INCGFX_U8("graphics/door_anims/cable_club.png", ".4bpp");
 static const u16 sDoorNullPalette27[16] = {};
 static const u8 sDoorAnimTiles_AbandonedShip[] = INCGFX_U8("graphics/door_anims/abandoned_ship.png", ".4bpp");
+static const u8 sDoorAnimTiles_Tarc3InsideShip[] = INCGFX_U8("graphics/door_anims/tarc3_inside_ship_door.png", ".4bpp");
 static const u16 sDoorNullPalette28[16] = {};
 static const u8 sDoorAnimTiles_FallarborDarkRoof[] = INCGFX_U8("graphics/door_anims/fallarbor_dark_roof.png", ".4bpp");
 static const u16 sDoorNullPalette29[16] = {};
@@ -289,6 +290,7 @@ static const u8 sDoorAnimPalettes_SafariZone[] = {9, 9, 9, 9, 9, 9, 9, 9};
 static const u8 sDoorAnimPalettes_MossdeepSpaceCenter[] = {8, 8, 8, 8, 8, 8, 8, 8};
 static const u8 sDoorAnimPalettes_CableClub[] = {6, 6, 6, 6, 6, 6, 6, 6};
 static const u8 sDoorAnimPalettes_AbandonedShip[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_Tarc3InsideShip[] = {1, 1, 1, 1, 1, 1, 1, 1};
 static const u8 sDoorAnimPalettes_FallarborDarkRoof[] = {11, 11, 7, 7, 7, 7, 7, 7};
 static const u8 sDoorAnimPalettes_AbandonedShipRoom[] = {7, 7, 7, 7, 7, 7, 7, 7};
 static const u8 sDoorAnimPalettes_LilycoveDeptStoreElevator[] = {6, 6, 7, 7, 7, 7, 7, 7};
@@ -582,6 +584,14 @@ static const struct DoorGraphics sDoorAnimGraphicsTable[] =
         .sound = DOOR_SOUND_NORMAL,
         .size = DOOR_SIZE_1x2, sDoorAnimTiles_AbandonedShip,
         .palettes = sDoorAnimPalettes_AbandonedShip
+    },
+    {
+        .metatileNum = METATILE_Tarc3_InsideShip_IntactDoor_Bottom_Unlocked,
+        .tileset = &gTileset_Tarc3_InsideShip,
+        .sound = DOOR_SOUND_NORMAL,
+        .size = DOOR_SIZE_1x2,
+        .tiles = sDoorAnimTiles_Tarc3InsideShip,
+        .palettes = sDoorAnimPalettes_Tarc3InsideShip
     },
     {
         .metatileNum = METATILE_Fallarbor_Door_DarkRoof,

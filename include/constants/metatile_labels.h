@@ -10,20 +10,20 @@
 #define METATILE_BattleDome_Door_PreBattleRoom  0x40A
 
 // gTileset_BattleFrontier
-#define METATILE_BattleFrontier_CorridorOpenDoor_Bottom  0x40F
-#define METATILE_BattleFrontier_CorridorOpenDoor_Top     0x407
-#define METATILE_BattleFrontier_Door_Elevator            0x40E
-#define METATILE_BattleFrontier_Door_MultiCorridor_Left  0x4AD
-#define METATILE_BattleFrontier_Door_MultiCorridor_Right 0x4AE
-#define METATILE_BattleFrontier_Elevator_Bottom0         0x539
-#define METATILE_BattleFrontier_Elevator_Bottom1         0x53A
-#define METATILE_BattleFrontier_Elevator_Bottom2         0x53B
-#define METATILE_BattleFrontier_Elevator_Mid0            0x531
-#define METATILE_BattleFrontier_Elevator_Mid1            0x532
-#define METATILE_BattleFrontier_Elevator_Mid2            0x533
-#define METATILE_BattleFrontier_Elevator_Top0            0x529
-#define METATILE_BattleFrontier_Elevator_Top1            0x52A
-#define METATILE_BattleFrontier_Elevator_Top2            0x52B
+#define METATILE_BattleFrontier_CorridorOpenDoor_Bottom   0x40F
+#define METATILE_BattleFrontier_CorridorOpenDoor_Top      0x407
+#define METATILE_BattleFrontier_Door_Elevator             0x40E
+#define METATILE_BattleFrontier_Door_MultiCorridor_Left   0x4AD
+#define METATILE_BattleFrontier_Door_MultiCorridor_Right  0x4AE
+#define METATILE_BattleFrontier_Elevator_Bottom0          0x539
+#define METATILE_BattleFrontier_Elevator_Bottom1          0x53A
+#define METATILE_BattleFrontier_Elevator_Bottom2          0x53B
+#define METATILE_BattleFrontier_Elevator_Mid0             0x531
+#define METATILE_BattleFrontier_Elevator_Mid1             0x532
+#define METATILE_BattleFrontier_Elevator_Mid2             0x533
+#define METATILE_BattleFrontier_Elevator_Top0             0x529
+#define METATILE_BattleFrontier_Elevator_Top1             0x52A
+#define METATILE_BattleFrontier_Elevator_Top2             0x52B
 
 // gTileset_BattleFrontierOutsideEast
 #define METATILE_BattleFrontierOutsideEast_Door              0x5FC
@@ -960,6 +960,9 @@
 #define METATILE_SootopolisGym_Ice_Broken   0x406
 #define METATILE_SootopolisGym_Ice_Cracked  0x40E
 #define METATILE_SootopolisGym_Stairs       0x407
+
+// gTileset_Tarc3_InsideShip
+#define METATILE_Tarc3_InsideShip_IntactDoor_Bottom_Unlocked  0x01B
 
 // gTileset_TrainerHill
 #define METATILE_TrainerHill_CounterDoor          0x534
