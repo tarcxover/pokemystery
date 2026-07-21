@@ -21,6 +21,19 @@
 #define ITEM_NAME(str) COMPOUND_STRING_SIZE_LIMIT(str, ITEM_NAME_LENGTH)
 #define ITEM_PLURAL_NAME(str) COMPOUND_STRING_SIZE_LIMIT(str, ITEM_NAME_PLURAL_LENGTH)
 
+#define EVIDENCE_ITEM(id, _name, _description, details, icon) \
+    [CAT(ITEM_, id)] = {                                      \
+        .name = _name,                                        \
+        .price = 0,                                           \
+        .description = _description,                          \
+        .importance = 1,                                      \
+        .pocket = POCKET_EVIDENCE,                            \
+        .type = ITEM_USE_BAG_MENU,                            \
+        .iconPic = CAT(gItemIcon_, icon),                     \
+        .iconPalette = CAT(gItemIconPalette_, icon),          \
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,         \
+    },
+
 const u8 gQuestionMarksItemName[] = _("????????");
 
 const struct ItemInfo gItemsInfo[] =
@@ -16103,22 +16116,8 @@ const struct ItemInfo gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
-    [ITEM_LAPEL_FLOWER] =
-    {
-        .name = ITEM_NAME("Lapel Flower"),
-        .price = 0,
-        .description = COMPOUND_STRING(
-            "Someone dropped this\n"
-            "flower here. \n"
-            "There's no blood on it.\n"
-            "Who could it be?"),
-        .importance = 1,
-        .pocket = POCKET_EVIDENCE,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        .iconPic = gItemIcon_Gracidea,
-        .iconPalette = gItemIconPalette_Gracidea,
-    }
+
+    FOREACH_EVIDENCE(EVIDENCE_ITEM)
 };
 
 #undef ITEM_NAME

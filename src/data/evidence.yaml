@@ -1,0 +1,50 @@
+evidence:
+  - id: LAPEL_FLOWER
+    name: Lapel Flower
+    icon: Gracidea
+    description: |
+      A decorative lapel
+      flower.
+    details: |
+      A flower found outside the
+      victim's cabin. It appeared
+      to implicate Takeshi, but
+      was deliberately left there
+      to frame him.
+
+  - id: BLOODY_DOORFRAME
+    name: Bloody Doorframe
+    icon: AuroraTicket
+    description: |
+      Blood found on the cabin doorframe.
+    details: |
+      The blood proves the victim
+      was attacked while the door
+      was open. He managed to
+      retreat into his cabin and
+      lock the door before dying.
+
+  - id: LOCKED_DOOR
+    name: Locked Door
+    icon: AirBalloon
+    description: |
+      The victim's cabin was
+      locked from the inside.
+    details: |
+      The locked room was not a trick.
+      After being stabbed
+      outside, the victim locked
+      the door himself while
+      trying to escape his attacker.
+
+  - id: VICTIM_MURDERED
+    name: Victim Murdered
+    icon: Gracidea
+    description: |
+      The victim was murdered.
+    details: |
+      The evidence shows the
+      death was not suicide.
+      The attack happened outside
+      the cabin before the victim
+      went inside.
