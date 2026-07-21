@@ -1,3 +1,7 @@
+#include "constants/item.h"
+#include "constants/items.h"
+#include "graphics.h"
+#include "item.h"
 #if I_USE_EVO_HELD_ITEMS_FROM_BAG == TRUE
     #define EVO_HELD_ITEM_TYPE ITEM_USE_PARTY_MENU
     #define EVO_HELD_ITEM_FIELD_FUNC ItemUseOutOfBattle_EvolutionStone
@@ -16,6 +20,19 @@
 
 #define ITEM_NAME(str) COMPOUND_STRING_SIZE_LIMIT(str, ITEM_NAME_LENGTH)
 #define ITEM_PLURAL_NAME(str) COMPOUND_STRING_SIZE_LIMIT(str, ITEM_NAME_PLURAL_LENGTH)
+
+#define EVIDENCE_ITEM(id, _name, _description, details, icon) \
+    [CAT(ITEM_, id)] = {                                      \
+        .name = _name,                                        \
+        .price = 0,                                           \
+        .description = _description,                          \
+        .importance = 1,                                      \
+        .pocket = POCKET_EVIDENCE,                            \
+        .type = ITEM_USE_BAG_MENU,                            \
+        .iconPic = CAT(gItemIcon_, icon),                     \
+        .iconPalette = CAT(gItemIconPalette_, icon),          \
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,         \
+    },
 
 const u8 gQuestionMarksItemName[] = _("????????");
 
@@ -16099,6 +16116,8 @@ const struct ItemInfo gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
+
+    FOREACH_EVIDENCE(EVIDENCE_ITEM)
 };
 
 #undef ITEM_NAME

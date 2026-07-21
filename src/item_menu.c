@@ -1,4 +1,6 @@
 #include "global.h"
+#include "constants/global.h"
+#include "constants/item.h"
 #include "item_menu.h"
 #include "battle.h"
 #include "battle_controllers.h"
@@ -42,6 +44,7 @@
 #include "strings.h"
 #include "string_util.h"
 #include "task.h"
+#include "text.h"
 #include "text_window.h"
 #include "menu_helpers.h"
 #include "window.h"
@@ -62,7 +65,8 @@
                             max(BAG_BERRIES_COUNT,           \
                             max(BAG_ITEMS_COUNT,             \
                             max(BAG_KEYITEMS_COUNT,          \
-                                BAG_POKEBALLS_COUNT))))) + 1)
+                            max(BAG_EVIDENCE_COUNT,          \
+                                BAG_POKEBALLS_COUNT)))))) + 1)
 
 // Up to 8 item slots can be visible at a time
 #define MAX_ITEMS_SHOWN 8
@@ -876,7 +880,7 @@ static bool8 LoadBagMenu_Graphics(void)
         gBagMenu->graphicsLoadState++;
         break;
     case 4:
-        LoadSpritePalette(&gBagPaletteTable);
+        LoadSpritePalette(&gBagPaletteTable[gSaveBlock2Ptr->playerGender]);
         gBagMenu->graphicsLoadState++;
         break;
     default:
@@ -1045,7 +1049,9 @@ static void PrintItemDescription(int itemIndex)
         str = gStringVar4;
     }
     FillWindowPixelBuffer(WIN_DESCRIPTION, PIXEL_FILL(0));
-    BagMenu_Print(WIN_DESCRIPTION, FONT_NORMAL, str, 3, 1, 0, 0, 0, COLORID_NORMAL);
+    u8 fontId = gBagPosition.pocket == POCKET_EVIDENCE ? FONT_SMALL_NARROW : FONT_NORMAL;
+    u8 lineSpacing = gBagPosition.pocket == POCKET_EVIDENCE ? 1 : 0;
+    BagMenu_Print(WIN_DESCRIPTION, fontId, str, 3, 1, 0, lineSpacing, 0, COLORID_NORMAL);
 }
 
 static void BagMenu_PrintCursor(u8 listTaskId, u8 colorIndex)
@@ -1715,6 +1721,11 @@ static void OpenContextMenu(u8 taskId)
                     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
                         gBagMenu->contextMenuItemsBuffer[0] = ACTION_WALK;
                 }
+                break;
+            case POCKET_EVIDENCE:
+                gBagMenu->contextMenuItemsPtr = gBagMenu->contextMenuItemsBuffer;
+                gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_KeyItemsPocket);
+                memcpy(&gBagMenu->contextMenuItemsBuffer, &sContextMenuItems_KeyItemsPocket, sizeof(sContextMenuItems_KeyItemsPocket));
                 break;
             case POCKET_POKE_BALLS:
                 gBagMenu->contextMenuItemsPtr = sContextMenuItems_BallsPocket;
