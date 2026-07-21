@@ -94,6 +94,22 @@
       "dest_map": "MAP_TARC3_FOREDECK",
       "dest_warp_id": "1",
       "notes": "to foredeck"
+    },
+    {
+      "x": 34,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_HOLD",
+      "dest_warp_id": "1",
+      "notes": "to hold east"
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_HOLD",
+      "dest_warp_id": "0",
+      "notes": "to hold west"
     }
   ],
   "coord_events": [],
