@@ -1,0 +1,9 @@
+mapscripts tarc3_TestMap_MapScripts {}
+
+script tarc3_TestMap_EventScript_NPC {
+    lock
+    faceplayer
+    msgbox("Hello there!")
+    release
+    end
+}
