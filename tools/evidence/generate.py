@@ -129,7 +129,7 @@ def build_evidence_list(data) -> list[Evidence]:
             name=item["name"],
             description=item["description"],
             details=item["details"],
-            recipes=item.get("recipes", []),
+            recipes=item.get("recipes") or [],
         )
         for item in data["evidence"]
     ]

@@ -2,6 +2,7 @@ evidence:
   - id: LAPEL_FLOWER
     name: Lapel Flower
     icon: Gracidea
+    recipes: NULL
     description: |
       A decorative lapel
       flower.
@@ -15,6 +16,7 @@ evidence:
   - id: BLOODY_DOORFRAME
     name: Bloody Doorframe
     icon: AuroraTicket
+    recipes: NULL
     description: |
       Blood found on the cabin doorframe.
     details: |
@@ -27,6 +29,7 @@ evidence:
   - id: LOCKED_DOOR
     name: Locked Door
     icon: AirBalloon
+    recipes: NULL
     description: |
       The victim's cabin was
       locked from the inside.
@@ -50,3 +53,49 @@ evidence:
       The attack happened outside
       the cabin before the victim
       went inside.
+
+  - id: CHARCOAL_DUST
+    name: Charcoal Dust
+    icon: Charcoal
+    recipes: NULL
+    description: |
+      Fine charcoal dust.
+      It's mixed with
+      blood
+    details: |
+      Charcoal dust mixed
+      with blood. Found
+      near the victim's
+      body. Did the killer
+      Leave this here?
+
+  - id: BLOODY_BREADCRUST
+    name: Bloody Bread Crust
+    icon: EonTicket
+    recipes: NULL
+    description: |
+      A bloody piece of
+      bread.
+    details: |
+      A piece of bread found
+      near the victim's body.
+      It's soaked in his
+      blood.
+
+  - id: PLANTED_FLOWER
+    name: Planted Flower
+    icon: Gracidea
+    recipes:
+      - [BLOODY_BREADCRUST, LAPEL_FLOWER]
+      - [CHARCOAL_DUST, LAPEL_FLOWER]
+      - [BLOODY_DOORFRAME, LAPEL_FLOWER]
+    description: |
+      A lapel flower was
+      planted at the
+      crime scene
+    details: |
+      The lapel flower found
+      at the crime scene was
+      planted by the culprit.
+      They were trying to
+      frame Takeshi.

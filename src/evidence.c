@@ -41,8 +41,19 @@ void TestEvidence(void)
 
 bool32 ScrCmd_evidencetoitem(struct ScriptContext *ctx)
 {
-    enum Evidence evd = ScriptReadHalfword(ctx);
+    enum Evidence evd = VarGet(ScriptReadHalfword(ctx));
     fatal_assertf(evd < EVD_COUNT);
     gSpecialVar_Result = gEvidence[evd].itemId;
+    return FALSE;
+}
+
+bool32 ScrCmd_getdeduction(struct ScriptContext *ctx)
+{
+    enum Evidence p1 = ScriptReadHalfword(ctx);
+    enum Evidence p2 = ScriptReadHalfword(ctx);
+    enum Evidence c = GetDeduction(p1, p2);
+    if (c == EVD_COUNT)
+        errorf("Deduction Failed");
+    gSpecialVar_Result = c;
     return FALSE;
 }

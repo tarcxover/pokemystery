@@ -3,7 +3,6 @@
 
 #include "global.h"
 #include "constants/evidence.h"
-#include "constants/evidence_macros.h"
 #include "constants/items.h"
 
 #define EVD(e) CAT(EVD_, e)

@@ -3027,3 +3027,14 @@
 	evidencetoitem \evidence
 	checkitem VAR_RESULT
 	.endm
+
+	.macro getdeduction premise1:req, premise2:req
+	callnative ScrCmd_getdeduction
+	.2byte \premise1
+	.2byte \premise2
+	.endm
+
+	.macro trydeduction premise1:req, premise2:req
+	getdeduction \premise1, \premise2
+	giveevidence VAR_RESULT
+	.endm
