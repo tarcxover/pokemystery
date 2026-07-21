@@ -25,7 +25,7 @@ static enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2)
         const struct DeductionInfo *d = &gDeductions[i];
         u32 candidate = PREMISE_KEY(d->premises[0], d->premises[1]);
         if (key == candidate)
-            return d[i].conclusion;
+            return d->conclusion;
     }
     return EVD_COUNT;
 }
