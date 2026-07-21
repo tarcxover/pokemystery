@@ -75,7 +75,8 @@
     "gMapGroup_IndoorTwoIslandRoute_Frlg",
     "gMapGroup_IndoorSixIslandRoute_Frlg",
     "gMapGroup_IndoorSevenIslandRoute_Frlg",
-    "gMapGroup_tarc3_TestMaps"
+    "gMapGroup_tarc3_TestMaps",
+    "gMapGroup_tarc3_Maps"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
@@ -1164,5 +1165,11 @@
   ],
   "gMapGroup_tarc3_TestMaps": [
     "tarc3_TestMap"
+  ],
+  "gMapGroup_tarc3_Maps": [
+    "tarc3_MainDeck",
+    "tarc3_Foredeck",
+    "tarc3_Hold",
+    "tarc3_Cabins"
   ]
 }

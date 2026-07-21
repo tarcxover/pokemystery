@@ -1,0 +1,117 @@
+{
+  "id": "MAP_TARC3_CABINS",
+  "name": "tarc3_Cabins",
+  "layout": "LAYOUT_TARC3_CABINS",
+  "music": "MUS_ABANDONED_SHIP",
+  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_NONE",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": false,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [
+    {
+      "x": 3,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "0",
+      "notes": "gozo cabin to main deck"
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "0",
+      "notes": "gozo cabin to main deck"
+    },
+    {
+      "x": 18,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "1",
+      "notes": "akie & tatsuo cabin to main deck"
+    },
+    {
+      "x": 19,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "1",
+      "notes": "akie & tatsuo cabin to main deck"
+    },
+    {
+      "x": 33,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "2",
+      "notes": "natsue & takeshi cabin to main deck"
+    },
+    {
+      "x": 34,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "2",
+      "notes": "natsue & takeshi cabin to main deck"
+    },
+    {
+      "x": 48,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "3",
+      "notes": "ichiro cabin to main deck"
+    },
+    {
+      "x": 49,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "3",
+      "notes": "ichiro cabin to main deck"
+    },
+    {
+      "x": 3,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "4",
+      "notes": "joji cabin to main deck"
+    },
+    {
+      "x": 20,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "5",
+      "notes": "mariko cabin to main deck"
+    },
+    {
+      "x": 34,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "6",
+      "notes": "kitaro cabin to main deck"
+    },
+    {
+      "x": 50,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "7",
+      "notes": "conan & ran cabin to main deck"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": []
+}
