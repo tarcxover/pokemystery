@@ -32,9 +32,11 @@ static enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2)
 
 void TestEvidence(void)
 {
-    enum Evidence e = GetDeduction(EVD_LOCKED_DOOR, EVD_BLOODY_DOORFRAME);
+    enum Evidence p1 = EVD_LOCKED_DOOR;
+    enum Evidence p2 = EVD_BLOODY_DOORFRAME;
+    enum Evidence e = GetDeduction(p1, p2);
     assertf(e != EVD_COUNT){};
-    DebugPrintf("Recieved Evidence %d", e);
+    DebugPrintf("Deduced that %S and %S imply %S", gEvidence[p1].name,gEvidence[p2].name,gEvidence[e].name);
 }
 
 bool32 ScrCmd_evidencetoitem(struct ScriptContext *ctx)
