@@ -1552,3 +1552,14 @@ const struct Tileset gTileset_Tarc3_InsideShip =
     .metatileAttributes = gMetatileAttributes_PorytilesManaged_Tarc3_InsideShip,
     .callback = InitTilesetAnim_PorytilesManaged_Tarc3InsideShip,
 };
+
+const struct Tileset gTileset_Tarc3_OutsideShip =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_PorytilesManaged_Tarc3_OutsideShip,
+    .palettes = gTilesetPalettes_PorytilesManaged_Tarc3_OutsideShip,
+    .metatiles = gMetatiles_PorytilesManaged_Tarc3_OutsideShip,
+    .metatileAttributes = gMetatileAttributes_PorytilesManaged_Tarc3_OutsideShip,
+    .callback = InitTilesetAnim_PorytilesManaged_Tarc3OutsideShip,
+};

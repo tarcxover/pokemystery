@@ -9349,7 +9349,7 @@
       "name": "tarc3_Foredeck_Layout",
       "width": 40,
       "height": 40,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_Tarc3_OutsideShip",
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/tarc3_Foredeck/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_Foredeck/map.bin"
