@@ -1,8 +1,11 @@
 #include "global.h"
 #include "assertf.h"
 #include "constants/evidence.h"
+#include "constants/items.h"
+#include "event_data.h"
 #include "evidence.h"
 #include "gba/isagbprint.h"
+#include "script.h"
 
 #define PREMISE_KEY(a, b)            \
     ({                               \
@@ -32,4 +35,11 @@ void TestEvidence(void)
     enum Evidence e = GetDeduction(EVD_LOCKED_DOOR, EVD_BLOODY_DOORFRAME);
     assertf(e != EVD_COUNT){};
     DebugPrintf("Recieved Evidence %d", e);
+}
+
+bool32 ScrCmd_evidencetoitem(struct ScriptContext *ctx)
+{
+    enum Evidence evd = ScriptReadHalfword(ctx);
+    gSpecialVar_Result = ITEM_EVIDENCE_START + evd;
+    return FALSE;
 }

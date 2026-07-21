@@ -3,7 +3,14 @@
 
 #include "global.h"
 #include "constants/evidence.h"
+#include "constants/evidence_macros.h"
 #include "constants/items.h"
+
+#define _EVD_TO_ITEM_HELPER(e,...) APPEND_COMMA([CAT(EVD_, e)] = CAT(ITEM_, e))
+
+const enum Item EvidenceToItem[EVD_COUNT] = {
+    FOREACH_EVIDENCE(_EVD_TO_ITEM_HELPER)
+};
 
 
 struct EvidenceInfo

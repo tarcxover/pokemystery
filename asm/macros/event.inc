@@ -3011,3 +3011,14 @@
 	getbraillestringwidth \text
 	call EventScript_BrailleCursorWaitButton
 	.endm
+
+	@ Places the evidence item in VAR_RESULT
+	.macro evidencetoitem evidence:req
+	callnative ScrCmd_evidencetoitem
+	.2byte \evidence
+	.endm
+
+	.macro giveevidence evidence:req
+	evidencetoitem \evidence
+	giveitem VAR_RESULT, 1
+	.endm
