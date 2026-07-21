@@ -40,6 +40,7 @@ void TestEvidence(void)
 bool32 ScrCmd_evidencetoitem(struct ScriptContext *ctx)
 {
     enum Evidence evd = ScriptReadHalfword(ctx);
-    gSpecialVar_Result = ITEM_EVIDENCE_START + evd;
+    fatal_assertf(evd < EVD_COUNT);
+    gSpecialVar_Result = gEvidence[evd].itemId;
     return FALSE;
 }
