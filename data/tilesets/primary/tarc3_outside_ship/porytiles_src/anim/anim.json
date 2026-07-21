@@ -1,4 +1,52 @@
 {
+  "calm_water_a": {
+    "frame_offset": 1,
+    "frames": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "frame_order": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "tile_offset": 1
+  },
+  "calm_water_b": {
+    "frame_offset": 1,
+    "frames": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "frame_order": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "tile_offset": 2
+  },
   "flower": {
     "frames": [
       "center",
@@ -11,6 +59,6 @@
       "center",
       "left"
     ],
-    "tile_offset": 1
+    "tile_offset": 3
   }
 }

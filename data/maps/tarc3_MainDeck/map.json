@@ -78,6 +78,22 @@
       "dest_map": "MAP_TARC3_CABINS",
       "dest_warp_id": "11",
       "notes": "conan & ran cabin"
+    },
+    {
+      "x": 6,
+      "y": 10,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_FOREDECK",
+      "dest_warp_id": "0",
+      "notes": "to foredeck"
+    },
+    {
+      "x": 6,
+      "y": 11,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_FOREDECK",
+      "dest_warp_id": "1",
+      "notes": "to foredeck"
     }
   ],
   "coord_events": [],
