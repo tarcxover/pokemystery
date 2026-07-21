@@ -5,6 +5,7 @@
 # ///
 # pyright: basic
 
+from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from textwrap import dedent
@@ -12,6 +13,7 @@ from textwrap import dedent
 import yaml
 
 type Macro = list[str]
+type Deductions = defaultdict[str, list[list[str]]]
 
 
 @dataclass(frozen=True)
@@ -19,6 +21,7 @@ class Evidence:
     id: str
     icon: str
     name: str
+    recipes: list[list[str]]
     description: str
     details: str
 
@@ -81,6 +84,31 @@ def open_header_guard() -> None:
     )
 
 
+def emit_deduction_table(evidence: list[Evidence]) -> None:
+
+    def collect_deductions(evidence: list[Evidence]) -> Deductions:
+        order = {e.id: i for i, e in enumerate(evidence)}
+        deductions: Deductions = defaultdict(list)
+        for e in evidence:
+            for r in e.recipes:
+                res = sorted(r, key=order.__getitem__)
+                if res not in deductions[e.id]:
+                    deductions[e.id].append(res)
+        return deductions
+
+    def build_dedction_lnes(out: list[str], deductions: Deductions) -> None:
+        for c, pp in deductions.items():
+            for p in pp:
+                line = ", ".join([c, *p])
+                out.append(f"F({line})")
+
+    deductions = collect_deductions(evidence)
+
+    lines = ["#define FOREACH_DEDUCTION(F)"]
+    build_dedction_lnes(lines, deductions)
+    emit_macro(lines)
+
+
 def close_header_guard() -> None:
     print(dedent("\n#endif // CONSTANTS_EVIDENCE_MACROS_H"))
 
@@ -93,6 +121,21 @@ def emit_evidence(out: Macro, evd: Evidence) -> None:
     out.append(f"{evd.icon})")
 
 
+def build_evidence_list(data) -> list[Evidence]:
+    res: list[Evidence] = [
+        Evidence(
+            id=item["id"],
+            icon=item["icon"],
+            name=item["name"],
+            description=item["description"],
+            details=item["details"],
+            recipes=item.get("recipes", []),
+        )
+        for item in data["evidence"]
+    ]
+    return res
+
+
 def main() -> None:
     script_dir = Path(__file__).resolve().parent
     root = find_project_root(script_dir)
@@ -102,7 +145,7 @@ def main() -> None:
     with source.open() as f:
         data = yaml.safe_load(f)
 
-    evidence = [Evidence(**item) for item in data["evidence"]]
+    evidence = build_evidence_list(data)
 
     open_header_guard()
     emit_generated_warning(rel)
@@ -111,6 +154,9 @@ def main() -> None:
     for e in evidence:
         emit_evidence(lines, e)
     emit_macro(lines)
+
+    print()
+    emit_deduction_table(evidence)
 
     close_header_guard()
 

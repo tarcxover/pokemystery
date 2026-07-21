@@ -40,6 +40,8 @@ evidence:
   - id: VICTIM_MURDERED
     name: Victim Murdered
     icon: Gracidea
+    recipes:
+      - [BLOODY_DOORFRAME, LOCKED_DOOR]
     description: |
       The victim was murdered.
     details: |

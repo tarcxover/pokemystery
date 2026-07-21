@@ -41,11 +41,25 @@ const struct EvidenceInfo gEvidence[EVD_COUNT] = {
 };
 #undef _GEVD_HELPER
 
-const struct DeductionInfo gDeductions[] = {
-    {
-        .premises = {EVD_BLOODY_DOORFRAME, EVD_LOCKED_DOOR},
-        .conclusion = EVD_VICTIM_MURDERED,
-    },
+
+
+// Generates gDeductions from an X-Macro table
+#define _PREMISES_HELPER(x) APPEND_COMMA(EVD(x))
+#define _PREMISES(...) RECURSIVELY(R_FOR_EACH(_PREMISES_HELPER, __VA_ARGS__))
+#define _GDED_HELPER(c, ...)         \
+    {.premises =                     \
+         {                           \
+             _PREMISES(__VA_ARGS__)  \
+         },                          \
+     .conclusion = EVD(c)},
+
+enum { DEDUCTION_COUNT = (0 FOREACH_DEDUCTION(PLUS_ONE)) };
+
+const struct DeductionInfo gDeductions[DEDUCTION_COUNT] = {
+    FOREACH_DEDUCTION(_GDED_HELPER)
 };
+#undef _PREMISES_HELPER
+#undef _PREMISES
+#undef _GDED_HELPER
 
 #endif /* end of include guard: EVIDENCE_H */
