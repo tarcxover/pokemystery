@@ -3020,5 +3020,5 @@
 
 	.macro giveevidence evidence:req
 	evidencetoitem \evidence
-	giveitem VAR_RESULT, 1
+	giveitem VAR_RESULT
 	.endm
