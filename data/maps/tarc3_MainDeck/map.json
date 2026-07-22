@@ -110,6 +110,14 @@
       "dest_map": "MAP_TARC3_HOLD",
       "dest_warp_id": "0",
       "notes": "to hold west"
+    },
+    {
+      "x": 9,
+      "y": 13,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BATHROOM",
+      "dest_warp_id": "0",
+      "notes": "main deck to bathroom"
     }
   ],
   "coord_events": [],
