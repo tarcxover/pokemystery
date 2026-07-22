@@ -3020,7 +3020,13 @@
 
 	.macro giveevidence evidence:req
 	evidencetoitem \evidence
-	giveitem VAR_RESULT
+	copyvar VAR_0x8004, VAR_RESULT
+	checkitem VAR_0x8004
+	goto_if_eq VAR_RESULT, TRUE, 1f
+	goto 2f
+1:
+	giveitem VAR_0x8004
+2:
 	.endm
 
 	.macro checkevidence evidence:req
@@ -3036,5 +3042,12 @@
 
 	.macro trydeduction premise1:req, premise2:req
 	getdeduction \premise1, \premise2
+	compare VAR_RESULT, EVD_COUNT
+	goto_if_eq 1f
 	giveevidence VAR_RESULT
+	setvar VAR_RESULT, TRUE
+	goto 2f
+1:
+	  setvar VAR_RESULT, FALSE
+2:
 	.endm

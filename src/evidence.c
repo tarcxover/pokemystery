@@ -52,8 +52,6 @@ bool32 ScrCmd_getdeduction(struct ScriptContext *ctx)
     enum Evidence p1 = ScriptReadHalfword(ctx);
     enum Evidence p2 = ScriptReadHalfword(ctx);
     enum Evidence c = GetDeduction(p1, p2);
-    if (c == EVD_COUNT)
-        errorf("Deduction Failed");
     gSpecialVar_Result = c;
     return FALSE;
 }
