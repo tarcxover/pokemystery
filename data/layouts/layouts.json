@@ -9333,6 +9333,46 @@
       "secondary_tileset": "gTileset_InsideShip",
       "border_filepath": "data/layouts/tarc3_TestMap/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_TestMap/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC3_MAIN_DECK",
+      "name": "tarc3_MainDeck_Layout",
+      "width": 50,
+      "height": 20,
+      "primary_tileset": "gTileset_Tarc3_InsideShip",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/tarc3_MainDeck/border.bin",
+      "blockdata_filepath": "data/layouts/tarc3_MainDeck/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC3_FOREDECK",
+      "name": "tarc3_Foredeck_Layout",
+      "width": 29,
+      "height": 29,
+      "primary_tileset": "gTileset_Tarc3_OutsideShip",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/tarc3_Foredeck/border.bin",
+      "blockdata_filepath": "data/layouts/tarc3_Foredeck/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC3_HOLD",
+      "name": "tarc3_Hold_Layout",
+      "width": 40,
+      "height": 40,
+      "primary_tileset": "gTileset_Tarc3_InsideShip",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/tarc3_Hold/border.bin",
+      "blockdata_filepath": "data/layouts/tarc3_Hold/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC3_CABINS",
+      "name": "tarc3_Cabins_Layout",
+      "width": 60,
+      "height": 40,
+      "primary_tileset": "gTileset_Tarc3_InsideShip",
+      "secondary_tileset": "gTileset_BattleArena",
+      "border_filepath": "data/layouts/tarc3_Cabins/border.bin",
+      "blockdata_filepath": "data/layouts/tarc3_Cabins/map.bin"
     }
   ]
 }

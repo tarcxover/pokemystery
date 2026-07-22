@@ -1,0 +1,53 @@
+{
+  "id": "MAP_TARC3_HOLD",
+  "name": "tarc3_Hold",
+  "layout": "LAYOUT_TARC3_HOLD",
+  "music": "MUS_ABANDONED_SHIP",
+  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_NONE",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [
+    {
+      "x": 7,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "11",
+      "notes": "to main deck west"
+    },
+    {
+      "x": 19,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_MAIN_DECK",
+      "dest_warp_id": "10",
+      "notes": "to main deck east"
+    },
+    {
+      "x": 17,
+      "y": 20,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_HOLD",
+      "dest_warp_id": "3",
+      "notes": "to storage"
+    },
+    {
+      "x": 31,
+      "y": 20,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_HOLD",
+      "dest_warp_id": "2",
+      "notes": "to hold"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": []
+}

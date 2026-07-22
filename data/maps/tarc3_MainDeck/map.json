@@ -1,0 +1,117 @@
+{
+  "id": "MAP_TARC3_MAIN_DECK",
+  "name": "tarc3_MainDeck",
+  "layout": "LAYOUT_TARC3_MAIN_DECK",
+  "music": "MUS_ABANDONED_SHIP",
+  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_NONE",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [
+    {
+      "x": 13,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_CABINS",
+      "dest_warp_id": "0",
+      "notes": "gozo cabin"
+    },
+    {
+      "x": 18,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_CABINS",
+      "dest_warp_id": "2",
+      "notes": "akie & tatsuo cabin"
+    },
+    {
+      "x": 23,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_CABINS",
+      "dest_warp_id": "4",
+      "notes": "naksue & takeshi cabin"
+    },
+    {
+      "x": 28,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_CABINS",
+      "dest_warp_id": "6",
+      "notes": "ichiro cabin"
+    },
+    {
+      "x": 13,
+      "y": 13,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_CABINS",
+      "dest_warp_id": "8",
+      "notes": "joji cabin"
+    },
+    {
+      "x": 18,
+      "y": 13,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_CABINS",
+      "dest_warp_id": "9",
+      "notes": "mariko cabin"
+    },
+    {
+      "x": 23,
+      "y": 13,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_CABINS",
+      "dest_warp_id": "10",
+      "notes": "kitaro cabin"
+    },
+    {
+      "x": 28,
+      "y": 13,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_CABINS",
+      "dest_warp_id": "11",
+      "notes": "conan & ran cabin"
+    },
+    {
+      "x": 6,
+      "y": 10,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_FOREDECK",
+      "dest_warp_id": "0",
+      "notes": "to foredeck"
+    },
+    {
+      "x": 6,
+      "y": 11,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_FOREDECK",
+      "dest_warp_id": "1",
+      "notes": "to foredeck"
+    },
+    {
+      "x": 34,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_HOLD",
+      "dest_warp_id": "1",
+      "notes": "to hold east"
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_HOLD",
+      "dest_warp_id": "0",
+      "notes": "to hold west"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": []
+}

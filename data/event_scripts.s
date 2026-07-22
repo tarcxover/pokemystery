@@ -1740,3 +1740,11 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/scripts/wild_encounter.inc"
 
 	.include "data/maps/tarc3_TestMap/scripts.inc"
+
+	.include "data/maps/tarc3_MainDeck/scripts.inc"
+
+	.include "data/maps/tarc3_Foredeck/scripts.inc"
+
+	.include "data/maps/tarc3_Hold/scripts.inc"
+
+	.include "data/maps/tarc3_Cabins/scripts.inc"

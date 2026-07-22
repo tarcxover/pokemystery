@@ -43,4 +43,7 @@ void InitTilesetAnim_MtEmber(void);
 // [Porytiles] Auto-generated declaration. Do not remove.
 void InitTilesetAnim_PorytilesManaged_Tarc3InsideShip(void);
 
+// [Porytiles] Auto-generated declaration. Do not remove.
+void InitTilesetAnim_PorytilesManaged_Tarc3OutsideShip(void);
+
 #endif // GUARD_TILESET_ANIMS_H

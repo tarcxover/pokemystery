@@ -1435,3 +1435,6 @@ void InitTilesetAnim_CeladonGym(void)
 
 // [Porytiles] Auto-generated include. Do not remove.
 #include "porytiles_generated/tilesets/tarc3_inside_ship/generated_anim_code.h"
+
+// [Porytiles] Auto-generated include. Do not remove.
+#include "porytiles_generated/tilesets/tarc3_outside_ship/generated_anim_code.h"

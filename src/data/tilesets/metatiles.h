@@ -411,3 +411,6 @@ const u16 gMetatileAttributes_HallOfFame[] = INCBIN_U16("data/tilesets/secondary
 
 const u16 gMetatiles_PorytilesManaged_Tarc3_InsideShip[] = INCBIN_U16("data/tilesets/primary/tarc3_inside_ship/porytiles_bin/metatiles.bin");
 const u16 gMetatileAttributes_PorytilesManaged_Tarc3_InsideShip[] = INCBIN_U16("data/tilesets/primary/tarc3_inside_ship/porytiles_bin/metatile_attributes.bin");
+
+const u16 gMetatiles_PorytilesManaged_Tarc3_OutsideShip[] = INCBIN_U16("data/tilesets/primary/tarc3_outside_ship/porytiles_bin/metatiles.bin");
+const u16 gMetatileAttributes_PorytilesManaged_Tarc3_OutsideShip[] = INCBIN_U16("data/tilesets/primary/tarc3_outside_ship/porytiles_bin/metatile_attributes.bin");
