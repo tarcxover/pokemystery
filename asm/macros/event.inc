@@ -3046,19 +3046,19 @@
 	setvar VAR_RESULT, TRUE
 	goto 2f
 1:
-	  setvar VAR_RESULT, FALSE
+	setvar VAR_RESULT, FALSE
 2:
 	.endm
 
-.macro getheldevidencecount
-	callnative ScrCmd_getheldevidencecount
-.endm
+  .macro getheldevidencecount
+	  callnative ScrCmd_getheldevidencecount
+  .endm
 
-.macro getevidenceatpos pos:req
-	callnative ScrCmd_getevidenceatpos
-	.byte \pos
-.endm
+  .macro getevidenceatpos pos:req
+	  callnative ScrCmd_getevidenceatpos
+	  .byte \pos
+  .endm
 
-.macro dynmultipushheldevidence
-	callnative ScrCmd_dynmultipushheldevidence, requests_effects=1
-.endm
+  .macro dynmultipushheldevidence
+	  callnative ScrCmd_dynmultipushheldevidence, requests_effects=1
+  .endm
