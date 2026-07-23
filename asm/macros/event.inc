@@ -3022,9 +3022,7 @@
 	evidencetoitem \evidence
 	copyvar VAR_0x8004, VAR_RESULT
 	checkitem VAR_0x8004
-	goto_if_eq VAR_RESULT, TRUE, 1f
-	goto 2f
-1:
+	goto_if_eq VAR_RESULT, TRUE 2f
 	giveitem VAR_0x8004
 2:
 	.endm
@@ -3051,3 +3049,16 @@
 	  setvar VAR_RESULT, FALSE
 2:
 	.endm
+
+.macro getheldevidencecount
+	callnative ScrCmd_getheldevidencecount
+.endm
+
+.macro getevidenceatpos pos:req
+	callnative ScrCmd_getevidenceatpos
+	.byte \pos
+.endm
+
+.macro dynmultipushheldevidence
+	callnative ScrCmd_dynmultipushheldevidence, requests_effects=1
+.endm

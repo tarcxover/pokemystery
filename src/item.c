@@ -432,7 +432,7 @@ void RemoveBagItemFromSlot(struct BagPocket *pocket, u16 slotId, u16 count)
     BagPocket_SetSlotItemIdAndCount(pocket, slotId, itemSlot.itemId, itemSlot.quantity - count);
 }
 
-static u8 NONNULL BagPocket_CountUsedItemSlots(struct BagPocket *pocket)
+u8 NONNULL BagPocket_CountUsedItemSlots(struct BagPocket *pocket)
 {
     u8 usedSlots = 0;
 

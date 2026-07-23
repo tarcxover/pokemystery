@@ -280,5 +280,6 @@ u32 GetItemSellPrice(enum Item itemId);
 bool32 IsHoldEffectChoice(enum HoldEffect holdEffect);
 ShopCriteriaFunc GetItemShopCriteriaFunc(enum Item itemId);
 bool32 IsItemShopCriteriaFulfilled(enum Item itemId);
+u8 NONNULL BagPocket_CountUsedItemSlots(struct BagPocket *pocket);
 
 #endif // GUARD_ITEM_H

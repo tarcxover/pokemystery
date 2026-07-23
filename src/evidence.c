@@ -1,11 +1,18 @@
 #include "global.h"
 #include "assertf.h"
 #include "constants/evidence.h"
+#include "constants/item.h"
 #include "constants/items.h"
 #include "event_data.h"
 #include "evidence.h"
 #include "gba/isagbprint.h"
+#include "item.h"
+#include "list_menu.h"
+#include "malloc.h"
 #include "script.h"
+#include "script_menu.h"
+#include "string_util.h"
+#include <stdint.h>
 
 #define PREMISE_KEY(a, b)            \
     ({                               \
@@ -39,6 +46,33 @@ void TestEvidence(void)
     DebugPrintf("Deduced that %S and %S imply %S", gEvidence[p1].name,gEvidence[p2].name,gEvidence[e].name);
 }
 
+u32 GetHeldEvidenceCount(void)
+{
+    struct BagPocket *pocket = &gBagPockets[POCKET_EVIDENCE];
+    u8 usedSlots = 0;
+
+    for (u32 i = 0; i < pocket->capacity; i++)
+    {
+        if (BagPocket_GetSlotData(pocket, i).itemId != ITEM_NONE)
+            usedSlots++;
+    }
+    return usedSlots;
+}
+
+void PushEvidenceToDynMultiStack()
+{
+    u32 count = GetHeldEvidenceCount();
+
+    for (u32 pos = 0; pos < count; pos++)
+    {
+        enum Item itemId = GetBagItemId(POCKET_EVIDENCE, pos);
+        u8* nameBuffer = Alloc(100);
+        StringExpandPlaceholders(nameBuffer, GetItemName(itemId));
+        struct ListMenuItem res = {nameBuffer, pos};
+        MultichoiceDynamic_PushElement(res);
+    }
+}
+
 bool32 ScrCmd_evidencetoitem(struct ScriptContext *ctx)
 {
     enum Evidence evd = VarGet(ScriptReadHalfword(ctx));
@@ -53,5 +87,31 @@ bool32 ScrCmd_getdeduction(struct ScriptContext *ctx)
     enum Evidence p2 = ScriptReadHalfword(ctx);
     enum Evidence c = GetDeduction(p1, p2);
     gSpecialVar_Result = c;
+    return FALSE;
+}
+
+bool32 ScrCmd_getheldevidencecount(struct ScriptContext *ctx)
+{
+    gSpecialVar_Result = GetHeldEvidenceCount();
+    return FALSE;
+}
+
+bool32 ScrCmd_getevidenceatpos(struct ScriptContext *ctx)
+{
+    u32 pos = ScriptReadByte(ctx);
+    enum Item itemId = GetBagItemId(POCKET_EVIDENCE, pos);
+    assertf(itemId > ITEM_EVIDENCE_START && itemId < ITEM_EVIDENCE_START + EVD_COUNT)
+    {
+        gSpecialVar_Result = UINT8_MAX;
+        return FALSE;
+    }
+    gSpecialVar_Result = itemId - ITEM_EVIDENCE_START;
+    return FALSE;
+}
+
+bool32 ScrCmd_dynmultipushheldevidence(struct ScriptContext *ctx)
+{
+    Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
+    PushEvidenceToDynMultiStack();
     return FALSE;
 }
