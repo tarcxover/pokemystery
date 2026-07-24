@@ -9340,7 +9340,7 @@
       "width": 50,
       "height": 20,
       "primary_tileset": "gTileset_Tarc3_InsideShip",
-      "secondary_tileset": "gTileset_Petalburg",
+      "secondary_tileset": "gTileset_Tarc3_Bathroom",
       "border_filepath": "data/layouts/tarc3_MainDeck/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_MainDeck/map.bin"
     },
@@ -9373,6 +9373,16 @@
       "secondary_tileset": "gTileset_BattleArena",
       "border_filepath": "data/layouts/tarc3_Cabins/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_Cabins/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC3_BATHROOM",
+      "name": "tarc3_Bathroom_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_Tarc3_InsideShip",
+      "secondary_tileset": "gTileset_Tarc3_Bathroom",
+      "border_filepath": "data/layouts/tarc3_Bathroom/border.bin",
+      "blockdata_filepath": "data/layouts/tarc3_Bathroom/map.bin"
     }
   ]
 }
