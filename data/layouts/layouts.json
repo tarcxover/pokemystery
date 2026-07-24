@@ -9383,6 +9383,16 @@
       "secondary_tileset": "gTileset_Tarc3_Bathroom",
       "border_filepath": "data/layouts/tarc3_Bathroom/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_Bathroom/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC3_FLORIO_ISLAND",
+      "name": "tarc3_FlorioIsland_Layout",
+      "width": 60,
+      "height": 60,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Dewford",
+      "border_filepath": "data/layouts/tarc3_FlorioIsland/border.bin",
+      "blockdata_filepath": "data/layouts/tarc3_FlorioIsland/map.bin"
     }
   ]
 }
