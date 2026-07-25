@@ -1,1 +1,198 @@
-mapscripts tarc3_FlorioIsland_MapScripts {}
+mapscripts tarc3_FlorioIsland_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TARC3_FLORIO_INTRO, 0: tarc3_FlorioIsland_EventScript_OpeningCutscene
+    ]
+}
+
+script tarc3_FlorioIsland_EventScript_OpeningCutscene {
+    lockall
+    setflag(FLAG_SYS_POKEMON_GET)
+    delay(30)
+    waitmovement(0)
+    setspeaker("Ran")
+    msgbox(format("{PLAYER}! You STILL haven't caught a single Pokémon."))
+    msgbox(format("The ferry leaves any minute now - if you're going to catch any Pokémon here, you need to do it RIGHT NOW!"))
+    setspeaker(NULL)
+    msgbox(format("(I should catch a couple of Pokémon before the ferry leaves.)"))
+    setvar(VAR_TARC3_FLORIO_INTRO, 1)
+    releaseall
+    end
+}
+
+script tarc3_FlorioIsland_EventScript_CatchDachsbun {
+    lock
+    faceplayer
+    playmoncry(SPECIES_DACHSBUN, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    msgbox(format("This Dachsbun doesn't seem afraid at all.\pAdd Dachsbun to the party?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("The Dachsbun looks disappointed."))
+        release
+        end
+    }
+    givemon(SPECIES_DACHSBUN, 50)
+    playfanfare(MUS_CAUGHT)
+    msgbox(format("{PLAYER} added Dachsbun to his team!"))
+    waitfanfare
+    removeobject(LOCALID_FLORIO_DACHSBUN)
+    release
+    end
+}
+
+script tarc3_FlorioIsland_EventScript_CatchTangrowth {
+    lock
+    faceplayer
+    playmoncry(SPECIES_TANGROWTH, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    msgbox(format("Tangrowth realises you don't mean harm.\pAdd Tangrowth to the party?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("The Tangrowth looks uneasy.."))
+        release
+        end
+    }
+    givemon(SPECIES_TANGROWTH, 50)
+    playfanfare(MUS_CAUGHT)
+    msgbox(format("{PLAYER} added Tangrowth to his team!"))
+    waitfanfare
+    removeobject(LOCALID_FLORIO_TANGROWTH)
+    release
+    end
+}
+
+script tarc3_FlorioIsland_EventScript_CatchMagnezone {
+    lock
+    faceplayer
+    playmoncry(SPECIES_MAGNEZONE, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    msgbox(format("A Magnezone studies {PLAYER} with a single, unblinking eye.\pAdd Magnezone to the party?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("The Magnezone hums."))
+        release
+        end
+    }
+    givemon(SPECIES_MAGNEZONE, 50)
+    playfanfare(MUS_CAUGHT)
+    msgbox(format("{PLAYER} added Magnezone to his team!"))
+    waitfanfare
+    removeobject(LOCALID_FLORIO_MAGNEZONE)
+    release
+    end
+}
+
+script tarc3_FlorioIsland_EventScript_CatchCramorant {
+    lock
+    faceplayer
+    playmoncry(SPECIES_CRAMORANT, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    msgbox(format("A Cramorant waddles up from the shoreline, tilting its head at {PLAYER} expectantly.\pAdd Cramorant to the party?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("The Cramorant caws indignantly."))
+        playmoncry(SPECIES_CRAMORANT, CRY_MODE_ENCOUNTER)
+        waitmoncry
+        release
+        end
+    }
+    givemon(SPECIES_CRAMORANT, 50)
+    playfanfare(MUS_CAUGHT)
+    msgbox(format("{PLAYER} added Cramorant to his team!"))
+    waitfanfare
+    removeobject(LOCALID_FLORIO_CRAMORANT)
+    release
+    end
+}
+
+script tarc3_FlorioIsland_EventScript_CatchToxicroak {
+    lock
+    faceplayer
+    playmoncry(SPECIES_TOXICROAK, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    msgbox(format("A Toxicroak croaks, its throat pouch swelling.\pAdd Toxicroak to the party?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("The Toxicroak turns away."))
+        applymovement(LOCALID_FLORIO_TOXICROAK, Common_Movement_FaceAwayPlayer)
+        release
+        end
+    }
+    givemon(SPECIES_TOXICROAK, 50)
+    playfanfare(MUS_CAUGHT)
+    msgbox(format("{PLAYER} added Toxicroak to his team!"))
+    waitfanfare
+    removeobject(LOCALID_FLORIO_TOXICROAK)
+    release
+    end
+}
+
+script tarc3_FlorioIsland_EventScript_CatchPincurchin {
+    lock
+    faceplayer
+    playmoncry(SPECIES_PINCURCHIN, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    msgbox(format("A Pincurchin clings to a tide pool rock, its spines crackling faintly with static as {PLAYER} approaches.\pAdd Pincurchin to the party?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("The Pincurchin stays fixed to its rock."))
+        release
+        end
+    }
+    givemon(SPECIES_PINCURCHIN, 50)
+    playfanfare(MUS_CAUGHT)
+    msgbox(format("{PLAYER} added Pincurchin to his team!"))
+    waitfanfare
+    removeobject(LOCALID_FLORIO_PINCURCHIN)
+    release
+    end
+}
+
+script tarc3_FlorioIsland_EventScript_DockBlock {
+    lockall
+    if (getpartysize() < 3) {
+        msgbox(format("(I can't leave the island yet. I still need to catch more Pokémon before the ferry goes.)"))
+        closemessage
+        applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+        waitmovement(0)
+        releaseall
+        end
+    }
+    if (var(VAR_TARC3_FLORIO_INTRO) < 2) {
+        goto(tarc3_FlorioIsland_EventScript_FerryDeparts)
+    }
+    msgbox(format("(The ferry's long gone. I'll have to find some other way off this island.)"))
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+    waitmovement(0)
+    releaseall
+    end
+}
+
+script tarc3_FlorioIsland_EventScript_FerryDeparts {
+    special(StorePlayerCoordsInVars)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+    waitmovement(0)
+    delay(20)
+    playse(SE_SHIP)
+    msgbox(format("(That whistle... the ferry's already pulling out!)"))
+    closemessage
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_down * 10))
+    waitmovement(0)
+    delay(30)
+    playse(SE_SHIP)
+    setobjectxy(LOCALID_FLORIO_RAN_1, VAR_0x8004, 31)
+    applymovement(LOCALID_FLORIO_SSHANA, moves(walk_fast_left * 15))
+    waitmovement(0)
+    removeobject(LOCALID_FLORIO_SSHANA)
+    delay(30)
+    applymovement(LOCALID_CAMERA, moves(walk_up * 10))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
+    applymovement(LOCALID_FLORIO_RAN_1, Common_Movement_FaceDown)
+    waitmovement(0)
+    setspeaker("Ran")
+    msgbox(format("{PLAYER}! The ferry's gone... and that was the last one until tomorrow."))
+    msgbox(format("We're stranded here. How could you let this happen?!"))
+    setspeaker(NULL)
+    msgbox(format("(We've lost our ride home. There has to be another way off this island...)"))
+    setvar(VAR_TARC3_FLORIO_INTRO, 2)
+    releaseall
+    end
+}

@@ -1089,9 +1089,15 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
                 return;
             }
 
+            {
+                static const u8 sText_DefaultPlayerName[] = _("Conan");
+                StringCopy_PlayerName(gSaveBlock2Ptr->playerName, sText_DefaultPlayerName);
+            }
+            gSaveBlock2Ptr->playerGender = MALE;
             gPlttBufferUnfaded[0] = RGB_BLACK;
             gPlttBufferFaded[0] = RGB_BLACK;
-            gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
+            SetMainCallback2(CB2_NewGame);
+            DestroyTask(taskId);
             break;
         case ACTION_CONTINUE:
             gPlttBufferUnfaded[0] = RGB_BLACK;
