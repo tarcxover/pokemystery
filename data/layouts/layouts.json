@@ -9393,6 +9393,16 @@
       "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/tarc3_FlorioIsland/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_FlorioIsland/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC3_FLORIO_DOCK",
+      "name": "tarc3_FlorioDock_Layout",
+      "width": 18,
+      "height": 13,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/tarc3_FlorioDock/border.bin",
+      "blockdata_filepath": "data/layouts/tarc3_FlorioDock/map.bin"
     }
   ]
 }

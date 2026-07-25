@@ -46,6 +46,13 @@
       "dest_map": "MAP_TARC3_HOLD",
       "dest_warp_id": "2",
       "notes": "to hold"
+    },
+    {
+      "x": 13,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_FLORIO_DOCK",
+      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],

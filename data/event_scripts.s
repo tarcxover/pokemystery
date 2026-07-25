@@ -1752,3 +1752,5 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/tarc3_Bathroom/scripts.inc"
 
 	.include "data/maps/tarc3_FlorioIsland/scripts.inc"
+
+	.include "data/maps/tarc3_FlorioDock/scripts.inc"
