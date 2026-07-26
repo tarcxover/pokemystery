@@ -510,7 +510,7 @@ static u8 ListMenuInitInternal(struct ListMenuTemplate *listMenuTemplate, u16 sc
     return listTaskId;
 }
 
-static void ListMenuPrint(struct ListMenu *list, const u8 *str, u8 x, u8 y)
+static void ListMenuPrint(const struct ListMenu *list, const u8 *str, u8 x, u8 y)
 {
     u8 colors[3];
     if (gListMenuOverride.enabled)
@@ -545,6 +545,19 @@ static void ListMenuPrint(struct ListMenu *list, const u8 *str, u8 x, u8 y)
     }
 }
 
+// TODO: These functions need to be updated to use the new api
+// ===========================================================
+// DecorationItemsMenu_PrintDecorationInUse
+// PrintItemQuantity
+// BuyMenuPrintPriceInList
+// ItemStorage_PrintMenuItem
+// MailboxMenu_ItemPrintFunc
+// PrintBannedSpeciesName
+// DaycarePrintMonInfo
+// ItemPrintFunc_PossibleGroupMembers
+// ListMenuItemPrintFunc_UnionRoomGroups
+// TradeBoardListMenuItemPrintFunc
+// ItemPrintFunc_EmptyList
 static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count)
 {
     s32 i;
@@ -566,10 +579,20 @@ static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOff
         {
             if (list->template.itemPrintFunc != NULL)
                 list->template.itemPrintFunc(list, startIndex, y);
-            ListMenuPrint(list, list->template.items[startIndex].name, x, y);
+            else
+                ListMenuPrint(list, list->template.items[startIndex].name, x, y);
         }
         startIndex++;
     }
+}
+
+void ListMenuPrintItemHelper(const struct ListMenu* list, s32 index, u8 y)
+{
+    u8 x = (list->template.items[index].id != LIST_HEADER)
+               ? list->template.item_X
+               : list->template.header_X;
+
+    ListMenuPrint(list, list->template.items[index].name, x, y);
 }
 
 static void ListMenuDrawCursor(struct ListMenu *list)

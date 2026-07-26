@@ -143,5 +143,6 @@ void RemoveScrollIndicatorArrowPair(u8 taskId);
 void Task_ScrollIndicatorArrowPairOnMainMenu(u8 taskId);
 bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown);
 bool8 ListMenuChangeSelectionFull(struct ListMenu *list, bool32 updateCursor, bool32 callCallback, u8 count, bool8 movingDown);
+void ListMenuPrintItemHelper(const struct ListMenu* list, s32 index, u8 y);
 
 #endif //GUARD_LIST_MENU_H

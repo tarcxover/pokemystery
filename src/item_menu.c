@@ -1000,6 +1000,9 @@ static void BagMenu_ItemPrintCallback(const struct ListMenu* list, u32 index, u8
 {
     s32 itemIndex = list->template.items[index].id;
     u32 windowId = list->template.windowId;
+
+    ListMenuPrintItemHelper(list, index, y);
+
     if (itemIndex != LIST_CANCEL)
     {
         s32 offset;
