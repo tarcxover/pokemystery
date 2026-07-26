@@ -13,7 +13,36 @@
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": null,
-  "object_events": [],
+  "object_events": [
+    {
+      "local_id": "LOCALID_HOLD_NATSUE_1",
+      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "x": 13,
+      "y": 17,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_HOLD_NATSUE"
+    },
+    {
+      "local_id": "LOCALID_HOLD_RAN_1",
+      "graphics_id": "OBJ_EVENT_GFX_MAY_NORMAL",
+      "x": 12,
+      "y": 16,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Hold_EventScript_Ran",
+      "flag": "FLAG_HIDE_TARC3_HOLD_RAN"
+    }
+  ],
   "warp_events": [
     {
       "x": 7,
@@ -46,13 +75,6 @@
       "dest_map": "MAP_TARC3_HOLD",
       "dest_warp_id": "2",
       "notes": "to hold"
-    },
-    {
-      "x": 13,
-      "y": 14,
-      "elevation": 0,
-      "dest_map": "MAP_TARC3_FLORIO_DOCK",
-      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],

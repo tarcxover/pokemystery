@@ -1,1 +1,42 @@
-mapscripts tarc3_MainDeck_MapScripts {}
+mapscripts tarc3_MainDeck_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TARC3_FLORIO_INTRO, 6: tarc3_MainDeck_EventScript_ShowRoom
+    ]
+}
+
+script tarc3_MainDeck_EventScript_ShowRoom {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
+    delay(20)
+    applymovement(LOCALID_MAINDECK_RAN_1, moves(walk_down, walk_left))
+    waitmovement(0)
+    setspeaker("Natsue")
+    msgbox(format("This is your room. Please make yourself at home."))
+    msgbox(format("I'll see you later."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_NATSUE_1, moves(walk_left * 11))
+    waitmovement(0)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_NATSUE)
+    removeobject(LOCALID_MAINDECK_NATSUE_1)
+    delay(20)
+    applymovement(LOCALID_MAINDECK_RAN_1, moves(face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+    waitmovement(0)
+    setspeaker("Ran")
+    msgbox(format("I'll check out the bedroom. You should introduce yourself to the family."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_RAN_1, moves(walk_down))
+    waitmovement(0)
+    playse(SE_EXIT)
+    delay(20)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_RAN)
+    removeobject(LOCALID_MAINDECK_RAN_1)
+    delay(30)
+    setvar(VAR_TARC3_FLORIO_INTRO, 7)
+    releaseall
+    end
+}

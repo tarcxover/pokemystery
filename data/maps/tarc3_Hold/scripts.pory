@@ -1,1 +1,34 @@
-mapscripts tarc3_Hold_MapScripts {}
+mapscripts tarc3_Hold_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TARC3_FLORIO_INTRO, 5: tarc3_Hold_EventScript_Arrival
+    ]
+}
+
+script tarc3_Hold_EventScript_Arrival {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+    waitmovement(0)
+    delay(30)
+    setspeaker("Natsue")
+    msgbox(format("The hold isn't much to look at, I'm afraid."))
+    msgbox(format("The rest of the family are upstairs.\pI'll show you to your room first."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_HIDE_TARC3_HOLD_NATSUE)
+    setflag(FLAG_HIDE_TARC3_HOLD_RAN)
+    setvar(VAR_TARC3_FLORIO_INTRO, 6)
+    warp(MAP_TARC3_MAIN_DECK, 28, 11)
+    waitstate
+    end
+}
+
+script tarc3_Hold_EventScript_Ran {
+    lock
+    faceplayer
+    setspeaker("Ran")
+    msgbox(format("The stairs are just over there. Everyone's waiting upstairs, {PLAYER}."))
+    setspeaker(NULL)
+    release
+    end
+}

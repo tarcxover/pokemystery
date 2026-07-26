@@ -1,1 +1,66 @@
 mapscripts tarc3_FlorioDock_MapScripts {}
+
+script tarc3_FlorioDock_EventScript_Natsue {
+    lock
+    faceplayer
+    applymovement(LOCALID_DOCK_RAN, moves(face_right))
+    waitmovement(0)
+    setspeaker("Natsue")
+    msgbox(format("There you are. Kitaro added you to the manifest.\pYour cabin has already been prepared."))
+    msgbox(format("Are you ready to depart?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Of course.\pTake all the time you need. We won't cast off without you."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("Then let's get you aboard. Welcome to the SS Hana."))
+    setspeaker(NULL)
+    closemessage
+    clearflag(FLAG_HIDE_TARC3_FLORIO_SSHANA)
+    setvar(VAR_TARC3_FLORIO_INTRO, 4)
+    warp(MAP_TARC3_FLORIO_ISLAND, 17, 40)
+    waitstate
+    end
+}
+
+script tarc3_FlorioDock_EventScript_Ran {
+    lock
+    faceplayer
+    setspeaker("Ran")
+    msgbox(format("It's all arranged. Just tell Natsue when you're ready."))
+    msgbox(format("A whole family on a private charter...\pAnd they made room for two strangers. We got lucky."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_FlorioDock_EventScript_Kitaro {
+    lock
+    faceplayer
+    setspeaker("Kitaro")
+    msgbox(format("You're the two Natsue mentioned?\pKitaro Hatamoto, nice to meet you."))
+    msgbox(format("There's room to spare. It seemed a small kindness."))
+    msgbox(format("You should introduce yourself to my father-in-law. When the moment's right."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_FlorioDock_EventScript_Sailor {
+    lock
+    faceplayer
+    msgbox(format("Whew. We've been loading since first light.\pTrunks, cases, a whole crate of flowers..."))
+    msgbox(format("Never seen so much luggage for one family. Rich folks, eh?"))
+    release
+    end
+}
+
+script tarc3_FlorioDock_EventScript_Assistant {
+    lock
+    faceplayer
+    msgbox(format("Hmm? The Hatamoto Corporation?\pThey built half the Pokémon Centers in two regions."))
+    msgbox(format("The old man started from nothing.\pBought out a lot of smaller companies to remove his competition. Controversial, some say."))
+    release
+    end
+}
