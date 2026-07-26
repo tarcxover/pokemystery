@@ -490,10 +490,7 @@ static u8 ListMenuInitInternal(struct ListMenuTemplate *listMenuTemplate, u16 sc
     list->template = *listMenuTemplate;
     list->scrollOffset = scrollOffset;
     list->selectedRow = selectedRow;
-    list->unk_1C = 0;
-    list->unk_1D = 0;
     list->taskId = TASK_NONE;
-    list->unk_1F = 0;
 
     gListMenuOverride.cursorPal = list->template.cursorPal;
     gListMenuOverride.fillValue = list->template.fillValue;
