@@ -344,6 +344,33 @@ static void MultichoiceDynamic_MoveCursor(s32 itemIndex, bool8 onInit, struct Li
     }
 }
 
+static void MultiChoiceDynamic_PrintFunc(const struct ListMenu *list, u32 index, u8 y)
+{
+    const struct ListMenuTemplate *templ = &list->template;
+    u32 windowId = templ->windowId;
+    u8 symBuffer[16] = {};
+    u8 colors[3] = {1, 2, 3};
+
+    const u8 *name = list->template.items[index].name;
+    const u8 *sym = COMPOUND_STRING("{CIRCLE_DOT}");
+    StringExpandPlaceholders(symBuffer, sym);
+
+    u8 fontId = GetFontIdToFit(name, FONT_NORMAL, 0, templ->textNarrowWidth);
+
+    u32 x = templ->items[index].id != LIST_HEADER
+            ? templ->item_X
+            : templ->header_X;
+
+    u32 circleX = GetStringWidth(fontId, name, 0) +
+            GetStringWidth(fontId, symBuffer, 0);
+
+    AddTextPrinterParameterized4(
+        windowId, fontId, x, y, 0, 0, colors, 0, name);
+
+    AddTextPrinterParameterized4(
+        windowId, fontId, circleX, y, 0, 0, colors, 0, symBuffer);
+}
+
 static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenuItem *items, bool8 ignoreBPress, u32 initialRow, u8 maxBeforeScroll, u32 callbackSet)
 {
     u32 i;
@@ -382,6 +409,8 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
     gMultiuseListMenuTemplate.totalItems = argc;
     gMultiuseListMenuTemplate.maxShowed = maxBeforeScroll;
     gMultiuseListMenuTemplate.moveCursorFunc = MultichoiceDynamic_MoveCursor;
+    gMultiuseListMenuTemplate.itemPrintFunc = MultiChoiceDynamic_PrintFunc;
+    gMultiuseListMenuTemplate.isDynamic = TRUE;
 
     taskId = CreateTask(Task_HandleScrollingMultichoiceInput, 80);
     gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
@@ -487,7 +516,9 @@ static void InitMultichoiceCheckWrap(bool8 ignoreBPress, u8 count, u8 windowId, 
 static void Task_HandleScrollingMultichoiceInput(u8 taskId)
 {
     bool32 done = FALSE;
-    s32 input = ListMenu_ProcessInput(gTasks[taskId].data[0]);
+    u8 listTaskId = gTasks[taskId].data[0];
+    struct ListMenu *list = (void *) gTasks[listTaskId].data;
+    s32 input = ListMenu_ProcessInput(listTaskId);
 
     switch (input)
     {
@@ -502,7 +533,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
         }
         break;
     default:
-        gSpecialVar_Result = input;
+        gSpecialVar_Result = list->template.items[input].id;
         done = TRUE;
         break;
     }
