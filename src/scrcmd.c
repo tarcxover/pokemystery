@@ -1858,7 +1858,7 @@ bool8 ScrCmd_dynmultichoice(struct ScriptContext *ctx)
         MultichoiceDynamic_DestroyStack();
     }
 
-    if (ScriptMenu_MultichoiceDynamic(left, top, argc, items, ignoreBPress, maxBeforeScroll, initialRow, callbackSet))
+    if (ScriptMenu_MultichoiceDynamic(left, top, argc, items, ignoreBPress, maxBeforeScroll, initialRow, callbackSet, isMultiSelect))
     {
         ScriptContext_Stop();
         return TRUE;

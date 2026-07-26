@@ -31,7 +31,7 @@ struct ListMenuItem *MultichoiceDynamic_PopElement(void);
 struct ListMenuItem *MultichoiceDynamic_PeekElement(void);
 struct ListMenuItem *MultichoiceDynamic_PeekElementAt(u32 index);
 void MultichoiceDynamic_DestroyStack(void);
-void MultichoiceDunamic_UnpackMultiSelect(u16 src, u16 *dest);
+void MultichoiceDynamic_UnpackMultiSelect(u16 src, u16 *dest);
 bool8 ScriptMenu_MultichoiceDynamic(u8 left, u8 top, u8 argc, struct ListMenuItem *items, bool8 ignoreBPress, u8 maxBeforeScroll, u32 initialRow, u32 callbackSet, bool32 isMultiSelect);
 bool8 ScriptMenu_Multichoice(u8 left, u8 top, u8 multichoiceId, bool8 ignoreBPress);
 bool8 ScriptMenu_MultichoiceWithDefault(u8 left, u8 top, u8 multichoiceId, bool8 ignoreBPress, u8 defaultChoice);

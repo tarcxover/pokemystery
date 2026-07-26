@@ -1,6 +1,7 @@
 #include "global.h"
 #include "assertf.h"
 #include "constants/characters.h"
+#include "gba/isagbprint.h"
 #include "main.h"
 #include "event_data.h"
 #include "field_effect.h"
@@ -57,7 +58,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId);
 static void Task_HandleMultichoiceInput(u8 taskId);
 static void Task_HandleYesNoInput(u8 taskId);
 static void Task_HandleMultichoiceGridInput(u8 taskId);
-static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenuItem *items, bool8 ignoreBPress, u32 initialRow, u8 maxBeforeScroll, u32 callbackSet, bool32 isMultiSelect);
+static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenuItem *items, bool8 ignoreBPress, u32 initialRow, u8 maxBeforeScroll, u32 callbackSet, u32 multiselect);
 static void DrawMultichoiceMenu(u8 left, u8 top, u8 multichoiceId, bool8 ignoreBPress, u8 cursorPos);
 static void InitMultichoiceCheckWrap(bool8 ignoreBPress, u8 count, u8 windowId, u8 multichoiceId);
 static void DrawLinkServicesMultichoiceMenu(u8 multichoiceId);
@@ -120,8 +121,10 @@ bool8 ScriptMenu_MultichoiceDynamic(u8 left, u8 top, u8 argc, struct ListMenuIte
     }
     else
     {
+
+        u16 multiselect = isMultiSelect ? gSpecialVar_Result: 0;
         gSpecialVar_Result = 0xFF;
-        DrawMultichoiceMenuDynamic(left, top, argc, items, ignoreBPress, initialRow, maxBeforeScroll, callbackSet, isMultiSelect);
+        DrawMultichoiceMenuDynamic(left, top, argc, items, ignoreBPress, initialRow, maxBeforeScroll, callbackSet, multiselect);
         return TRUE;
     }
 }
@@ -385,12 +388,12 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
         windowId, fontId, circleX, y, 0, 0, colors, 0, symBuffer);
 }
 
-static bool32 ScrCmd_initdynmultiselect(struct ScriptContext *ctx)
+bool32 ScrCmd_initdynmultiselect(struct ScriptContext *ctx)
 {
     u16 res = 0;
     u32 count = ScriptReadByte(ctx);
 
-    assertf(count <= 12, "multiselect count >= 12 (%d)", count);
+    assertf(count <= 12, "multiselect count over 12 (%d)", count);
 
     for (u32 i = 0; i < count; i++)
     {
@@ -410,14 +413,15 @@ static bool32 ScrCmd_initdynmultiselect(struct ScriptContext *ctx)
     return FALSE;
 }
 
-void MultichoiceDunamic_UnpackMultiSelect(u16 src, u16 *dest)
+void MultichoiceDynamic_UnpackMultiSelect(u16 src, u16 *dest)
 {
     u32 count = (src & 0xF000) >> 12;
     u32 varbits = (src & 0x0FFF);
 
     assertf(count <= 12, "multiselect count >= 12 (%d)", count);
 
-    for (u32 i, unpacked = 0; i < 12 && unpacked < count; i++)
+    u32 unpacked = 0;
+    for (u32 i =0; i < 12 && unpacked < count; i++)
     {
         if ((varbits & (1u << i)))
         {
@@ -427,7 +431,30 @@ void MultichoiceDunamic_UnpackMultiSelect(u16 src, u16 *dest)
     }
 }
 
-static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenuItem *items, bool8 ignoreBPress, u32 initialRow, u8 maxBeforeScroll, u32 callbackSet, bool32 isMultiSelect)
+u16 MultichoiceDynamic_GetPackedVarId(u16 src, u32 n)
+{
+    u32 count = (src >> 12) & 0xF;
+    u32 varbits = src & 0x0FFF;
+
+    assertf(count <= 12, "multiselect count >= 12 (%d)", count);
+    assertf(n < count, "n (%d) >= count (%d)", n, count);
+
+    for (u32 i = 0, unpacked = 0; i < 12; i++)
+    {
+        if (varbits & (1u << i))
+        {
+            if (unpacked == n)
+                return 0x8000 + i;
+
+            unpacked++;
+        }
+    }
+
+    errorf("src invalid");
+    return 0;
+}
+
+static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenuItem *items, bool8 ignoreBPress, u32 initialRow, u8 maxBeforeScroll, u32 callbackSet, u32 multiselect)
 {
     u32 i;
     u8 windowId;
@@ -474,6 +501,8 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
     gTasks[taskId].data[2] = windowId;
     gTasks[taskId].data[5] = argc;
     gTasks[taskId].data[7] = maxBeforeScroll;
+    gTasks[taskId].data[14] = ((multiselect & 0xF000) >> 12);
+    gTasks[taskId].data[15] = multiselect;
     StoreWordInTwoHalfwords((u16*) &gTasks[taskId].data[3], (u32) items);
     list = (void *) gTasks[gTasks[taskId].data[0]].data;
     ListMenuChangeSelectionFull(list, TRUE, FALSE, initialRow, TRUE);
@@ -573,8 +602,9 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
 {
     bool32 done = FALSE;
     u8 listTaskId = gTasks[taskId].data[0];
-    struct ListMenu *list = (void *) gTasks[listTaskId].data;
     s32 input = ListMenu_ProcessInput(listTaskId);
+    u16 multiselect = (u16)gTasks[taskId].data[15];
+    s16* count = &gTasks[taskId].data[14];
 
     switch (input)
     {
@@ -589,8 +619,22 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
         }
         break;
     default:
-        gSpecialVar_Result = list->template.items[input].id;
-        done = TRUE;
+        if (!multiselect)
+        {
+            gSpecialVar_Result = input;
+            done = TRUE;
+        }
+        else
+        {
+            u16 max = (multiselect & 0xF000) >> 12;
+            u16 var = MultichoiceDynamic_GetPackedVarId(multiselect, max - (*count));
+            VarSet(var, input);
+            if(--(*count) == 0)
+                {
+                    gSpecialVar_Result = max;
+                    done = TRUE;
+                }
+        }
         break;
     }
 
