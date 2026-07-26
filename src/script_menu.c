@@ -1,7 +1,9 @@
 #include "global.h"
 #include "assertf.h"
 #include "constants/characters.h"
+#include "constants/vars.h"
 #include "gba/isagbprint.h"
+#include "gba/types.h"
 #include "main.h"
 #include "event_data.h"
 #include "field_effect.h"
@@ -73,6 +75,7 @@ static void MultichoiceDynamicEventDebug_OnDestroy(struct DynamicListMenuEventAr
 static void MultichoiceDynamicEventShowItem_OnInit(struct DynamicListMenuEventArgs *eventArgs);
 static void MultichoiceDynamicEventShowItem_OnSelectionChanged(struct DynamicListMenuEventArgs *eventArgs);
 static void MultichoiceDynamicEventShowItem_OnDestroy(struct DynamicListMenuEventArgs *eventArgs);
+static void MultichoiceDynamicEventMultiSelect_OnDestroy(struct DynamicListMenuEventArgs *eventArgs);
 static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list, u32 index, u8 y);
 
 static const struct DynamicListMenuEventCollection sDynamicListMenuEventCollections[] =
@@ -95,7 +98,7 @@ static const struct DynamicListMenuEventCollection sDynamicListMenuEventCollecti
     {
         .OnInit = NULL,
         .OnSelectionChanged = NULL,
-        .OnDestroy = NULL,
+        .OnDestroy = MultichoiceDynamicEventMultiSelect_OnDestroy,
         .itemPrintCB = MultiChoiceDynamicPrintFunc_MultiSelect,
     }
 };
@@ -170,6 +173,11 @@ static void MultichoiceDynamicEventDebug_OnSelectionChanged(struct DynamicListMe
 static void MultichoiceDynamicEventDebug_OnDestroy(struct DynamicListMenuEventArgs *eventArgs)
 {
     DebugPrintf("OnDestroy: %d", eventArgs->windowId);
+}
+
+
+static void MultichoiceDynamicEventMultiSelect_OnDestroy(struct DynamicListMenuEventArgs *eventArgs)
+{
 }
 
 #define sAuxWindowId sDynamicMenuEventScratchPad[0]
@@ -366,7 +374,23 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
     const struct ListMenuTemplate *templ = &list->template;
     u32 windowId = templ->windowId;
     u8 symBuffer[16] = {};
-    u8 colors[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_BLUE, TEXT_COLOR_LIGHT_GRAY};
+
+    bool32 selected = FALSE;
+    u8 baseColors[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_LIGHT_GRAY};
+    u8 selectedColors[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_BLUE, TEXT_COLOR_LIGHT_GRAY};
+
+    u8* colors = baseColors;
+
+    u32 id = list->template.items[index].id;
+
+    for (int i = 0; i < list->maxSelections; i++) {
+        if(list->selections[i] == id)
+        {
+            selected = TRUE;
+        }
+    }
+
+    colors = selected ? selectedColors : baseColors;
 
     const u8 *name = list->template.items[index].name;
     const u8 *sym = COMPOUND_STRING("{CIRCLE_DOT}");
@@ -384,8 +408,9 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
     AddTextPrinterParameterized4(
         windowId, fontId, x, y, 0, 0, colors, 0, name);
 
-    AddTextPrinterParameterized4(
-        windowId, fontId, circleX, y, 0, 0, colors, 0, symBuffer);
+    if(list->template.items[index].id >= 0 && selected)
+        AddTextPrinterParameterized4(
+            windowId, fontId, circleX, y, 0, 0, colors, 0, symBuffer);
 }
 
 bool32 ScrCmd_initdynmultiselect(struct ScriptContext *ctx)
@@ -495,16 +520,21 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
     gMultiuseListMenuTemplate.itemPrintFunc =
         sDynamicListMenuEventCollections[sDynamicMenuEventId].itemPrintCB;
 
+    u32 count = ((multiselect & 0xF000) >> 12);
+    u32* selections = AllocZeroed(count * sizeof(u32*));
+
     taskId = CreateTask(Task_HandleScrollingMultichoiceInput, 80);
     gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
     gTasks[taskId].data[1] = ignoreBPress;
     gTasks[taskId].data[2] = windowId;
     gTasks[taskId].data[5] = argc;
     gTasks[taskId].data[7] = maxBeforeScroll;
-    gTasks[taskId].data[14] = ((multiselect & 0xF000) >> 12);
+    gTasks[taskId].data[14] = count;
     gTasks[taskId].data[15] = multiselect;
     StoreWordInTwoHalfwords((u16*) &gTasks[taskId].data[3], (u32) items);
     list = (void *) gTasks[gTasks[taskId].data[0]].data;
+    list->selections = selections;
+    list->maxSelections = count;
     ListMenuChangeSelectionFull(list, TRUE, FALSE, initialRow, TRUE);
 
     if (sDynamicMenuEventId != DYN_MULTICHOICE_CB_NONE && sDynamicListMenuEventCollections[sDynamicMenuEventId].OnSelectionChanged)
@@ -602,9 +632,11 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
 {
     bool32 done = FALSE;
     u8 listTaskId = gTasks[taskId].data[0];
+    struct ListMenu* list = (void*) gTasks[listTaskId].data;
     s32 input = ListMenu_ProcessInput(listTaskId);
     u16 multiselect = (u16)gTasks[taskId].data[15];
     s16* count = &gTasks[taskId].data[14];
+    u16 max = 0;
 
     switch (input)
     {
@@ -626,20 +658,60 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
         }
         else
         {
-            u16 max = (multiselect & 0xF000) >> 12;
-            u16 var = MultichoiceDynamic_GetPackedVarId(multiselect, max - (*count));
-            VarSet(var, input);
-            if(--(*count) == 0)
+        if (input == -4)
+                    goto finish;
+
+            max = (multiselect & 0xF000) >> 12;
+
+            bool32 found = FALSE;
+
+            for (u32 i = 0; i < max; i++)
+            {
+                if (list->selections[i] == input)
                 {
-                    gSpecialVar_Result = max;
-                    done = TRUE;
+                    for (u32 j = i; j + 1 < max; j++)
+                        list->selections[j] = list->selections[j + 1];
+
+                    list->selections[max - 1] = 0xFF;
+
+                    (*count)++;
+                    found = TRUE;
+                    break;
                 }
+            }
+
+            if (!found)
+            {
+                if (*count == 0)
+                        break;;
+                list->selections[max - *count] = input;
+
+                (*count)--;
+            }
+
+            finish:
+            if (*count == 0 && input == -4)
+            {
+                gSpecialVar_Result = max;
+                done = TRUE;
+            }
+
+            RedrawListMenu(listTaskId);
         }
         break;
     }
 
     if (done)
     {
+        if (multiselect)
+        {
+            u16 max = (multiselect & 0xF000) >> 12;
+            for (int i = 0; i < max; i++) {
+                VarSet(MultichoiceDynamic_GetPackedVarId(multiselect, i),
+                       list->selections[i]);
+            }
+        }
+
         struct ListMenuItem *items;
 
         PlaySE(SE_SELECT);
@@ -657,6 +729,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
             RemoveScrollIndicatorArrowPair(gTasks[taskId].data[6]);
         }
 
+        TRY_FREE_AND_SET_NULL(list->selections);
         LoadWordFromTwoHalfwords((u16*) &gTasks[taskId].data[3], (u32* )(&items));
         FreeListMenuItems(items, gTasks[taskId].data[5]);
         TRY_FREE_AND_SET_NULL(sDynamicMenuEventScratchPad);

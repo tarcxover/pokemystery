@@ -1844,6 +1844,14 @@ bool8 ScrCmd_dynmultichoice(struct ScriptContext *ctx)
     }
     else
     {
+        if (isMultiSelect) {
+            u8 *nameBuffer = Alloc(100);
+            struct ListMenuItem item;
+            StringExpandPlaceholders(nameBuffer, COMPOUND_STRING("CHOOSE"));
+            item.name = nameBuffer;
+            item.id = -4;
+            MultichoiceDynamic_PushElement(item);
+        }
         argc = MultichoiceDynamic_StackSize();
         items = AllocZeroed(sizeof(struct ListMenuItem) * argc);
         for (i = 0; i < argc; ++i)

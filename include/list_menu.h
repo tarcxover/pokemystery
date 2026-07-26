@@ -84,9 +84,11 @@ struct ListMenuTemplate
 struct ListMenu
 {
     struct ListMenuTemplate template;
-    u16 scrollOffset;
-    u16 selectedRow;
-    u8 taskId;
+    u32 scrollOffset:12;
+    u32 selectedRow:8;
+    u32 taskId:8;
+    u32 maxSelections:4;
+    u32* selections;
 };
 
 struct ListMenuWindowRect
