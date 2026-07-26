@@ -161,7 +161,7 @@ static void ItemStorage_DrawItemIcon(enum Item);
 static void ItemStorage_PrintDescription(s32);
 static void ItemStorage_EraseMainMenu(u8);
 static void ItemStorage_MoveCursor(s32, bool8, struct ListMenu *);
-static void ItemStorage_PrintMenuItem(u8, u32, u8);
+static void ItemStorage_PrintMenuItem(const struct ListMenu*, u32, u8);
 
 static EWRAM_DATA const u8 *sTopMenuOptionOrder = NULL;
 static EWRAM_DATA u8 sTopMenuNumOptions = 0;
@@ -1027,8 +1027,9 @@ static void ItemStorage_MoveCursor(s32 id, bool8 onInit, struct ListMenu *list)
     }
 }
 
-static void ItemStorage_PrintMenuItem(u8 windowId, u32 id, u8 yOffset)
+static void ItemStorage_PrintMenuItem(const struct ListMenu* list, u32 id, u8 yOffset)
 {
+    u32 windowId = list->template.windowId;
     if (id != LIST_CANCEL)
     {
         if (sItemStorageMenu->toSwapPos != NOT_SWAPPING)

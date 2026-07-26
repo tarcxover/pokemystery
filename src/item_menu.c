@@ -198,7 +198,7 @@ static void InitPocketScrollPositions(void);
 static u8 CreateBagInputHandlerTask(u8);
 static void DrawItemListBgRow(u8);
 static void BagMenu_MoveCursorCallback(s32, bool8, struct ListMenu *);
-static void BagMenu_ItemPrintCallback(u8, u32, u8);
+static void BagMenu_ItemPrintCallback(const struct ListMenu*, u32, u8);
 static void ItemMenu_UseOutOfBattle(u8);
 static void ItemMenu_Toss(u8);
 static void ItemMenu_Register(u8);
@@ -996,8 +996,10 @@ static void BagMenu_MoveCursorCallback(s32 itemIndex, bool8 onInit, struct ListM
     }
 }
 
-static void BagMenu_ItemPrintCallback(u8 windowId, u32 itemIndex, u8 y)
+static void BagMenu_ItemPrintCallback(const struct ListMenu* list, u32 index, u8 y)
 {
+    s32 itemIndex = list->template.items[index].id;
+    u32 windowId = list->template.windowId;
     if (itemIndex != LIST_CANCEL)
     {
         s32 offset;
