@@ -68,7 +68,7 @@ void PushEvidenceToDynMultiStack()
         enum Item itemId = GetBagItemId(POCKET_EVIDENCE, pos);
         u8* nameBuffer = Alloc(100);
         StringExpandPlaceholders(nameBuffer, GetItemName(itemId));
-        struct ListMenuItem res = {nameBuffer, pos};
+        struct ListMenuItem res = {nameBuffer, itemId};
         MultichoiceDynamic_PushElement(res);
     }
 }
@@ -98,7 +98,7 @@ bool32 ScrCmd_getheldevidencecount(struct ScriptContext *ctx)
 
 bool32 ScrCmd_getevidenceatpos(struct ScriptContext *ctx)
 {
-    u32 pos = ScriptReadByte(ctx);
+    u32 pos = VarGet(ScriptReadHalfword(ctx));
     enum Item itemId = GetBagItemId(POCKET_EVIDENCE, pos);
     assertf(itemId > ITEM_EVIDENCE_START && itemId < ITEM_EVIDENCE_START + EVD_COUNT)
     {

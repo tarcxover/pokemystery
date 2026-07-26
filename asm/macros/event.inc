@@ -3055,10 +3055,10 @@
   .endm
 
   .macro getevidenceatpos pos:req
-	  callnative ScrCmd_getevidenceatpos
-	  .byte \pos
+	callnative ScrCmd_getevidenceatpos
+	.2byte \pos
   .endm
 
   .macro dynmultipushheldevidence
-	  callnative ScrCmd_dynmultipushheldevidence, requests_effects=1
+	callnative ScrCmd_dynmultipushheldevidence, requests_effects=1
   .endm
