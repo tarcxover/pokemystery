@@ -1814,6 +1814,7 @@ bool8 ScrCmd_dynmultichoice(struct ScriptContext *ctx)
     bool32 shouldSort = ScriptReadByte(ctx);
     u32 initialSelected = VarGet(ScriptReadHalfword(ctx));
     u32 callbackSet = ScriptReadByte(ctx);
+    bool32 isMultiSelect = ScriptReadByte(ctx);
     u32 initialRow = 0;
     // Read vararg
     u32 argc = ScriptReadByte(ctx);

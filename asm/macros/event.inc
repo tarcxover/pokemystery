@@ -1940,7 +1940,7 @@
 	.2byte \quantity
 	.endm
 
-	.macro _dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req argv:vararg
+	.macro _dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req, multiselect=FALSE, argv:vararg
 	.byte SCR_OP_DYNMULTICHOICE
 	.2byte \left
 	.2byte \top
@@ -1949,18 +1949,26 @@
 	.byte \shouldSort
 	.2byte \initialSelected
 	.byte \callbacks
+	.byte \multiselect
 	.byte (.Ldynmultichoice_\@_2 - .Ldynmultichoice_\@_1) / 4
 .Ldynmultichoice_\@_1:
 	.4byte \argv
 .Ldynmultichoice_\@_2:
 	.endm
 
+	@ Provide a list of variables ids to use for dynamic multiselect
+	.macro initdynmultiselect argv:vararg
+	callnative ScrCmd_initdynmultiselect
+	.byte (.Linitdynmultiselect_\@_1 - .Linitdynmultiselect_\@_2) / 2
+	.2byte \argv
+	.endm
+
 	@ Displays a multichoice box from which the user can choose a selection, and blocks script execution until a selection is made.
 	@ Lists of options are provided in argv.
 	@ If ignoreBPress is set to a non-zero value, then the user will not be allowed to back out of the multichoice with the B button.
 	@ For a simple menu supply DYN_MULTICHOICE_CB_NONE in callbacks.
-	.macro dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, initialSelected:req, callbacks:req argv:vararg
-	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, FALSE, \initialSelected, \callbacks, \argv
+	.macro dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, initialSelected:req, callbacks:req, multiselect=FALSE, argv:vararg
+	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, FALSE, \initialSelected, \callbacks, \multiselect, \argv
 	.endm
 
 	@ Creates an option to be collected with dynmultistack.
@@ -1973,8 +1981,8 @@
 	@ Displays a multichoice box using the dynmultipush options before it in the script, from which the user can choose a selection, and blocks script execution until a selection is made.
 	@ If ignoreBPress is set to a non-zero value, then the user will not be allowed to back out of the multichoice with the B button.
 	@ For a simple menu supply DYN_MULTICHOICE_CB_NONE in callbacks.
-	.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
-	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, NULL
+	.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req, multiselect=FALSE;
+	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, \multiselect, NULL
 	.endm
 
 @ Supplementary
