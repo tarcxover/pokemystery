@@ -1,4 +1,5 @@
 #include "global.h"
+#include "constants/characters.h"
 #include "main.h"
 #include "event_data.h"
 #include "field_effect.h"
@@ -39,6 +40,8 @@ struct DynamicListMenuEventCollection
     DynamicListCallback OnInit;
     DynamicListCallback OnSelectionChanged;
     DynamicListCallback OnDestroy;
+    void (*itemPrintCB)(const struct ListMenu*, u32 instanceId, u8 y);
+
 };
 
 static EWRAM_DATA u8 sProcessInputDelay = 0;
@@ -68,6 +71,7 @@ static void MultichoiceDynamicEventDebug_OnDestroy(struct DynamicListMenuEventAr
 static void MultichoiceDynamicEventShowItem_OnInit(struct DynamicListMenuEventArgs *eventArgs);
 static void MultichoiceDynamicEventShowItem_OnSelectionChanged(struct DynamicListMenuEventArgs *eventArgs);
 static void MultichoiceDynamicEventShowItem_OnDestroy(struct DynamicListMenuEventArgs *eventArgs);
+static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list, u32 index, u8 y);
 
 static const struct DynamicListMenuEventCollection sDynamicListMenuEventCollections[] =
 {
@@ -75,13 +79,22 @@ static const struct DynamicListMenuEventCollection sDynamicListMenuEventCollecti
     {
         .OnInit = MultichoiceDynamicEventDebug_OnInit,
         .OnSelectionChanged = MultichoiceDynamicEventDebug_OnSelectionChanged,
-        .OnDestroy = MultichoiceDynamicEventDebug_OnDestroy
+        .OnDestroy = MultichoiceDynamicEventDebug_OnDestroy,
+        .itemPrintCB = NULL,
     },
     [DYN_MULTICHOICE_CB_SHOW_ITEM] =
     {
         .OnInit = MultichoiceDynamicEventShowItem_OnInit,
         .OnSelectionChanged = MultichoiceDynamicEventShowItem_OnSelectionChanged,
-        .OnDestroy = MultichoiceDynamicEventShowItem_OnDestroy
+        .OnDestroy = MultichoiceDynamicEventShowItem_OnDestroy,
+        .itemPrintCB = NULL,
+    },
+    [DYN_MULTICHOICE_CB_EVIDENCE] = 
+    {
+        .OnInit = NULL,
+        .OnSelectionChanged = NULL,
+        .OnDestroy = NULL,
+        .itemPrintCB = MultiChoiceDynamicPrintFunc_MultiSelect,
     }
 };
 
@@ -344,12 +357,12 @@ static void MultichoiceDynamic_MoveCursor(s32 itemIndex, bool8 onInit, struct Li
     }
 }
 
-static void MultiChoiceDynamic_PrintFunc(const struct ListMenu *list, u32 index, u8 y)
+static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list, u32 index, u8 y)
 {
     const struct ListMenuTemplate *templ = &list->template;
     u32 windowId = templ->windowId;
     u8 symBuffer[16] = {};
-    u8 colors[3] = {1, 2, 3};
+    u8 colors[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_BLUE, TEXT_COLOR_LIGHT_GRAY};
 
     const u8 *name = list->template.items[index].name;
     const u8 *sym = COMPOUND_STRING("{CIRCLE_DOT}");
@@ -409,8 +422,8 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
     gMultiuseListMenuTemplate.totalItems = argc;
     gMultiuseListMenuTemplate.maxShowed = maxBeforeScroll;
     gMultiuseListMenuTemplate.moveCursorFunc = MultichoiceDynamic_MoveCursor;
-    gMultiuseListMenuTemplate.itemPrintFunc = MultiChoiceDynamic_PrintFunc;
-    gMultiuseListMenuTemplate.isDynamic = TRUE;
+    gMultiuseListMenuTemplate.itemPrintFunc =
+        sDynamicListMenuEventCollections[sDynamicMenuEventId].itemPrintCB;
 
     taskId = CreateTask(Task_HandleScrollingMultichoiceInput, 80);
     gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);

@@ -232,6 +232,7 @@ enum
     DYN_MULTICHOICE_CB_DEBUG,
     DYN_MULTICHOICE_CB_SHOW_ITEM,
     //add new callback choices after this comment!
+    DYN_MULTICHOICE_CB_EVIDENCE,
     
     DYN_MULTICHOICE_CB_NONE,
 };
