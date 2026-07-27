@@ -669,8 +669,8 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
             {
                 if (list->selections[i] == input)
                 {
-                    for (u32 j = i; j + 1 < max; j++)
-                        list->selections[j] = list->selections[j + 1];
+                    size_t s = (sizeof(u32) * (max - (i + 1)));
+                    memmove(&list->selections[i], &list->selections[i + 1], s);
 
                     list->selections[max - 1] = 0xFF;
 
