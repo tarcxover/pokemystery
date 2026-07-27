@@ -29,6 +29,9 @@
 #include "constants/songs.h"
 
 #include "data/script_menu.h"
+#include <limits.h>
+#include <math.h>
+#include <stdint.h>
 
 struct DynamicListMenuEventArgs
 {
@@ -373,22 +376,16 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
 {
     const struct ListMenuTemplate *templ = &list->template;
     u32 windowId = templ->windowId;
+    u32 id = templ->items[index].id;
     u8 symBuffer[16] = {};
 
-    bool32 selected = FALSE;
     u8 baseColors[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_LIGHT_GRAY};
     u8 selectedColors[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_BLUE, TEXT_COLOR_LIGHT_GRAY};
 
     u8* colors = baseColors;
 
-    u32 id = list->template.items[index].id;
-
-    for (int i = 0; i < list->maxSelections; i++) {
-        if(list->selections[i] == id)
-        {
-            selected = TRUE;
-        }
-    }
+    bool32 selected =
+        lsearch(&id, list->selections, list->maxSelections) != UINT32_MAX;
 
     colors = selected ? selectedColors : baseColors;
 
@@ -398,9 +395,7 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
 
     u8 fontId = GetFontIdToFit(name, FONT_NORMAL, 0, templ->textNarrowWidth);
 
-    u32 x = templ->items[index].id != LIST_HEADER
-            ? templ->item_X
-            : templ->header_X;
+    u32 x = id != LIST_HEADER ? templ->item_X : templ->header_X;
 
     u32 circleX = GetStringWidth(fontId, name, 0) +
             GetStringWidth(fontId, symBuffer, 0);
@@ -408,7 +403,7 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
     AddTextPrinterParameterized4(
         windowId, fontId, x, y, 0, 0, colors, 0, name);
 
-    if(list->template.items[index].id >= 0 && selected)
+    if((id != MULTISELECT_CONFIRM) && selected)
         AddTextPrinterParameterized4(
             windowId, fontId, circleX, y, 0, 0, colors, 0, symBuffer);
 }
@@ -636,7 +631,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
     s32 input = ListMenu_ProcessInput(listTaskId);
     u16 multiselect = (u16)gTasks[taskId].data[15];
     s16* count = &gTasks[taskId].data[14];
-    u16 max = 0;
+    u32 max = (multiselect & 0xF000) >> 12;
 
     switch (input)
     {
@@ -650,6 +645,13 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
             done = TRUE;
         }
         break;
+    case MULTISELECT_CONFIRM:
+        if (*count == 0)
+        {
+            gSpecialVar_Result = max;
+            done = TRUE;
+        }
+        break;
     default:
         if (!multiselect)
         {
@@ -658,44 +660,24 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
         }
         else
         {
-        if (input == -4)
-                    goto finish;
-
-            max = (multiselect & 0xF000) >> 12;
-
-            bool32 found = FALSE;
-
-            for (u32 i = 0; i < max; i++)
-            {
-                if (list->selections[i] == input)
+            u32 found = lsearch(&input, list->selections, max);
+            if (found != UINT32_MAX)
                 {
-                    size_t s = (sizeof(u32) * (max - (i + 1)));
-                    memmove(&list->selections[i], &list->selections[i + 1], s);
-
+                    size_t s = (sizeof(list->selections) * (max - (found + 1)));
+                    u32* listptr = &list->selections[found];
+                    memmove(listptr, listptr + 1, s);
                     list->selections[max - 1] = 0xFF;
-
                     (*count)++;
-                    found = TRUE;
-                    break;
+                    goto finish;
                 }
-            }
 
-            if (!found)
-            {
-                if (*count == 0)
-                        break;
-                list->selections[max - *count] = input;
+            if (*count == 0)
+                break;
+            list->selections[max - *count] = input;
 
-                (*count)--;
-            }
+            (*count)--;
 
-            finish:
-            if (*count == 0 && input == -4)
-            {
-                gSpecialVar_Result = max;
-                done = TRUE;
-            }
-
+        finish:
             RedrawListMenu(listTaskId);
         }
         break;

@@ -12,6 +12,8 @@
 #define MULTICHOICE_DYNAMIC_STACK_SIZE 5
 #define MULTICHOICE_DYNAMIC_STACK_INC 5
 
+#define MULTISELECT_CONFIRM -4
+
 extern const u8 *const gStdStrings[];
 
 struct DynamicMultichoiceStack
