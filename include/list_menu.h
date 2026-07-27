@@ -134,6 +134,7 @@ u8 ListMenuInit(struct ListMenuTemplate *listMenuTemplate, u16 scrollOffset, u16
 s32 ListMenu_ProcessInput(u8 listTaskId);
 void DestroyListMenuTask(u8 listTaskId, u16 *scrollOffset, u16 *selectedRow);
 void RedrawListMenu(u8 listTaskId);
+void ListMenuRedrawRow(struct ListMenu* list, u32 row);
 void ListMenuGetCurrentItemArrayId(u8 listTaskId, u16 *arrayId);
 void ListMenuGetScrollAndRow(u8 listTaskId, u16 *scrollOffset, u16 *selectedRow);
 u16 ListMenuGetYCoordForPrintingArrowCursor(u8 listTaskId);

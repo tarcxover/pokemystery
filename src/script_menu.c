@@ -678,7 +678,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
             (*count)--;
 
         finish:
-            RedrawListMenu(listTaskId);
+            ListMenuRedrawRow(list, list->selectedRow);
         }
         break;
     }

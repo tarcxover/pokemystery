@@ -783,6 +783,27 @@ static void ListMenuScroll(struct ListMenu *list, u8 count, bool8 movingDown)
     }
 }
 
+static void ListMenuClearEntry(struct ListMenu* list, u32 row)
+{
+    u32 rowHeight =
+        GetFontAttribute(list->template.fontId, FONTATTR_MAX_LETTER_HEIGHT) +
+        list->template.itemVerticalPadding;
+    u32 y = (row * rowHeight) + list->template.upText_Y;
+    u32 width = GetWindowAttribute(list->template.windowId, WINDOW_WIDTH) * 8;
+    FillWindowPixelRect(list->template.windowId, PIXEL_FILL(list->template.fillValue),
+                        0, y, width, rowHeight);
+}
+
+void ListMenuRedrawRow(struct ListMenu* list, u32 row)
+{
+    ListMenuClearEntry(list, row);
+    ListMenuPrintEntries(list, row, row, 1);
+    if (row == list->selectedRow)
+        ListMenuDrawCursor(list);
+    ListMenuCallSelectionChangedCallback(list, TRUE);
+    CopyWindowToVram(list->template.windowId, COPYWIN_GFX);
+}
+
 bool8 ListMenuChangeSelectionFull(struct ListMenu *list, bool32 updateCursor, bool32 callCallback, u8 count, bool8 movingDown)
 {
     u16 oldSelectedRow;
