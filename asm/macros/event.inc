@@ -1940,7 +1940,7 @@
 	.2byte \quantity
 	.endm
 
-	.macro _dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req argv:vararg
+	.macro _dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req, multiselect=FALSE, argv:vararg
 	.byte SCR_OP_DYNMULTICHOICE
 	.2byte \left
 	.2byte \top
@@ -1949,18 +1949,33 @@
 	.byte \shouldSort
 	.2byte \initialSelected
 	.byte \callbacks
+	.byte \multiselect
 	.byte (.Ldynmultichoice_\@_2 - .Ldynmultichoice_\@_1) / 4
 .Ldynmultichoice_\@_1:
 	.4byte \argv
 .Ldynmultichoice_\@_2:
 	.endm
 
+	@ Provide a list of variables ids to use for dynamic multiselect
+	.macro initdynmultiselectwithtext confirm_str:req, argv:vararg
+	callnative ScrCmd_initdynmultiselectwithtext
+	 .4byte \confirm_str 
+	.byte (.Linitdynmultiselect_\@_2 - .Linitdynmultiselect_\@_1) / 2
+.Linitdynmultiselect_\@_1:
+	.2byte \argv
+.Linitdynmultiselect_\@_2:
+	.endm
+
+	.macro initdynmultiselect argv:vararg
+	  initdynmultiselectwithtext gMenuText_Confirm, \argv
+	.endm
+
 	@ Displays a multichoice box from which the user can choose a selection, and blocks script execution until a selection is made.
 	@ Lists of options are provided in argv.
 	@ If ignoreBPress is set to a non-zero value, then the user will not be allowed to back out of the multichoice with the B button.
 	@ For a simple menu supply DYN_MULTICHOICE_CB_NONE in callbacks.
-	.macro dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, initialSelected:req, callbacks:req argv:vararg
-	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, FALSE, \initialSelected, \callbacks, \argv
+	.macro dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, initialSelected:req, callbacks:req, multiselect=FALSE, argv:vararg
+	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, FALSE, \initialSelected, \callbacks, \multiselect, \argv
 	.endm
 
 	@ Creates an option to be collected with dynmultistack.
@@ -1973,8 +1988,8 @@
 	@ Displays a multichoice box using the dynmultipush options before it in the script, from which the user can choose a selection, and blocks script execution until a selection is made.
 	@ If ignoreBPress is set to a non-zero value, then the user will not be allowed to back out of the multichoice with the B button.
 	@ For a simple menu supply DYN_MULTICHOICE_CB_NONE in callbacks.
-	.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
-	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, NULL
+	.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req, multiselect=FALSE;
+	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, \multiselect, NULL
 	.endm
 
 @ Supplementary
@@ -3011,3 +3026,54 @@
 	getbraillestringwidth \text
 	call EventScript_BrailleCursorWaitButton
 	.endm
+
+	@ Places the evidence item in VAR_RESULT
+	.macro evidencetoitem evidence:req
+	callnative ScrCmd_evidencetoitem
+	.2byte \evidence
+	.endm
+
+	.macro giveevidence evidence:req
+	evidencetoitem \evidence
+	copyvar VAR_0x8004, VAR_RESULT
+	checkitem VAR_0x8004
+	goto_if_eq VAR_RESULT, TRUE 2f
+	giveitem VAR_0x8004
+2:
+	.endm
+
+	.macro checkevidence evidence:req
+	evidencetoitem \evidence
+	checkitem VAR_RESULT
+	.endm
+
+	.macro getdeduction premise1:req, premise2:req
+	callnative ScrCmd_getdeduction
+	.2byte \premise1
+	.2byte \premise2
+	.endm
+
+	.macro trydeduction premise1:req, premise2:req
+	getdeduction \premise1, \premise2
+	compare VAR_RESULT, EVD_COUNT
+	goto_if_eq 1f
+	giveevidence VAR_RESULT
+	setvar VAR_RESULT, TRUE
+	goto 2f
+1:
+	setvar VAR_RESULT, FALSE
+2:
+	.endm
+
+  .macro getheldevidencecount
+	  callnative ScrCmd_getheldevidencecount
+  .endm
+
+  .macro getevidenceatpos pos:req
+	callnative ScrCmd_getevidenceatpos
+	.2byte \pos
+  .endm
+
+  .macro dynmultipushheldevidence
+	callnative ScrCmd_dynmultipushheldevidence, requests_effects=1
+  .endm

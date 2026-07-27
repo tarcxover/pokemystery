@@ -12,6 +12,8 @@
 #define MULTICHOICE_DYNAMIC_STACK_SIZE 5
 #define MULTICHOICE_DYNAMIC_STACK_INC 5
 
+#define MULTISELECT_CONFIRM -4
+
 extern const u8 *const gStdStrings[];
 
 struct DynamicMultichoiceStack
@@ -21,6 +23,7 @@ struct DynamicMultichoiceStack
     struct ListMenuItem *elements;
 };
 
+extern const u8* gDynamicMultiselectConfirmStr;
 void MultichoiceDynamic_InitStack(u32 capacity);
 void MultichoiceDynamic_ReallocStack(u32 newCapacity);
 bool32 MultichoiceDynamic_StackFull(void);
@@ -31,7 +34,8 @@ struct ListMenuItem *MultichoiceDynamic_PopElement(void);
 struct ListMenuItem *MultichoiceDynamic_PeekElement(void);
 struct ListMenuItem *MultichoiceDynamic_PeekElementAt(u32 index);
 void MultichoiceDynamic_DestroyStack(void);
-bool8 ScriptMenu_MultichoiceDynamic(u8 left, u8 top, u8 argc, struct ListMenuItem *items, bool8 ignoreBPress, u8 maxBeforeScroll, u32 initialRow, u32 callbackSet);
+void MultichoiceDynamic_UnpackMultiSelect(u16 src, u16 *dest);
+bool8 ScriptMenu_MultichoiceDynamic(u8 left, u8 top, u8 argc, struct ListMenuItem *items, bool8 ignoreBPress, u8 maxBeforeScroll, u32 initialRow, u32 callbackSet, bool32 isMultiSelect);
 bool8 ScriptMenu_Multichoice(u8 left, u8 top, u8 multichoiceId, bool8 ignoreBPress);
 bool8 ScriptMenu_MultichoiceWithDefault(u8 left, u8 top, u8 multichoiceId, bool8 ignoreBPress, u8 defaultChoice);
 void DrawMultichoiceMenuInternal(u8 left, u8 top, u8 multichoiceId, bool8 ignoreBPress, u8 cursorPos, const struct MenuAction *actions, int count);

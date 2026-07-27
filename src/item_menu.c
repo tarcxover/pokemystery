@@ -1,4 +1,6 @@
 #include "global.h"
+#include "constants/global.h"
+#include "constants/item.h"
 #include "item_menu.h"
 #include "battle.h"
 #include "battle_controllers.h"
@@ -42,6 +44,7 @@
 #include "strings.h"
 #include "string_util.h"
 #include "task.h"
+#include "text.h"
 #include "text_window.h"
 #include "menu_helpers.h"
 #include "window.h"
@@ -62,7 +65,8 @@
                             max(BAG_BERRIES_COUNT,           \
                             max(BAG_ITEMS_COUNT,             \
                             max(BAG_KEYITEMS_COUNT,          \
-                                BAG_POKEBALLS_COUNT))))) + 1)
+                            max(BAG_EVIDENCE_COUNT,          \
+                                BAG_POKEBALLS_COUNT)))))) + 1)
 
 // Up to 8 item slots can be visible at a time
 #define MAX_ITEMS_SHOWN 8
@@ -194,7 +198,7 @@ static void InitPocketScrollPositions(void);
 static u8 CreateBagInputHandlerTask(u8);
 static void DrawItemListBgRow(u8);
 static void BagMenu_MoveCursorCallback(s32, bool8, struct ListMenu *);
-static void BagMenu_ItemPrintCallback(u8, u32, u8);
+static void BagMenu_ItemPrintCallback(const struct ListMenu*, u32, u8);
 static void ItemMenu_UseOutOfBattle(u8);
 static void ItemMenu_Toss(u8);
 static void ItemMenu_Register(u8);
@@ -876,7 +880,7 @@ static bool8 LoadBagMenu_Graphics(void)
         gBagMenu->graphicsLoadState++;
         break;
     case 4:
-        LoadSpritePalette(&gBagPaletteTable);
+        LoadSpritePalette(&gBagPaletteTable[gSaveBlock2Ptr->playerGender]);
         gBagMenu->graphicsLoadState++;
         break;
     default:
@@ -992,8 +996,13 @@ static void BagMenu_MoveCursorCallback(s32 itemIndex, bool8 onInit, struct ListM
     }
 }
 
-static void BagMenu_ItemPrintCallback(u8 windowId, u32 itemIndex, u8 y)
+static void BagMenu_ItemPrintCallback(const struct ListMenu* list, u32 index, u8 y)
 {
+    s32 itemIndex = list->template.items[index].id;
+    u32 windowId = list->template.windowId;
+
+    ListMenuPrintItemHelper(list, index, y);
+
     if (itemIndex != LIST_CANCEL)
     {
         s32 offset;
@@ -1045,7 +1054,9 @@ static void PrintItemDescription(int itemIndex)
         str = gStringVar4;
     }
     FillWindowPixelBuffer(WIN_DESCRIPTION, PIXEL_FILL(0));
-    BagMenu_Print(WIN_DESCRIPTION, FONT_NORMAL, str, 3, 1, 0, 0, 0, COLORID_NORMAL);
+    u8 fontId = gBagPosition.pocket == POCKET_EVIDENCE ? FONT_SMALL_NARROW : FONT_NORMAL;
+    u8 lineSpacing = gBagPosition.pocket == POCKET_EVIDENCE ? 1 : 0;
+    BagMenu_Print(WIN_DESCRIPTION, fontId, str, 3, 1, 0, lineSpacing, 0, COLORID_NORMAL);
 }
 
 static void BagMenu_PrintCursor(u8 listTaskId, u8 colorIndex)
@@ -1715,6 +1726,11 @@ static void OpenContextMenu(u8 taskId)
                     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
                         gBagMenu->contextMenuItemsBuffer[0] = ACTION_WALK;
                 }
+                break;
+            case POCKET_EVIDENCE:
+                gBagMenu->contextMenuItemsPtr = gBagMenu->contextMenuItemsBuffer;
+                gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_KeyItemsPocket);
+                memcpy(&gBagMenu->contextMenuItemsBuffer, &sContextMenuItems_KeyItemsPocket, sizeof(sContextMenuItems_KeyItemsPocket));
                 break;
             case POCKET_POKE_BALLS:
                 gBagMenu->contextMenuItemsPtr = sContextMenuItems_BallsPocket;

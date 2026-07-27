@@ -61,7 +61,7 @@ struct ListMenuTemplate
 {
     const struct ListMenuItem *items;
     void (*moveCursorFunc)(s32 itemIndex, bool8 onInit, struct ListMenu *list);
-    void (*itemPrintFunc)(u8 windowId, u32 instanceId, u8 y);
+    void (*itemPrintFunc)(const struct ListMenu*, u32 instanceId, u8 y);
     u32 totalItems:12;
     u32 maxShowed:12;
     u32 textNarrowWidth:8;
@@ -84,12 +84,11 @@ struct ListMenuTemplate
 struct ListMenu
 {
     struct ListMenuTemplate template;
-    u16 scrollOffset;
-    u16 selectedRow;
-    u8 unk_1C;
-    u8 unk_1D;
-    u8 taskId;
-    u8 unk_1F;
+    u32 scrollOffset:12;
+    u32 selectedRow:8;
+    u32 taskId:8;
+    u32 maxSelections:4;
+    u32* selections;
 };
 
 struct ListMenuWindowRect
@@ -135,6 +134,7 @@ u8 ListMenuInit(struct ListMenuTemplate *listMenuTemplate, u16 scrollOffset, u16
 s32 ListMenu_ProcessInput(u8 listTaskId);
 void DestroyListMenuTask(u8 listTaskId, u16 *scrollOffset, u16 *selectedRow);
 void RedrawListMenu(u8 listTaskId);
+void ListMenuRedrawRow(struct ListMenu* list, u32 row);
 void ListMenuGetCurrentItemArrayId(u8 listTaskId, u16 *arrayId);
 void ListMenuGetScrollAndRow(u8 listTaskId, u16 *scrollOffset, u16 *selectedRow);
 u16 ListMenuGetYCoordForPrintingArrowCursor(u8 listTaskId);
@@ -146,5 +146,6 @@ void RemoveScrollIndicatorArrowPair(u8 taskId);
 void Task_ScrollIndicatorArrowPairOnMainMenu(u8 taskId);
 bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown);
 bool8 ListMenuChangeSelectionFull(struct ListMenu *list, bool32 updateCursor, bool32 callCallback, u8 count, bool8 movingDown);
+void ListMenuPrintItemHelper(const struct ListMenu* list, s32 index, u8 y);
 
 #endif //GUARD_LIST_MENU_H

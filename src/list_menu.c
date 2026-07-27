@@ -490,10 +490,7 @@ static u8 ListMenuInitInternal(struct ListMenuTemplate *listMenuTemplate, u16 sc
     list->template = *listMenuTemplate;
     list->scrollOffset = scrollOffset;
     list->selectedRow = selectedRow;
-    list->unk_1C = 0;
-    list->unk_1D = 0;
     list->taskId = TASK_NONE;
-    list->unk_1F = 0;
 
     gListMenuOverride.cursorPal = list->template.cursorPal;
     gListMenuOverride.fillValue = list->template.fillValue;
@@ -513,7 +510,7 @@ static u8 ListMenuInitInternal(struct ListMenuTemplate *listMenuTemplate, u16 sc
     return listTaskId;
 }
 
-static void ListMenuPrint(struct ListMenu *list, const u8 *str, u8 x, u8 y)
+static void ListMenuPrint(const struct ListMenu *list, const u8 *str, u8 x, u8 y)
 {
     u8 colors[3];
     if (gListMenuOverride.enabled)
@@ -548,6 +545,19 @@ static void ListMenuPrint(struct ListMenu *list, const u8 *str, u8 x, u8 y)
     }
 }
 
+// TODO: These functions need to be updated to use the new api
+// ===========================================================
+// DecorationItemsMenu_PrintDecorationInUse
+// PrintItemQuantity
+// BuyMenuPrintPriceInList
+// ItemStorage_PrintMenuItem
+// MailboxMenu_ItemPrintFunc
+// PrintBannedSpeciesName
+// DaycarePrintMonInfo
+// ItemPrintFunc_PossibleGroupMembers
+// ListMenuItemPrintFunc_UnionRoomGroups
+// TradeBoardListMenuItemPrintFunc
+// ItemPrintFunc_EmptyList
 static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count)
 {
     s32 i;
@@ -563,16 +573,26 @@ static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOff
         y = (yOffset + i) * yMultiplier + list->template.upText_Y;
         if (list->template.isDynamic)
         {
-            list->template.itemPrintFunc(list->template.windowId, startIndex, y);
+            list->template.itemPrintFunc(list, startIndex, y);
         }
         else
         {
             if (list->template.itemPrintFunc != NULL)
-                list->template.itemPrintFunc(list->template.windowId, list->template.items[startIndex].id, y);
-            ListMenuPrint(list, list->template.items[startIndex].name, x, y);
+                list->template.itemPrintFunc(list, startIndex, y);
+            else
+                ListMenuPrint(list, list->template.items[startIndex].name, x, y);
         }
         startIndex++;
     }
+}
+
+void ListMenuPrintItemHelper(const struct ListMenu* list, s32 index, u8 y)
+{
+    u8 x = (list->template.items[index].id != LIST_HEADER)
+               ? list->template.item_X
+               : list->template.header_X;
+
+    ListMenuPrint(list, list->template.items[index].name, x, y);
 }
 
 static void ListMenuDrawCursor(struct ListMenu *list)
@@ -761,6 +781,27 @@ static void ListMenuScroll(struct ListMenu *list, u8 count, bool8 movingDown)
                                 0, 0, width, list->template.upText_Y);
         }
     }
+}
+
+static void ListMenuClearEntry(struct ListMenu* list, u32 row)
+{
+    u32 rowHeight =
+        GetFontAttribute(list->template.fontId, FONTATTR_MAX_LETTER_HEIGHT) +
+        list->template.itemVerticalPadding;
+    u32 y = (row * rowHeight) + list->template.upText_Y;
+    u32 width = GetWindowAttribute(list->template.windowId, WINDOW_WIDTH) * 8;
+    FillWindowPixelRect(list->template.windowId, PIXEL_FILL(list->template.fillValue),
+                        0, y, width, rowHeight);
+}
+
+void ListMenuRedrawRow(struct ListMenu* list, u32 row)
+{
+    ListMenuClearEntry(list, row);
+    ListMenuPrintEntries(list, row, row, 1);
+    if (row == list->selectedRow)
+        ListMenuDrawCursor(list);
+    ListMenuCallSelectionChangedCallback(list, TRUE);
+    CopyWindowToVram(list->template.windowId, COPYWIN_GFX);
 }
 
 bool8 ListMenuChangeSelectionFull(struct ListMenu *list, bool32 updateCursor, bool32 callCallback, u8 count, bool8 movingDown)

@@ -3,6 +3,9 @@
 #include "sprite.h"
 #include "palette.h"
 #include "constants/rgb.h"
+#include <limits.h>
+#include <stddef.h>
+#include <stdint.h>
 
 static const struct SpriteTemplate sInvisibleSpriteTemplate =
 {
@@ -234,4 +237,15 @@ s32 SubtractClamped(s32 lowestVal, s32 highestVal, s32 currentVal, s32 delta)
         newValue = lowestVal;
 
     return newValue;
+}
+
+
+FOREACH_TYPE(DEFINE_COMPARE)
+u32 _lsearch(const void *key, const void *base, u32 n, CompareFunc cmp, size_t size)
+{
+    for (u32 i = 0; i < n; i++) {
+        if(cmp(key, (char*)base + i*size) == 0) 
+            return i;
+    }
+    return UINT32_MAX;
 }

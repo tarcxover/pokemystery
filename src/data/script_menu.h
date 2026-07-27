@@ -1,4 +1,5 @@
 // multichoice lists
+#include "constants/script_menu.h"
 static const struct MenuAction MultichoiceList_BrineyOnDewford[] =
 {
     {COMPOUND_STRING("PETALBURG")},
@@ -1314,6 +1315,7 @@ const u8 *const gStdStrings[] =
     [STDSTRING_TOUGH2] = COMPOUND_STRING("TOUGH"),
     [STDSTRING_ITEMS] = COMPOUND_STRING("ITEMS"),
     [STDSTRING_KEYITEMS] = COMPOUND_STRING("KEY ITEMS"),
+    [STDSTRING_EVIDENCE] = COMPOUND_STRING("EVIDENCE"),
     [STDSTRING_POKEBALLS] = COMPOUND_STRING("POKé BALLS"),
     [STDSTRING_TMHMS] = COMPOUND_STRING("TMs & HMs"),
     [STDSTRING_BERRIES] = COMPOUND_STRING("BERRIES"),

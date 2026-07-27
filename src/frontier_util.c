@@ -88,7 +88,7 @@ static void ShowPyramidResultsWindow(void);
 static void ShowLinkContestResultsWindow(void);
 static void CopyFrontierBrainText(bool8 playerWonText);
 static u16 *MakeCaughtBannedSpeciesList(u32 totalBannedSpecies);
-static void PrintBannedSpeciesName(u8 windowId, u32 itemId, u8 y);
+static void PrintBannedSpeciesName(const struct ListMenu* list, u32 itemId, u8 y);
 static void Task_BannedSpeciesWindowInput(u8 taskId);
 
 // battledBit: Flags to change the conversation when the Frontier Brain is encountered for a battle
@@ -3371,8 +3371,9 @@ static u16 *MakeCaughtBannedSpeciesList(u32 totalBannedSpecies)
     return list;
 }
 
-static void PrintBannedSpeciesName(u8 windowId, u32 itemId, u8 y)
+static void PrintBannedSpeciesName(const struct ListMenu* listMenu, u32 itemId, u8 y)
 {
+    u32 windowId = listMenu->template.windowId;
     u8 colors[3] = {
         sCaughtBannedSpeciesListTemplate.fillValue,
         sCaughtBannedSpeciesListTemplate.cursorPal,

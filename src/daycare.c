@@ -34,7 +34,7 @@
 
 static void ClearDaycareMonMail(struct DaycareMail *mail);
 static void SetInitialEggData(struct Pokemon *mon, enum Species species, struct DayCare *daycare);
-static void DaycarePrintMonInfo(u8 windowId, u32 daycareSlotId, u8 y);
+static void DaycarePrintMonInfo(const struct ListMenu* list, u32 daycareSlotId, u8 y);
 static u8 ModifyBreedingScoreForOvalCharm(u8 score);
 static bool32 IsEggPending(struct DayCare *daycare);
 static void AlterEggSpeciesWithIncenseItem(enum Species *species, struct DayCare *daycare);
@@ -1410,8 +1410,9 @@ static void DaycarePrintMonLvl(struct DayCare *daycare, u8 windowId, u32 daycare
     DaycareAddTextPrinter(windowId, lvlText, x, y);
 }
 
-static void DaycarePrintMonInfo(u8 windowId, u32 daycareSlotId, u8 y)
+static void DaycarePrintMonInfo(const struct ListMenu* list, u32 daycareSlotId, u8 y)
 {
+    u32 windowId = list->template.windowId;
     if (daycareSlotId < (unsigned) DAYCARE_MON_COUNT)
     {
         DaycarePrintMonNickname(&gSaveBlock1Ptr->daycare, windowId, daycareSlotId, y);
