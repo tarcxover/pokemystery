@@ -1,1 +1,68 @@
 mapscripts tarc3_Cabins_MapScripts {}
+
+script tarc3_Cabins_EventScript_BedroomRan {
+    lock
+    faceplayer
+    setspeaker("Ran")
+    if (var(VAR_TARC3_ACT1) < 2) {
+        msgbox(format("Two beds, a window and a wardrobe. It's nicer than anywhere we stayed on Florio."))
+        msgbox(format("Go up on deck and say hello properly. They've been kind to us."))
+        msgbox(format("I'll follow you up once I've got our things put away."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    if (!flag(FLAG_TARC3_RAN_CABIN_TALK)) {
+        setflag(FLAG_TARC3_RAN_CABIN_TALK)
+        msgbox(format("There you are! Suzuki came past while you were out."))
+        msgbox(format("Dinner is at seven in the dining room, and he was very clear that we're expected."))
+        msgbox(format("I'd rather not be the ones who turn up late.\pIt'll probably be the best meal we've had in years, too."))
+        call(tarc3_Cabins_EventScript_FamilyTree)
+    } else {
+        msgbox(format("Dinner is at seven, remember.\pI'd rather not be the ones who turn up late."))
+    }
+    setspeaker("Ran")
+    msgbox(format("Shall we move to the dining room?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Fair enough. I'm not in a hurry either.\pTell me when you're ready."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("Then let's not keep them waiting."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_HIDE_TARC3_BEDROOM_RAN)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_MARIKO)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_AKIE)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_SUZUKI)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_JOJI)
+    clearflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    clearflag(FLAG_HIDE_TARC3_DINING_JOJI)
+    clearflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+    clearflag(FLAG_HIDE_TARC3_DINING_MARIKO)
+    clearflag(FLAG_HIDE_TARC3_DINING_KITARO)
+    clearflag(FLAG_HIDE_TARC3_DINING_AKIE)
+    clearflag(FLAG_HIDE_TARC3_DINING_TATSUO)
+    clearflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
+    clearflag(FLAG_HIDE_TARC3_DINING_RAN)
+    setvar(VAR_TARC3_ACT1, 3)
+    warp(MAP_TARC3_MAIN_DECK, 41, 12)
+    waitstate
+    end
+}
+
+script tarc3_Cabins_EventScript_FamilyTree {
+    setspeaker("Ran")
+    msgbox(format("Let me get this family straight before we sit down with them."))
+    msgbox(format("Gozo Hatamoto is the head of it.\pEveryone else is one of his children, one of his grandchildren, or married in."))
+    msgbox(format("Natsue and Akie are his granddaughters.\pTheir father Shoichi was Gozo's eldest son. He and their mother died last year."))
+    msgbox(format("Mariko is Gozo's eldest daughter, and Kitaro is her husband.\pHe runs one of the family companies. Joji is the second son, the chef."))
+    msgbox(format("Then the two who married in.\pTakeshi to Natsue this morning, and Tatsuo to Akie."))
+    msgbox(format("And Ichiro, who I can't place at all.\pHe came for the wedding, but he isn't a Hatamoto."))
+    msgbox(format("That's nine in the wedding party, Suzuki, and the two of us.\pTwelve people, and the crew never come aft of the bridge."))
+    setspeaker(NULL)
+    closemessage
+    return
+}

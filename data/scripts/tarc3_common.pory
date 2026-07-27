@@ -1,0 +1,31 @@
+script tarc3_EventScript_Act1Setup {
+    setflag(FLAG_HIDE_TARC3_FOREDECK_GOZO)
+    setflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+    setflag(FLAG_HIDE_TARC3_DINING_TAKESHI)
+    setflag(FLAG_HIDE_TARC3_DINING_JOJI)
+    setflag(FLAG_HIDE_TARC3_DINING_MARIKO)
+    setflag(FLAG_HIDE_TARC3_DINING_KITARO)
+    setflag(FLAG_HIDE_TARC3_DINING_AKIE)
+    setflag(FLAG_HIDE_TARC3_DINING_TATSUO)
+    setflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
+    setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    setflag(FLAG_HIDE_TARC3_DINING_RAN)
+    setflag(FLAG_HIDE_TARC3_HALL_NATSUE)
+    setflag(FLAG_HIDE_TARC3_HALL_TAKESHI)
+    setflag(FLAG_HIDE_TARC3_HALL_JOJI)
+    setflag(FLAG_HIDE_TARC3_HALL_MARIKO)
+    setflag(FLAG_HIDE_TARC3_HALL_KITARO)
+    setflag(FLAG_HIDE_TARC3_HALL_AKIE)
+    setflag(FLAG_HIDE_TARC3_HALL_TATSUO)
+    setflag(FLAG_HIDE_TARC3_HALL_ICHIRO)
+    setflag(FLAG_HIDE_TARC3_C1_SUZUKI)
+    setflag(FLAG_HIDE_TARC3_C1_GOZO_BODY)
+    setvar(VAR_TARC3_ACT1, 1)
+    return
+}
+
+script tarc3_EventScript_EvidenceCaptured {
+    playse(SE_PC_LOGIN)
+    msgbox(format("<Evidence captured>"))
+    return
+}

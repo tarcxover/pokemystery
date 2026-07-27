@@ -1683,6 +1683,7 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	end
 
 
+	.include "data/scripts/tarc3_common.inc"
 	.include "data/scripts/pc_transfer.inc"
 	.include "data/scripts/questionnaire.inc"
 	.include "data/scripts/abnormal_weather.inc"
@@ -1750,3 +1751,9 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/tarc3_Cabins/scripts.inc"
 
 	.include "data/maps/tarc3_Bathroom/scripts.inc"
+
+	.include "data/maps/tarc3_FlorioIsland/scripts.inc"
+
+	.include "data/maps/tarc3_FlorioDock/scripts.inc"
+
+	.include "data/maps/tarc3_GozoRoom/scripts.inc"

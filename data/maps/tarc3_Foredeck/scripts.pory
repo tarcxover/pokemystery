@@ -1,1 +1,246 @@
-mapscripts tarc3_Foredeck_MapScripts {}
+mapscripts tarc3_Foredeck_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TARC3_ACT1, 1: tarc3_Foredeck_EventScript_Departure
+    ]
+}
+
+script tarc3_Foredeck_EventScript_Departure {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_down * 2, face_left))
+    waitmovement(0)
+    delay(30)
+    playse(SE_SHIP)
+    delay(40)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_right))
+    waitmovement(0)
+    setspeaker("Natsue")
+    msgbox(format("I never introduced myself properly, did I.\pNatsue Hatamoto."))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_down))
+    waitmovement(0)
+    delay(30)
+    setspeaker("Natsue")
+    msgbox(format("And this is my husband, Takeshi."))
+    setspeaker("Takeshi")
+    msgbox(format("Takeshi. Thank you for keeping her company out here.\pShe's been on her feet since sunrise."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_right))
+    waitmovement(0)
+    setspeaker("Natsue")
+    msgbox(format("I'm glad you both made it aboard.\pI hope the cabin is comfortable enough."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_up))
+    waitmovement(0)
+    delay(30)
+    setspeaker("Natsue")
+    msgbox(format("We held the ceremony on Florio this morning. Only the family."))
+    msgbox(format("My parents should have been sat at the front of it.\pThey died last year. Both of them, in the same accident."))
+    msgbox(format("I kept looking for them in the room all morning.\pI wanted them to see me dressed like this. Just the once."))
+    setspeaker("Takeshi")
+    msgbox(format("Natsue."))
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_down))
+    setspeaker("Natsue")
+    msgbox(format("...I know. I'm sorry.\pIt's meant to be a happy day, and here I am."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_right))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Natsue")
+    msgbox(format("Oh. I almost forgot the most important part."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_left))
+    waitmovement(0)
+    playmoncry(SPECIES_COMFEY, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    delay(30)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_down, walk_in_place_slow_down))
+    waitmovement(0)
+    delay(20)
+    msgbox(format("Natsue lifts a garland from her Comfey and pins it to Takeshi's lapel."))
+    setspeaker("Natsue")
+    msgbox(format("It's been my dream since I was small to give my partner one of these."))
+    msgbox(format("My Comfey grows them at home. Our island.\pYou can always tell a Hatamoto Island flower apart."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_right))
+    waitmovement(0)
+    delay(30)
+    clearflag(FLAG_HIDE_TARC3_FOREDECK_GOZO)
+    addobject(LOCALID_FOREDECK_GOZO)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_GOZO, moves(walk_left * 3, face_down))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_GOZO, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(30)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(face_up))
+    applymovement(LOCALID_FOREDECK_TAKESHI, moves(face_up))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Gozo")
+    msgbox(format("Strangers. On my ship."))
+    msgbox(format("Who authorised this?"))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_KITARO, moves(walk_right * 2, walk_down, face_right))
+    waitmovement(0)
+    applymovement(LOCALID_FOREDECK_GOZO, moves(face_left))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Kitaro")
+    msgbox(format("I did, Father."))
+    msgbox(format("They missed the last ferry off Florio. There was room, and it seemed a small..."))
+    setspeaker("Gozo")
+    msgbox(format("We'll discuss it."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_FOREDECK_KITARO, moves(walk_up, walk_left * 2, face_right))
+    applymovement(LOCALID_FOREDECK_GOZO, moves(face_down))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_JOJI, moves(walk_right * 3, face_right))
+    waitmovement(0)
+    applymovement(LOCALID_FOREDECK_GOZO, moves(face_left))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Joji")
+    msgbox(format("Father. You never did say what you made of the reception."))
+    msgbox(format("The consommé was a Shuckle berry reduction. Three days of work."))
+    setspeaker("Gozo")
+    msgbox(format("I was told it was Kalosian. That was enough."))
+    msgbox(format("Sauces to bury the food underneath.\pA cook who is ashamed of his ingredients."))
+    setspeaker("Joji")
+    msgbox(format("...Of course."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_FOREDECK_JOJI, moves(walk_left * 3, face_right))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_GOZO, moves(face_left))
+    waitmovement(0)
+    delay(30)
+    setspeaker("Gozo")
+    msgbox(format("Kitaro. Remind me to pull the art school accounts when we dock."))
+    msgbox(format("It's past time we discussed whether that investment was worth making at all."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_ICHIRO, moves(face_down))
+    applymovement(LOCALID_FOREDECK_TATSUO, moves(face_up))
+    waitmovement(0)
+    delay(40)
+    msgbox(format("(Hmm. That comment was loud enough for everyone to hear.)"))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_GOZO, moves(face_left))
+    waitmovement(0)
+    setspeaker("Gozo")
+    msgbox(format("Takeshi. With me."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    applymovement(LOCALID_FOREDECK_GOZO, moves(walk_right * 3))
+    waitmovement(0)
+    playse(SE_EXIT)
+    setflag(FLAG_HIDE_TARC3_FOREDECK_GOZO)
+    removeobject(LOCALID_FOREDECK_GOZO)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_RAN, moves(walk_down, face_up))
+    waitmovement(0)
+    applymovement(LOCALID_FOREDECK_TAKESHI, moves(walk_right * 3, walk_up * 2, walk_right))
+    waitmovement(0)
+    playse(SE_EXIT)
+    setflag(FLAG_HIDE_TARC3_FOREDECK_TAKESHI)
+    removeobject(LOCALID_FOREDECK_TAKESHI)
+    delay(30)
+    applymovement(LOCALID_FOREDECK_RAN, moves(walk_up, face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    waitmovement(0)
+    setspeaker("Ran")
+    msgbox(format("I thought... the father of the bride would be in a more cheerful mood."))
+    msgbox(format("I'm going back to the cabin before I say something I regret.\pCome and find me when you've had enough sea air."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    fadescreen(FADE_TO_BLACK)
+    setflag(FLAG_HIDE_TARC3_FOREDECK_RAN)
+    setflag(FLAG_HIDE_TARC3_FOREDECK_NATSUE)
+    setflag(FLAG_HIDE_TARC3_FOREDECK_COMFEY)
+    setflag(FLAG_HIDE_TARC3_FOREDECK_KITARO)
+    setflag(FLAG_HIDE_TARC3_FOREDECK_JOJI)
+    removeobject(LOCALID_FOREDECK_RAN)
+    removeobject(LOCALID_FOREDECK_NATSUE)
+    removeobject(LOCALID_FOREDECK_COMFEY)
+    removeobject(LOCALID_FOREDECK_KITARO)
+    removeobject(LOCALID_FOREDECK_JOJI)
+    setvar(VAR_TARC3_ACT1, 2)
+    fadescreen(FADE_FROM_BLACK)
+    delay(20)
+    msgbox(format("(Ran is right. This family seems to be at each others' throats.)"))
+    closemessage
+    releaseall
+    end
+}
+
+script tarc3_Foredeck_EventScript_Ichiro {
+    lock
+    faceplayer
+    setspeaker("Ichiro")
+    msgbox(format("Hm? Oh. You're the one they picked up at Florio."))
+    msgbox(format("The wedding?\p It was... ok. The location was nice."))
+    msgbox(format("...Natsue seems happy."))
+    setspeaker(NULL)
+    closemessage
+    applymovement(LOCALID_FOREDECK_ICHIRO, moves(face_right))
+    waitmovement(0)
+    msgbox(format("(His response felt sincere, but something is clearly on his mind.)"))
+    closemessage
+    release
+    end
+}
+
+script tarc3_Foredeck_EventScript_Sketchbook {
+    lockall
+    msgbox(format("An open sketchbook, weighted flat against the rail."))
+    msgbox(format("Charcoal portraits. Page after page of them, and the same face every time."))
+    closemessage
+    delay(20)
+    playse(SE_M_GUST)
+    delay(30)
+    msgbox(format("The wind takes the pages before {PLAYER} can make out who it is."))
+    closemessage
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    releaseall
+    end
+}
+
+script tarc3_Foredeck_EventScript_Tatsuo {
+    lock
+    faceplayer
+    setspeaker("Tatsuo")
+    msgbox(format("A kid... They let a kid aboard?!\pWhy not, I guess.\pEveryone else here is also freeloading."))
+    msgbox(format("You know what this family is worth? Neither do I.\pThe old man won't tell us."))
+    msgbox(format("I just spend my time out here on the deck.\pAkie locks me out of the cabin when she's angry, and she's always angry."))
+    setspeaker(NULL)
+    release
+    end
+}

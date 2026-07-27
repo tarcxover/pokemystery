@@ -1,1 +1,449 @@
-mapscripts tarc3_MainDeck_MapScripts {}
+mapscripts tarc3_MainDeck_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TARC3_FLORIO_INTRO, 6: tarc3_MainDeck_EventScript_ShowRoom
+        VAR_TARC3_ACT1, 3: tarc3_MainDeck_EventScript_Dinner
+    ]
+}
+
+script tarc3_MainDeck_EventScript_ShowRoom {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    delay(20)
+    applymovement(LOCALID_MAINDECK_RAN_1, moves(walk_down, walk_left))
+    waitmovement(0)
+    setspeaker("Natsue")
+    msgbox(format("This is your room. Please make yourself at home."))
+    msgbox(format("I'll see you later."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_NATSUE_1, moves(walk_left * 11))
+    waitmovement(0)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_NATSUE)
+    removeobject(LOCALID_MAINDECK_NATSUE_1)
+    delay(20)
+    applymovement(LOCALID_MAINDECK_RAN_1, moves(face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    waitmovement(0)
+    setspeaker("Ran")
+    msgbox(format("I'll check out the bedroom. You should introduce yourself to the family."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_RAN_1, moves(walk_down))
+    waitmovement(0)
+    playse(SE_EXIT)
+    delay(20)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_RAN)
+    removeobject(LOCALID_MAINDECK_RAN_1)
+    delay(30)
+    setvar(VAR_TARC3_FLORIO_INTRO, 7)
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_Mariko {
+    lock
+    faceplayer
+    setspeaker("Mariko")
+    if (var(VAR_TARC3_ACT1) < 2) {
+        msgbox(format("Mariko Hatamoto. My husband handles the company. I handle the family."))
+        msgbox(format("You'll find we're not much of a wedding party.\pWe travel together perhaps twice a decade, and never happily."))
+        msgbox(format("The last time we were all in one room was a funeral.\pMy brother Shoichi and his wife. An accident, a couple years ago."))
+        msgbox(format("We're in much better spirits today. It's a good chance to ask Father about..."))
+        msgbox(format("Disregard that! This is a family matter."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("So you met my father on the deck. Everybody does, eventually."))
+    msgbox(format("He kept Kitaro waiting eleven years before he approved our marriage.\pEleven. And Natsue was engaged inside a month."))
+    msgbox(format("He decides who belongs to this family. He always has."))
+    setspeaker(NULL)
+    closemessage
+    msgbox(format("(She counted something on her fingers the entire time she was speaking.)"))
+    closemessage
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_Akie {
+    lock
+    faceplayer
+    setspeaker("Akie")
+    if (var(VAR_TARC3_ACT1) < 2) {
+        msgbox(format("Akie. Natsue's sister, before you ask, and no, we're nothing alike."))
+        msgbox(format("If you're looking for my husband, don't. He'll find you."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("Yes? No, it's nothing. Family business."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_AKIE, moves(face_left))
+    waitmovement(0)
+    msgbox(format("(She lowers her voice and turns back to Mariko. Only fragments carry.)"))
+    msgbox(format("(...everything goes to... not to the eldest...)"))
+    closemessage
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_Suzuki {
+    lock
+    faceplayer
+    setspeaker("Suzuki")
+    if (var(VAR_TARC3_ACT1) < 2) {
+        msgbox(format("Good afternoon. Kenji Suzuki. I look after the household."))
+        msgbox(format("Dinner is not far away. You are both expected, whatever anyone tells you otherwise."))
+        msgbox(format("The galley is through there, the cabins behind you.\pThe stairs will take you to the hold."))
+        msgbox(format("Go where you please. The crew keep to the bridge and their own berths.\pFor this voyage, the ship belongs to the family and nobody else."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("I heard about the deck. Apologies. Gozo-sama speaks his mind with ruthless efficiency.\pIt's how he conducts his business, too."))
+    msgbox(format("Lately, Gozo-sama has been considering his family's legacy. Where he allocates his capital and his attention.\pWhat is, and is not, returning on his investments..."))
+    msgbox(format("The young man with the sketchbook is not family, before you ask.\pIchiro-san grew up on Hatamoto Island. He and Natsue-sama played together as children."))
+    msgbox(format("Gozo-sama paid for his studies. Art school, on the mainland."))
+    msgbox(format("...Gozo-sama tends to feel owed, when he invests in a person."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_Joji {
+    lock
+    faceplayer
+    setspeaker("Joji")
+    if (var(VAR_TARC3_ACT1) < 2) {
+        msgbox(format("Joji Hatamoto. You might think we're a family of businesspeople.\pI travel the world, cooking only the finest foods."))
+        msgbox(format("I run a restaurant back on the mainland. Kalosian cuisine, mostly.\pMy Pokémon assist, of course!"))
+        msgbox(format("I carry my own knives everywhere. Eight of them, in a roll.\pA chef who borrows a knife is a chef who has given up."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("You heard him. He won't touch Kalosian food. He never has."))
+    msgbox(format("I don't know why I thought a wedding would be any different.\pThe last time was Mariko's reception. He didn't eat then either."))
+    msgbox(format("Not a bite. Not even the bread.\pHe says the smell of a Kalosian loaf is enough to turn his stomach."))
+    msgbox(format("Anyway. Dinner is nearly up, and I won't have it going cold."))
+    msgbox(format("Fetch your friend from your cabin and come through together.\pI'm not sending Suzuki round twice."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+// DINNER SCENE
+
+script tarc3_MainDeck_EventScript_Dinner {
+    lockall
+    delay(30)
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(face_up))
+    waitmovement(0)
+    delay(30)
+    setspeaker("Ran")
+    msgbox(format("Hmm...\pWe've been sat here half an hour, and I don't think anyone has said a word."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(face_left))
+    waitmovement(0)
+    delay(30)
+    applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(walk_right * 2, face_right))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(face_left))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("Forgive me. I found this in the corridor coming through from the galley.\pOutside Gozo-sama's cabin, I think."))
+    msgbox(format("That was a little after seven.\pI have not stepped out of this room since."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setspeaker("Natsue")
+    msgbox(format("That's... that's the one I pinned on Takeshi.\pThis afternoon, on the deck."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    clearflag(FLAG_HIDE_TARC3_DINING_TAKESHI)
+    addobject(LOCALID_MAINDECK_TAKESHI_DINING)
+    delay(30)
+    applymovement(LOCALID_MAINDECK_TAKESHI_DINING, moves(walk_right * 7, walk_down, face_right))
+    waitmovement(0)
+    applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(face_up))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Natsue")
+    msgbox(format("Takeshi. You've gone completely pale."))
+    applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(walk_in_place_slow_up))
+    delay(30)
+    msgbox(format("And your garland. When did it come off?"))
+    applymovement(LOCALID_MAINDECK_TAKESHI_DINING, moves(walk_in_place_slow_down * 2))
+    setspeaker("Takeshi")
+    msgbox(format("I don't know. I'm sorry."))
+    msgbox(format("I've been in our cabin since I left your grandfather. Sitting. Thinking.\pI didn't notice it was gone."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(face_right))
+    applymovement(LOCALID_MAINDECK_TAKESHI_DINING, moves(face_right))
+    waitmovement(0)
+    setspeaker("Ran")
+    msgbox(format("My father seems to misplace his possessions constantly."))
+    msgbox(format("He's a private detective. Half our conversations at home sound like this one."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_up * 5))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("A detective..?"))
+    msgbox(format("Don't repeat that in front of my father.\pPeople who pry into other people's affairs are contemptible, in his words."))
+    closemessage
+    applymovement(LOCALID_MAINDECK_KITARO_DINING, moves(face_up))
+    waitmovement(0)
+    setspeaker("Kitaro")
+    msgbox(format("Mariko."))
+    setspeaker("Mariko")
+    msgbox(format("I'm being kind. He would have said it far worse."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    msgbox(format("(The dining room falls silent.)"))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CAMERA, moves(walk_down * 5))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    delay(30)
+    applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(walk_in_place_slow_right))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("Please, talk amongst yourselves.\pI will fetch Gozo-sama."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(walk_left * 7))
+    waitmovement(0)
+    playse(SE_EXIT)
+    setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    removeobject(LOCALID_MAINDECK_SUZUKI_DINING)
+    delay(30)
+    setvar(VAR_TARC3_ACT1, 4)
+    releaseall
+    end
+}
+
+// DINNER TABLE CONVERSATIONS
+
+script tarc3_MainDeck_EventScript_DinnerTalkDone {
+    if (var(VAR_TARC3_DINNER_TALKED) >= 5) {
+        goto(tarc3_MainDeck_EventScript_TheScream)
+    }
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_DinnerNoExit {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
+    waitmovement(0)
+    msgbox(format("(Everyone is waiting on Gozo-sama.\pI should talk to the family members to pass the time.)"))
+    closemessage
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_DiningRan {
+    lock
+    faceplayer
+    setspeaker("Ran")
+    msgbox(format("Hmm...\pEveryone keeps starting conversations, and then trailing off."))
+    msgbox(format("I can't believe how much animosity there is in this room. Money warps relationships."))
+    setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_RAN)) {
+        setflag(FLAG_TARC3_DINNER_TALK_RAN)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningNatsue {
+    lock
+    faceplayer
+    setspeaker("Natsue")
+    msgbox(format("Oh... hello.\pTakeshi hasn't said a word since he sat down."))
+    msgbox(format("Grandfather asked to speak with him alone.\pThat is never a small thing."))
+    msgbox(format("I wish my aunt would stop being so argumentative. At least, pause it for my wedding day."))
+    setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_NATSUE)) {
+        setflag(FLAG_TARC3_DINNER_TALK_NATSUE)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningTakeshi {
+    lock
+    faceplayer
+    setspeaker("Takeshi")
+    msgbox(format("...Sorry. I'm poor company tonight."))
+    msgbox(format("He knew more about me than I thought.\pThat's all I can say. Please don't ask Natsue."))
+    setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_TAKESHI)) {
+        setflag(FLAG_TARC3_DINNER_TALK_TAKESHI)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningJoji {
+    lock
+    faceplayer
+    setspeaker("Joji")
+    msgbox(format("Well. Nobody has eaten a thing."))
+    msgbox(format("Three days I spent on that consommé.\pNot one spoon lifted."))
+    msgbox(format("Even Ichiro-kun here, and he always clears his plate.\pThe boy lives on nothing at art school."))
+    setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_JOJI)) {
+        setflag(FLAG_TARC3_DINNER_TALK_JOJI)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningMariko {
+    lock
+    faceplayer
+    setspeaker("Mariko")
+    msgbox(format("Hm? Oh. It's you."))
+    msgbox(format("I went down to Father's cabin before dinner.\pHe didn't answer. He does that when he's in a mood."))
+    msgbox(format("There's an announcement coming when we dock.\pIf you've any sense, you'll be off this ship before it's made."))
+    setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_MARIKO)) {
+        setflag(FLAG_TARC3_DINNER_TALK_MARIKO)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningKitaro {
+    lock
+    faceplayer
+    setspeaker("Kitaro")
+    msgbox(format("...Three times I've asked to leave the company.\pThree times he's refused me."))
+    msgbox(format("I'm no good at it. Everyone knows that.\pHim most of all."))
+    msgbox(format("Don't repeat that."))
+    setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_KITARO)) {
+        setflag(FLAG_TARC3_DINNER_TALK_KITARO)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningAkie {
+    lock
+    faceplayer
+    setspeaker("Akie")
+    msgbox(format("Hah. Look at my husband.\pHe hasn't turned his head towards me once tonight."))
+    msgbox(format("Go on. Ask him what he married me for.\pHe'll tell you. He tells everybody."))
+    setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_AKIE)) {
+        setflag(FLAG_TARC3_DINNER_TALK_AKIE)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningTatsuo {
+    lock
+    faceplayer
+    setspeaker("Tatsuo")
+    msgbox(format("See that one? The artist?\pHe's been this family's charity case since he was ten."))
+    msgbox(format("Sits there, drawing constantly.\pThe old man funded his education because he is Natsue's friend."))
+    msgbox(format("I'm married to his daughter! Why can't he 'invest' in me too?"))
+    setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_TATSUO)) {
+        setflag(FLAG_TARC3_DINNER_TALK_TATSUO)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningIchiro {
+    lock
+    faceplayer
+    setspeaker("Ichiro")
+    msgbox(format("Oh. Sorry.\pI have been working on a new sketch."))
+    msgbox(format("I stopped to wash my hands on the way.\pI love drawing with charcoal, but it can be messy."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("(He glances down the table at Natsue, then back at his plate.)"))
+    closemessage
+    if (!flag(FLAG_TARC3_DINNER_TALK_ICHIRO)) {
+        setflag(FLAG_TARC3_DINNER_TALK_ICHIRO)
+        addvar(VAR_TARC3_DINNER_TALKED, 1)
+    }
+    goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_TheScream {
+    lockall
+    delay(30)
+    fadeoutbgm(4)
+    delay(120)
+    playse(SE_PIN)
+    delay(30)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(face_left))
+    applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(face_left))
+    applymovement(LOCALID_MAINDECK_TAKESHI_DINING, moves(face_left))
+    waitmovement(0)
+    msgbox(format("Suzuki's voice carries the length of the corridor.\pHe is shouting for someone to come."))
+    closemessage
+    delay(20)
+    setflag(FLAG_HIDE_TARC3_DINING_JOJI)
+    setflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+    setflag(FLAG_HIDE_TARC3_DINING_TAKESHI)
+    setflag(FLAG_HIDE_TARC3_DINING_MARIKO)
+    setflag(FLAG_HIDE_TARC3_DINING_KITARO)
+    setflag(FLAG_HIDE_TARC3_DINING_AKIE)
+    setflag(FLAG_HIDE_TARC3_DINING_TATSUO)
+    setflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
+    setflag(FLAG_HIDE_TARC3_DINING_RAN)
+    clearflag(FLAG_HIDE_TARC3_C1_SUZUKI)
+    clearflag(FLAG_HIDE_TARC3_HALL_NATSUE)
+    clearflag(FLAG_HIDE_TARC3_HALL_TAKESHI)
+    clearflag(FLAG_HIDE_TARC3_HALL_JOJI)
+    clearflag(FLAG_HIDE_TARC3_HALL_MARIKO)
+    clearflag(FLAG_HIDE_TARC3_HALL_KITARO)
+    clearflag(FLAG_HIDE_TARC3_HALL_ICHIRO)
+    clearflag(FLAG_HIDE_TARC3_HALL_AKIE)
+    clearflag(FLAG_HIDE_TARC3_HALL_TATSUO)
+    setvar(VAR_TARC3_ACT1, 5)
+    warp(MAP_TARC3_GOZO_ROOM, 10, 11)
+    waitstate
+    end
+}
