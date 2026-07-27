@@ -683,7 +683,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
             if (!found)
             {
                 if (*count == 0)
-                        break;;
+                        break;
                 list->selections[max - *count] = input;
 
                 (*count)--;
