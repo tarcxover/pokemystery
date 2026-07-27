@@ -2,6 +2,7 @@
 #include "assertf.h"
 #include "constants/characters.h"
 #include "constants/vars.h"
+#include "gba/defines.h"
 #include "gba/isagbprint.h"
 #include "gba/types.h"
 #include "main.h"
@@ -372,6 +373,7 @@ static void MultichoiceDynamic_MoveCursor(s32 itemIndex, bool8 onInit, struct Li
     }
 }
 
+EWRAM_DATA const u8* gDynamicMultiselectConfirmStr;
 static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list, u32 index, u8 y)
 {
     const struct ListMenuTemplate *templ = &list->template;
@@ -390,7 +392,7 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
     colors = selected ? selectedColors : baseColors;
 
     const u8 *name = list->template.items[index].name;
-    const u8 *sym = COMPOUND_STRING("{CIRCLE_DOT}");
+    const u8 *sym = gText_CircleDot;
     StringExpandPlaceholders(symBuffer, sym);
 
     u8 fontId = GetFontIdToFit(name, FONT_NORMAL, 0, templ->textNarrowWidth);
@@ -408,9 +410,10 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
             windowId, fontId, circleX, y, 0, 0, colors, 0, symBuffer);
 }
 
-bool32 ScrCmd_initdynmultiselect(struct ScriptContext *ctx)
+bool32 ScrCmd_initdynmultiselectwithtext(struct ScriptContext *ctx)
 {
     u16 res = 0;
+    gDynamicMultiselectConfirmStr = (const u8*)ScriptReadWord(ctx);
     u32 count = ScriptReadByte(ctx);
 
     assertf(count <= 12, "multiselect count over 12 (%d)", count);

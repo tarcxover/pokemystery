@@ -969,6 +969,8 @@ const u8 gText_F701Players[] = _("{DYNAMIC 1} players");
 const u8 gText_F702Players[] = _("{DYNAMIC 2} players");
 const u8 gText_F703Players[] = _("{DYNAMIC 3} players");
 
+const u8 gText_CircleDot[] = _("{CIRCLE_DOT}");
+
 const u8 *const gTextTable_Players[] = {
     gText_F700Players,
     gText_F701Players,

@@ -1957,12 +1957,17 @@
 	.endm
 
 	@ Provide a list of variables ids to use for dynamic multiselect
-	.macro initdynmultiselect argv:vararg
-	callnative ScrCmd_initdynmultiselect
+	.macro initdynmultiselectwithtext confirm_str:req, argv:vararg
+	callnative ScrCmd_initdynmultiselectwithtext
+	 .4byte \confirm_str 
 	.byte (.Linitdynmultiselect_\@_2 - .Linitdynmultiselect_\@_1) / 2
 .Linitdynmultiselect_\@_1:
 	.2byte \argv
 .Linitdynmultiselect_\@_2:
+	.endm
+
+	.macro initdynmultiselect argv:vararg
+	  initdynmultiselectwithtext gMenuText_Confirm, \argv
 	.endm
 
 	@ Displays a multichoice box from which the user can choose a selection, and blocks script execution until a selection is made.

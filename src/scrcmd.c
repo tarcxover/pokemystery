@@ -1847,7 +1847,7 @@ bool8 ScrCmd_dynmultichoice(struct ScriptContext *ctx)
         if (isMultiSelect) {
             u8 *nameBuffer = Alloc(100);
             struct ListMenuItem item;
-            StringExpandPlaceholders(nameBuffer, COMPOUND_STRING("CHOOSE"));
+            StringExpandPlaceholders(nameBuffer, gDynamicMultiselectConfirmStr);
             item.name = nameBuffer;
             item.id = -4;
             MultichoiceDynamic_PushElement(item);

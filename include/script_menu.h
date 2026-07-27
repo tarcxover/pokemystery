@@ -23,6 +23,7 @@ struct DynamicMultichoiceStack
     struct ListMenuItem *elements;
 };
 
+extern const u8* gDynamicMultiselectConfirmStr;
 void MultichoiceDynamic_InitStack(u32 capacity);
 void MultichoiceDynamic_ReallocStack(u32 newCapacity);
 bool32 MultichoiceDynamic_StackFull(void);
