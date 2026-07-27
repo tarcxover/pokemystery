@@ -6,7 +6,7 @@ mapscripts tarc3_Hold_MapScripts {
 
 script tarc3_Hold_EventScript_Arrival {
     lockall
-    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
     delay(30)
     setspeaker("Natsue")
@@ -17,6 +17,7 @@ script tarc3_Hold_EventScript_Arrival {
     delay(20)
     setflag(FLAG_HIDE_TARC3_HOLD_NATSUE)
     setflag(FLAG_HIDE_TARC3_HOLD_RAN)
+    call(tarc3_EventScript_Act1Setup)
     setvar(VAR_TARC3_FLORIO_INTRO, 6)
     warp(MAP_TARC3_MAIN_DECK, 28, 11)
     waitstate

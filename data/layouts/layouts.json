@@ -9403,6 +9403,16 @@
       "secondary_tileset": "gTileset_Facility",
       "border_filepath": "data/layouts/tarc3_FlorioDock/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_FlorioDock/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC3_GOZO_ROOM",
+      "name": "tarc3_GozoRoom_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_Tarc3_InsideShip",
+      "secondary_tileset": "gTileset_InsideShip",
+      "border_filepath": "data/layouts/tarc3_GozoRoom/border.bin",
+      "blockdata_filepath": "data/layouts/tarc3_GozoRoom/map.bin"
     }
   ]
 }

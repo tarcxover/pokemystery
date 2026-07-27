@@ -64,41 +64,41 @@
 #define FLAG_HIDE_TARC3_HOLD_RAN            0x2A
 #define FLAG_HIDE_TARC3_MAINDECK_NATSUE     0x2B
 #define FLAG_HIDE_TARC3_MAINDECK_RAN        0x2C
-#define FLAG_UNUSED_0x02D    0x2D // Unused Flag
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
-#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
-#define FLAG_UNUSED_0x031    0x31 // Unused Flag
-#define FLAG_UNUSED_0x032    0x32 // Unused Flag
-#define FLAG_UNUSED_0x033    0x33 // Unused Flag
+#define FLAG_HIDE_TARC3_FOREDECK_RAN             0x2D
+#define FLAG_HIDE_TARC3_FOREDECK_NATSUE          0x2E
+#define FLAG_HIDE_TARC3_FOREDECK_COMFEY          0x2F
+#define FLAG_HIDE_TARC3_FOREDECK_TAKESHI         0x30
+#define FLAG_HIDE_TARC3_FOREDECK_KITARO          0x31
+#define FLAG_HIDE_TARC3_FOREDECK_JOJI            0x32
+#define FLAG_HIDE_TARC3_FOREDECK_GOZO            0x33
 #define FLAG_UNUSED_0x034    0x34 // Unused Flag
-#define FLAG_UNUSED_0x035    0x35 // Unused Flag
-#define FLAG_UNUSED_0x036    0x36 // Unused Flag
-#define FLAG_UNUSED_0x037    0x37 // Unused Flag
-#define FLAG_UNUSED_0x038    0x38 // Unused Flag
-#define FLAG_UNUSED_0x039    0x39 // Unused Flag
-#define FLAG_UNUSED_0x03A    0x3A // Unused Flag
-#define FLAG_UNUSED_0x03B    0x3B // Unused Flag
-#define FLAG_UNUSED_0x03C    0x3C // Unused Flag
-#define FLAG_UNUSED_0x03D    0x3D // Unused Flag
-#define FLAG_UNUSED_0x03E    0x3E // Unused Flag
-#define FLAG_UNUSED_0x03F    0x3F // Unused Flag
-#define FLAG_UNUSED_0x040    0x40 // Unused Flag
-#define FLAG_UNUSED_0x041    0x41 // Unused Flag
-#define FLAG_UNUSED_0x042    0x42 // Unused Flag
-#define FLAG_UNUSED_0x043    0x43 // Unused Flag
-#define FLAG_UNUSED_0x044    0x44 // Unused Flag
-#define FLAG_UNUSED_0x045    0x45 // Unused Flag
-#define FLAG_UNUSED_0x046    0x46 // Unused Flag
-#define FLAG_UNUSED_0x047    0x47 // Unused Flag
-#define FLAG_UNUSED_0x048    0x48 // Unused Flag
-#define FLAG_UNUSED_0x049    0x49 // Unused Flag
-#define FLAG_UNUSED_0x04A    0x4A // Unused Flag
-#define FLAG_UNUSED_0x04B    0x4B // Unused Flag
+#define FLAG_HIDE_TARC3_MAINDECK_MARIKO          0x35
+#define FLAG_HIDE_TARC3_MAINDECK_AKIE            0x36
+#define FLAG_HIDE_TARC3_MAINDECK_SUZUKI          0x37
+#define FLAG_HIDE_TARC3_MAINDECK_JOJI            0x38
+#define FLAG_HIDE_TARC3_DINING_NATSUE            0x39
+#define FLAG_HIDE_TARC3_DINING_TAKESHI           0x3A
+#define FLAG_HIDE_TARC3_DINING_JOJI              0x3B
+#define FLAG_HIDE_TARC3_DINING_MARIKO            0x3C
+#define FLAG_HIDE_TARC3_DINING_KITARO            0x3D
+#define FLAG_HIDE_TARC3_DINING_AKIE              0x3E
+#define FLAG_HIDE_TARC3_DINING_TATSUO            0x3F
+#define FLAG_HIDE_TARC3_DINING_ICHIRO            0x40
+#define FLAG_HIDE_TARC3_DINING_SUZUKI            0x41
+#define FLAG_HIDE_TARC3_DINING_RAN               0x42
+#define FLAG_HIDE_TARC3_HALL_NATSUE              0x43
+#define FLAG_HIDE_TARC3_HALL_TAKESHI             0x44
+#define FLAG_HIDE_TARC3_HALL_JOJI                0x45
+#define FLAG_HIDE_TARC3_HALL_MARIKO              0x46
+#define FLAG_HIDE_TARC3_HALL_KITARO              0x47
+#define FLAG_HIDE_TARC3_HALL_AKIE                0x48
+#define FLAG_HIDE_TARC3_HALL_TATSUO              0x49
+#define FLAG_HIDE_TARC3_HALL_ICHIRO              0x4A
+#define FLAG_TARC3_RAN_CABIN_TALK                0x4B
 #define FLAG_UNUSED_0x04C    0x4C // Unused Flag
-#define FLAG_UNUSED_0x04D    0x4D // Unused Flag
-#define FLAG_UNUSED_0x04E    0x4E // Unused Flag
-#define FLAG_UNUSED_0x04F    0x4F // Unused Flag
+#define FLAG_HIDE_TARC3_BEDROOM_RAN              0x4D
+#define FLAG_HIDE_TARC3_C1_GOZO_BODY             0x4E
+#define FLAG_HIDE_TARC3_C1_SUZUKI                0x4F
 
 // Scripts
 #define FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL  0x50
@@ -1222,15 +1222,15 @@
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_EAST_NUGGET                     0x491
 #define FLAG_ITEM_SAFARI_ZONE_SOUTH_EAST_BIG_PEARL                  0x492
 
-#define FLAG_UNUSED_0x493                                           0x493 // Unused Flag
-#define FLAG_UNUSED_0x494                                           0x494 // Unused Flag
-#define FLAG_UNUSED_0x495                                           0x495 // Unused Flag
-#define FLAG_UNUSED_0x496                                           0x496 // Unused Flag
-#define FLAG_UNUSED_0x497                                           0x497 // Unused Flag
-#define FLAG_UNUSED_0x498                                           0x498 // Unused Flag
-#define FLAG_UNUSED_0x499                                           0x499 // Unused Flag
-#define FLAG_UNUSED_0x49A                                           0x49A // Unused Flag
-#define FLAG_UNUSED_0x49B                                           0x49B // Unused Flag
+#define FLAG_TARC3_DINNER_TALK_RAN                                  0x493
+#define FLAG_TARC3_DINNER_TALK_NATSUE                               0x494
+#define FLAG_TARC3_DINNER_TALK_TAKESHI                              0x495
+#define FLAG_TARC3_DINNER_TALK_JOJI                                 0x496
+#define FLAG_TARC3_DINNER_TALK_MARIKO                               0x497
+#define FLAG_TARC3_DINNER_TALK_KITARO                               0x498
+#define FLAG_TARC3_DINNER_TALK_AKIE                                 0x499
+#define FLAG_TARC3_DINNER_TALK_TATSUO                               0x49A
+#define FLAG_TARC3_DINNER_TALK_ICHIRO                               0x49B
 #define FLAG_UNUSED_0x49C                                           0x49C // Unused Flag
 #define FLAG_UNUSED_0x49D                                           0x49D // Unused Flag
 #define FLAG_UNUSED_0x49E                                           0x49E // Unused Flag

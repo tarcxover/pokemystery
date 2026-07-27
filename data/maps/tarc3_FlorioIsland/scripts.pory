@@ -205,7 +205,7 @@ script tarc3_FlorioIsland_EventScript_DockBlock {
     if (var(VAR_TARC3_FLORIO_INTRO) == 1) {
         msgbox(format("(Ran's still asking around for a way home. I should take a proper look at the island while she does.)"))
         closemessage
-        applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
         waitmovement(0)
         releaseall
         end
@@ -218,7 +218,7 @@ script tarc3_FlorioIsland_EventScript_DockBlock {
 }
 
 script tarc3_FlorioIsland_EventScript_NatsueInvitation {
-    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
     delay(20)
     applymovement(LOCALID_FLORIO_RAN_1, moves(walk_up))
@@ -250,7 +250,7 @@ script tarc3_FlorioIsland_EventScript_NatsueInvitation {
     setflag(FLAG_HIDE_TARC3_FLORIO_NATSUE)
     removeobject(LOCALID_FLORIO_NATSUE)
     delay(30)
-    applymovement(LOCALID_FLORIO_RAN_1, Common_Movement_FaceUp)
+    applymovement(LOCALID_FLORIO_RAN_1, moves(face_up))
     waitmovement(0)
     setspeaker("Ran")
     msgbox(format("Well. That's one problem solved.\pDon't keep her waiting, {PLAYER}. I'll go on ahead and see to our things."))

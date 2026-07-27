@@ -272,8 +272,8 @@
 #define VAR_UNUSED_0x40FA                                0x40FA // Unused Var
 #define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
 #define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
-#define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
-#define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
+#define VAR_TARC3_DINNER_TALKED                          0x40FD // Count of unique guests spoken to at dinner
+#define VAR_TARC3_ACT1                                   0x40FE // 0 = not boarded, 6 = Investigation Phase 1
 #define VAR_TARC3_FLORIO_INTRO                           0x40FF // 0 = opening cutscene not yet played
 
 #define VARS_END                                         0x40FF

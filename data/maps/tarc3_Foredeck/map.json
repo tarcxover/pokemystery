@@ -13,7 +13,134 @@
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": null,
-  "object_events": [],
+  "object_events": [
+    {
+      "local_id": "LOCALID_FOREDECK_NATSUE",
+      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "x": 13,
+      "y": 14,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_NATSUE"
+    },
+    {
+      "local_id": "LOCALID_FOREDECK_COMFEY",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(COMFEY)",
+      "x": 12,
+      "y": 14,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_COMFEY"
+    },
+    {
+      "local_id": "LOCALID_FOREDECK_TAKESHI",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+      "x": 13,
+      "y": 15,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_TAKESHI"
+    },
+    {
+      "local_id": "LOCALID_FOREDECK_RAN",
+      "graphics_id": "OBJ_EVENT_GFX_MAY_NORMAL",
+      "x": 14,
+      "y": 15,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_RAN"
+    },
+    {
+      "local_id": "LOCALID_FOREDECK_KITARO",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_1",
+      "x": 11,
+      "y": 12,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_KITARO"
+    },
+    {
+      "local_id": "LOCALID_FOREDECK_JOJI",
+      "graphics_id": "OBJ_EVENT_GFX_COOK",
+      "x": 10,
+      "y": 13,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_JOJI"
+    },
+    {
+      "local_id": "LOCALID_FOREDECK_ICHIRO",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_4",
+      "x": 12,
+      "y": 10,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Foredeck_EventScript_Ichiro",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_FOREDECK_TATSUO",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+      "x": 10,
+      "y": 15,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Foredeck_EventScript_Tatsuo",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_FOREDECK_GOZO",
+      "graphics_id": "OBJ_EVENT_GFX_OLD_MAN",
+      "x": 17,
+      "y": 13,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_GOZO"
+    }
+  ],
   "warp_events": [
     {
       "x": 17,
@@ -33,5 +160,14 @@
     }
   ],
   "coord_events": [],
-  "bg_events": []
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 13,
+      "y": 9,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Foredeck_EventScript_Sketchbook"
+    }
+  ]
 }
