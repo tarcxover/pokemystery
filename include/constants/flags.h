@@ -51,54 +51,54 @@
 
 #else
 
-#define FLAG_HIDE_TARC3_FLORIO_DACHSBUN     0x20
-#define FLAG_HIDE_TARC3_FLORIO_TANGROWTH    0x21
-#define FLAG_HIDE_TARC3_FLORIO_MAGNEZONE    0x22
-#define FLAG_HIDE_TARC3_FLORIO_CRAMORANT    0x23
-#define FLAG_HIDE_TARC3_FLORIO_TOXICROAK    0x24
-#define FLAG_HIDE_TARC3_FLORIO_PINCURCHIN   0x25
-#define FLAG_HIDE_TARC3_FLORIO_SSHANA       0x26
-#define FLAG_HIDE_TARC3_FLORIO_NATSUE       0x27
-#define FLAG_HIDE_TARC3_FLORIO_RAN          0x28
-#define FLAG_HIDE_TARC3_HOLD_NATSUE         0x29
-#define FLAG_HIDE_TARC3_HOLD_RAN            0x2A
-#define FLAG_HIDE_TARC3_MAINDECK_NATSUE     0x2B
-#define FLAG_HIDE_TARC3_MAINDECK_RAN        0x2C
-#define FLAG_HIDE_TARC3_FOREDECK_RAN             0x2D
-#define FLAG_HIDE_TARC3_FOREDECK_NATSUE          0x2E
-#define FLAG_HIDE_TARC3_FOREDECK_COMFEY          0x2F
-#define FLAG_HIDE_TARC3_FOREDECK_TAKESHI         0x30
-#define FLAG_HIDE_TARC3_FOREDECK_KITARO          0x31
-#define FLAG_HIDE_TARC3_FOREDECK_JOJI            0x32
-#define FLAG_HIDE_TARC3_FOREDECK_GOZO            0x33
+#define FLAG_UNUSED_0x020    0x20 // Unused Flag
+#define FLAG_UNUSED_0x021    0x21 // Unused Flag
+#define FLAG_UNUSED_0x022    0x22 // Unused Flag
+#define FLAG_UNUSED_0x023    0x23 // Unused Flag
+#define FLAG_UNUSED_0x024    0x24 // Unused Flag
+#define FLAG_UNUSED_0x025    0x25 // Unused Flag
+#define FLAG_UNUSED_0x026    0x26 // Unused Flag
+#define FLAG_UNUSED_0x027    0x27 // Unused Flag
+#define FLAG_UNUSED_0x028    0x28 // Unused Flag
+#define FLAG_UNUSED_0x029    0x29 // Unused Flag
+#define FLAG_UNUSED_0x02A    0x2A // Unused Flag
+#define FLAG_UNUSED_0x02B    0x2B // Unused Flag
+#define FLAG_UNUSED_0x02C    0x2C // Unused Flag
+#define FLAG_UNUSED_0x02D    0x2D // Unused Flag
+#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
+#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
+#define FLAG_UNUSED_0x030    0x30 // Unused Flag
+#define FLAG_UNUSED_0x031    0x31 // Unused Flag
+#define FLAG_UNUSED_0x032    0x32 // Unused Flag
+#define FLAG_UNUSED_0x033    0x33 // Unused Flag
 #define FLAG_UNUSED_0x034    0x34 // Unused Flag
-#define FLAG_HIDE_TARC3_MAINDECK_MARIKO          0x35
-#define FLAG_HIDE_TARC3_MAINDECK_AKIE            0x36
-#define FLAG_HIDE_TARC3_MAINDECK_SUZUKI          0x37
-#define FLAG_HIDE_TARC3_MAINDECK_JOJI            0x38
-#define FLAG_HIDE_TARC3_DINING_NATSUE            0x39
-#define FLAG_HIDE_TARC3_DINING_TAKESHI           0x3A
-#define FLAG_HIDE_TARC3_DINING_JOJI              0x3B
-#define FLAG_HIDE_TARC3_DINING_MARIKO            0x3C
-#define FLAG_HIDE_TARC3_DINING_KITARO            0x3D
-#define FLAG_HIDE_TARC3_DINING_AKIE              0x3E
-#define FLAG_HIDE_TARC3_DINING_TATSUO            0x3F
-#define FLAG_HIDE_TARC3_DINING_ICHIRO            0x40
-#define FLAG_HIDE_TARC3_DINING_SUZUKI            0x41
-#define FLAG_HIDE_TARC3_DINING_RAN               0x42
-#define FLAG_HIDE_TARC3_HALL_NATSUE              0x43
-#define FLAG_HIDE_TARC3_HALL_TAKESHI             0x44
-#define FLAG_HIDE_TARC3_HALL_JOJI                0x45
-#define FLAG_HIDE_TARC3_HALL_MARIKO              0x46
-#define FLAG_HIDE_TARC3_HALL_KITARO              0x47
-#define FLAG_HIDE_TARC3_HALL_AKIE                0x48
-#define FLAG_HIDE_TARC3_HALL_TATSUO              0x49
-#define FLAG_HIDE_TARC3_HALL_ICHIRO              0x4A
-#define FLAG_TARC3_RAN_CABIN_TALK                0x4B
+#define FLAG_UNUSED_0x035    0x35 // Unused Flag
+#define FLAG_UNUSED_0x036    0x36 // Unused Flag
+#define FLAG_UNUSED_0x037    0x37 // Unused Flag
+#define FLAG_UNUSED_0x038    0x38 // Unused Flag
+#define FLAG_UNUSED_0x039    0x39 // Unused Flag
+#define FLAG_UNUSED_0x03A    0x3A // Unused Flag
+#define FLAG_UNUSED_0x03B    0x3B // Unused Flag
+#define FLAG_UNUSED_0x03C    0x3C // Unused Flag
+#define FLAG_UNUSED_0x03D    0x3D // Unused Flag
+#define FLAG_UNUSED_0x03E    0x3E // Unused Flag
+#define FLAG_UNUSED_0x03F    0x3F // Unused Flag
+#define FLAG_UNUSED_0x040    0x40 // Unused Flag
+#define FLAG_UNUSED_0x041    0x41 // Unused Flag
+#define FLAG_UNUSED_0x042    0x42 // Unused Flag
+#define FLAG_UNUSED_0x043    0x43 // Unused Flag
+#define FLAG_UNUSED_0x044    0x44 // Unused Flag
+#define FLAG_UNUSED_0x045    0x45 // Unused Flag
+#define FLAG_UNUSED_0x046    0x46 // Unused Flag
+#define FLAG_UNUSED_0x047    0x47 // Unused Flag
+#define FLAG_UNUSED_0x048    0x48 // Unused Flag
+#define FLAG_UNUSED_0x049    0x49 // Unused Flag
+#define FLAG_UNUSED_0x04A    0x4A // Unused Flag
+#define FLAG_UNUSED_0x04B    0x4B // Unused Flag
 #define FLAG_UNUSED_0x04C    0x4C // Unused Flag
-#define FLAG_HIDE_TARC3_BEDROOM_RAN              0x4D
-#define FLAG_HIDE_TARC3_C1_GOZO_BODY             0x4E
-#define FLAG_HIDE_TARC3_C1_SUZUKI                0x4F
+#define FLAG_UNUSED_0x04D    0x4D // Unused Flag
+#define FLAG_UNUSED_0x04E    0x4E // Unused Flag
+#define FLAG_UNUSED_0x04F    0x4F // Unused Flag
 
 // Scripts
 #define FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL  0x50
@@ -1222,15 +1222,15 @@
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_EAST_NUGGET                     0x491
 #define FLAG_ITEM_SAFARI_ZONE_SOUTH_EAST_BIG_PEARL                  0x492
 
-#define FLAG_TARC3_DINNER_TALK_RAN                                  0x493
-#define FLAG_TARC3_DINNER_TALK_NATSUE                               0x494
-#define FLAG_TARC3_DINNER_TALK_TAKESHI                              0x495
-#define FLAG_TARC3_DINNER_TALK_JOJI                                 0x496
-#define FLAG_TARC3_DINNER_TALK_MARIKO                               0x497
-#define FLAG_TARC3_DINNER_TALK_KITARO                               0x498
-#define FLAG_TARC3_DINNER_TALK_AKIE                                 0x499
-#define FLAG_TARC3_DINNER_TALK_TATSUO                               0x49A
-#define FLAG_TARC3_DINNER_TALK_ICHIRO                               0x49B
+#define FLAG_UNUSED_0x493                                           0x493 // Unused Flag
+#define FLAG_UNUSED_0x494                                           0x494 // Unused Flag
+#define FLAG_UNUSED_0x495                                           0x495 // Unused Flag
+#define FLAG_UNUSED_0x496                                           0x496 // Unused Flag
+#define FLAG_UNUSED_0x497                                           0x497 // Unused Flag
+#define FLAG_UNUSED_0x498                                           0x498 // Unused Flag
+#define FLAG_UNUSED_0x499                                           0x499 // Unused Flag
+#define FLAG_UNUSED_0x49A                                           0x49A // Unused Flag
+#define FLAG_UNUSED_0x49B                                           0x49B // Unused Flag
 #define FLAG_UNUSED_0x49C                                           0x49C // Unused Flag
 #define FLAG_UNUSED_0x49D                                           0x49D // Unused Flag
 #define FLAG_UNUSED_0x49E                                           0x49E // Unused Flag
@@ -1337,15 +1337,15 @@
 #define FLAG_UNUSED_0x4FF                                           0x4FF // Unused Flag
 
 // Trainer Flags
-// Trainer flags occupy 0x500 - 0x85F, the last 9 of which are unused
+// Trainer flags occupy 0x500 - 0x865, the last 15 of which are unused
 // See constants/opponents.h. The values there + FLAG_TRAINER_FLAG_START are the flag IDs
 
 #define TRAINER_FLAGS_START                                         0x500
-#define TRAINER_FLAGS_END                                           (TRAINER_FLAGS_START + MAX_TRAINERS_COUNT - 1) // 0x85F
+#define TRAINER_FLAGS_END                                           (TRAINER_FLAGS_START + MAX_TRAINERS_COUNT - 1) // 0x865
 
 // System Flags
 
-#define SYSTEM_FLAGS                                   (TRAINER_FLAGS_END + 1) // 0x860
+#define SYSTEM_FLAGS                                   (TRAINER_FLAGS_END + 1) // 0x866
 
 #define FLAG_SYS_POKEMON_GET                         (SYSTEM_FLAGS + 0x0) // FLAG_0x860
 #define FLAG_SYS_POKEDEX_GET                         (SYSTEM_FLAGS + 0x1)
@@ -1639,7 +1639,312 @@
 #define DAILY_FLAGS_END                             (FLAG_UNUSED_0x95F + (7 - FLAG_UNUSED_0x95F % 8))
 #define NUM_DAILY_FLAGS                             (DAILY_FLAGS_END - DAILY_FLAGS_START + 1)
 
-#define FLAGS_COUNT (DAILY_FLAGS_END + 1)
+// TARC3
+#define TARC3_RESERVED_FLAGS_START                        (DAILY_FLAGS_END + 1)
+#define FLAG_HIDE_TARC3_FLORIO_DACHSBUN             (TARC3_RESERVED_FLAGS_START + 0x0)
+#define FLAG_HIDE_TARC3_FLORIO_TANGROWTH            (TARC3_RESERVED_FLAGS_START + 0x1)
+#define FLAG_HIDE_TARC3_FLORIO_MAGNEZONE            (TARC3_RESERVED_FLAGS_START + 0x2)
+#define FLAG_HIDE_TARC3_FLORIO_CRAMORANT            (TARC3_RESERVED_FLAGS_START + 0x3)
+#define FLAG_HIDE_TARC3_FLORIO_TOXICROAK            (TARC3_RESERVED_FLAGS_START + 0x4)
+#define FLAG_HIDE_TARC3_FLORIO_PINCURCHIN           (TARC3_RESERVED_FLAGS_START + 0x5)
+#define FLAG_HIDE_TARC3_FLORIO_SSHANA               (TARC3_RESERVED_FLAGS_START + 0x6)
+#define FLAG_HIDE_TARC3_FLORIO_NATSUE               (TARC3_RESERVED_FLAGS_START + 0x7)
+#define FLAG_HIDE_TARC3_FLORIO_RAN                  (TARC3_RESERVED_FLAGS_START + 0x8)
+#define FLAG_HIDE_TARC3_HOLD_NATSUE                 (TARC3_RESERVED_FLAGS_START + 0x9)
+#define FLAG_HIDE_TARC3_HOLD_RAN                    (TARC3_RESERVED_FLAGS_START + 0xA)
+#define FLAG_HIDE_TARC3_MAINDECK_NATSUE             (TARC3_RESERVED_FLAGS_START + 0xB)
+#define FLAG_HIDE_TARC3_MAINDECK_RAN                (TARC3_RESERVED_FLAGS_START + 0xC)
+#define FLAG_HIDE_TARC3_FOREDECK_RAN                (TARC3_RESERVED_FLAGS_START + 0xD)
+#define FLAG_HIDE_TARC3_FOREDECK_NATSUE             (TARC3_RESERVED_FLAGS_START + 0xE)
+#define FLAG_HIDE_TARC3_FOREDECK_COMFEY             (TARC3_RESERVED_FLAGS_START + 0xF)
+#define FLAG_HIDE_TARC3_FOREDECK_TAKESHI            (TARC3_RESERVED_FLAGS_START + 0x10)
+#define FLAG_HIDE_TARC3_FOREDECK_KITARO             (TARC3_RESERVED_FLAGS_START + 0x11)
+#define FLAG_HIDE_TARC3_FOREDECK_JOJI               (TARC3_RESERVED_FLAGS_START + 0x12)
+#define FLAG_HIDE_TARC3_FOREDECK_GOZO               (TARC3_RESERVED_FLAGS_START + 0x13)
+#define FLAG_HIDE_TARC3_MAINDECK_MARIKO             (TARC3_RESERVED_FLAGS_START + 0x14)
+#define FLAG_HIDE_TARC3_MAINDECK_AKIE               (TARC3_RESERVED_FLAGS_START + 0x15)
+#define FLAG_HIDE_TARC3_MAINDECK_SUZUKI             (TARC3_RESERVED_FLAGS_START + 0x16)
+#define FLAG_HIDE_TARC3_MAINDECK_JOJI               (TARC3_RESERVED_FLAGS_START + 0x17)
+#define FLAG_HIDE_TARC3_DINING_NATSUE               (TARC3_RESERVED_FLAGS_START + 0x18)
+#define FLAG_HIDE_TARC3_DINING_TAKESHI              (TARC3_RESERVED_FLAGS_START + 0x19)
+#define FLAG_HIDE_TARC3_DINING_JOJI                 (TARC3_RESERVED_FLAGS_START + 0x1A)
+#define FLAG_HIDE_TARC3_DINING_MARIKO               (TARC3_RESERVED_FLAGS_START + 0x1B)
+#define FLAG_HIDE_TARC3_DINING_KITARO               (TARC3_RESERVED_FLAGS_START + 0x1C)
+#define FLAG_HIDE_TARC3_DINING_AKIE                 (TARC3_RESERVED_FLAGS_START + 0x1D)
+#define FLAG_HIDE_TARC3_DINING_TATSUO               (TARC3_RESERVED_FLAGS_START + 0x1E)
+#define FLAG_HIDE_TARC3_DINING_ICHIRO               (TARC3_RESERVED_FLAGS_START + 0x1F)
+#define FLAG_HIDE_TARC3_DINING_SUZUKI               (TARC3_RESERVED_FLAGS_START + 0x20)
+#define FLAG_HIDE_TARC3_DINING_RAN                  (TARC3_RESERVED_FLAGS_START + 0x21)
+#define FLAG_HIDE_TARC3_HALL_NATSUE                 (TARC3_RESERVED_FLAGS_START + 0x22)
+#define FLAG_HIDE_TARC3_HALL_TAKESHI                (TARC3_RESERVED_FLAGS_START + 0x23)
+#define FLAG_HIDE_TARC3_HALL_JOJI                   (TARC3_RESERVED_FLAGS_START + 0x24)
+#define FLAG_HIDE_TARC3_HALL_MARIKO                 (TARC3_RESERVED_FLAGS_START + 0x25)
+#define FLAG_HIDE_TARC3_HALL_KITARO                 (TARC3_RESERVED_FLAGS_START + 0x26)
+#define FLAG_HIDE_TARC3_HALL_AKIE                   (TARC3_RESERVED_FLAGS_START + 0x27)
+#define FLAG_HIDE_TARC3_HALL_TATSUO                 (TARC3_RESERVED_FLAGS_START + 0x28)
+#define FLAG_HIDE_TARC3_HALL_ICHIRO                 (TARC3_RESERVED_FLAGS_START + 0x29)
+#define FLAG_TARC3_RAN_CABIN_TALK                   (TARC3_RESERVED_FLAGS_START + 0x2A)
+#define FLAG_HIDE_TARC3_BEDROOM_RAN                 (TARC3_RESERVED_FLAGS_START + 0x2B)
+#define FLAG_HIDE_TARC3_C1_GOZO_BODY                (TARC3_RESERVED_FLAGS_START + 0x2C)
+#define FLAG_HIDE_TARC3_C1_SUZUKI                   (TARC3_RESERVED_FLAGS_START + 0x2D)
+#define FLAG_TARC3_DINNER_TALK_RAN                  (TARC3_RESERVED_FLAGS_START + 0x2E)
+#define FLAG_TARC3_DINNER_TALK_NATSUE               (TARC3_RESERVED_FLAGS_START + 0x2F)
+#define FLAG_TARC3_DINNER_TALK_TAKESHI              (TARC3_RESERVED_FLAGS_START + 0x30)
+#define FLAG_TARC3_DINNER_TALK_JOJI                 (TARC3_RESERVED_FLAGS_START + 0x31)
+#define FLAG_TARC3_DINNER_TALK_MARIKO               (TARC3_RESERVED_FLAGS_START + 0x32)
+#define FLAG_TARC3_DINNER_TALK_KITARO               (TARC3_RESERVED_FLAGS_START + 0x33)
+#define FLAG_TARC3_DINNER_TALK_AKIE                 (TARC3_RESERVED_FLAGS_START + 0x34)
+#define FLAG_TARC3_DINNER_TALK_TATSUO               (TARC3_RESERVED_FLAGS_START + 0x35)
+#define FLAG_TARC3_DINNER_TALK_ICHIRO               (TARC3_RESERVED_FLAGS_START + 0x36)
+#define FLAG_UNUSED_0x997                           (TARC3_RESERVED_FLAGS_START + 0x37) // Unused Flag
+#define FLAG_UNUSED_0x998                           (TARC3_RESERVED_FLAGS_START + 0x38) // Unused Flag
+#define FLAG_UNUSED_0x999                           (TARC3_RESERVED_FLAGS_START + 0x39) // Unused Flag
+#define FLAG_UNUSED_0x99A                           (TARC3_RESERVED_FLAGS_START + 0x3A) // Unused Flag
+#define FLAG_UNUSED_0x99B                           (TARC3_RESERVED_FLAGS_START + 0x3B) // Unused Flag
+#define FLAG_UNUSED_0x99C                           (TARC3_RESERVED_FLAGS_START + 0x3C) // Unused Flag
+#define FLAG_UNUSED_0x99D                           (TARC3_RESERVED_FLAGS_START + 0x3D) // Unused Flag
+#define FLAG_UNUSED_0x99E                           (TARC3_RESERVED_FLAGS_START + 0x3E) // Unused Flag
+#define FLAG_UNUSED_0x99F                           (TARC3_RESERVED_FLAGS_START + 0x3F) // Unused Flag
+#define FLAG_UNUSED_0x9A0                           (TARC3_RESERVED_FLAGS_START + 0x40) // Unused Flag
+#define FLAG_UNUSED_0x9A1                           (TARC3_RESERVED_FLAGS_START + 0x41) // Unused Flag
+#define FLAG_UNUSED_0x9A2                           (TARC3_RESERVED_FLAGS_START + 0x42) // Unused Flag
+#define FLAG_UNUSED_0x9A3                           (TARC3_RESERVED_FLAGS_START + 0x43) // Unused Flag
+#define FLAG_UNUSED_0x9A4                           (TARC3_RESERVED_FLAGS_START + 0x44) // Unused Flag
+#define FLAG_UNUSED_0x9A5                           (TARC3_RESERVED_FLAGS_START + 0x45) // Unused Flag
+#define FLAG_UNUSED_0x9A6                           (TARC3_RESERVED_FLAGS_START + 0x46) // Unused Flag
+#define FLAG_UNUSED_0x9A7                           (TARC3_RESERVED_FLAGS_START + 0x47) // Unused Flag
+#define FLAG_UNUSED_0x9A8                           (TARC3_RESERVED_FLAGS_START + 0x48) // Unused Flag
+#define FLAG_UNUSED_0x9A9                           (TARC3_RESERVED_FLAGS_START + 0x49) // Unused Flag
+#define FLAG_UNUSED_0x9AA                           (TARC3_RESERVED_FLAGS_START + 0x4A) // Unused Flag
+#define FLAG_UNUSED_0x9AB                           (TARC3_RESERVED_FLAGS_START + 0x4B) // Unused Flag
+#define FLAG_UNUSED_0x9AC                           (TARC3_RESERVED_FLAGS_START + 0x4C) // Unused Flag
+#define FLAG_UNUSED_0x9AD                           (TARC3_RESERVED_FLAGS_START + 0x4D) // Unused Flag
+#define FLAG_UNUSED_0x9AE                           (TARC3_RESERVED_FLAGS_START + 0x4E) // Unused Flag
+#define FLAG_UNUSED_0x9AF                           (TARC3_RESERVED_FLAGS_START + 0x4F) // Unused Flag
+#define FLAG_UNUSED_0x9B0                           (TARC3_RESERVED_FLAGS_START + 0x50) // Unused Flag
+#define FLAG_UNUSED_0x9B1                           (TARC3_RESERVED_FLAGS_START + 0x51) // Unused Flag
+#define FLAG_UNUSED_0x9B2                           (TARC3_RESERVED_FLAGS_START + 0x52) // Unused Flag
+#define FLAG_UNUSED_0x9B3                           (TARC3_RESERVED_FLAGS_START + 0x53) // Unused Flag
+#define FLAG_UNUSED_0x9B4                           (TARC3_RESERVED_FLAGS_START + 0x54) // Unused Flag
+#define FLAG_UNUSED_0x9B5                           (TARC3_RESERVED_FLAGS_START + 0x55) // Unused Flag
+#define FLAG_UNUSED_0x9B6                           (TARC3_RESERVED_FLAGS_START + 0x56) // Unused Flag
+#define FLAG_UNUSED_0x9B7                           (TARC3_RESERVED_FLAGS_START + 0x57) // Unused Flag
+#define FLAG_UNUSED_0x9B8                           (TARC3_RESERVED_FLAGS_START + 0x58) // Unused Flag
+#define FLAG_UNUSED_0x9B9                           (TARC3_RESERVED_FLAGS_START + 0x59) // Unused Flag
+#define FLAG_UNUSED_0x9BA                           (TARC3_RESERVED_FLAGS_START + 0x5A) // Unused Flag
+#define FLAG_UNUSED_0x9BB                           (TARC3_RESERVED_FLAGS_START + 0x5B) // Unused Flag
+#define FLAG_UNUSED_0x9BC                           (TARC3_RESERVED_FLAGS_START + 0x5C) // Unused Flag
+#define FLAG_UNUSED_0x9BD                           (TARC3_RESERVED_FLAGS_START + 0x5D) // Unused Flag
+#define FLAG_UNUSED_0x9BE                           (TARC3_RESERVED_FLAGS_START + 0x5E) // Unused Flag
+#define FLAG_UNUSED_0x9BF                           (TARC3_RESERVED_FLAGS_START + 0x5F) // Unused Flag
+#define FLAG_UNUSED_0x9C0                           (TARC3_RESERVED_FLAGS_START + 0x60) // Unused Flag
+#define FLAG_UNUSED_0x9C1                           (TARC3_RESERVED_FLAGS_START + 0x61) // Unused Flag
+#define FLAG_UNUSED_0x9C2                           (TARC3_RESERVED_FLAGS_START + 0x62) // Unused Flag
+#define FLAG_UNUSED_0x9C3                           (TARC3_RESERVED_FLAGS_START + 0x63) // Unused Flag
+#define FLAG_UNUSED_0x9C4                           (TARC3_RESERVED_FLAGS_START + 0x64) // Unused Flag
+#define FLAG_UNUSED_0x9C5                           (TARC3_RESERVED_FLAGS_START + 0x65) // Unused Flag
+#define FLAG_UNUSED_0x9C6                           (TARC3_RESERVED_FLAGS_START + 0x66) // Unused Flag
+#define FLAG_UNUSED_0x9C7                           (TARC3_RESERVED_FLAGS_START + 0x67) // Unused Flag
+#define FLAG_UNUSED_0x9C8                           (TARC3_RESERVED_FLAGS_START + 0x68) // Unused Flag
+#define FLAG_UNUSED_0x9C9                           (TARC3_RESERVED_FLAGS_START + 0x69) // Unused Flag
+#define FLAG_UNUSED_0x9CA                           (TARC3_RESERVED_FLAGS_START + 0x6A) // Unused Flag
+#define FLAG_UNUSED_0x9CB                           (TARC3_RESERVED_FLAGS_START + 0x6B) // Unused Flag
+#define FLAG_UNUSED_0x9CC                           (TARC3_RESERVED_FLAGS_START + 0x6C) // Unused Flag
+#define FLAG_UNUSED_0x9CD                           (TARC3_RESERVED_FLAGS_START + 0x6D) // Unused Flag
+#define FLAG_UNUSED_0x9CE                           (TARC3_RESERVED_FLAGS_START + 0x6E) // Unused Flag
+#define FLAG_UNUSED_0x9CF                           (TARC3_RESERVED_FLAGS_START + 0x6F) // Unused Flag
+#define FLAG_UNUSED_0x9D0                           (TARC3_RESERVED_FLAGS_START + 0x70) // Unused Flag
+#define FLAG_UNUSED_0x9D1                           (TARC3_RESERVED_FLAGS_START + 0x71) // Unused Flag
+#define FLAG_UNUSED_0x9D2                           (TARC3_RESERVED_FLAGS_START + 0x72) // Unused Flag
+#define FLAG_UNUSED_0x9D3                           (TARC3_RESERVED_FLAGS_START + 0x73) // Unused Flag
+#define FLAG_UNUSED_0x9D4                           (TARC3_RESERVED_FLAGS_START + 0x74) // Unused Flag
+#define FLAG_UNUSED_0x9D5                           (TARC3_RESERVED_FLAGS_START + 0x75) // Unused Flag
+#define FLAG_UNUSED_0x9D6                           (TARC3_RESERVED_FLAGS_START + 0x76) // Unused Flag
+#define FLAG_UNUSED_0x9D7                           (TARC3_RESERVED_FLAGS_START + 0x77) // Unused Flag
+#define FLAG_UNUSED_0x9D8                           (TARC3_RESERVED_FLAGS_START + 0x78) // Unused Flag
+#define FLAG_UNUSED_0x9D9                           (TARC3_RESERVED_FLAGS_START + 0x79) // Unused Flag
+#define FLAG_UNUSED_0x9DA                           (TARC3_RESERVED_FLAGS_START + 0x7A) // Unused Flag
+#define FLAG_UNUSED_0x9DB                           (TARC3_RESERVED_FLAGS_START + 0x7B) // Unused Flag
+#define FLAG_UNUSED_0x9DC                           (TARC3_RESERVED_FLAGS_START + 0x7C) // Unused Flag
+#define FLAG_UNUSED_0x9DD                           (TARC3_RESERVED_FLAGS_START + 0x7D) // Unused Flag
+#define FLAG_UNUSED_0x9DE                           (TARC3_RESERVED_FLAGS_START + 0x7E) // Unused Flag
+#define FLAG_UNUSED_0x9DF                           (TARC3_RESERVED_FLAGS_START + 0x7F) // Unused Flag
+#define FLAG_UNUSED_0x9E0                           (TARC3_RESERVED_FLAGS_START + 0x80) // Unused Flag
+#define FLAG_UNUSED_0x9E1                           (TARC3_RESERVED_FLAGS_START + 0x81) // Unused Flag
+#define FLAG_UNUSED_0x9E2                           (TARC3_RESERVED_FLAGS_START + 0x82) // Unused Flag
+#define FLAG_UNUSED_0x9E3                           (TARC3_RESERVED_FLAGS_START + 0x83) // Unused Flag
+#define FLAG_UNUSED_0x9E4                           (TARC3_RESERVED_FLAGS_START + 0x84) // Unused Flag
+#define FLAG_UNUSED_0x9E5                           (TARC3_RESERVED_FLAGS_START + 0x85) // Unused Flag
+#define FLAG_UNUSED_0x9E6                           (TARC3_RESERVED_FLAGS_START + 0x86) // Unused Flag
+#define FLAG_UNUSED_0x9E7                           (TARC3_RESERVED_FLAGS_START + 0x87) // Unused Flag
+#define FLAG_UNUSED_0x9E8                           (TARC3_RESERVED_FLAGS_START + 0x88) // Unused Flag
+#define FLAG_UNUSED_0x9E9                           (TARC3_RESERVED_FLAGS_START + 0x89) // Unused Flag
+#define FLAG_UNUSED_0x9EA                           (TARC3_RESERVED_FLAGS_START + 0x8A) // Unused Flag
+#define FLAG_UNUSED_0x9EB                           (TARC3_RESERVED_FLAGS_START + 0x8B) // Unused Flag
+#define FLAG_UNUSED_0x9EC                           (TARC3_RESERVED_FLAGS_START + 0x8C) // Unused Flag
+#define FLAG_UNUSED_0x9ED                           (TARC3_RESERVED_FLAGS_START + 0x8D) // Unused Flag
+#define FLAG_UNUSED_0x9EE                           (TARC3_RESERVED_FLAGS_START + 0x8E) // Unused Flag
+#define FLAG_UNUSED_0x9EF                           (TARC3_RESERVED_FLAGS_START + 0x8F) // Unused Flag
+#define FLAG_UNUSED_0x9F0                           (TARC3_RESERVED_FLAGS_START + 0x90) // Unused Flag
+#define FLAG_UNUSED_0x9F1                           (TARC3_RESERVED_FLAGS_START + 0x91) // Unused Flag
+#define FLAG_UNUSED_0x9F2                           (TARC3_RESERVED_FLAGS_START + 0x92) // Unused Flag
+#define FLAG_UNUSED_0x9F3                           (TARC3_RESERVED_FLAGS_START + 0x93) // Unused Flag
+#define FLAG_UNUSED_0x9F4                           (TARC3_RESERVED_FLAGS_START + 0x94) // Unused Flag
+#define FLAG_UNUSED_0x9F5                           (TARC3_RESERVED_FLAGS_START + 0x95) // Unused Flag
+#define FLAG_UNUSED_0x9F6                           (TARC3_RESERVED_FLAGS_START + 0x96) // Unused Flag
+#define FLAG_UNUSED_0x9F7                           (TARC3_RESERVED_FLAGS_START + 0x97) // Unused Flag
+#define FLAG_UNUSED_0x9F8                           (TARC3_RESERVED_FLAGS_START + 0x98) // Unused Flag
+#define FLAG_UNUSED_0x9F9                           (TARC3_RESERVED_FLAGS_START + 0x99) // Unused Flag
+#define FLAG_UNUSED_0x9FA                           (TARC3_RESERVED_FLAGS_START + 0x9A) // Unused Flag
+#define FLAG_UNUSED_0x9FB                           (TARC3_RESERVED_FLAGS_START + 0x9B) // Unused Flag
+#define FLAG_UNUSED_0x9FC                           (TARC3_RESERVED_FLAGS_START + 0x9C) // Unused Flag
+#define FLAG_UNUSED_0x9FD                           (TARC3_RESERVED_FLAGS_START + 0x9D) // Unused Flag
+#define FLAG_UNUSED_0x9FE                           (TARC3_RESERVED_FLAGS_START + 0x9E) // Unused Flag
+#define FLAG_UNUSED_0x9FF                           (TARC3_RESERVED_FLAGS_START + 0x9F) // Unused Flag
+#define FLAG_UNUSED_0xA00                           (TARC3_RESERVED_FLAGS_START + 0xA0) // Unused Flag
+#define FLAG_UNUSED_0xA01                           (TARC3_RESERVED_FLAGS_START + 0xA1) // Unused Flag
+#define FLAG_UNUSED_0xA02                           (TARC3_RESERVED_FLAGS_START + 0xA2) // Unused Flag
+#define FLAG_UNUSED_0xA03                           (TARC3_RESERVED_FLAGS_START + 0xA3) // Unused Flag
+#define FLAG_UNUSED_0xA04                           (TARC3_RESERVED_FLAGS_START + 0xA4) // Unused Flag
+#define FLAG_UNUSED_0xA05                           (TARC3_RESERVED_FLAGS_START + 0xA5) // Unused Flag
+#define FLAG_UNUSED_0xA06                           (TARC3_RESERVED_FLAGS_START + 0xA6) // Unused Flag
+#define FLAG_UNUSED_0xA07                           (TARC3_RESERVED_FLAGS_START + 0xA7) // Unused Flag
+#define FLAG_UNUSED_0xA08                           (TARC3_RESERVED_FLAGS_START + 0xA8) // Unused Flag
+#define FLAG_UNUSED_0xA09                           (TARC3_RESERVED_FLAGS_START + 0xA9) // Unused Flag
+#define FLAG_UNUSED_0xA0A                           (TARC3_RESERVED_FLAGS_START + 0xAA) // Unused Flag
+#define FLAG_UNUSED_0xA0B                           (TARC3_RESERVED_FLAGS_START + 0xAB) // Unused Flag
+#define FLAG_UNUSED_0xA0C                           (TARC3_RESERVED_FLAGS_START + 0xAC) // Unused Flag
+#define FLAG_UNUSED_0xA0D                           (TARC3_RESERVED_FLAGS_START + 0xAD) // Unused Flag
+#define FLAG_UNUSED_0xA0E                           (TARC3_RESERVED_FLAGS_START + 0xAE) // Unused Flag
+#define FLAG_UNUSED_0xA0F                           (TARC3_RESERVED_FLAGS_START + 0xAF) // Unused Flag
+#define FLAG_UNUSED_0xA10                           (TARC3_RESERVED_FLAGS_START + 0xB0) // Unused Flag
+#define FLAG_UNUSED_0xA11                           (TARC3_RESERVED_FLAGS_START + 0xB1) // Unused Flag
+#define FLAG_UNUSED_0xA12                           (TARC3_RESERVED_FLAGS_START + 0xB2) // Unused Flag
+#define FLAG_UNUSED_0xA13                           (TARC3_RESERVED_FLAGS_START + 0xB3) // Unused Flag
+#define FLAG_UNUSED_0xA14                           (TARC3_RESERVED_FLAGS_START + 0xB4) // Unused Flag
+#define FLAG_UNUSED_0xA15                           (TARC3_RESERVED_FLAGS_START + 0xB5) // Unused Flag
+#define FLAG_UNUSED_0xA16                           (TARC3_RESERVED_FLAGS_START + 0xB6) // Unused Flag
+#define FLAG_UNUSED_0xA17                           (TARC3_RESERVED_FLAGS_START + 0xB7) // Unused Flag
+#define FLAG_UNUSED_0xA18                           (TARC3_RESERVED_FLAGS_START + 0xB8) // Unused Flag
+#define FLAG_UNUSED_0xA19                           (TARC3_RESERVED_FLAGS_START + 0xB9) // Unused Flag
+#define FLAG_UNUSED_0xA1A                           (TARC3_RESERVED_FLAGS_START + 0xBA) // Unused Flag
+#define FLAG_UNUSED_0xA1B                           (TARC3_RESERVED_FLAGS_START + 0xBB) // Unused Flag
+#define FLAG_UNUSED_0xA1C                           (TARC3_RESERVED_FLAGS_START + 0xBC) // Unused Flag
+#define FLAG_UNUSED_0xA1D                           (TARC3_RESERVED_FLAGS_START + 0xBD) // Unused Flag
+#define FLAG_UNUSED_0xA1E                           (TARC3_RESERVED_FLAGS_START + 0xBE) // Unused Flag
+#define FLAG_UNUSED_0xA1F                           (TARC3_RESERVED_FLAGS_START + 0xBF) // Unused Flag
+#define FLAG_UNUSED_0xA20                           (TARC3_RESERVED_FLAGS_START + 0xC0) // Unused Flag
+#define FLAG_UNUSED_0xA21                           (TARC3_RESERVED_FLAGS_START + 0xC1) // Unused Flag
+#define FLAG_UNUSED_0xA22                           (TARC3_RESERVED_FLAGS_START + 0xC2) // Unused Flag
+#define FLAG_UNUSED_0xA23                           (TARC3_RESERVED_FLAGS_START + 0xC3) // Unused Flag
+#define FLAG_UNUSED_0xA24                           (TARC3_RESERVED_FLAGS_START + 0xC4) // Unused Flag
+#define FLAG_UNUSED_0xA25                           (TARC3_RESERVED_FLAGS_START + 0xC5) // Unused Flag
+#define FLAG_UNUSED_0xA26                           (TARC3_RESERVED_FLAGS_START + 0xC6) // Unused Flag
+#define FLAG_UNUSED_0xA27                           (TARC3_RESERVED_FLAGS_START + 0xC7) // Unused Flag
+#define FLAG_UNUSED_0xA28                           (TARC3_RESERVED_FLAGS_START + 0xC8) // Unused Flag
+#define FLAG_UNUSED_0xA29                           (TARC3_RESERVED_FLAGS_START + 0xC9) // Unused Flag
+#define FLAG_UNUSED_0xA2A                           (TARC3_RESERVED_FLAGS_START + 0xCA) // Unused Flag
+#define FLAG_UNUSED_0xA2B                           (TARC3_RESERVED_FLAGS_START + 0xCB) // Unused Flag
+#define FLAG_UNUSED_0xA2C                           (TARC3_RESERVED_FLAGS_START + 0xCC) // Unused Flag
+#define FLAG_UNUSED_0xA2D                           (TARC3_RESERVED_FLAGS_START + 0xCD) // Unused Flag
+#define FLAG_UNUSED_0xA2E                           (TARC3_RESERVED_FLAGS_START + 0xCE) // Unused Flag
+#define FLAG_UNUSED_0xA2F                           (TARC3_RESERVED_FLAGS_START + 0xCF) // Unused Flag
+#define FLAG_UNUSED_0xA30                           (TARC3_RESERVED_FLAGS_START + 0xD0) // Unused Flag
+#define FLAG_UNUSED_0xA31                           (TARC3_RESERVED_FLAGS_START + 0xD1) // Unused Flag
+#define FLAG_UNUSED_0xA32                           (TARC3_RESERVED_FLAGS_START + 0xD2) // Unused Flag
+#define FLAG_UNUSED_0xA33                           (TARC3_RESERVED_FLAGS_START + 0xD3) // Unused Flag
+#define FLAG_UNUSED_0xA34                           (TARC3_RESERVED_FLAGS_START + 0xD4) // Unused Flag
+#define FLAG_UNUSED_0xA35                           (TARC3_RESERVED_FLAGS_START + 0xD5) // Unused Flag
+#define FLAG_UNUSED_0xA36                           (TARC3_RESERVED_FLAGS_START + 0xD6) // Unused Flag
+#define FLAG_UNUSED_0xA37                           (TARC3_RESERVED_FLAGS_START + 0xD7) // Unused Flag
+#define FLAG_UNUSED_0xA38                           (TARC3_RESERVED_FLAGS_START + 0xD8) // Unused Flag
+#define FLAG_UNUSED_0xA39                           (TARC3_RESERVED_FLAGS_START + 0xD9) // Unused Flag
+#define FLAG_UNUSED_0xA3A                           (TARC3_RESERVED_FLAGS_START + 0xDA) // Unused Flag
+#define FLAG_UNUSED_0xA3B                           (TARC3_RESERVED_FLAGS_START + 0xDB) // Unused Flag
+#define FLAG_UNUSED_0xA3C                           (TARC3_RESERVED_FLAGS_START + 0xDC) // Unused Flag
+#define FLAG_UNUSED_0xA3D                           (TARC3_RESERVED_FLAGS_START + 0xDD) // Unused Flag
+#define FLAG_UNUSED_0xA3E                           (TARC3_RESERVED_FLAGS_START + 0xDE) // Unused Flag
+#define FLAG_UNUSED_0xA3F                           (TARC3_RESERVED_FLAGS_START + 0xDF) // Unused Flag
+#define FLAG_UNUSED_0xA40                           (TARC3_RESERVED_FLAGS_START + 0xE0) // Unused Flag
+#define FLAG_UNUSED_0xA41                           (TARC3_RESERVED_FLAGS_START + 0xE1) // Unused Flag
+#define FLAG_UNUSED_0xA42                           (TARC3_RESERVED_FLAGS_START + 0xE2) // Unused Flag
+#define FLAG_UNUSED_0xA43                           (TARC3_RESERVED_FLAGS_START + 0xE3) // Unused Flag
+#define FLAG_UNUSED_0xA44                           (TARC3_RESERVED_FLAGS_START + 0xE4) // Unused Flag
+#define FLAG_UNUSED_0xA45                           (TARC3_RESERVED_FLAGS_START + 0xE5) // Unused Flag
+#define FLAG_UNUSED_0xA46                           (TARC3_RESERVED_FLAGS_START + 0xE6) // Unused Flag
+#define FLAG_UNUSED_0xA47                           (TARC3_RESERVED_FLAGS_START + 0xE7) // Unused Flag
+#define FLAG_UNUSED_0xA48                           (TARC3_RESERVED_FLAGS_START + 0xE8) // Unused Flag
+#define FLAG_UNUSED_0xA49                           (TARC3_RESERVED_FLAGS_START + 0xE9) // Unused Flag
+#define FLAG_UNUSED_0xA4A                           (TARC3_RESERVED_FLAGS_START + 0xEA) // Unused Flag
+#define FLAG_UNUSED_0xA4B                           (TARC3_RESERVED_FLAGS_START + 0xEB) // Unused Flag
+#define FLAG_UNUSED_0xA4C                           (TARC3_RESERVED_FLAGS_START + 0xEC) // Unused Flag
+#define FLAG_UNUSED_0xA4D                           (TARC3_RESERVED_FLAGS_START + 0xED) // Unused Flag
+#define FLAG_UNUSED_0xA4E                           (TARC3_RESERVED_FLAGS_START + 0xEE) // Unused Flag
+#define FLAG_UNUSED_0xA4F                           (TARC3_RESERVED_FLAGS_START + 0xEF) // Unused Flag
+#define FLAG_UNUSED_0xA50                           (TARC3_RESERVED_FLAGS_START + 0xF0) // Unused Flag
+#define FLAG_UNUSED_0xA51                           (TARC3_RESERVED_FLAGS_START + 0xF1) // Unused Flag
+#define FLAG_UNUSED_0xA52                           (TARC3_RESERVED_FLAGS_START + 0xF2) // Unused Flag
+#define FLAG_UNUSED_0xA53                           (TARC3_RESERVED_FLAGS_START + 0xF3) // Unused Flag
+#define FLAG_UNUSED_0xA54                           (TARC3_RESERVED_FLAGS_START + 0xF4) // Unused Flag
+#define FLAG_UNUSED_0xA55                           (TARC3_RESERVED_FLAGS_START + 0xF5) // Unused Flag
+#define FLAG_UNUSED_0xA56                           (TARC3_RESERVED_FLAGS_START + 0xF6) // Unused Flag
+#define FLAG_UNUSED_0xA57                           (TARC3_RESERVED_FLAGS_START + 0xF7) // Unused Flag
+#define FLAG_UNUSED_0xA58                           (TARC3_RESERVED_FLAGS_START + 0xF8) // Unused Flag
+#define FLAG_UNUSED_0xA59                           (TARC3_RESERVED_FLAGS_START + 0xF9) // Unused Flag
+#define FLAG_UNUSED_0xA5A                           (TARC3_RESERVED_FLAGS_START + 0xFA) // Unused Flag
+#define FLAG_UNUSED_0xA5B                           (TARC3_RESERVED_FLAGS_START + 0xFB) // Unused Flag
+#define FLAG_UNUSED_0xA5C                           (TARC3_RESERVED_FLAGS_START + 0xFC) // Unused Flag
+#define FLAG_UNUSED_0xA5D                           (TARC3_RESERVED_FLAGS_START + 0xFD) // Unused Flag
+#define FLAG_UNUSED_0xA5E                           (TARC3_RESERVED_FLAGS_START + 0xFE) // Unused Flag
+#define FLAG_UNUSED_0xA5F                           (TARC3_RESERVED_FLAGS_START + 0xFF) // Unused Flag
+#define FLAG_UNUSED_0xA60                           (TARC3_RESERVED_FLAGS_START + 0x100) // Unused Flag
+#define FLAG_UNUSED_0xA61                           (TARC3_RESERVED_FLAGS_START + 0x101) // Unused Flag
+#define FLAG_UNUSED_0xA62                           (TARC3_RESERVED_FLAGS_START + 0x102) // Unused Flag
+#define FLAG_UNUSED_0xA63                           (TARC3_RESERVED_FLAGS_START + 0x103) // Unused Flag
+#define FLAG_UNUSED_0xA64                           (TARC3_RESERVED_FLAGS_START + 0x104) // Unused Flag
+#define FLAG_UNUSED_0xA65                           (TARC3_RESERVED_FLAGS_START + 0x105) // Unused Flag
+#define FLAG_UNUSED_0xA66                           (TARC3_RESERVED_FLAGS_START + 0x106) // Unused Flag
+#define FLAG_UNUSED_0xA67                           (TARC3_RESERVED_FLAGS_START + 0x107) // Unused Flag
+#define FLAG_UNUSED_0xA68                           (TARC3_RESERVED_FLAGS_START + 0x108) // Unused Flag
+#define FLAG_UNUSED_0xA69                           (TARC3_RESERVED_FLAGS_START + 0x109) // Unused Flag
+#define FLAG_UNUSED_0xA6A                           (TARC3_RESERVED_FLAGS_START + 0x10A) // Unused Flag
+#define FLAG_UNUSED_0xA6B                           (TARC3_RESERVED_FLAGS_START + 0x10B) // Unused Flag
+#define FLAG_UNUSED_0xA6C                           (TARC3_RESERVED_FLAGS_START + 0x10C) // Unused Flag
+#define FLAG_UNUSED_0xA6D                           (TARC3_RESERVED_FLAGS_START + 0x10D) // Unused Flag
+#define FLAG_UNUSED_0xA6E                           (TARC3_RESERVED_FLAGS_START + 0x10E) // Unused Flag
+#define FLAG_UNUSED_0xA6F                           (TARC3_RESERVED_FLAGS_START + 0x10F) // Unused Flag
+#define FLAG_UNUSED_0xA70                           (TARC3_RESERVED_FLAGS_START + 0x110) // Unused Flag
+#define FLAG_UNUSED_0xA71                           (TARC3_RESERVED_FLAGS_START + 0x111) // Unused Flag
+#define FLAG_UNUSED_0xA72                           (TARC3_RESERVED_FLAGS_START + 0x112) // Unused Flag
+#define FLAG_UNUSED_0xA73                           (TARC3_RESERVED_FLAGS_START + 0x113) // Unused Flag
+#define FLAG_UNUSED_0xA74                           (TARC3_RESERVED_FLAGS_START + 0x114) // Unused Flag
+#define FLAG_UNUSED_0xA75                           (TARC3_RESERVED_FLAGS_START + 0x115) // Unused Flag
+#define FLAG_UNUSED_0xA76                           (TARC3_RESERVED_FLAGS_START + 0x116) // Unused Flag
+#define FLAG_UNUSED_0xA77                           (TARC3_RESERVED_FLAGS_START + 0x117) // Unused Flag
+#define FLAG_UNUSED_0xA78                           (TARC3_RESERVED_FLAGS_START + 0x118) // Unused Flag
+#define FLAG_UNUSED_0xA79                           (TARC3_RESERVED_FLAGS_START + 0x119) // Unused Flag
+#define FLAG_UNUSED_0xA7A                           (TARC3_RESERVED_FLAGS_START + 0x11A) // Unused Flag
+#define FLAG_UNUSED_0xA7B                           (TARC3_RESERVED_FLAGS_START + 0x11B) // Unused Flag
+#define FLAG_UNUSED_0xA7C                           (TARC3_RESERVED_FLAGS_START + 0x11C) // Unused Flag
+#define FLAG_UNUSED_0xA7D                           (TARC3_RESERVED_FLAGS_START + 0x11D) // Unused Flag
+#define FLAG_UNUSED_0xA7E                           (TARC3_RESERVED_FLAGS_START + 0x11E) // Unused Flag
+#define FLAG_UNUSED_0xA7F                           (TARC3_RESERVED_FLAGS_START + 0x11F) // Unused Flag
+#define FLAG_UNUSED_0xA80                           (TARC3_RESERVED_FLAGS_START + 0x120) // Unused Flag
+#define FLAG_UNUSED_0xA81                           (TARC3_RESERVED_FLAGS_START + 0x121) // Unused Flag
+#define FLAG_UNUSED_0xA82                           (TARC3_RESERVED_FLAGS_START + 0x122) // Unused Flag
+#define FLAG_UNUSED_0xA83                           (TARC3_RESERVED_FLAGS_START + 0x123) // Unused Flag
+#define FLAG_UNUSED_0xA84                           (TARC3_RESERVED_FLAGS_START + 0x124) // Unused Flag
+#define FLAG_UNUSED_0xA85                           (TARC3_RESERVED_FLAGS_START + 0x125) // Unused Flag
+#define FLAG_UNUSED_0xA86                           (TARC3_RESERVED_FLAGS_START + 0x126) // Unused Flag
+#define FLAG_UNUSED_0xA87                           (TARC3_RESERVED_FLAGS_START + 0x127) // Unused Flag
+#define FLAG_UNUSED_0xA88                           (TARC3_RESERVED_FLAGS_START + 0x128) // Unused Flag
+#define FLAG_UNUSED_0xA89                           (TARC3_RESERVED_FLAGS_START + 0x129) // Unused Flag
+#define FLAG_UNUSED_0xA8A                           (TARC3_RESERVED_FLAGS_START + 0x12A) // Unused Flag
+#define FLAG_UNUSED_0xA8B                           (TARC3_RESERVED_FLAGS_START + 0x12B) // Unused Flag
+#define TARC3_RESERVED_FLAGS_END                          (TARC3_RESERVED_FLAGS_START + 0x12B)
+#define NUM_TARC3_RESERVED_FLAGS                          (TARC3_RESERVED_FLAGS_END - TARC3_RESERVED_FLAGS_START + 1)
+
+#define FLAGS_COUNT (TARC3_RESERVED_FLAGS_END + 1)
 
 // Special Flags (Stored in EWRAM (sSpecialFlags), not in the SaveBlock)
 #define SPECIAL_FLAGS_START                     0x4000
