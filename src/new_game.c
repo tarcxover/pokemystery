@@ -181,6 +181,7 @@ void NewGameInitData(void)
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
     InitEventData();
+    FlagSet(FLAG_SYS_B_DASH);
     ClearTVShowData();
     ResetGabbyAndTy();
     ClearSecretBases();
