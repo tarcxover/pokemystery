@@ -1,6 +1,7 @@
 #ifndef GUARD_LIST_MENU_H
 #define GUARD_LIST_MENU_H
 
+#include "gba/defines.h"
 #include "window.h"
 
 #define LIST_NOTHING_CHOSEN -1
@@ -81,14 +82,19 @@ struct ListMenuTemplate
     u8 isDynamic:1; //Dynamic list doesn't store all items in memory but load them from ROM when necessary
 };
 
+struct MultiSelect
+{
+    u8 max;
+    u32 selections[];
+};
+
 struct ListMenu
 {
     struct ListMenuTemplate template;
-    u32 scrollOffset:12;
-    u32 selectedRow:8;
-    u32 taskId:8;
-    u32 maxSelections:4;
-    u32* selections;
+    u16 scrollOffset;
+    u8 selectedRow;
+    u8 taskId;
+    struct MultiSelect* multiselect;
 };
 
 struct ListMenuWindowRect
