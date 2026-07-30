@@ -9,9 +9,7 @@
 #define EVD_ITEM(e) CAT(ITEM_, e)
 #define _EVD_TO_ITEM_HELPER(e, ...) APPEND_COMMA([EVD(e)] = EVD_ITEM(e))
 
-const enum Item EvidenceToItem[EVD_COUNT] = {
-    FOREACH_EVIDENCE(_EVD_TO_ITEM_HELPER)
-};
+extern const enum Item EvidenceToItem[EVD_COUNT];
 
 struct EvidenceInfo
 {
@@ -21,44 +19,18 @@ struct EvidenceInfo
     enum Item itemId;
 };
 
+enum { DEDUCTION_COUNT = (0 FOREACH_DEDUCTION(PLUS_ONE)) };
+
 struct DeductionInfo
 {
     enum Evidence premises[2];
     enum Evidence conclusion;
 };
 
-// Generates gEvidence from an X-Macro table
-#define _GEVD_HELPER(id, _name, desc, det, ...) \
-    [EVD(id)] = {                               \
-        .name = _name,                          \
-        .description = desc,                    \
-        .details = det,                         \
-        .itemId = EVD_ITEM(id),                 \
-    },
-const struct EvidenceInfo gEvidence[EVD_COUNT] = {
-    FOREACH_EVIDENCE(_GEVD_HELPER)
-};
-#undef _GEVD_HELPER
+extern const struct EvidenceInfo gEvidence[EVD_COUNT];
+extern const struct DeductionInfo gDeductions[DEDUCTION_COUNT];
 
 
-
-// Generates gDeductions from an X-Macro table
-#define _PREMISES_HELPER(x) APPEND_COMMA(EVD(x))
-#define _PREMISES(...) RECURSIVELY(R_FOR_EACH(_PREMISES_HELPER, __VA_ARGS__))
-#define _GDED_HELPER(c, ...)         \
-    {.premises =                     \
-         {                           \
-             _PREMISES(__VA_ARGS__)  \
-         },                          \
-     .conclusion = EVD(c)},
-
-enum { DEDUCTION_COUNT = (0 FOREACH_DEDUCTION(PLUS_ONE)) };
-
-const struct DeductionInfo gDeductions[DEDUCTION_COUNT] = {
-    FOREACH_DEDUCTION(_GDED_HELPER)
-};
-#undef _PREMISES_HELPER
-#undef _PREMISES
-#undef _GDED_HELPER
+enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2);
 
 #endif /* end of include guard: EVIDENCE_H */
