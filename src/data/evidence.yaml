@@ -1,7 +1,7 @@
 evidence:
   - id: LAPEL_FLOWER
     name: Lapel Flower
-    icon: Gracidea
+    icon: LapelFlower
     recipes: NULL
     description: |
       A decorative lapel
@@ -15,7 +15,7 @@ evidence:
 
   - id: BLOODY_DOORFRAME
     name: Bloody Doorframe
-    icon: AuroraTicket
+    icon: BloodyDoorframe
     recipes: NULL
     description: |
       Blood found on the
@@ -29,11 +29,12 @@ evidence:
 
   - id: LOCKED_DOOR
     name: Locked Door
-    icon: AirBalloon
+    icon: LockedDoor
     recipes: NULL
     description: |
-      The victim's cabin was
-      locked from the inside.
+      The victim's cabin
+      was locked from
+      the inside.
     details: |
       The locked room was not a trick.
       After being stabbed
@@ -43,11 +44,12 @@ evidence:
 
   - id: VICTIM_MURDERED
     name: Victim Murdered
-    icon: Gracidea
+    icon: BloodyKnife
     recipes:
       - [BLOODY_DOORFRAME, LOCKED_DOOR]
     description: |
-      The victim was murdered.
+      The victim was
+      murdered.
     details: |
       The evidence shows the
       death was not suicide.
@@ -57,7 +59,7 @@ evidence:
 
   - id: CHARCOAL_DUST
     name: Charcoal Dust
-    icon: Charcoal
+    icon: CharcoalDust
     recipes: NULL
     description: |
       Fine charcoal dust.
@@ -72,7 +74,7 @@ evidence:
 
   - id: BLOODY_BREADCRUST
     name: Bloody Bread Crust
-    icon: EonTicket
+    icon: BloodyBreadCrust
     recipes: NULL
     description: |
       A bloody piece of
@@ -85,7 +87,7 @@ evidence:
 
   - id: PLANTED_FLOWER
     name: Planted Flower
-    icon: Gracidea
+    icon: PlantedFlower
     recipes:
       - [BLOODY_BREADCRUST, LAPEL_FLOWER]
       - [CHARCOAL_DUST, LAPEL_FLOWER]
@@ -100,3 +102,16 @@ evidence:
       planted by the culprit.
       They were trying to
       frame Takeshi.
+
+  - id: KITCHEN_KNIFE
+    name: Kitchen Knife
+    icon: KitchenKnife
+    recipes: NULL
+    description: |
+      A fancy kitchen knife.
+      This belongs to Joji.
+      How did it get here?
+    details: |
+      A kitchen knife owned by
+      Joji. It was used to attack
+      Ichiro during the blackout.
