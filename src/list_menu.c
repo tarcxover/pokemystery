@@ -797,7 +797,7 @@ static void ListMenuClearEntry(struct ListMenu* list, u32 row)
 void ListMenuRedrawRow(struct ListMenu* list, u32 row)
 {
     ListMenuClearEntry(list, row);
-    ListMenuPrintEntries(list, row, row, 1);
+    ListMenuPrintEntries(list, list->scrollOffset + row, row, 1);
     if (row == list->selectedRow)
         ListMenuDrawCursor(list);
     ListMenuCallSelectionChangedCallback(list, TRUE);
