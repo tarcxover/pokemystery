@@ -5,6 +5,8 @@ mapscripts tarc3_GozoRoom_MapScripts {
     ]
 }
 
+// CS4
+
 script tarc3_GozoRoom_EventScript_TheBody {
     lockall
     delay(30)
@@ -29,16 +31,13 @@ script tarc3_GozoRoom_EventScript_TheBody {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
     waitmovement(0)
     delay(40)
-    msgbox(format("The whole family is packed into the corridor. Nobody will touch the door."))
-    closemessage
-    delay(20)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(walk_in_place_slow_up))
     waitmovement(0)
     setspeaker("Suzuki")
-    msgbox(format("It is locked. And he does not answer."))
+    msgbox(format("It is locked. And he is not answering."))
     msgbox(format("It can only be unlocked from inside the room, or with a door key.\pThere is only the one spare key, and it has been in my pocket all evening."))
     setspeaker("Mariko")
-    msgbox(format("Then... Then use it!"))
+    msgbox(format("Then...\pThen use it!"))
     setspeaker(NULL)
     closemessage
     delay(30)
@@ -46,7 +45,7 @@ script tarc3_GozoRoom_EventScript_TheBody {
     waitmovement(0)
     playse(SE_PIN)
     delay(60)
-    msgbox(format("The lock turns."))
+    msgbox(format("The lock turns.")) // probably a sound effect to use here
     closemessage
     delay(20)
     call(tarc3_GozoRoom_EventScript_RevealRoom)
@@ -67,19 +66,26 @@ script tarc3_GozoRoom_EventScript_TheBody {
     waitmovement(0)
     delay(40)
     msgbox(format("Gozo Hatamoto's body is on the floor."))
-    msgbox(format("One wound, low on the abdomen. There is no weapon anywhere in the room."))
+    msgbox(format("One wound, low on the abdomen. There is no weapon anywhere in the room.")) // this can probably become evidence
     closemessage
     delay(30)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_down))
     setspeaker("Suzuki")
     msgbox(format("Gozo-sama."))
     msgbox(format("...I walked past this door a little over half an hour ago.\pThere was nothing on the floor but that flower."))
+    msgbox(format("There was blood on the frame, though.\pI told myself it was nothing and kept walking."))
     msgbox(format("I should have knocked."))
     setspeaker(NULL)
     closemessage
     delay(30)
-    msgbox(format("(The blood has gone dark at the edges. Forty minutes. Fifty at the outside.)"))
-    msgbox(format("(Which puts it at seven o'clock. Suzuki walked this corridor minutes later and saw nothing but a flower.)"))
+    msgbox(format("(Blood on the frame, but the door was shut and locked.)"))
+    msgbox(format("(That only happens one way. He was cut before the door closed, not after.)"))
+    closemessage
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    delay(30)
+    msgbox(format("(The blood has gone dark at the edges.\pIt happened about forty minutes ago.)"))
+    msgbox(format("(Which puts it at seven o'clock.)\p(Suzuki walked this corridor minutes later and saw nothing suspect.)"))
     closemessage
     delay(20)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
@@ -92,15 +98,34 @@ script tarc3_GozoRoom_EventScript_TheBody {
     waitmovement(0)
     setspeaker("Akie")
     msgbox(format("He did it to himself."))
-    // other characters should look at her and have an exclamation mark
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_GOZOROOM_SUZUKI, moves(emote_exclamation_mark))
+    applymovement(LOCALID_GOZOROOM_NATSUE, moves(emote_exclamation_mark))
+    applymovement(LOCALID_GOZOROOM_TAKESHI, moves(emote_exclamation_mark))
+    applymovement(LOCALID_GOZOROOM_JOJI, moves(emote_exclamation_mark))
+    applymovement(LOCALID_GOZOROOM_KITARO, moves(emote_exclamation_mark))
+    applymovement(LOCALID_GOZOROOM_ICHIRO, moves(emote_exclamation_mark))
+    applymovement(LOCALID_GOZOROOM_TATSUO, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Akie")
     msgbox(format("Don't look at me like that. He would do exactly this.\pLock the door and leave the rest of us staring at each other."))
     setspeaker("Mariko")
     msgbox(format("Akie."))
     setspeaker("Akie")
     msgbox(format("You know I'm right. He hated every one of us."))
-    // the other characters should look up again
     setspeaker(NULL)
     closemessage
+    delay(20)
+    applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_up))
+    applymovement(LOCALID_GOZOROOM_NATSUE, moves(face_up))
+    applymovement(LOCALID_GOZOROOM_TAKESHI, moves(face_up))
+    applymovement(LOCALID_GOZOROOM_KITARO, moves(face_up))
+    applymovement(LOCALID_GOZOROOM_ICHIRO, moves(face_up))
+    applymovement(LOCALID_GOZOROOM_TATSUO, moves(face_up))
+    waitmovement(0)
     delay(20)
     applymovement(LOCALID_GOZOROOM_JOJI, moves(walk_in_place_slow_up))
     waitmovement(0)
@@ -110,7 +135,7 @@ script tarc3_GozoRoom_EventScript_TheBody {
     closemessage
     delay(40)
     setspeaker("Joji")
-    msgbox(format("...Forgive me. But a man cannot do that to himself and then tidy the blade away."))
+    msgbox(format("A man cannot do that to himself and then dispose of the blade.")) // perhaps a deduction?
     setspeaker(NULL)
     closemessage
     delay(30)
@@ -120,20 +145,151 @@ script tarc3_GozoRoom_EventScript_TheBody {
     delay(20)
     applymovement(LOCALID_GOZOROOM_MARIKO, moves(walk_in_place_slow_up))
     setspeaker("Mariko")
-    msgbox(format("Get him away from there. He's a child."))
+    msgbox(format("Get him away from there. He's a child.")) // more than likely replacing conan with an adult character so can remove this
     setspeaker(NULL)
     closemessage
     delay(20)
     applymovement(LOCALID_GOZOROOM_RAN, moves(walk_up,face_right))
     waitmovement(0)
     setspeaker("Ran")
-    msgbox(format("Let him look."))
     msgbox(format("Please. Just... let him look."))
     setspeaker(NULL)
     closemessage
     delay(30)
     setvar(VAR_TARC3_ACT1, 6)
     releaseall
+    end
+}
+
+// CS5
+
+script tarc3_GozoRoom_EventScript_Ran {
+    lock
+    faceplayer
+    if (var(VAR_TARC3_ACT1) > 6) {
+        setspeaker("Ran")
+        msgbox(format("Go on. They're listening now."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("(PLACEHOLDER: Investigation & deduction?)")) 
+    closemessage
+    delay(20)
+    setspeaker("Ran")
+    msgbox(format("...You're certain? All of it?"))
+    setspeaker(NULL)
+    closemessage
+    setvar(VAR_TARC3_ACT1, 7)
+    setspeaker("Ran")
+    msgbox(format("Everyone. Just listen to him for a minute."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    fadescreen(FADE_TO_BLACK)
+    setobjectxy(OBJ_EVENT_ID_PLAYER, 10, 11)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    setobjectxy(LOCALID_GOZOROOM_SUZUKI, 9, 11)
+    applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_down))
+    waitmovement(0)
+    special(DrawWholeMapView)
+    fadescreen(FADE_FROM_BLACK)
+    delay(20)
+    goto(tarc3_GozoRoom_EventScript_MarikosRevelation)
+}
+
+// CS6 - MARIKO'S REVELATION
+
+script tarc3_GozoRoom_EventScript_MarikosRevelation {
+    delay(30)
+    applymovement(LOCALID_GOZOROOM_MARIKO, moves(walk_up, face_left))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("There is something you all need to hear."))
+    msgbox(format("I told you I went down to Father's cabin before dinner and he didn't answer."))
+    msgbox(format("I could hear him through the door though.\p...He was shouting."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_GOZOROOM_MARIKO, moves(face_down))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("At Takeshi."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_GOZOROOM_TAKESHI, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(100)
+    setspeaker("Mariko")
+    msgbox(format("Ten years ago, Father orchestrated a hostile takeover of a company called Zaiki."))
+    msgbox(format("Father was shouting that he knew exactly whose son had married into his family."))
+    setspeaker(NULL)
+    closemessage
+    applymovement(LOCALID_GOZOROOM_SUZUKI, moves(walk_in_place_slow_down))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("Zaiki Research Institute."))
+    msgbox(format("Isao Zaiki built a Pokemon transportation patent out of nothing at all.\pGozo-sama acquired the company.\pZaiki couldn't handle the shame of having his company stolen from him.\pHe... he took his own life."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_GOZOROOM_NATSUE, moves(face_left))
+    waitmovement(0)
+    delay(30)
+    applymovement(LOCALID_GOZOROOM_TAKESHI, moves(walk_in_place_slow_right))
+    waitmovement(0)
+    setspeaker("Takeshi")
+    msgbox(format("Zaiki. My name is Takeshi Zaiki."))
+    msgbox(format("I joined Hatamoto Corporation, under my mother's name."))
+    setspeaker("Natsue")
+    msgbox(format("Takeshi..."))
+    setspeaker("Takeshi")
+    msgbox(format("..."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    applymovement(LOCALID_GOZOROOM_NATSUE, moves(face_down))
+    waitmovement(0)
+    delay(30)
+    applymovement(LOCALID_GOZOROOM_NATSUE, moves(walk_down * 2, walk_right * 5))
+    waitmovement(0)
+    playse(SE_EXIT)
+    setflag(FLAG_HIDE_TARC3_HALL_NATSUE)
+    removeobject(LOCALID_GOZOROOM_NATSUE)
+    delay(30)
+    applymovement(LOCALID_GOZOROOM_TAKESHI, moves(face_right))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_GOZOROOM_MARIKO, moves(face_left))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("The flower outside that door was his.\pHe has just told you why he wanted my father dead."))
+    msgbox(format("He is not walking around this ship for another night."))
+    setspeaker("Tatsuo")
+    msgbox(format("Take him to the storage hold downstairs. It locks from the outside."))
+    delay(60)
+    setspeaker("Kitaro")
+    msgbox(format("Mariko, we cannot simply..."))
+    setspeaker("Mariko")
+    msgbox(format("Take him down. He's a killer."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    fadescreen(FADE_TO_BLACK)
+    setflag(FLAG_HIDE_TARC3_C1_SUZUKI)
+    setflag(FLAG_HIDE_TARC3_HALL_TAKESHI)
+    setflag(FLAG_HIDE_TARC3_HALL_JOJI)
+    setflag(FLAG_HIDE_TARC3_HALL_MARIKO)
+    setflag(FLAG_HIDE_TARC3_HALL_KITARO)
+    setflag(FLAG_HIDE_TARC3_HALL_AKIE)
+    setflag(FLAG_HIDE_TARC3_HALL_TATSUO)
+    setflag(FLAG_HIDE_TARC3_HALL_ICHIRO)
+    clearflag(FLAG_HIDE_TARC3_LOCKUP_CAST)
+    warp(MAP_TARC3_HOLD, 19, 17)
+    waitstate
     end
 }
 

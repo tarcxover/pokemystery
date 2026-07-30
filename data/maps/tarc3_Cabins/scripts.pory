@@ -38,6 +38,7 @@ script tarc3_Cabins_EventScript_BedroomRan {
     setflag(FLAG_HIDE_TARC3_MAINDECK_AKIE)
     setflag(FLAG_HIDE_TARC3_MAINDECK_SUZUKI)
     setflag(FLAG_HIDE_TARC3_MAINDECK_JOJI)
+    setflag(FLAG_HIDE_TARC3_FOREDECK_GUESTS)
     clearflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     clearflag(FLAG_HIDE_TARC3_DINING_JOJI)
     clearflag(FLAG_HIDE_TARC3_DINING_NATSUE)

@@ -1,7 +1,16 @@
 mapscripts tarc3_Hold_MapScripts {
+    MAP_SCRIPT_ON_LOAD: tarc3_Hold_OnLoad
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_TARC3_FLORIO_INTRO, 5: tarc3_Hold_EventScript_Arrival
+        VAR_TARC3_ACT1, 7: tarc3_Hold_EventScript_JailTakeshi
     ]
+}
+
+script tarc3_Hold_OnLoad {
+    if (var(VAR_TARC3_ACT1) >= 8) {
+        setmetatile(17, 20, 0x07A, TRUE)
+    }
+    end
 }
 
 script tarc3_Hold_EventScript_Arrival {
@@ -21,6 +30,159 @@ script tarc3_Hold_EventScript_Arrival {
     setvar(VAR_TARC3_FLORIO_INTRO, 6)
     warp(MAP_TARC3_MAIN_DECK, 28, 11)
     waitstate
+    end
+}
+
+// CS7 - Locking up Takeshi
+
+script tarc3_Hold_EventScript_JailTakeshi {
+    lockall
+    delay(30)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_HOLD_MARIKO_LOCKUP, moves(walk_down * 2, face_right))
+    applymovement(LOCALID_HOLD_TATSUO_LOCKUP, moves(walk_down * 2, face_left))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_HOLD_TAKESHI_LOCKUP, moves(walk_down, face_down))
+    waitmovement(0)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("The garland was on the floor outside that door.\pIt was there before any of us knew he was dead."))
+    setspeaker("Tatsuo")
+    msgbox(format("Natsue pinned it to your lapel this afternoon."))
+    delay(40)
+    msgbox(format("I saw her do it!"))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setspeaker("Tatsuo")
+    msgbox(format("You'd have to be an idiot to drop it right outside his door."))
+    setspeaker("Takeshi")
+    msgbox(format("I didn't drop it there.\pI lost it somewhere... I don't know where."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_HOLD_JOJI_LOCKUP, moves(walk_in_place_slow_right))
+    waitmovement(0)
+    setspeaker("Joji")
+    msgbox(format("This is a storage hold. We are not a police force."))
+    setspeaker("Mariko")
+    msgbox(format("I'm sure we could request one. Father had contacts."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_HOLD_TAKESHI_LOCKUP, moves(face_up))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Takeshi")
+    msgbox(format("Don't.\pI'll go in on my own.\pI'd rather that, than have you all stare at me like this."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_HOLD_TAKESHI_LOCKUP, moves(face_down))
+    waitmovement(0)
+    delay(30)
+    applymovement(LOCALID_HOLD_TAKESHI_LOCKUP, moves(walk_down))
+    waitmovement(0)
+    playse(SE_EXIT)
+    removeobject(LOCALID_HOLD_TAKESHI_LOCKUP)
+    delay(30)
+    applymovement(LOCALID_HOLD_SUZUKI_LOCKUP, moves(walk_down, walk_right * 2, walk_down))
+    waitmovement(0)
+    delay(20)
+    playse(SE_BANG)
+    delay(30)
+    setspeaker("Suzuki")
+    msgbox(format("It bolts from this side only. There is no handle on the inside of that door."))
+    setspeaker(NULL)
+    closemessage
+    applymovement(LOCALID_HOLD_SUZUKI_LOCKUP, moves(walk_up))
+    waitmovement(0)
+    delay(60)
+    setspeaker("Suzuki")
+    msgbox(format("While you are all in one place... There is a matter I am obliged to raise."))
+    msgbox(format("The master wrote a will.\pHe left everything to Natsue-sama.\pAll assets. All authority."))
+    msgbox(format("And the man she chose would lead the Corporation."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_HOLD_MARIKO_LOCKUP, moves(emote_exclamation_mark))
+    applymovement(LOCALID_HOLD_AKIE_LOCKUP, moves(emote_exclamation_mark))
+    applymovement(LOCALID_HOLD_TATSUO_LOCKUP, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(60)
+    applymovement(LOCALID_HOLD_MARIKO_LOCKUP, moves(face_left))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("You can spend whatever you like on your art school now, Ichiro."))
+    applymovement(LOCALID_HOLD_ICHIRO_LOCKUP, moves(face_down))
+    setspeaker("Ichiro")
+    msgbox(format("I... don't really want that."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_HOLD_AKIE_LOCKUP, moves(walk_down, face_left))
+    waitmovement(0)
+    applymovement(LOCALID_HOLD_TATSUO_LOCKUP, moves(face_right))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Tatsuo")
+    msgbox(format("Tch..."))
+    setspeaker("Akie")
+    msgbox(format("Say it. You've been waiting all evening to say it."))
+    setspeaker("Tatsuo")
+    msgbox(format("You think a single one of us would be on this boat if that will didn't exist?"))
+    msgbox(format("I married into this family to inherit something.\pThere.\pI said it."))
+    msgbox(format("Just like Mr. Zaiki's boy did."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    setspeaker("Akie")
+    msgbox(format("You..!\pI can't believe you!\pGet away from me!"))
+    setspeaker("Tatsuo")
+    msgbox(format("Gladly. I'll be on the outer deck."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_HOLD_TATSUO_LOCKUP, moves(walk_up * 4, walk_right))
+    waitmovement(0)
+    playse(SE_EXIT)
+    removeobject(LOCALID_HOLD_TATSUO_LOCKUP)
+    delay(90)
+    fadescreen(FADE_TO_BLACK)
+    removeobject(LOCALID_HOLD_MARIKO_LOCKUP)
+    removeobject(LOCALID_HOLD_KITARO_LOCKUP)
+    removeobject(LOCALID_HOLD_JOJI_LOCKUP)
+    removeobject(LOCALID_HOLD_AKIE_LOCKUP)
+    removeobject(LOCALID_HOLD_ICHIRO_LOCKUP)
+    removeobject(LOCALID_HOLD_SUZUKI_LOCKUP)
+    applymovement(LOCALID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    fadescreen(FADE_FROM_BLACK)
+    delay(30)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    setspeaker("Ran")
+    msgbox(format("I'm going to find Natsue.\pSomebody should be with her, and it isn't going to be any of them."))
+    msgbox(format("We'll be up by the door out to the deck. Come and find us."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_HOLD_RAN_LOCKUP, moves(walk_left, walk_up * 2, walk_right))
+    waitmovement(0)
+    playse(SE_EXIT)
+    removeobject(LOCALID_HOLD_RAN_LOCKUP)
+    setflag(FLAG_HIDE_TARC3_LOCKUP_CAST)
+    delay(30)
+    clearflag(FLAG_HIDE_TARC3_DECKDOOR_CAST)
+    setvar(VAR_TARC3_ACT1, 8)
+    setvar(VAR_TARC3_ACT2, 1)
+    releaseall
     end
 }
 

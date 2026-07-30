@@ -110,7 +110,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "tarc3_Foredeck_EventScript_Ichiro",
-      "flag": "0"
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_GUESTS"
     },
     {
       "local_id": "LOCALID_FOREDECK_TATSUO",
@@ -124,7 +124,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "tarc3_Foredeck_EventScript_Tatsuo",
-      "flag": "0"
+      "flag": "FLAG_HIDE_TARC3_FOREDECK_GUESTS"
     },
     {
       "local_id": "LOCALID_FOREDECK_GOZO",

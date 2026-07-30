@@ -23,7 +23,7 @@ script tarc3_Foredeck_EventScript_Departure {
     setspeaker("Natsue")
     msgbox(format("And this is my husband, Takeshi."))
     setspeaker("Takeshi")
-    msgbox(format("Takeshi. Thank you for keeping her company out here.\pShe's been on her feet since sunrise."))
+    msgbox(format("Thank you for keeping her company out here.\pShe's been on her feet since sunrise."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -138,8 +138,9 @@ script tarc3_Foredeck_EventScript_Departure {
     waitmovement(0)
     delay(30)
     setspeaker("Gozo")
-    msgbox(format("Kitaro. Remind me to pull the art school accounts when we dock."))
-    msgbox(format("It's past time we discussed whether that investment was worth making at all."))
+    msgbox(format("Kitaro. Pull the art school accounts when we dock."))
+    msgbox(format("Three years of tuition and not one commission to show for it."))
+    msgbox(format("A boy can only trade on 'promising' for so long."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -147,7 +148,7 @@ script tarc3_Foredeck_EventScript_Departure {
     applymovement(LOCALID_FOREDECK_TATSUO, moves(face_up))
     waitmovement(0)
     delay(40)
-    msgbox(format("(Hmm. That comment was loud enough for everyone to hear.)"))
+    msgbox(format("(Ichiro didn't say a word.\pHe didn't need to. Everyone heard it.)"))
     closemessage
     delay(20)
     applymovement(LOCALID_FOREDECK_GOZO, moves(face_left))
@@ -194,7 +195,7 @@ script tarc3_Foredeck_EventScript_Departure {
     setvar(VAR_TARC3_ACT1, 2)
     fadescreen(FADE_FROM_BLACK)
     delay(20)
-    msgbox(format("(Ran is right. This family seems to be at each others' throats.)"))
+    msgbox(format("(Ran is right. This family seems to be at each other's throats.)"))
     closemessage
     releaseall
     end
@@ -205,7 +206,8 @@ script tarc3_Foredeck_EventScript_Ichiro {
     faceplayer
     setspeaker("Ichiro")
     msgbox(format("Hm? Oh. You're the one they picked up at Florio."))
-    msgbox(format("The wedding?\p It was... ok. The location was nice."))
+    msgbox(format("The wedding?\pIt was... fine. The location was nice."))
+    msgbox(format("I got some good sketches of the water, at least."))
     msgbox(format("...Natsue seems happy."))
     setspeaker(NULL)
     closemessage
@@ -219,6 +221,12 @@ script tarc3_Foredeck_EventScript_Ichiro {
 
 script tarc3_Foredeck_EventScript_Sketchbook {
     lockall
+    if (var(VAR_TARC3_ACT1) >= 3) {
+        msgbox(format("The rail is bare. Ichiro took the sketchbook in with him before dinner."))
+        closemessage
+        releaseall
+        end
+    }
     msgbox(format("An open sketchbook, weighted flat against the rail."))
     msgbox(format("Charcoal portraits. Page after page of them, and the same face every time."))
     closemessage
