@@ -1,6 +1,7 @@
 #ifndef GUARD_LIST_MENU_H
 #define GUARD_LIST_MENU_H
 
+#include "gba/defines.h"
 #include "window.h"
 
 #define LIST_NOTHING_CHOSEN -1
@@ -81,14 +82,19 @@ struct ListMenuTemplate
     u8 isDynamic:1; //Dynamic list doesn't store all items in memory but load them from ROM when necessary
 };
 
+struct MultiSelect
+{
+    u8 max;
+    u32 selections[];
+};
+
 struct ListMenu
 {
     struct ListMenuTemplate template;
-    u32 scrollOffset:12;
-    u32 selectedRow:8;
-    u32 taskId:8;
-    u32 maxSelections:4;
-    u32* selections;
+    u16 scrollOffset;
+    u8 selectedRow;
+    u8 taskId;
+    struct MultiSelect* multiselect;
 };
 
 struct ListMenuWindowRect
@@ -146,6 +152,7 @@ void RemoveScrollIndicatorArrowPair(u8 taskId);
 void Task_ScrollIndicatorArrowPairOnMainMenu(u8 taskId);
 bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown);
 bool8 ListMenuChangeSelectionFull(struct ListMenu *list, bool32 updateCursor, bool32 callCallback, u8 count, bool8 movingDown);
+void ForceHideScrollArrows(u32 taskId, bool32 hide);
 void ListMenuPrintItemHelper(const struct ListMenu* list, s32 index, u8 y);
 
 #endif //GUARD_LIST_MENU_H

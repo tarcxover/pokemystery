@@ -12,6 +12,7 @@
 #include "script.h"
 #include "script_menu.h"
 #include "string_util.h"
+#include "test/battle.h"
 #include <stdint.h>
 
 #define PREMISE_KEY(a, b)            \
@@ -23,7 +24,43 @@
         (((u32)_a << 16) | (u32)_b); \
     })
 
-static enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2)
+// Generates gEvidence from an X-Macro table
+#define _GEVD_HELPER(id, _name, desc, det, ...) \
+    [EVD(id)] = {                               \
+        .name = _name,                          \
+        .description = desc,                    \
+        .details = det,                         \
+        .itemId = EVD_ITEM(id),                 \
+    },
+const struct EvidenceInfo gEvidence[EVD_COUNT] = {
+    FOREACH_EVIDENCE(_GEVD_HELPER)
+};
+#undef _GEVD_HELPER
+
+
+
+// Generates gDeductions from an X-Macro table
+#define _PREMISES_HELPER(x) APPEND_COMMA(EVD(x))
+#define _PREMISES(...) RECURSIVELY(R_FOR_EACH(_PREMISES_HELPER, __VA_ARGS__))
+#define _GDED_HELPER(c, ...)         \
+    {.premises =                     \
+         {                           \
+             _PREMISES(__VA_ARGS__)  \
+         },                          \
+     .conclusion = EVD(c)},
+
+const struct DeductionInfo gDeductions[DEDUCTION_COUNT] = {
+    FOREACH_DEDUCTION(_GDED_HELPER)
+};
+#undef _PREMISES_HELPER
+#undef _PREMISES
+#undef _GDED_HELPER
+
+const enum Item EvidenceToItem[EVD_COUNT] = {
+    FOREACH_EVIDENCE(_EVD_TO_ITEM_HELPER)
+};
+
+enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2)
 {
     assertf(p1 != p2, "p1 (%d) is equal to p2 (%d)", p1, p2) { return EVD_COUNT; }
     u32 key = PREMISE_KEY(p1, p2);
@@ -37,13 +74,13 @@ static enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2)
     return EVD_COUNT;
 }
 
-void TestEvidence(void)
+void Debug_EvidenceGetAll(void)
 {
-    enum Evidence p1 = EVD_LOCKED_DOOR;
-    enum Evidence p2 = EVD_BLOODY_DOORFRAME;
-    enum Evidence e = GetDeduction(p1, p2);
-    assertf(e != EVD_COUNT){};
-    DebugPrintf("Deduced that %S and %S imply %S", gEvidence[p1].name,gEvidence[p2].name,gEvidence[e].name);
+    for (enum Item itemId = ITEM_EVIDENCE_START; itemId < ITEM_EVIDENCE_START + EVD_COUNT; itemId++)
+    {
+        if (CheckBagHasSpace(itemId, 1))
+            AddBagItem(itemId, 1);
+    }
 }
 
 u32 GetHeldEvidenceCount(void)

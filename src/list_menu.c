@@ -1,6 +1,7 @@
 #include "global.h"
 #include "menu.h"
 #include "list_menu.h"
+#include "sprite.h"
 #include "window.h"
 #include "text_window.h"
 #include "main.h"
@@ -797,7 +798,7 @@ static void ListMenuClearEntry(struct ListMenu* list, u32 row)
 void ListMenuRedrawRow(struct ListMenu* list, u32 row)
 {
     ListMenuClearEntry(list, row);
-    ListMenuPrintEntries(list, row, row, 1);
+    ListMenuPrintEntries(list, list->scrollOffset + row, row, 1);
     if (row == list->selectedRow)
         ListMenuDrawCursor(list);
     ListMenuCallSelectionChangedCallback(list, TRUE);
@@ -1078,19 +1079,25 @@ static void Task_ScrollIndicatorArrowPair(u8 taskId)
 {
     struct ScrollIndicatorPair *data = (void *) gTasks[taskId].data;
     u16 currItem = (*data->scrollOffset);
-
-    if (currItem == data->fullyUpThreshold && currItem != 0xFFFF)
+    bool32 forceHide = data->field_0;
+    if ((currItem == data->fullyUpThreshold && currItem != 0xFFFF) || forceHide)
         gSprites[data->topSpriteId].invisible = TRUE;
     else
         gSprites[data->topSpriteId].invisible = FALSE;
 
-    if (currItem == data->fullyDownThreshold)
+    if (currItem == data->fullyDownThreshold || forceHide)
         gSprites[data->bottomSpriteId].invisible = TRUE;
     else
         gSprites[data->bottomSpriteId].invisible = FALSE;
 }
 
 #define tIsScrolled data[15]
+
+void ForceHideScrollArrows(u32 taskId, bool32 hide)
+{
+    struct ScrollIndicatorPair *data = (void *) gTasks[taskId].data;
+    data->field_0 = hide;
+}
 
 void Task_ScrollIndicatorArrowPairOnMainMenu(u8 taskId)
 {

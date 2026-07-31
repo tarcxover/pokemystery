@@ -34,4 +34,7 @@ u8 FindTaskIdByFunc(TaskFunc func);
 void SetWordTaskArg(u8 taskId, u8 dataElem, u32 value);
 u32 GetWordTaskArg(u8 taskId, u8 dataElem);
 
+#define ClearTaskData(taskId) \
+    CpuFastFill(0, &gTasks[taskId].data, 16 * sizeof(s16))
+
 #endif // GUARD_TASK_H

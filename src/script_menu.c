@@ -4,6 +4,7 @@
 #include "constants/vars.h"
 #include "gba/defines.h"
 #include "gba/isagbprint.h"
+#include "gba/macro.h"
 #include "gba/types.h"
 #include "main.h"
 #include "event_data.h"
@@ -33,6 +34,7 @@
 #include <limits.h>
 #include <math.h>
 #include <stdint.h>
+#include <string.h>
 
 struct DynamicListMenuEventArgs
 {
@@ -387,7 +389,7 @@ static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list,
     u8* colors = baseColors;
 
     bool32 selected =
-        lsearch(&id, list->selections, list->maxSelections) != UINT32_MAX;
+        lsearch(&id, list->multiselect->selections, list->multiselect->max) != UINT32_MAX;
 
     colors = selected ? selectedColors : baseColors;
 
@@ -519,7 +521,6 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
         sDynamicListMenuEventCollections[sDynamicMenuEventId].itemPrintCB;
 
     u32 count = ((multiselect & 0xF000) >> 12);
-    u32* selections = AllocZeroed(count * sizeof(u32*));
 
     taskId = CreateTask(Task_HandleScrollingMultichoiceInput, 80);
     gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
@@ -531,8 +532,11 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
     gTasks[taskId].data[15] = multiselect;
     StoreWordInTwoHalfwords((u16*) &gTasks[taskId].data[3], (u32) items);
     list = (void *) gTasks[gTasks[taskId].data[0]].data;
-    list->selections = selections;
-    list->maxSelections = count;
+
+    list->multiselect = Alloc(sizeof(struct MultiSelect) + count*sizeof(*list->multiselect->selections));
+    list->multiselect->max = count;
+    memset(list->multiselect->selections, 0xFF, count);
+
     ListMenuChangeSelectionFull(list, TRUE, FALSE, initialRow, TRUE);
 
     if (sDynamicMenuEventId != DYN_MULTICHOICE_CB_NONE && sDynamicListMenuEventCollections[sDynamicMenuEventId].OnSelectionChanged)
@@ -633,7 +637,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
     struct ListMenu* list = (void*) gTasks[listTaskId].data;
     s32 input = ListMenu_ProcessInput(listTaskId);
     u16 multiselect = (u16)gTasks[taskId].data[15];
-    s16* count = &gTasks[taskId].data[14];
+    s16* remaining = &gTasks[taskId].data[14];
     u32 max = (multiselect & 0xF000) >> 12;
 
     switch (input)
@@ -649,7 +653,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
         }
         break;
     case MULTISELECT_CONFIRM:
-        if (*count == 0)
+        if (*remaining == 0)
         {
             gSpecialVar_Result = max;
             done = TRUE;
@@ -663,22 +667,22 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
         }
         else
         {
-            u32 found = lsearch(&input, list->selections, max);
+            u32 found = lsearch(&input, list->multiselect->selections, max);
             if (found != UINT32_MAX)
                 {
-                    size_t s = (sizeof(list->selections) * (max - (found + 1)));
-                    u32* listptr = &list->selections[found];
+                    size_t s = (sizeof(u8) * (max - (found + 1)));
+                    __auto_type listptr = &list->multiselect->selections[found];
                     memmove(listptr, listptr + 1, s);
-                    list->selections[max - 1] = 0xFF;
-                    (*count)++;
+                    list->multiselect->selections[max - 1] = 0xFF;
+                    (*remaining)++;
                     goto finish;
                 }
 
-            if (*count == 0)
+            if (*remaining == 0)
                 break;
-            list->selections[max - *count] = input;
+            list->multiselect->selections[max - *remaining] = input;
 
-            (*count)--;
+            (*remaining)--;
 
         finish:
             ListMenuRedrawRow(list, list->selectedRow);
@@ -693,7 +697,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
             u16 max = (multiselect & 0xF000) >> 12;
             for (int i = 0; i < max; i++) {
                 VarSet(MultichoiceDynamic_GetPackedVarId(multiselect, i),
-                       list->selections[i]);
+                       list->multiselect->selections[i]);
             }
         }
 
@@ -714,7 +718,7 @@ static void Task_HandleScrollingMultichoiceInput(u8 taskId)
             RemoveScrollIndicatorArrowPair(gTasks[taskId].data[6]);
         }
 
-        TRY_FREE_AND_SET_NULL(list->selections);
+        TRY_FREE_AND_SET_NULL(list->multiselect);
         LoadWordFromTwoHalfwords((u16*) &gTasks[taskId].data[3], (u32* )(&items));
         FreeListMenuItems(items, gTasks[taskId].data[5]);
         TRY_FREE_AND_SET_NULL(sDynamicMenuEventScratchPad);
