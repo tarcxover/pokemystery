@@ -1696,9 +1696,9 @@
 #define FLAG_TARC3_DINNER_TALK_AKIE                 (TARC3_RESERVED_FLAGS_START + 0x34)
 #define FLAG_TARC3_DINNER_TALK_TATSUO               (TARC3_RESERVED_FLAGS_START + 0x35)
 #define FLAG_TARC3_DINNER_TALK_ICHIRO               (TARC3_RESERVED_FLAGS_START + 0x36)
-#define FLAG_UNUSED_0x997                           (TARC3_RESERVED_FLAGS_START + 0x37) // Unused Flag
-#define FLAG_UNUSED_0x998                           (TARC3_RESERVED_FLAGS_START + 0x38) // Unused Flag
-#define FLAG_UNUSED_0x999                           (TARC3_RESERVED_FLAGS_START + 0x39) // Unused Flag
+#define FLAG_HIDE_TARC3_LOCKUP_CAST                 (TARC3_RESERVED_FLAGS_START + 0x37)
+#define FLAG_HIDE_TARC3_FOREDECK_GUESTS             (TARC3_RESERVED_FLAGS_START + 0x38)
+#define FLAG_HIDE_TARC3_DECKDOOR_CAST               (TARC3_RESERVED_FLAGS_START + 0x39)
 #define FLAG_UNUSED_0x99A                           (TARC3_RESERVED_FLAGS_START + 0x3A) // Unused Flag
 #define FLAG_UNUSED_0x99B                           (TARC3_RESERVED_FLAGS_START + 0x3B) // Unused Flag
 #define FLAG_UNUSED_0x99C                           (TARC3_RESERVED_FLAGS_START + 0x3C) // Unused Flag

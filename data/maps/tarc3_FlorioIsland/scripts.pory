@@ -278,6 +278,7 @@ script tarc3_FlorioIsland_EventScript_ShipDeparts {
     removeobject(LOCALID_FLORIO_SSHANA)
     delay(30)
     showplayer
+    setflag(FLAG_HIDE_TARC3_LOCKUP_CAST)
     setvar(VAR_TARC3_FLORIO_INTRO, 5)
     warp(MAP_TARC3_HOLD, 13, 16)
     waitstate

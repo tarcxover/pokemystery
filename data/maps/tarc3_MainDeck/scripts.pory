@@ -409,6 +409,104 @@ script tarc3_MainDeck_EventScript_DiningIchiro {
     goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
 }
 
+// CS8 - DECK DOOR SCENE
+// The west lobby is entered either across column 11 or off the west hold
+// stairs at (9,6), so every approach tile gets a thin wrapper that walks the
+// player to (8,7) before the scene runs.
+
+script tarc3_MainDeck_EventScript_DeckDoorFrom9 {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_up * 2, face_left))
+    goto(tarc3_MainDeck_EventScript_DeckDoorScene)
+}
+
+script tarc3_MainDeck_EventScript_DeckDoorFrom10 {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_up * 3, face_left))
+    goto(tarc3_MainDeck_EventScript_DeckDoorScene)
+}
+
+script tarc3_MainDeck_EventScript_DeckDoorFrom11 {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_up * 4, face_left))
+    goto(tarc3_MainDeck_EventScript_DeckDoorScene)
+}
+
+script tarc3_MainDeck_EventScript_DeckDoorFrom12 {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_up * 5, face_left))
+    goto(tarc3_MainDeck_EventScript_DeckDoorScene)
+}
+
+script tarc3_MainDeck_EventScript_DeckDoorFromStairsA {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left, face_left))
+    goto(tarc3_MainDeck_EventScript_DeckDoorScene)
+}
+
+script tarc3_MainDeck_EventScript_DeckDoorFromStairsB {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down, face_left))
+    goto(tarc3_MainDeck_EventScript_DeckDoorScene)
+}
+
+script tarc3_MainDeck_EventScript_DeckDoorScene {
+    waitmovement(0)
+    delay(30)
+    applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_right))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Natsue")
+    msgbox(format("I married a man this morning, and now I don't know his name."))
+    msgbox(format("Everyone down that corridor decided he was a killer immediately.\pMy aunt has him in a storage hold."))
+    msgbox(format("...I left.\pI stood there and I left him."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_up))
+    setspeaker("Ran")
+    msgbox(format("Conan and I don't think he did it."))
+    msgbox(format("The garland didn't fall off him.\pIt was lying flat in the corridor, undamaged.\pSomebody was guarenteed to walk past and notice it."))
+    msgbox(format("Somebody put it there. That means somebody wanted him blamed."))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_NATSUE_DECK, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Natsue")
+    msgbox(format("Then whoever did it is still on this ship with us!"))
+    setspeaker("Ran")
+    delay(40)
+    msgbox(format("Yes.\pThey are."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    playse(SE_M_DIVE)
+    delay(50)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_up))
+    applymovement(LOCALID_MAINDECK_NATSUE_DECK, moves(face_up))
+    waitmovement(0)
+    delay(30)
+    playse(SE_BANG)
+    delay(40)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Ran")
+    msgbox(format("Did you hear that!?"))
+    setspeaker("Natsue")
+    msgbox(format("There were two sounds.\pA splash... and a thud."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    setvar(VAR_TARC3_ACT2, 2)
+    msgbox(format("(PLACEHOLDER: CS9 - Tatsuo's body on the deck - continues from here.)"))
+    closemessage
+    releaseall
+    end
+}
+
 script tarc3_MainDeck_EventScript_TheScream {
     lockall
     delay(30)

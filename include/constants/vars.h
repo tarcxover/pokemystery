@@ -278,9 +278,9 @@
 
 // TARC3
 #define VAR_TARC3_DINNER_TALKED                          0x4100 // Count of unique guests spoken to at dinner
-#define VAR_TARC3_ACT1                                   0x4101 // 0 = not boarded, 6 = Investigation Phase 1
+#define VAR_TARC3_ACT1                                   0x4101 // 0 = not boarded, 6 = Investigation Phase 1, 8 = act one complete
 #define VAR_TARC3_FLORIO_INTRO                           0x4102 // 0 = opening cutscene not yet played
-#define VAR_UNUSED_0x4103                                0x4103 // Unused Var
+#define VAR_TARC3_ACT2                                   0x4103 // 0 = act one still running, 1 = heading to the deck
 #define VAR_UNUSED_0x4104                                0x4104 // Unused Var
 #define VAR_UNUSED_0x4105                                0x4105 // Unused Var
 #define VAR_UNUSED_0x4106                                0x4106 // Unused Var
