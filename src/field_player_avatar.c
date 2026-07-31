@@ -158,6 +158,8 @@ static void Task_WaitStopSurfing(u8);
 
 static u8 TrySpinPlayerForWarp(struct ObjectEvent *, s16 *);
 
+static bool32 ShouldPlayerRun(u16 heldKeys);
+
 static bool8 (*const sForcedMovementTestFuncs[NUM_FORCED_MOVEMENTS])(u8) =
 {
     MetatileBehavior_IsTrickHouseSlipperyFloor,
@@ -841,6 +843,16 @@ static void PlayerNotOnBikeTurningInPlace(enum Direction direction, u16 heldKeys
     PlayerTurnInPlace(direction);
 }
 
+static bool32 ShouldPlayerRun(u16 heldKeys)
+{
+    u8 autorun = gSaveBlock2Ptr->optionsAutorun;
+    bool8 isHoldingB = (heldKeys & B_BUTTON);
+
+    return (autorun == AUTORUN_OFF && isHoldingB)
+        || (autorun == AUTORUN_ON && !isHoldingB)
+        || (autorun == AUTORUN_TOGGLE && FlagGet(FLAG_AUTORUN_TOGGLE));
+}
+
 static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
 {
     enum Collision collision = CheckForPlayerAvatarCollision(direction);
@@ -906,7 +918,7 @@ static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
     }
 
     if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER)
-     && !(heldKeys & B_BUTTON)
+     && ShouldPlayerRun(heldKeys)
      && FlagGet(FLAG_SYS_B_DASH)
      && IsRunningDisallowed(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior) == 0
      && !FollowerNPCComingThroughDoor()
