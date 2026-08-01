@@ -1,11 +1,11 @@
 mapscripts tarc3_GozoRoom_MapScripts {
     MAP_SCRIPT_ON_LOAD: tarc3_GozoRoom_OnLoad
     MAP_SCRIPT_ON_FRAME_TABLE [
-        VAR_TARC3_ACT1, 5: tarc3_GozoRoom_EventScript_TheBody
+        VAR_TARC3_ACT1, TARC3_ACT1_THE_BODY: tarc3_GozoRoom_EventScript_TheBody
     ]
 }
 
-// CS4
+// CS3
 
 script tarc3_GozoRoom_EventScript_TheBody {
     lockall
@@ -71,7 +71,7 @@ script tarc3_GozoRoom_EventScript_TheBody {
     delay(30)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_down))
     setspeaker("Suzuki")
-    msgbox(format("Gozo-sama."))
+    msgbox(format("Gozo."))
     msgbox(format("...I walked past this door a little over half an hour ago.\pThere was nothing on the floor but that flower."))
     msgbox(format("There was blood on the frame, though.\pI told myself it was nothing and kept walking."))
     msgbox(format("I should have knocked."))
@@ -156,17 +156,17 @@ script tarc3_GozoRoom_EventScript_TheBody {
     setspeaker(NULL)
     closemessage
     delay(30)
-    setvar(VAR_TARC3_ACT1, 6)
+    setvar(VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1)
     releaseall
     end
 }
 
-// CS5
+// CS4
 
 script tarc3_GozoRoom_EventScript_Ran {
     lock
     faceplayer
-    if (var(VAR_TARC3_ACT1) > 6) {
+    if (var(VAR_TARC3_ACT1) > TARC3_ACT1_INVESTIGATE_1) {
         setspeaker("Ran")
         msgbox(format("Go on. They're listening now."))
         setspeaker(NULL)
@@ -180,7 +180,7 @@ script tarc3_GozoRoom_EventScript_Ran {
     msgbox(format("...You're certain? All of it?"))
     setspeaker(NULL)
     closemessage
-    setvar(VAR_TARC3_ACT1, 7)
+    setvar(VAR_TARC3_ACT1, TARC3_ACT1_JAIL_TAKESHI)
     setspeaker("Ran")
     msgbox(format("Everyone. Just listen to him for a minute."))
     setspeaker(NULL)
@@ -198,7 +198,7 @@ script tarc3_GozoRoom_EventScript_Ran {
     goto(tarc3_GozoRoom_EventScript_MarikosRevelation)
 }
 
-// CS6 - MARIKO'S REVELATION
+// CS5 - MARIKO'S REVELATION
 
 script tarc3_GozoRoom_EventScript_MarikosRevelation {
     delay(30)
@@ -232,7 +232,7 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     waitmovement(0)
     setspeaker("Suzuki")
     msgbox(format("Zaiki Research Institute."))
-    msgbox(format("Isao Zaiki built a Pokemon transportation patent out of nothing at all.\pGozo-sama acquired the company.\pZaiki couldn't handle the shame of having his company stolen from him.\pHe... he took his own life."))
+    msgbox(format("Isao Zaiki built a Pokémon transportation patent out of nothing at all.\pGozo acquired the company.\pZaiki couldn't handle the shame of having his company stolen from him.\pHe... he took his own life."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -294,7 +294,7 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
 }
 
 script tarc3_GozoRoom_OnLoad {
-    if (var(VAR_TARC3_ACT1) == 5) {
+    if (var(VAR_TARC3_ACT1) == TARC3_ACT1_THE_BODY) {
         call(tarc3_GozoRoom_EventScript_HideRoom)
     }
     end

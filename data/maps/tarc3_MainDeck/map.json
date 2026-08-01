@@ -109,7 +109,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_MainDeck_EventScript_DiningSuzuki",
       "flag": "FLAG_HIDE_TARC3_DINING_SUZUKI"
     },
     {
@@ -237,6 +237,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "tarc3_MainDeck_EventScript_DiningRan",
       "flag": "FLAG_HIDE_TARC3_DINING_RAN"
+    },
+    {
+      "local_id": "LOCALID_MAINDECK_RAN_CORRIDOR",
+      "graphics_id": "OBJ_EVENT_GFX_MAY_NORMAL",
+      "x": 10,
+      "y": 12,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_MainDeck_EventScript_CorridorRan",
+      "flag": "FLAG_HIDE_TARC3_CORRIDOR_RAN"
     },
     {
       "local_id": "LOCALID_MAINDECK_NATSUE_DECK",
@@ -394,7 +408,7 @@
       "y": 7,
       "elevation": 0,
       "var": "VAR_TARC3_ACT1",
-      "var_value": "4",
+      "var_value": "TARC3_ACT1_DINNER_TABLE",
       "script": "tarc3_MainDeck_EventScript_DinnerNoExit"
     },
     {
@@ -403,7 +417,7 @@
       "y": 8,
       "elevation": 0,
       "var": "VAR_TARC3_ACT1",
-      "var_value": "4",
+      "var_value": "TARC3_ACT1_DINNER_TABLE",
       "script": "tarc3_MainDeck_EventScript_DinnerNoExit"
     },
     {
@@ -412,7 +426,7 @@
       "y": 9,
       "elevation": 0,
       "var": "VAR_TARC3_ACT1",
-      "var_value": "4",
+      "var_value": "TARC3_ACT1_DINNER_TABLE",
       "script": "tarc3_MainDeck_EventScript_DinnerNoExit"
     },
     {
@@ -421,7 +435,7 @@
       "y": 10,
       "elevation": 0,
       "var": "VAR_TARC3_ACT1",
-      "var_value": "4",
+      "var_value": "TARC3_ACT1_DINNER_TABLE",
       "script": "tarc3_MainDeck_EventScript_DinnerNoExit"
     },
     {
@@ -430,7 +444,7 @@
       "y": 11,
       "elevation": 0,
       "var": "VAR_TARC3_ACT1",
-      "var_value": "4",
+      "var_value": "TARC3_ACT1_DINNER_TABLE",
       "script": "tarc3_MainDeck_EventScript_DinnerNoExit"
     },
     {
@@ -439,7 +453,7 @@
       "y": 12,
       "elevation": 0,
       "var": "VAR_TARC3_ACT1",
-      "var_value": "4",
+      "var_value": "TARC3_ACT1_DINNER_TABLE",
       "script": "tarc3_MainDeck_EventScript_DinnerNoExit"
     },
     {
@@ -448,8 +462,134 @@
       "y": 13,
       "elevation": 0,
       "var": "VAR_TARC3_ACT1",
-      "var_value": "4",
+      "var_value": "TARC3_ACT1_DINNER_TABLE",
       "script": "tarc3_MainDeck_EventScript_DinnerNoExit"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_GATHER",
+      "script": "tarc3_MainDeck_EventScript_GatherNoExit"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 8,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_GATHER",
+      "script": "tarc3_MainDeck_EventScript_GatherNoExit"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 9,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_GATHER",
+      "script": "tarc3_MainDeck_EventScript_GatherNoExit"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 10,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_GATHER",
+      "script": "tarc3_MainDeck_EventScript_GatherNoExit"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_GATHER",
+      "script": "tarc3_MainDeck_EventScript_GatherNoExit"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 12,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_GATHER",
+      "script": "tarc3_MainDeck_EventScript_GatherNoExit"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 13,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_GATHER",
+      "script": "tarc3_MainDeck_EventScript_GatherNoExit"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_LEAVING_DINING",
+      "script": "tarc3_MainDeck_EventScript_SuzukiLeaves"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 8,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_LEAVING_DINING",
+      "script": "tarc3_MainDeck_EventScript_SuzukiLeaves"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 9,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_LEAVING_DINING",
+      "script": "tarc3_MainDeck_EventScript_SuzukiLeaves"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 10,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_LEAVING_DINING",
+      "script": "tarc3_MainDeck_EventScript_SuzukiLeaves"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_LEAVING_DINING",
+      "script": "tarc3_MainDeck_EventScript_SuzukiLeaves"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 12,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_LEAVING_DINING",
+      "script": "tarc3_MainDeck_EventScript_SuzukiLeaves"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 13,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_LEAVING_DINING",
+      "script": "tarc3_MainDeck_EventScript_SuzukiLeaves"
     },
     {
       "type": "trigger",
@@ -457,7 +597,7 @@
       "y": 9,
       "elevation": 0,
       "var": "VAR_TARC3_ACT2",
-      "var_value": "1",
+      "var_value": "TARC3_ACT2_DECK_DOOR",
       "script": "tarc3_MainDeck_EventScript_DeckDoorFrom9"
     },
     {
@@ -466,7 +606,7 @@
       "y": 10,
       "elevation": 0,
       "var": "VAR_TARC3_ACT2",
-      "var_value": "1",
+      "var_value": "TARC3_ACT2_DECK_DOOR",
       "script": "tarc3_MainDeck_EventScript_DeckDoorFrom10"
     },
     {
@@ -475,7 +615,7 @@
       "y": 11,
       "elevation": 0,
       "var": "VAR_TARC3_ACT2",
-      "var_value": "1",
+      "var_value": "TARC3_ACT2_DECK_DOOR",
       "script": "tarc3_MainDeck_EventScript_DeckDoorFrom11"
     },
     {
@@ -484,7 +624,7 @@
       "y": 12,
       "elevation": 0,
       "var": "VAR_TARC3_ACT2",
-      "var_value": "1",
+      "var_value": "TARC3_ACT2_DECK_DOOR",
       "script": "tarc3_MainDeck_EventScript_DeckDoorFrom12"
     },
     {
@@ -493,7 +633,7 @@
       "y": 7,
       "elevation": 0,
       "var": "VAR_TARC3_ACT2",
-      "var_value": "1",
+      "var_value": "TARC3_ACT2_DECK_DOOR",
       "script": "tarc3_MainDeck_EventScript_DeckDoorFromStairsA"
     },
     {
@@ -502,8 +642,17 @@
       "y": 6,
       "elevation": 0,
       "var": "VAR_TARC3_ACT2",
-      "var_value": "1",
+      "var_value": "TARC3_ACT2_DECK_DOOR",
       "script": "tarc3_MainDeck_EventScript_DeckDoorFromStairsB"
+    },
+    {
+      "type": "trigger",
+      "x": 11,
+      "y": 13,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_DECK_DOOR",
+      "script": "tarc3_MainDeck_EventScript_DeckDoorFrom13"
     }
   ],
   "bg_events": []

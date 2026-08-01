@@ -4,7 +4,7 @@ script tarc3_Cabins_EventScript_BedroomRan {
     lock
     faceplayer
     setspeaker("Ran")
-    if (var(VAR_TARC3_ACT1) < 2) {
+    if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
         msgbox(format("Two beds, a window and a wardrobe. It's nicer than anywhere we stayed on Florio."))
         msgbox(format("Go up on deck and say hello properly. They've been kind to us."))
         msgbox(format("I'll follow you up once I've got our things put away."))
@@ -48,7 +48,7 @@ script tarc3_Cabins_EventScript_BedroomRan {
     clearflag(FLAG_HIDE_TARC3_DINING_TATSUO)
     clearflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
     clearflag(FLAG_HIDE_TARC3_DINING_RAN)
-    setvar(VAR_TARC3_ACT1, 3)
+    setvar(VAR_TARC3_ACT1, TARC3_ACT1_DINNER)
     warp(MAP_TARC3_MAIN_DECK, 41, 12)
     waitstate
     end
