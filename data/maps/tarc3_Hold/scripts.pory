@@ -2,12 +2,16 @@ mapscripts tarc3_Hold_MapScripts {
     MAP_SCRIPT_ON_LOAD: tarc3_Hold_OnLoad
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_TARC3_FLORIO_INTRO, 5: tarc3_Hold_EventScript_Arrival
-        VAR_TARC3_ACT1, 7: tarc3_Hold_EventScript_JailTakeshi
+        VAR_TARC3_ACT1, TARC3_ACT1_JAIL_TAKESHI: tarc3_Hold_EventScript_JailTakeshi
+        VAR_TARC3_ACT2, TARC3_ACT2_HOLD_SEARCH: tarc3_Hold_EventScript_TakeshiGone
     ]
 }
 
 script tarc3_Hold_OnLoad {
-    if (var(VAR_TARC3_ACT1) >= 8) {
+    if (var(VAR_TARC3_ACT2) != TARC3_ACT2_HOLD_SEARCH) {
+        setflag(FLAG_HIDE_TARC3_HOLD2_CAST)
+    }
+    if (var(VAR_TARC3_ACT1) >= TARC3_ACT1_COMPLETE) {
         setmetatile(17, 20, 0x07A, TRUE)
     }
     end
@@ -33,7 +37,7 @@ script tarc3_Hold_EventScript_Arrival {
     end
 }
 
-// CS7 - Locking up Takeshi
+// CS6
 
 script tarc3_Hold_EventScript_JailTakeshi {
     lockall
@@ -48,7 +52,7 @@ script tarc3_Hold_EventScript_JailTakeshi {
     applymovement(LOCALID_HOLD_TAKESHI_LOCKUP, moves(walk_down, face_down))
     waitmovement(0)
     special(SpawnCameraObject)
-    applymovement(LOCALID_CAMERA, moves(walk_down * 2))
+    applymovement(LOCALID_CAMERA, moves(walk_down * 2, walk_left))
     waitmovement(0)
     delay(20)
     setspeaker("Mariko")
@@ -161,7 +165,7 @@ script tarc3_Hold_EventScript_JailTakeshi {
     removeobject(LOCALID_HOLD_AKIE_LOCKUP)
     removeobject(LOCALID_HOLD_ICHIRO_LOCKUP)
     removeobject(LOCALID_HOLD_SUZUKI_LOCKUP)
-    applymovement(LOCALID_CAMERA, moves(walk_up * 2))
+    applymovement(LOCALID_CAMERA, moves(walk_up * 2, walk_right))
     waitmovement(0)
     special(RemoveCameraObject)
     fadescreen(FADE_FROM_BLACK)
@@ -180,8 +184,102 @@ script tarc3_Hold_EventScript_JailTakeshi {
     setflag(FLAG_HIDE_TARC3_LOCKUP_CAST)
     delay(30)
     clearflag(FLAG_HIDE_TARC3_DECKDOOR_CAST)
-    setvar(VAR_TARC3_ACT1, 8)
-    setvar(VAR_TARC3_ACT2, 1)
+    setvar(VAR_TARC3_ACT1, TARC3_ACT1_COMPLETE)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_DECK_DOOR)
+    releaseall
+    end
+}
+
+// CS8
+
+script tarc3_Hold_EventScript_TakeshiGone {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    waitmovement(0)
+    delay(40)
+    applymovement(LOCALID_HOLD_KITARO_SEARCH, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("Huh? The storage door is wide open."))
+    closemessage
+    delay(30)
+    applymovement(LOCALID_HOLD_SUZUKI_SEARCH, moves(walk_down))
+    waitmovement(0)
+    delay(40)
+    setspeaker("Suzuki")
+    msgbox(format("Empty.\pHis jacket is on the floor and he is not in here."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_HOLD_SUZUKI_SEARCH, moves(walk_up, face_left))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_HOLD_KITARO_SEARCH, moves(walk_in_place_fast_right))
+    waitmovement(0)
+    setspeaker("Kitaro")
+    msgbox(format("The bolt isn't broken. Look at it."))
+    msgbox(format("It's been drawn back. Slid open, neat as anything."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_HOLD_MARIKO_SEARCH, moves(walk_in_place_fast_down))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("There. That is your answer."))
+    msgbox(format("He let himself out, he went up on that deck, and he killed Tatsuo."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_HOLD_SUZUKI_SEARCH, moves(face_up))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("Mariko-sama.\pThat door has no handle on the inside."))
+    msgbox(format("I bolted it myself. He could not have reached it."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("Or... You didn't close it correctly."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setspeaker("Suzuki")
+    msgbox(format("Mariko-sama. Don't become paranoid. We all saw that I had closed it firmly."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("(Then somebody outside this room opened it for him.)"))
+    closemessage
+    delay(30)
+    fadescreen(FADE_TO_BLACK)
+    removeobject(LOCALID_HOLD_SUZUKI_SEARCH)
+    removeobject(LOCALID_HOLD_NATSUE_SEARCH)
+    removeobject(LOCALID_HOLD_COMFEY_SEARCH)
+    removeobject(LOCALID_HOLD_MARIKO_SEARCH)
+    removeobject(LOCALID_HOLD_KITARO_SEARCH)
+    removeobject(LOCALID_HOLD_AKIE_SEARCH)
+    removeobject(LOCALID_HOLD_JOJI_SEARCH)
+    removeobject(LOCALID_HOLD_ICHIRO_SEARCH)
+    setobjectxy(LOCALID_HOLD_RAN_SEARCH, 17, 19)
+    applymovement(LOCALID_HOLD_RAN_SEARCH, moves(face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    waitmovement(0)
+    fadescreen(FADE_FROM_BLACK)
+    delay(30)
+    setspeaker("Ran")
+    msgbox(format("They're going to argue about this for an hour."))
+    msgbox(format("I'm going back up to the deck.\pCome and find me there, and we'll look at it properly.")) // placeholder line - Ran & Conan probably want to inspect it immediately?
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    fadescreen(FADE_TO_BLACK)
+    setflag(FLAG_HIDE_TARC3_HOLD2_CAST)
+    removeobject(LOCALID_HOLD_RAN_SEARCH)
+    clearflag(FLAG_HIDE_TARC3_DECK2_RAN)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_INVESTIGATE_2A)
+    fadescreen(FADE_FROM_BLACK)
+    delay(20)
     releaseall
     end
 }

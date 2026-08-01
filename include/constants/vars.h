@@ -277,14 +277,14 @@
 #define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
 
 // TARC3
-#define VAR_TARC3_DINNER_TALKED                          0x4100 // Count of unique guests spoken to at dinner
-#define VAR_TARC3_ACT1                                   0x4101 // 0 = not boarded, 6 = Investigation Phase 1, 8 = act one complete
+#define VAR_TARC3_DINNER_TALKED                          0x4100 // count of unique guests spoken to at dinner
+#define VAR_TARC3_ACT1                                   0x4101 // Act one state machine, see TARC3_ACT1_* below
 #define VAR_TARC3_FLORIO_INTRO                           0x4102 // 0 = opening cutscene not yet played
-#define VAR_TARC3_ACT2                                   0x4103 // 0 = act one still running, 1 = heading to the deck
-#define VAR_UNUSED_0x4104                                0x4104 // Unused Var
-#define VAR_UNUSED_0x4105                                0x4105 // Unused Var
-#define VAR_UNUSED_0x4106                                0x4106 // Unused Var
-#define VAR_UNUSED_0x4107                                0x4107 // Unused Var
+#define VAR_TARC3_ACT2                                   0x4103 // Act two state machine, see TARC3_ACT2_* below
+#define VAR_TARC3_GATHER_TALKED                          0x4104 // count of conversations had in the dining room gathering
+#define VAR_TARC3_GATHER_AKIE                            0x4105 // Akie's conversation counter
+#define VAR_TARC3_GATHER_MARIKO                          0x4106 // Mariko's conversation counter
+#define VAR_TARC3_GATHER_JOJI                            0x4107 // Joji's conversation counter
 #define VAR_UNUSED_0x4108                                0x4108 // Unused Var
 #define VAR_UNUSED_0x4109                                0x4109 // Unused Var
 #define VAR_UNUSED_0x410A                                0x410A // Unused Var
@@ -427,6 +427,30 @@
 #define VAR_TEMP_FRONTIER_TUTOR_ID         VAR_TEMP_E
 
 #define VAR_TEMP_TRANSFERRED_SPECIES  VAR_TEMP_1
+
+// state machine definitions
+
+// VAR_TARC3_ACT1
+#define TARC3_ACT1_BOARDED         1  // departure cutscene armed: Foredeck
+#define TARC3_ACT1_DEPARTED        2  // free roam before dinner
+#define TARC3_ACT1_DINNER          3  // dinner cutscene armed: MainDeck
+#define TARC3_ACT1_DINNER_TABLE    4  // dinner conversations; dining room sealed
+#define TARC3_ACT1_THE_BODY        5  // CS3 armed: Gozo's room
+#define TARC3_ACT1_INVESTIGATE_1   6  // free roam; CS4 and CS5 run off Ran
+#define TARC3_ACT1_JAIL_TAKESHI    7  // CS6 armed: Hold
+#define TARC3_ACT1_COMPLETE        8  // act one over, VAR_TARC3_ACT2 takes over
+
+// VAR_TARC3_ACT2
+#define TARC3_ACT2_DECK_DOOR       1  // CS7 armed: MainDeck west lobby
+#define TARC3_ACT2_BODY_ON_DECK    2  // CS8 armed: Foredeck
+#define TARC3_ACT2_HOLD_SEARCH     3  // CS8 continues: Hold
+#define TARC3_ACT2_INVESTIGATE_2A  4  // free roam; Ran waits on the Foredeck
+#define TARC3_ACT2_ROOM_SETTLES    5  // CS9 armed: dining room
+#define TARC3_ACT2_GATHER          6  // free talk; dining room sealed
+#define TARC3_ACT2_BLACKOUT        7  // CS10: Bathroom cut, then MainDeck return
+#define TARC3_ACT2_LEAVING_DINING  8  // Suzuki exit trigger armed
+#define TARC3_ACT2_TO_BATHROOM     9  // Ran waits in the corridor
+#define TARC3_ACT2_ICHIRO_FOUND   10  // Ichiro found in the bathroom
 
 #if TESTING
 #define TESTING_VARS_START                  0x9000

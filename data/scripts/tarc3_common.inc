@@ -42,7 +42,7 @@ tarc3_EventScript_Act1Setup::
 # 22 "data/scripts/tarc3_common.pory"
 	setflag FLAG_HIDE_TARC3_C1_GOZO_BODY
 # 23 "data/scripts/tarc3_common.pory"
-	setvar VAR_TARC3_ACT1, 1
+	setvar VAR_TARC3_ACT1, TARC3_ACT1_BOARDED
 	return
 
 

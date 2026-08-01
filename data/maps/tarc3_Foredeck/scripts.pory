@@ -1,7 +1,25 @@
 mapscripts tarc3_Foredeck_MapScripts {
+    MAP_SCRIPT_ON_LOAD: tarc3_Foredeck_OnLoad
     MAP_SCRIPT_ON_FRAME_TABLE [
-        VAR_TARC3_ACT1, 1: tarc3_Foredeck_EventScript_Departure
+        VAR_TARC3_ACT1, TARC3_ACT1_BOARDED: tarc3_Foredeck_EventScript_Departure
+        VAR_TARC3_ACT2, TARC3_ACT2_BODY_ON_DECK: tarc3_Foredeck_EventScript_TatsuoBody
     ]
+}
+
+script tarc3_Foredeck_OnLoad {
+    setflag(FLAG_HIDE_TARC3_DECK2_CAST)
+    setflag(FLAG_HIDE_TARC3_DECK2_FOLLOWERS)
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_HOLD_SEARCH) {
+        setflag(FLAG_HIDE_TARC3_DECK2_BODY)
+        setflag(FLAG_HIDE_TARC3_DECK2_RAN)
+    } elif (var(VAR_TARC3_ACT2) == TARC3_ACT2_INVESTIGATE_2A) {
+        clearflag(FLAG_HIDE_TARC3_DECK2_BODY)
+        clearflag(FLAG_HIDE_TARC3_DECK2_RAN)
+    } else {
+        clearflag(FLAG_HIDE_TARC3_DECK2_BODY)
+        setflag(FLAG_HIDE_TARC3_DECK2_RAN)
+    }
+    end
 }
 
 script tarc3_Foredeck_EventScript_Departure {
@@ -192,7 +210,7 @@ script tarc3_Foredeck_EventScript_Departure {
     removeobject(LOCALID_FOREDECK_COMFEY)
     removeobject(LOCALID_FOREDECK_KITARO)
     removeobject(LOCALID_FOREDECK_JOJI)
-    setvar(VAR_TARC3_ACT1, 2)
+    setvar(VAR_TARC3_ACT1, TARC3_ACT1_DEPARTED)
     fadescreen(FADE_FROM_BLACK)
     delay(20)
     msgbox(format("(Ran is right. This family seems to be at each other's throats.)"))
@@ -221,7 +239,7 @@ script tarc3_Foredeck_EventScript_Ichiro {
 
 script tarc3_Foredeck_EventScript_Sketchbook {
     lockall
-    if (var(VAR_TARC3_ACT1) >= 3) {
+    if (var(VAR_TARC3_ACT1) >= TARC3_ACT1_DINNER) {
         msgbox(format("The rail is bare. Ichiro took the sketchbook in with him before dinner."))
         closemessage
         releaseall
@@ -250,5 +268,150 @@ script tarc3_Foredeck_EventScript_Tatsuo {
     msgbox(format("I just spend my time out here on the deck.\pAkie locks me out of the cabin when she's angry, and she's always angry."))
     setspeaker(NULL)
     release
+    end
+}
+
+// CS8
+
+script tarc3_Foredeck_EventScript_TatsuoBody {
+    lockall
+    clearflag(FLAG_HIDE_TARC3_DECK2_BODY)
+    addobject(LOCALID_FOREDECK_TATSUO_BODY)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_down * 2, face_left))
+    waitmovement(0)
+    delay(20)
+    playse(SE_EXIT)
+    clearflag(FLAG_HIDE_TARC3_DECK2_RAN)
+    clearflag(FLAG_HIDE_TARC3_DECK2_FOLLOWERS)
+    addobject(LOCALID_FOREDECK_RAN_2)
+    addobject(LOCALID_FOREDECK_NATSUE_2)
+    addobject(LOCALID_FOREDECK_COMFEY_2)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_RAN_2, moves(walk_left, face_left))
+    applymovement(LOCALID_FOREDECK_NATSUE_2, moves(walk_left, face_left))
+    applymovement(LOCALID_FOREDECK_COMFEY_2, moves(walk_left, face_left))
+    waitmovement(0)
+    delay(20)
+    fadeoutbgm(2)
+    delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_NATSUE_2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    playse(SE_PIN)
+    delay(20)
+    setspeaker("Natsue")
+    msgbox(format("Uncle Tatsuo?"))
+    delay(40)
+    msgbox(format("...\pAAAAAH!"))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    fadescreen(FADE_TO_BLACK)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_left * 2))
+    waitmovement(0)
+    clearflag(FLAG_HIDE_TARC3_DECK2_CAST)
+    addobject(LOCALID_FOREDECK_SUZUKI_2)
+    addobject(LOCALID_FOREDECK_MARIKO_2)
+    addobject(LOCALID_FOREDECK_AKIE_2)
+    addobject(LOCALID_FOREDECK_KITARO_2)
+    addobject(LOCALID_FOREDECK_JOJI_2)
+    addobject(LOCALID_FOREDECK_ICHIRO_2)
+    setobjectxy(OBJ_EVENT_ID_PLAYER, 12, 15)
+    setobjectxy(LOCALID_FOREDECK_RAN_2, 12, 14)
+    setobjectxy(LOCALID_FOREDECK_NATSUE_2, 13, 14)
+    setobjectxy(LOCALID_FOREDECK_COMFEY_2, 13, 15)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_FOREDECK_RAN_2, moves(face_left))
+    applymovement(LOCALID_FOREDECK_NATSUE_2, moves(face_left))
+    applymovement(LOCALID_FOREDECK_COMFEY_2, moves(face_left))
+    waitmovement(0)
+    fadescreen(FADE_FROM_BLACK)
+    delay(40)
+    applymovement(LOCALID_FOREDECK_SUZUKI_2, moves(walk_in_place_fast_down))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("A blow to the back of the head."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    setspeaker("Akie")
+    msgbox(format("I told him to get away from me.\pThat was the last thing I said to him."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_FOREDECK_MARIKO_2, moves(walk_in_place_fast_down))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("Takeshi. It was Takeshi."))
+    setspeaker("Ichiro")
+    msgbox(format("He's in the hold. We put him in the hold ourselves."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_FOREDECK_MARIKO_2, moves(face_right))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("Is he?"))
+    delay(40)
+    msgbox(format("Have one of you been down there since? Even once?"))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    setspeaker("Mariko")
+    msgbox(format("You stay here. I'll check the hold myself."))
+    setspeaker("Suzuki")
+    msgbox(format("...No. There is a killer aboard. For each person's safety, we will check together."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    setflag(FLAG_HIDE_TARC3_DECK2_CAST)
+    setflag(FLAG_HIDE_TARC3_DECK2_FOLLOWERS)
+    setflag(FLAG_HIDE_TARC3_DECK2_RAN)
+    clearflag(FLAG_HIDE_TARC3_HOLD2_CAST)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_HOLD_SEARCH)
+    special(RemoveCameraObject)
+    warp(MAP_TARC3_HOLD, 17, 18)
+    waitstate
+    end
+}
+
+// investigation - outside deck
+
+script tarc3_Foredeck_EventScript_Phase2ARan {
+    lock
+    faceplayer
+    setspeaker("Ran")
+    msgbox(format("There you are.\pNow that we have a moment, you should inspect the crime scene."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("(Investigation (wound, railing, deck floor.)"))
+    closemessage
+    delay(20)
+    setspeaker("Ran")
+    msgbox(format("We should all go to the dining room."))
+    msgbox(format("Nobody should be standing out here on their own.\pNot until we know who opened that hold."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Foredeck_EventScript_ToDiningRoom)
+}
+
+script tarc3_Foredeck_EventScript_ToDiningRoom {
+    setflag(FLAG_HIDE_TARC3_DECK2_RAN)
+    clearflag(FLAG_HIDE_TARC3_DINING_RAN)
+    clearflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+    clearflag(FLAG_HIDE_TARC3_DINING_JOJI)
+    clearflag(FLAG_HIDE_TARC3_DINING_MARIKO)
+    clearflag(FLAG_HIDE_TARC3_DINING_KITARO)
+    clearflag(FLAG_HIDE_TARC3_DINING_AKIE)
+    clearflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
+    clearflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_ROOM_SETTLES)
+    warp(MAP_TARC3_MAIN_DECK, 41, 12)
+    waitstate
     end
 }

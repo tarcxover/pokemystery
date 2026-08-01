@@ -1,8 +1,35 @@
 mapscripts tarc3_MainDeck_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION: tarc3_MainDeck_OnTransition
+    MAP_SCRIPT_ON_LOAD: tarc3_MainDeck_OnLoad
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_TARC3_FLORIO_INTRO, 6: tarc3_MainDeck_EventScript_ShowRoom
-        VAR_TARC3_ACT1, 3: tarc3_MainDeck_EventScript_Dinner
+        VAR_TARC3_ACT1, TARC3_ACT1_DINNER: tarc3_MainDeck_EventScript_Dinner
+        VAR_TARC3_ACT2, TARC3_ACT2_ROOM_SETTLES: tarc3_MainDeck_EventScript_RoomSettles
+        VAR_TARC3_ACT2, TARC3_ACT2_BLACKOUT: tarc3_MainDeck_EventScript_BlackoutReturn
     ]
+}
+
+// force blackout during act 2
+
+script tarc3_MainDeck_OnTransition {
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT && var(VAR_TARC3_ACT2) <= TARC3_ACT2_TO_BATHROOM) {
+        setflashlevel(7)
+    }
+    end
+}
+
+script tarc3_MainDeck_OnLoad {
+    if (var(VAR_TARC3_ACT2) == TARC3_ACT2_DECK_DOOR) {
+        clearflag(FLAG_HIDE_TARC3_DECKDOOR_CAST)
+    } else {
+        setflag(FLAG_HIDE_TARC3_DECKDOOR_CAST)
+    }
+    if (var(VAR_TARC3_ACT2) == TARC3_ACT2_TO_BATHROOM) {
+        clearflag(FLAG_HIDE_TARC3_CORRIDOR_RAN)
+    } else {
+        setflag(FLAG_HIDE_TARC3_CORRIDOR_RAN)
+    }
+    end
 }
 
 script tarc3_MainDeck_EventScript_ShowRoom {
@@ -46,7 +73,7 @@ script tarc3_MainDeck_EventScript_Mariko {
     lock
     faceplayer
     setspeaker("Mariko")
-    if (var(VAR_TARC3_ACT1) < 2) {
+    if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
         msgbox(format("Mariko Hatamoto. My husband handles the company. I handle the family."))
         msgbox(format("You'll find we're not much of a wedding party.\pWe travel together perhaps twice a decade, and never happily."))
         msgbox(format("The last time we were all in one room was a funeral.\pMy brother Shoichi and his wife. An accident, a couple years ago."))
@@ -71,7 +98,7 @@ script tarc3_MainDeck_EventScript_Akie {
     lock
     faceplayer
     setspeaker("Akie")
-    if (var(VAR_TARC3_ACT1) < 2) {
+    if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
         msgbox(format("Akie. Natsue's sister, before you ask, and no, we're nothing alike."))
         msgbox(format("If you're looking for my husband, don't. He'll find you."))
         setspeaker(NULL)
@@ -95,7 +122,7 @@ script tarc3_MainDeck_EventScript_Suzuki {
     lock
     faceplayer
     setspeaker("Suzuki")
-    if (var(VAR_TARC3_ACT1) < 2) {
+    if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
         msgbox(format("Good afternoon. Kenji Suzuki. I look after the household."))
         msgbox(format("Dinner is not far away. You are both expected, whatever anyone tells you otherwise."))
         msgbox(format("The galley is through there, the cabins behind you.\pThe stairs will take you to the hold."))
@@ -118,7 +145,7 @@ script tarc3_MainDeck_EventScript_Joji {
     lock
     faceplayer
     setspeaker("Joji")
-    if (var(VAR_TARC3_ACT1) < 2) {
+    if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
         msgbox(format("Joji Hatamoto. You might think we're a family of businesspeople.\pI travel the world, cooking only the finest foods."))
         msgbox(format("I run a restaurant back on the mainland. Kalosian cuisine, mostly.\pMy Pokémon assist, of course!"))
         msgbox(format("I carry my own knives everywhere. Eight of them, in a roll.\pA chef who borrows a knife is a chef who has given up."))
@@ -136,7 +163,7 @@ script tarc3_MainDeck_EventScript_Joji {
     end
 }
 
-// DINNER SCENE
+// dinner & investigation
 
 script tarc3_MainDeck_EventScript_Dinner {
     lockall
@@ -241,12 +268,12 @@ script tarc3_MainDeck_EventScript_Dinner {
     setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     removeobject(LOCALID_MAINDECK_SUZUKI_DINING)
     delay(30)
-    setvar(VAR_TARC3_ACT1, 4)
+    setvar(VAR_TARC3_ACT1, TARC3_ACT1_DINNER_TABLE)
     releaseall
     end
 }
 
-// DINNER TABLE CONVERSATIONS
+// act 1 dinner conversations
 
 script tarc3_MainDeck_EventScript_DinnerTalkDone {
     if (var(VAR_TARC3_DINNER_TALKED) >= 5) {
@@ -266,9 +293,30 @@ script tarc3_MainDeck_EventScript_DinnerNoExit {
     end
 }
 
+script tarc3_MainDeck_EventScript_DiningSuzuki {
+    lock
+    faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
+        goto(tarc3_MainDeck_EventScript_GatherSuzuki)
+    }
+    setspeaker("Suzuki")
+    msgbox(format("Everything is ready, sir.\pIt only wants the master."))
+    setspeaker(NULL)
+    closemessage
+    release
+    end
+}
+
 script tarc3_MainDeck_EventScript_DiningRan {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_ROOM_SETTLES) {
+        setspeaker("Ran")
+        msgbox(format("Everyone's accounted for except Takeshi.\pI've been counting heads since we sat down."))
+        setspeaker(NULL)
+        release
+        end
+    }
     setspeaker("Ran")
     msgbox(format("Hmm...\pEveryone keeps starting conversations, and then trailing off."))
     msgbox(format("I can't believe how much animosity there is in this room. Money warps relationships."))
@@ -284,6 +332,12 @@ script tarc3_MainDeck_EventScript_DiningRan {
 script tarc3_MainDeck_EventScript_DiningNatsue {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_LEAVING_DINING) {
+        msgbox(format("I'm scared..."))
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
+        goto(tarc3_MainDeck_EventScript_GatherNatsue)
+    }
     setspeaker("Natsue")
     msgbox(format("Oh... hello.\pTakeshi hasn't said a word since he sat down."))
     msgbox(format("Grandfather asked to speak with him alone.\pThat is never a small thing."))
@@ -315,6 +369,9 @@ script tarc3_MainDeck_EventScript_DiningTakeshi {
 script tarc3_MainDeck_EventScript_DiningJoji {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
+        goto(tarc3_MainDeck_EventScript_GatherJoji)
+    }
     setspeaker("Joji")
     msgbox(format("Well. Nobody has eaten a thing."))
     msgbox(format("Three days I spent on that consommé.\pNot one spoon lifted."))
@@ -331,6 +388,9 @@ script tarc3_MainDeck_EventScript_DiningJoji {
 script tarc3_MainDeck_EventScript_DiningMariko {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
+        goto(tarc3_MainDeck_EventScript_GatherMariko)
+    }
     setspeaker("Mariko")
     msgbox(format("Hm? Oh. It's you."))
     msgbox(format("I went down to Father's cabin before dinner.\pHe didn't answer. He does that when he's in a mood."))
@@ -347,6 +407,9 @@ script tarc3_MainDeck_EventScript_DiningMariko {
 script tarc3_MainDeck_EventScript_DiningKitaro {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
+        goto(tarc3_MainDeck_EventScript_GatherKitaro)
+    }
     setspeaker("Kitaro")
     msgbox(format("...Three times I've asked to leave the company.\pThree times he's refused me."))
     msgbox(format("I'm no good at it. Everyone knows that.\pHim most of all."))
@@ -363,6 +426,9 @@ script tarc3_MainDeck_EventScript_DiningKitaro {
 script tarc3_MainDeck_EventScript_DiningAkie {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
+        goto(tarc3_MainDeck_EventScript_GatherAkie)
+    }
     setspeaker("Akie")
     msgbox(format("Hah. Look at my husband.\pHe hasn't turned his head towards me once tonight."))
     msgbox(format("Go on. Ask him what he married me for.\pHe'll tell you. He tells everybody."))
@@ -394,6 +460,9 @@ script tarc3_MainDeck_EventScript_DiningTatsuo {
 script tarc3_MainDeck_EventScript_DiningIchiro {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
+        goto(tarc3_MainDeck_EventScript_GatherIchiro)
+    }
     setspeaker("Ichiro")
     msgbox(format("Oh. Sorry.\pI have been working on a new sketch."))
     msgbox(format("I stopped to wash my hands on the way.\pI love drawing with charcoal, but it can be messy."))
@@ -409,10 +478,7 @@ script tarc3_MainDeck_EventScript_DiningIchiro {
     goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
 }
 
-// CS8 - DECK DOOR SCENE
-// The west lobby is entered either across column 11 or off the west hold
-// stairs at (9,6), so every approach tile gets a thin wrapper that walks the
-// player to (8,7) before the scene runs.
+// CS7 (probably a better way to do this)
 
 script tarc3_MainDeck_EventScript_DeckDoorFrom9 {
     lockall
@@ -435,6 +501,12 @@ script tarc3_MainDeck_EventScript_DeckDoorFrom11 {
 script tarc3_MainDeck_EventScript_DeckDoorFrom12 {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_up * 5, face_left))
+    goto(tarc3_MainDeck_EventScript_DeckDoorScene)
+}
+
+script tarc3_MainDeck_EventScript_DeckDoorFrom13 {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_up * 6, face_left))
     goto(tarc3_MainDeck_EventScript_DeckDoorScene)
 }
 
@@ -483,9 +555,9 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     delay(40)
     playse(SE_M_DIVE)
     delay(50)
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
-    applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_up))
-    applymovement(LOCALID_MAINDECK_NATSUE_DECK, moves(face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_left))
+    applymovement(LOCALID_MAINDECK_NATSUE_DECK, moves(face_left))
     waitmovement(0)
     delay(30)
     playse(SE_BANG)
@@ -500,9 +572,12 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     setspeaker(NULL)
     closemessage
     delay(30)
-    setvar(VAR_TARC3_ACT2, 2)
-    msgbox(format("(PLACEHOLDER: CS9 - Tatsuo's body on the deck - continues from here.)"))
+    setspeaker("Ran")
+    msgbox(format("They came from outside.\pGo and look. I'll bring Natsue up behind you."))
+    setspeaker(NULL)
     closemessage
+    delay(20)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_BODY_ON_DECK)
     releaseall
     end
 }
@@ -540,8 +615,443 @@ script tarc3_MainDeck_EventScript_TheScream {
     clearflag(FLAG_HIDE_TARC3_HALL_ICHIRO)
     clearflag(FLAG_HIDE_TARC3_HALL_AKIE)
     clearflag(FLAG_HIDE_TARC3_HALL_TATSUO)
-    setvar(VAR_TARC3_ACT1, 5)
+    setvar(VAR_TARC3_ACT1, TARC3_ACT1_THE_BODY)
     warp(MAP_TARC3_GOZO_ROOM, 10, 11)
     waitstate
+    end
+}
+
+// CS9 - investigation
+
+script tarc3_MainDeck_EventScript_RoomSettles {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)
+    delay(30)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("We locked him in a room, and now he isn't in it.\pHe could be anywhere!"))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("(I should gather evidence from the family.)"))
+    closemessage
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_GATHER)
+    applymovement(LOCALID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_GatherTalkDone {
+    addvar(VAR_TARC3_GATHER_TALKED, 1)
+    if (var(VAR_TARC3_GATHER_TALKED) == 2) {
+        goto(tarc3_MainDeck_EventScript_IchiroExcusesHimself)
+    }
+    if (var(VAR_TARC3_GATHER_TALKED) >= 4) {
+        goto(tarc3_MainDeck_EventScript_Blackout)
+    }
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_IchiroExcusesHimself {
+    closemessage
+    delay(30)
+    applymovement(LOCALID_MAINDECK_ICHIRO_DINING, moves(face_down))
+    waitmovement(0)
+    setspeaker("Ichiro")
+    msgbox(format("Excuse me... I need to use the bathroom."))
+    setspeaker(NULL)
+    closemessage
+    hidefollower
+    delay(20)
+    getplayerxy(VAR_TEMP_1, VAR_TEMP_2)
+    if (var(VAR_TEMP_1) == 44 && var(VAR_TEMP_2) == 9) {
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right, face_left))
+        waitmovement(0)
+        delay(10)
+    }
+    applymovement(LOCALID_MAINDECK_ICHIRO_DINING, moves(walk_down * 2, walk_left * 16))
+    waitmovement(0)
+    updatefollowingmon
+    setflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
+    removeobject(LOCALID_MAINDECK_ICHIRO_DINING)
+    delay(20)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_GatherAkie {
+    setspeaker("Akie")
+    if (var(VAR_TARC3_GATHER_AKIE) == 0) {
+        msgbox(format("None of this would have happened if she hadn't brought that man into this family."))
+        msgbox(format("Natsue chose him.\pShe chose him, and now Father is dead and my husband is dead."))
+        setvar(VAR_TARC3_GATHER_AKIE, 1)
+        setspeaker(NULL)
+        closemessage
+        goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+    }
+    if (var(VAR_TARC3_GATHER_AKIE) == 1) {
+        msgbox(format("And don't look at me as though I'm the only one in here counting."))
+        msgbox(format("My aunt wanted Father's money more than any of us.\pShe has never once pretended otherwise."))
+        setvar(VAR_TARC3_GATHER_AKIE, 2)
+        setspeaker(NULL)
+        closemessage
+        goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+    }
+    msgbox(format("Leave me alone. Please."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_GatherMariko {
+    setspeaker("Mariko")
+    if (var(VAR_TARC3_GATHER_MARIKO) == 0) {
+        msgbox(format("Natsue had the most to gain and not one of them will say it out loud."))
+        msgbox(format("All of it goes to her.\pEvery share, every property, every last yen."))
+        setvar(VAR_TARC3_GATHER_MARIKO, 1)
+        setspeaker(NULL)
+        closemessage
+        goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+    }
+    if (var(VAR_TARC3_GATHER_MARIKO) == 1) {
+        msgbox(format("Before anybody asks me where I was this evening."))
+        msgbox(format("Ask my niece who she's been seeing since the spring.\pAsk her whether Tatsuo knew."))
+        setvar(VAR_TARC3_GATHER_MARIKO, 2)
+        setspeaker(NULL)
+        closemessage
+        goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+    }
+    msgbox(format("I've said my piece."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_GatherKitaro {
+    setspeaker("Kitaro")
+    if (flag(FLAG_TARC3_GATHER_KITARO)) {
+        msgbox(format("Not one of us can account for the others.\pThat's the whole of it."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("After they found Father, we all went to our own cabins. Every one of us."))
+    msgbox(format("That's where we were when Tatsuo... when it happened.\pNobody can vouch for anybody."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_up))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("You went for a walk."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_KITARO_DINING, moves(face_up))
+    waitmovement(0)
+    setspeaker("Kitaro")
+    msgbox(format("...I did."))
+    applymovement(LOCALID_MAINDECK_KITARO_DINING, moves(face_down))
+    waitmovement(0)
+    msgbox(format("I've asked to leave the company three times.\pGozo-sama refused me every time."))
+    msgbox(format("And Mariko would never let me, if I asked her."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CAMERA, moves(walk_down))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    setflag(FLAG_TARC3_GATHER_KITARO)
+    goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_GatherJoji {
+    setspeaker("Joji")
+    if (var(VAR_TARC3_GATHER_JOJI) == 0) {
+        msgbox(format("Please. Nobody in this room should be naming names."))
+        msgbox(format("I've been in the galley or in my cabin all evening.\pMy knives are still rolled up in their case."))
+        msgbox(format("I haven't opened it since the reception.\pI want that said now, before anyone says it for me."))
+        setvar(VAR_TARC3_GATHER_JOJI, 1)
+        setspeaker(NULL)
+        closemessage
+        goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+    }
+    if (var(VAR_TARC3_GATHER_JOJI) == 1) {
+        msgbox(format("And leave Ichiro-kun out of it, whatever else you do."))
+        msgbox(format("Father told him on this ship that he was finished paying for that school.\pSaid it in the open, where people could hear."))
+        msgbox(format("Tatsuo thought it was funny.\pHe said so to the boy's face."))
+        msgbox(format("He's had enough from this family for one voyage."))
+        setvar(VAR_TARC3_GATHER_JOJI, 2)
+        setspeaker(NULL)
+        closemessage
+        goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+    }
+    msgbox(format("Let them shout. It'll pass."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_GatherNatsue {
+    setspeaker("Natsue")
+    if (flag(FLAG_TARC3_GATHER_NATSUE)) {
+        msgbox(format("Somebody opened that door.\pThat's the part none of them will look at."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("He was behind a bolted door."))
+    msgbox(format("Whatever they've decided he is, he cannot have been in two places."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("That bolt only works from the outside. And nobody forced it."))
+    msgbox(format("Takeshi-san couldn't have let himself out.\pSomeone opened that door for him."))
+    closemessage
+    delay(20)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("Or he had an accomplice."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("Then why open it without waking him? Why leave no mark on it at all?"))
+    msgbox(format("That was someone who needed him gone.\pNot someone who wanted him free."))
+    closemessage
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("A child's theory."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_right))
+    waitmovement(0)
+    setspeaker("Ran")
+    msgbox(format("He was right about the first one."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    setflag(FLAG_TARC3_GATHER_NATSUE)
+    goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_GatherSuzuki {
+    setspeaker("Suzuki")
+    if (flag(FLAG_TARC3_GATHER_SUZUKI)) {
+        msgbox(format("Two decks down, sir. I could find it blindfolded."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("The ship? Two decks below us."))
+    msgbox(format("Engine room aft, electrical room forward of it.\pThe storage holds are on the same level."))
+    msgbox(format("I've walked it in the dark more times than I can count."))
+    setspeaker(NULL)
+    closemessage
+    setflag(FLAG_TARC3_GATHER_SUZUKI)
+    goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_GatherIchiro {
+    setspeaker("Ichiro")
+    if (flag(FLAG_TARC3_GATHER_ICHIRO)) {
+        msgbox(format("...Sorry. I'm not much use tonight."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("Oh. Sorry."))
+    msgbox(format("She's had a very long day."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("(His sketchbook is shut. He hasn't opened it once since we sat down.)"))
+    closemessage
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("There's nothing to draw in here."))
+    setspeaker(NULL)
+    closemessage
+    setflag(FLAG_TARC3_GATHER_ICHIRO)
+    goto(tarc3_MainDeck_EventScript_GatherIchiroWatch)
+}
+
+script tarc3_MainDeck_EventScript_GatherIchiroWatch {
+    applymovement(LOCALID_MAINDECK_ICHIRO_DINING, moves(face_left))
+    waitmovement(0)
+    delay(20)
+    msgbox(format("(He isn't watching the family. He's watching the door.)"))
+    closemessage
+    goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+}
+
+// CS10
+
+script tarc3_MainDeck_EventScript_BlackoutPanToSpeakers {
+    getplayerxy(VAR_0x8004, VAR_0x8005)
+    if (var(VAR_0x8004) < 47 && var(VAR_0x8005) < 13) {
+        return
+    }
+    special(SpawnCameraObject)
+    if (var(VAR_0x8004) >= 47) {
+        applymovement(LOCALID_CAMERA, moves(walk_faster_left * 6))
+        waitmovement(0)
+    }
+    if (var(VAR_0x8005) >= 13) {
+        applymovement(LOCALID_CAMERA, moves(walk_faster_up * 4))
+        waitmovement(0)
+    }
+    return
+}
+
+script tarc3_MainDeck_EventScript_BlackoutRestoreCamera {
+    getplayerxy(VAR_0x8004, VAR_0x8005)
+    if (var(VAR_0x8004) < 47 && var(VAR_0x8005) < 13) {
+        return
+    }
+    if (var(VAR_0x8005) >= 13) {
+        applymovement(LOCALID_CAMERA, moves(walk_faster_down * 4))
+        waitmovement(0)
+    }
+    if (var(VAR_0x8004) >= 47) {
+        applymovement(LOCALID_CAMERA, moves(walk_faster_right * 6))
+        waitmovement(0)
+    }
+    special(RemoveCameraObject)
+    return
+}
+
+script tarc3_MainDeck_EventScript_Blackout {
+    closemessage
+    lockall
+    delay(30)
+    call(tarc3_MainDeck_EventScript_BlackoutPanToSpeakers)
+    applymovement(LOCALID_MAINDECK_KITARO_DINING, moves(face_down))
+    waitmovement(0)
+    setspeaker("Kitaro")
+    msgbox(format("Hmm. I think someone should be with Ichiro."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("You think Takeshi could get to him?"))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    // todo: trigger miri's DNS so it goes dark
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    playse(SE_M_THUNDERBOLT2)
+    waitse
+    fadescreenswapbuffers(FADE_FROM_BLACK)
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    fadescreenswapbuffers(FADE_FROM_BLACK)
+    msgbox(format("(The lights-)"))
+    closemessage
+    fadescreen(FADE_TO_BLACK)
+    call(tarc3_MainDeck_EventScript_BlackoutRestoreCamera)
+    delay(30)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_BLACKOUT)
+    warp(MAP_TARC3_BATHROOM, 7, 8)
+    waitstate
+    end
+}
+
+script tarc3_MainDeck_EventScript_BlackoutReturn {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Ran")
+    msgbox(format("Conan, come with me. We'll find him."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(face_up))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("I'll see to the power generator downstairs."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_faster_up * 3, walk_faster_left * 4, face_left))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Ran")
+    msgbox(format("The bathrooms are at the far end of the corridor.\pStay close to me."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_LEAVING_DINING)
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_SuzukiLeavesAndCry {
+    lockall
+    applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(walk_up * 6, walk_left, walk_up))
+    waitmovement(0)
+    playse(SE_EXIT)
+    setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    removeobject(LOCALID_MAINDECK_SUZUKI_DINING)
+    delay(20)
+    playse(SE_M_CUT)
+    delay(60)
+    msgbox(format("(That came from the bathrooms, down the corridor.)"))
+    closemessage
+    delay(20)
+    setspeaker("Ran")
+    msgbox(format("That's Ichiro!"))
+    setspeaker(NULL)
+    closemessage
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_left * 6))
+    waitmovement(0)
+    setflag(FLAG_HIDE_TARC3_DINING_RAN)
+    removeobject(LOCALID_MAINDECK_RAN_DINING)
+    clearflag(FLAG_HIDE_TARC3_CORRIDOR_RAN)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_TO_BATHROOM)
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_CorridorRan {
+    lock
+    faceplayer
+    setspeaker("Ran")
+    msgbox(format("I'll wait here for the others."))
+    msgbox(format("You go in, Conan. Just... be careful."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_GatherNoExit {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
+    waitmovement(0)
+    msgbox(format("(Nobody is leaving this room while they're still going at each other.\pI should hear the rest of it.)"))
+    closemessage
+    releaseall
     end
 }

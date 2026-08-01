@@ -1,1 +1,121 @@
-mapscripts tarc3_Bathroom_MapScripts {}
+mapscripts tarc3_Bathroom_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION: tarc3_Bathroom_OnTransition
+    MAP_SCRIPT_ON_LOAD: tarc3_Bathroom_OnLoad
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TARC3_ACT2, TARC3_ACT2_BLACKOUT: tarc3_Bathroom_EventScript_BlackoutCut
+    ]
+}
+
+script tarc3_Bathroom_OnTransition {
+    if (var(VAR_TARC3_ACT2) == TARC3_ACT2_BLACKOUT) {
+        setflashlevel(8)
+    } elif (var(VAR_TARC3_ACT2) == TARC3_ACT2_TO_BATHROOM) {
+        setflashlevel(7)
+    }
+    end
+}
+
+script tarc3_Bathroom_OnLoad {
+    setflag(FLAG_HIDE_TARC3_BATH_ICHIRO_UP)
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_BATHROOM) {
+        clearflag(FLAG_HIDE_TARC3_BATH_ICHIRO_DOWN)
+    } else {
+        setflag(FLAG_HIDE_TARC3_BATH_ICHIRO_DOWN)
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_ICHIRO_FOUND) {
+        clearflag(FLAG_HIDE_TARC3_BATH_CAST)
+    } else {
+        setflag(FLAG_HIDE_TARC3_BATH_CAST)
+    }
+    end
+}
+
+// CS10 (cut to ichiro)
+
+script tarc3_Bathroom_EventScript_BlackoutCut {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(set_invisible))
+    waitmovement(0)
+    clearflag(FLAG_HIDE_TARC3_BATH_ICHIRO_UP)
+    addobject(LOCALID_BATHROOM_ICHIRO_UP)
+    delay(20)
+    animateflash(7)
+    setflashlevel(7)
+    delay(30)
+    applymovement(LOCALID_BATHROOM_ICHIRO_UP, moves(emote_exclamation_mark))
+    waitmovement(0)
+    setspeaker("Ichiro")
+    msgbox(format("...?!"))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    fadescreen(FADE_TO_BLACK)
+    setflag(FLAG_HIDE_TARC3_BATH_ICHIRO_UP)
+    removeobject(LOCALID_BATHROOM_ICHIRO_UP)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(set_visible))
+    waitmovement(0)
+    warp(MAP_TARC3_MAIN_DECK, 43, 11)
+    waitstate
+    end
+}
+
+// CS10 (player enters bathroom)
+
+script tarc3_Bathroom_EventScript_IchiroDown {
+    lockall
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_ICHIRO_FOUND) {
+        goto(tarc3_Bathroom_EventScript_Discovery)
+    }
+    faceplayer
+    setspeaker("Ichiro")
+    msgbox(format("I didn't see anything. I'm sorry."))
+    setspeaker(NULL)
+    closemessage
+    releaseall
+    end
+}
+
+script tarc3_Bathroom_EventScript_Discovery {
+    playse(SE_DOOR)
+    delay(40)
+    clearflag(FLAG_HIDE_TARC3_BATH_CAST)
+    addobject(LOCALID_BATHROOM_RAN)
+    addobject(LOCALID_BATHROOM_NATSUE)
+    addobject(LOCALID_BATHROOM_KITARO)
+    addobject(LOCALID_BATHROOM_MARIKO)
+    addobject(LOCALID_BATHROOM_AKIE)
+    addobject(LOCALID_BATHROOM_JOJI)
+    delay(20)
+    // todo: reset DNS so it returns to usual tint
+    playse(SE_M_THUNDERBOLT2)
+    waitse
+    animateflash(0)
+    setflashlevel(0)
+    delay(40)
+    msgbox(format("(The lights came back. Suzuki found the breaker.)"))
+    closemessage
+    delay(20)
+    msgbox(format("(Ichiro is on the floor. He's bleeding from his thigh.)"))
+    closemessage
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("The lights went out."))
+    msgbox(format("Someone came in.\pI couldn't see them. I couldn't see anything."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("(There's a knife on the tiles beside him. There's blood on the blade.)"))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_BATHROOM_JOJI, moves(face_right))
+    waitmovement(0)
+    setspeaker("Joji")
+    msgbox(format("That's my knife!"))
+    msgbox(format("But, how did it get here?"))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_ICHIRO_FOUND)
+    releaseall
+    end
+}
