@@ -110,7 +110,7 @@ script tarc3_Hold_EventScript_JailTakeshi {
     delay(60)
     setspeaker("Suzuki")
     msgbox(format("While you are all in one place... There is a matter I am obliged to raise."))
-    msgbox(format("The master wrote a will.\pHe left everything to Natsue-sama.\pAll assets. All authority."))
+    msgbox(format("The master wrote a will.\pHe left everything to Natsue.\pAll assets. All authority."))
     msgbox(format("And the man she chose would lead the Corporation."))
     setspeaker(NULL)
     closemessage
@@ -234,7 +234,7 @@ script tarc3_Hold_EventScript_TakeshiGone {
     applymovement(LOCALID_HOLD_SUZUKI_SEARCH, moves(face_up))
     waitmovement(0)
     setspeaker("Suzuki")
-    msgbox(format("Mariko-sama.\pThat door has no handle on the inside."))
+    msgbox(format("Mariko.\pThat door has no handle on the inside."))
     msgbox(format("I bolted it myself. He could not have reached it."))
     setspeaker(NULL)
     closemessage
@@ -245,7 +245,7 @@ script tarc3_Hold_EventScript_TakeshiGone {
     closemessage
     delay(20)
     setspeaker("Suzuki")
-    msgbox(format("Mariko-sama. Don't become paranoid. We all saw that I had closed it firmly."))
+    msgbox(format("Forgive me, Mariko. But I did bolt the door myself.\pEveryone had watched me."))
     setspeaker(NULL)
     closemessage
     delay(20)

@@ -111,7 +111,7 @@ script tarc3_Bathroom_EventScript_Discovery {
     waitmovement(0)
     setspeaker("Joji")
     msgbox(format("That's my knife!"))
-    msgbox(format("But, how did it get here?"))
+    msgbox(format("But... It should be in its case."))
     setspeaker(NULL)
     closemessage
     delay(20)

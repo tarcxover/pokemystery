@@ -71,7 +71,7 @@ script tarc3_GozoRoom_EventScript_TheBody {
     delay(30)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_down))
     setspeaker("Suzuki")
-    msgbox(format("Gozo-sama."))
+    msgbox(format("Gozo."))
     msgbox(format("...I walked past this door a little over half an hour ago.\pThere was nothing on the floor but that flower."))
     msgbox(format("There was blood on the frame, though.\pI told myself it was nothing and kept walking."))
     msgbox(format("I should have knocked."))
@@ -232,7 +232,7 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     waitmovement(0)
     setspeaker("Suzuki")
     msgbox(format("Zaiki Research Institute."))
-    msgbox(format("Isao Zaiki built a Pokemon transportation patent out of nothing at all.\pGozo-sama acquired the company.\pZaiki couldn't handle the shame of having his company stolen from him.\pHe... he took his own life."))
+    msgbox(format("Isao Zaiki built a Pokémon transportation patent out of nothing at all.\pGozo acquired the company.\pZaiki couldn't handle the shame of having his company stolen from him.\pHe... he took his own life."))
     setspeaker(NULL)
     closemessage
     delay(20)
