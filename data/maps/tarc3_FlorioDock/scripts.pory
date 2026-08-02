@@ -27,7 +27,7 @@ script tarc3_FlorioDock_EventScript_Natsue {
 script tarc3_FlorioDock_EventScript_Ran {
     lock
     faceplayer
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("It's all arranged. Just tell Natsue when you're ready."))
     msgbox(format("A whole family on a private charter...\pAnd they made room for two strangers. We got lucky."))
     setspeaker(NULL)
