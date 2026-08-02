@@ -217,8 +217,8 @@ const u16 gTrainerPalette_MagmaAdmin[] = INCGFX_U16("graphics/trainers/front_pic
 const u32 gTrainerFrontPic_Wally[] = INCGFX_U32("graphics/trainers/front_pics/wally.png", ".4bpp.smol");
 const u16 gTrainerPalette_Wally[] = INCGFX_U16("graphics/trainers/palettes/wally.pal", ".gbapal");
 
-const u32 gTrainerFrontPic_Brendan[] = INCGFX_U32("graphics/trainers/front_pics/brendan.png", ".4bpp.smol");
-const u16 gTrainerPalette_Brendan[] = INCGFX_U16("graphics/trainers/palettes/brendan.pal", ".gbapal");
+const u32 gTrainerFrontPic_Brendan[] = INCGFX_U32("graphics/trainers/front_pics/edgeworth.png", ".4bpp.smol");
+const u16 gTrainerPalette_Brendan[] = INCGFX_U16("graphics/trainers/palettes/edgeworth.pal", ".gbapal");
 
 const u32 gTrainerFrontPic_May[] = INCGFX_U32("graphics/trainers/front_pics/may.png", ".4bpp.smol");
 const u16 gTrainerPalette_May[] = INCGFX_U16("graphics/trainers/palettes/may.pal", ".gbapal");
