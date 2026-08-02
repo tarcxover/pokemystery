@@ -593,6 +593,51 @@
     },
     {
       "type": "trigger",
+      "x": 30,
+      "y": 9,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_SUZUKI_BELOW",
+      "script": "tarc3_MainDeck_EventScript_Scream"
+    },
+    {
+      "type": "trigger",
+      "x": 30,
+      "y": 10,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_SUZUKI_BELOW",
+      "script": "tarc3_MainDeck_EventScript_Scream"
+    },
+    {
+      "type": "trigger",
+      "x": 30,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_SUZUKI_BELOW",
+      "script": "tarc3_MainDeck_EventScript_Scream"
+    },
+    {
+      "type": "trigger",
+      "x": 30,
+      "y": 12,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_SUZUKI_BELOW",
+      "script": "tarc3_MainDeck_EventScript_Scream"
+    },
+    {
+      "type": "trigger",
+      "x": 30,
+      "y": 13,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_SUZUKI_BELOW",
+      "script": "tarc3_MainDeck_EventScript_Scream"
+    },
+    {
+      "type": "trigger",
       "x": 11,
       "y": 9,
       "elevation": 0,

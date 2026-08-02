@@ -17,16 +17,18 @@ script tarc3_Bathroom_OnTransition {
 
 script tarc3_Bathroom_OnLoad {
     setflag(FLAG_HIDE_TARC3_BATH_ICHIRO_UP)
-    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_BATHROOM) {
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_BATHROOM && var(VAR_TARC3_ACT2) < TARC3_ACT2_TO_ELECTRICAL) {
         clearflag(FLAG_HIDE_TARC3_BATH_ICHIRO_DOWN)
     } else {
         setflag(FLAG_HIDE_TARC3_BATH_ICHIRO_DOWN)
     }
-    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_ICHIRO_FOUND) {
+    if (var(VAR_TARC3_ACT2) == TARC3_ACT2_ICHIRO_FOUND) {
         clearflag(FLAG_HIDE_TARC3_BATH_CAST)
     } else {
         setflag(FLAG_HIDE_TARC3_BATH_CAST)
     }
+    setflag(FLAG_HIDE_TARC3_BATH_FAMILY)
+    setflag(FLAG_HIDE_TARC3_BATH_SUZUKI)
     end
 }
 
@@ -70,7 +72,6 @@ script tarc3_Bathroom_EventScript_IchiroDown {
     setspeaker("Ichiro")
     msgbox(format("I didn't see anything. I'm sorry."))
     setspeaker(NULL)
-    closemessage
     releaseall
     end
 }
@@ -79,6 +80,7 @@ script tarc3_Bathroom_EventScript_Discovery {
     playse(SE_DOOR)
     delay(40)
     clearflag(FLAG_HIDE_TARC3_BATH_CAST)
+    clearflag(FLAG_HIDE_TARC3_BATH_FAMILY)
     addobject(LOCALID_BATHROOM_RAN)
     addobject(LOCALID_BATHROOM_NATSUE)
     addobject(LOCALID_BATHROOM_KITARO)
@@ -88,34 +90,87 @@ script tarc3_Bathroom_EventScript_Discovery {
     delay(20)
     // todo: reset DNS so it returns to usual tint
     playse(SE_M_THUNDERBOLT2)
-    waitse
     animateflash(0)
     setflashlevel(0)
-    delay(20)
     msgbox(format("(The lights came back. Suzuki found the breaker.)"))
     closemessage
     delay(20)
     msgbox(format("(Ichiro is on the floor. He's bleeding from his thigh.)"))
+    setspeaker("Natsue")
+    msgbox(format("Ichiro! Are you ok?\pWhat happened!?"))
     closemessage
     delay(20)
     setspeaker("Ichiro")
-    msgbox(format("The lights went out."))
-    msgbox(format("Someone came in.\pI couldn't see them. I couldn't see anything."))
+    msgbox(format("The lights went out.\pSomeone came in...\pHe stabbed me!"))
+    msgbox(format("I couldn't see him. I couldn't see anything."))
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("(There's a knife on the tiles beside him. There's blood on the blade.)"))
+    // need to identify the knife/evidence?
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_ICHIRO_FOUND)
+    applymovement(LOCALID_BATHROOM_KITARO, moves(face_left))
+    waitmovement(0)
+    setspeaker("Kitaro")
+    msgbox(format("Joji... Is that your knife?\pWeren't they kept secure in your room?"))
+    setspeaker(NULL)
     closemessage
     delay(20)
-    applymovement(LOCALID_BATHROOM_JOJI, moves(face_right))
+    applymovement(LOCALID_BATHROOM_JOJI, moves(face_right, emote_exclamation_mark))
     waitmovement(0)
     setspeaker("Joji")
-    msgbox(format("That's my knife!"))
-    msgbox(format("But... It should be in its case."))
+    msgbox(format("That is my knife. But it wasn't me!\pI was at the table with all of you when the lights went out!"))
     setspeaker(NULL)
     closemessage
     delay(20)
-    setvar(VAR_TARC3_ACT2, TARC3_ACT2_ICHIRO_FOUND)
-    releaseall
+    applymovement(LOCALID_BATHROOM_KITARO, moves(face_down))
+    waitmovement(0)
+    setspeaker("Kitaro")
+    msgbox(format("...That's true."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_BATHROOM_MARIKO, moves(face_right))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("Then there's only one person it could have been."))
+    msgbox(format("Only one of us wasn't in that room.\pTakeshi."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    opendoor(7, 3)
+    waitdooranim
+    clearflag(FLAG_HIDE_TARC3_BATH_SUZUKI)
+    addobject(LOCALID_BATHROOM_SUZUKI)
+    applymovement(LOCALID_BATHROOM_SUZUKI, moves(walk_down))
+    waitmovement(0)
+    closedoor(7, 3)
+    waitdooranim
+    delay(20)
+    setspeaker("Suzuki")
+    msgbox(format("Forgive me. The ship's main breaker had tripped."))
+    msgbox(format("I'm no electrician, I couldn't tell you what was wrong with it."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setspeaker("Suzuki")
+    msgbox(format("Natsue, Ran, please see to Ichiro in the Dining Room."))
+    msgbox(format("The rest of you, come with me.\pWe can inspect the electrical room together."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_BATHROOM_RAN, moves(walk_down * 2, walk_right))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)
+    setspeaker("Ran")
+    msgbox(format("Go with them, Conan. We'll stay with Ichiro."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_HIDE_TARC3_BATH_SUZUKI)
+    setflag(FLAG_HIDE_TARC3_BATH_FAMILY)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_TO_ELECTRICAL)
+    fadescreen(FADE_TO_BLACK)
+    warp(MAP_TARC3_ELECTRICAL_ROOM, 9, 4)
+    waitstate
     end
 }
