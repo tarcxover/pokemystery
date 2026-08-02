@@ -52,7 +52,7 @@ script tarc3_MainDeck_EventScript_ShowRoom {
     applymovement(LOCALID_MAINDECK_RAN_1, moves(face_up))
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("I'll check out the bedroom. You should introduce yourself to the family."))
     setspeaker(NULL)
     closemessage
@@ -171,7 +171,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     applymovement(LOCALID_MAINDECK_RAN_DINING, moves(face_up))
     waitmovement(0)
     delay(30)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("Hmm...\pWe've been sat here half an hour, and I don't think anyone has said a word."))
     setspeaker(NULL)
     closemessage
@@ -219,7 +219,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(face_right))
     applymovement(LOCALID_MAINDECK_TAKESHI_DINING, moves(face_right))
     waitmovement(0)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("My father seems to misplace his possessions constantly."))
     msgbox(format("He's a private detective. Half our conversations at home sound like this one."))
     setspeaker(NULL)
@@ -308,13 +308,13 @@ script tarc3_MainDeck_EventScript_DiningRan {
     lock
     faceplayer
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_ROOM_SETTLES) {
-        setspeaker("Ran")
+        setspeaker("Franziska")
         msgbox(format("Everyone's accounted for except Takeshi.\pI've been counting heads since we sat down."))
         setspeaker(NULL)
         release
         end
     }
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("Hmm...\pEveryone keeps starting conversations, and then trailing off."))
     msgbox(format("I can't believe how much animosity there is in this room. Money warps relationships."))
     setspeaker(NULL)
@@ -534,9 +534,9 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     closemessage
     delay(20)
     applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_up))
-    setspeaker("Ran")
-    msgbox(format("Conan and I don't think he did it."))
-    msgbox(format("Conan thinks the garland didn't fall off him.\pIt was lying flat in the corridor, undamaged.\pSomebody was guaranteed to walk past and notice it."))
+    setspeaker("Franziska")
+    msgbox(format("Miles and I don't think he did it."))
+    msgbox(format("Miles thinks the garland didn't fall off him.\pIt was lying flat in the corridor, undamaged.\pSomebody was guaranteed to walk past and notice it."))
     msgbox(format("Somebody put it there. That means somebody wanted him blamed.")) // maybe this should be a conversation the player is able to have with Natsue instead?
     closemessage
     delay(20)
@@ -545,7 +545,7 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     delay(20)
     setspeaker("Natsue")
     msgbox(format("Then whoever did it is still on this ship with us!"))
-    setspeaker("Ran")
+    setspeaker("Franziska")
     delay(40)
     msgbox(format("Yes.\pThey are."))
     setspeaker(NULL)
@@ -563,14 +563,14 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark))
     waitmovement(0)
     delay(20)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("Did you hear that!?"))
     setspeaker("Natsue")
     msgbox(format("There were two sounds.\pA splash... and a thud."))
     setspeaker(NULL)
     closemessage
     delay(30)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("They came from outside.\pGo and look, we'll be right behind you."))
     setspeaker(NULL)
     closemessage
@@ -837,7 +837,7 @@ script tarc3_MainDeck_EventScript_GatherNatsue {
     delay(20)
     applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_right))
     waitmovement(0)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("Don't worry Natsue... We'll prove his innocence."))
     setspeaker(NULL)
     closemessage
@@ -948,7 +948,7 @@ script tarc3_MainDeck_EventScript_BlackoutReturn {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
     waitmovement(0)
     delay(20)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("Conan, come with me. We'll check on him."))
     setspeaker(NULL)
     closemessage
@@ -963,7 +963,7 @@ script tarc3_MainDeck_EventScript_BlackoutReturn {
     applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_faster_up * 3, walk_faster_left * 4, face_left))
     waitmovement(0)
     delay(20)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("The bathrooms are at the far end of the corridor.\pWe must stay close."))
     setspeaker(NULL)
     closemessage
@@ -986,7 +986,7 @@ script tarc3_MainDeck_EventScript_SuzukiLeaves {
     msgbox(format("(That came from the bathrooms!)"))
     closemessage
     delay(20)
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("That's Ichiro!"))
     setspeaker(NULL)
     closemessage
@@ -1003,7 +1003,7 @@ script tarc3_MainDeck_EventScript_SuzukiLeaves {
 script tarc3_MainDeck_EventScript_CorridorRan {
     lock
     faceplayer
-    setspeaker("Ran")
+    setspeaker("Franziska")
     msgbox(format("I'll wait here for the others."))
     msgbox(format("You go in, Conan. I'll bring the others."))
     setspeaker(NULL)
