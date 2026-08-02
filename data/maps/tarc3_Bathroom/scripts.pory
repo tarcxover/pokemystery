@@ -153,7 +153,7 @@ script tarc3_Bathroom_EventScript_Discovery {
     closemessage
     delay(20)
     setspeaker("Suzuki")
-    msgbox(format("Natsue, Ran, please see to Ichiro in the Dining Room."))
+    msgbox(format("Natsue, Franziska, please see to Ichiro in the Dining Room."))
     msgbox(format("The rest of you, come with me.\pWe can inspect the electrical room together."))
     setspeaker(NULL)
     closemessage
@@ -161,8 +161,8 @@ script tarc3_Bathroom_EventScript_Discovery {
     applymovement(LOCALID_BATHROOM_RAN, moves(walk_down * 2, walk_right))
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
     waitmovement(0)
-    setspeaker("Ran")
-    msgbox(format("Go with them, Conan. We'll stay with Ichiro."))
+    setspeaker("Franziska")
+    msgbox(format("Go with them, Miles. We'll stay with Ichiro."))
     setspeaker(NULL)
     closemessage
     delay(20)
