@@ -91,7 +91,7 @@ script tarc3_Bathroom_EventScript_Discovery {
     waitse
     animateflash(0)
     setflashlevel(0)
-    delay(40)
+    delay(20)
     msgbox(format("(The lights came back. Suzuki found the breaker.)"))
     closemessage
     delay(20)
