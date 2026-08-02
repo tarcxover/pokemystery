@@ -1090,7 +1090,7 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
             }
 
             {
-                static const u8 sText_DefaultPlayerName[] = _("Conan");
+                static const u8 sText_DefaultPlayerName[] = _("Miles");
                 StringCopy_PlayerName(gSaveBlock2Ptr->playerName, sText_DefaultPlayerName);
             }
             gSaveBlock2Ptr->playerGender = MALE;
