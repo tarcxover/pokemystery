@@ -58,7 +58,7 @@ script tarc3_ElectricalRoom_EventScript_Breakers {
     closemessage
     delay(20)
     setspeaker("Suzuki")
-    msgbox(format("Miles. Help me find Takeshi.\p"))
+    msgbox(format("{PLAYER}. Help me find Takeshi.\p"))
     msgbox(format("The rest of you, go back to the dining room.\pStay together, and stay where I can find you."))
     setspeaker(NULL)
     closemessage

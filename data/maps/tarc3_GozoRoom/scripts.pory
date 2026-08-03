@@ -151,7 +151,7 @@ script tarc3_GozoRoom_EventScript_TheBody {
     delay(20)
     applymovement(LOCALID_GOZOROOM_RAN, moves(walk_up,face_right))
     waitmovement(0)
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("Please. Just... let him look."))
     setspeaker(NULL)
     closemessage
@@ -167,7 +167,7 @@ script tarc3_GozoRoom_EventScript_Ran {
     lock
     faceplayer
     if (var(VAR_TARC3_ACT1) > TARC3_ACT1_INVESTIGATE_1) {
-        setspeaker("Franziska")
+        setspeaker("{RIVAL}")
         msgbox(format("Go on. They're listening now."))
         setspeaker(NULL)
         release
@@ -176,12 +176,12 @@ script tarc3_GozoRoom_EventScript_Ran {
     msgbox(format("(PLACEHOLDER: Investigation & deduction?)")) 
     closemessage
     delay(20)
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("...You're certain? All of it?"))
     setspeaker(NULL)
     closemessage
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_JAIL_TAKESHI)
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("Everyone. Just listen to him for a minute."))
     setspeaker(NULL)
     closemessage

@@ -171,7 +171,7 @@ script tarc3_Hold_EventScript_JailTakeshi {
     fadescreen(FADE_FROM_BLACK)
     delay(30)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("I'm going to find Natsue.\pSomebody should be with her, and it isn't going to be any of them."))
     msgbox(format("We'll be up by the door out to the deck. Come and find us."))
     setspeaker(NULL)
@@ -267,7 +267,7 @@ script tarc3_Hold_EventScript_TakeshiGone {
     waitmovement(0)
     fadescreen(FADE_FROM_BLACK)
     delay(30)
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("They're going to argue about this for an hour."))
     msgbox(format("I'm going back up to the deck.\pCome and find me there, and we'll look at it properly.")) // placeholder line - Ran & Conan probably want to inspect it immediately?
     setspeaker(NULL)
@@ -287,7 +287,7 @@ script tarc3_Hold_EventScript_TakeshiGone {
 script tarc3_Hold_EventScript_Ran {
     lock
     faceplayer
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("The stairs are just over there. Everyone's waiting upstairs, {PLAYER}."))
     setspeaker(NULL)
     release

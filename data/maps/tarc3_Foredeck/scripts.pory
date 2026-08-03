@@ -193,7 +193,7 @@ script tarc3_Foredeck_EventScript_Departure {
     applymovement(LOCALID_FOREDECK_RAN, moves(walk_up, face_up))
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("I thought... the grandfather of the bride would be in a more cheerful mood."))
     msgbox(format("I'm going back to the cabin before I say something I regret.\pCome and find me when you've had enough sea air."))
     setspeaker(NULL)
@@ -383,7 +383,7 @@ script tarc3_Foredeck_EventScript_TatsuoBody {
 script tarc3_Foredeck_EventScript_Phase2ARan {
     lock
     faceplayer
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("There you are.\pNow that we have a moment, you should inspect the crime scene."))
     setspeaker(NULL)
     closemessage
@@ -391,7 +391,7 @@ script tarc3_Foredeck_EventScript_Phase2ARan {
     msgbox(format("(Investigation (wound, railing, deck floor.)"))
     closemessage
     delay(20)
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("We should all go to the dining room."))
     msgbox(format("Nobody should be standing out here on their own.\pNot until we know who opened that hold."))
     setspeaker(NULL)
