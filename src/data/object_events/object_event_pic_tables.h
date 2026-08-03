@@ -2526,3 +2526,7 @@ static const struct SpriteFrameImage sPicTable_GozoDead[] = {
 static const struct SpriteFrameImage sPicTable_TatsuoDead[] = {
     overworld_frame(gObjectEventPic_TatsuoDead, 4, 2, 0),
 };
+
+static const struct SpriteFrameImage sPicTable_IchiroInjured[] = {
+    overworld_ascending_frames(gObjectEventPic_IchiroInjured, 2, 4),
+};

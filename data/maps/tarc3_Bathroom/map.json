@@ -30,7 +30,7 @@
     },
     {
       "local_id": "LOCALID_BATHROOM_ICHIRO_DOWN",
-      "graphics_id": "OBJ_EVENT_GFX_MAN_4",
+      "graphics_id": "OBJ_EVENT_GFX_ICHIRO_INJURED",
       "x": 7,
       "y": 8,
       "elevation": 0,

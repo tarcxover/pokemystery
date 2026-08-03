@@ -417,6 +417,8 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GozoDead;
 
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_TatsuoDead;
 
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_IchiroInjured;
+
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
     [OBJ_EVENT_GFX_BRENDAN_MACH_BIKE] =        &gObjectEventGraphicsInfo_BrendanMachBike,
@@ -815,6 +817,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_NATSUE] =               &gObjectEventGraphicsInfo_Lady,
     [OBJ_EVENT_GFX_GOZO_DEAD] =            &gObjectEventGraphicsInfo_GozoDead,
     [OBJ_EVENT_GFX_TATSUO_DEAD] =          &gObjectEventGraphicsInfo_TatsuoDead,
+    [OBJ_EVENT_GFX_ICHIRO_INJURED] =       &gObjectEventGraphicsInfo_IchiroInjured,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {
