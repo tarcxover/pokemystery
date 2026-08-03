@@ -327,6 +327,13 @@
       "dest_map": "MAP_TARC3_HOLD",
       "dest_warp_id": "2",
       "notes": "to hold"
+    },
+    {
+      "x": 9,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_ELECTRICAL_ROOM",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],

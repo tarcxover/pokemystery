@@ -1712,9 +1712,9 @@
 #define FLAG_HIDE_TARC3_BATH_ICHIRO_DOWN            (TARC3_RESERVED_FLAGS_START + 0x44)
 #define FLAG_HIDE_TARC3_BATH_CAST                   (TARC3_RESERVED_FLAGS_START + 0x45)
 #define FLAG_HIDE_TARC3_CORRIDOR_RAN                (TARC3_RESERVED_FLAGS_START + 0x46)
-#define FLAG_UNUSED_0x9A7                           (TARC3_RESERVED_FLAGS_START + 0x47) // Unused Flag
-#define FLAG_UNUSED_0x9A8                           (TARC3_RESERVED_FLAGS_START + 0x48) // Unused Flag
-#define FLAG_UNUSED_0x9A9                           (TARC3_RESERVED_FLAGS_START + 0x49) // Unused Flag
+#define FLAG_HIDE_TARC3_BATH_FAMILY                 (TARC3_RESERVED_FLAGS_START + 0x47)
+#define FLAG_HIDE_TARC3_BATH_SUZUKI                 (TARC3_RESERVED_FLAGS_START + 0x48)
+#define FLAG_HIDE_TARC3_ELEC_CAST                   (TARC3_RESERVED_FLAGS_START + 0x49)
 #define FLAG_UNUSED_0x9AA                           (TARC3_RESERVED_FLAGS_START + 0x4A) // Unused Flag
 #define FLAG_UNUSED_0x9AB                           (TARC3_RESERVED_FLAGS_START + 0x4B) // Unused Flag
 #define FLAG_UNUSED_0x9AC                           (TARC3_RESERVED_FLAGS_START + 0x4C) // Unused Flag

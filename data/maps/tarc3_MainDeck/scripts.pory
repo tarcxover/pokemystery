@@ -29,6 +29,18 @@ script tarc3_MainDeck_OnLoad {
     } else {
         setflag(FLAG_HIDE_TARC3_CORRIDOR_RAN)
     }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
+        clearflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
+        clearflag(FLAG_HIDE_TARC3_DINING_RAN)
+        clearflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
+        clearflag(FLAG_HIDE_TARC3_DINING_KITARO)
+        clearflag(FLAG_HIDE_TARC3_DINING_MARIKO)
+        clearflag(FLAG_HIDE_TARC3_DINING_AKIE)
+        clearflag(FLAG_HIDE_TARC3_DINING_JOJI)
+        clearflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    }
     end
 }
 
@@ -89,7 +101,6 @@ script tarc3_MainDeck_EventScript_Mariko {
     setspeaker(NULL)
     closemessage
     msgbox(format("(She counted something on her fingers the entire time she was speaking.)"))
-    closemessage
     release
     end
 }
@@ -113,7 +124,6 @@ script tarc3_MainDeck_EventScript_Akie {
     waitmovement(0)
     msgbox(format("(She lowers her voice and turns back to Mariko. Only fragments carry.)"))
     msgbox(format("(...everything goes to... not to the eldest...)"))
-    closemessage
     release
     end
 }
@@ -288,7 +298,6 @@ script tarc3_MainDeck_EventScript_DinnerNoExit {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
     waitmovement(0)
     msgbox(format("(Everyone is waiting on Gozo.\pI should talk to the family members to pass the time.)"))
-    closemessage
     releaseall
     end
 }
@@ -296,10 +305,17 @@ script tarc3_MainDeck_EventScript_DinnerNoExit {
 script tarc3_MainDeck_EventScript_DiningSuzuki {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
+        setspeaker("Suzuki")
+        msgbox(format("I have kept them all in this room, Conan."))
+        msgbox(format("Takeshi is aboard. He must be.\pThere is nowhere else for him to be."))
+        setspeaker(NULL)
+        release
+        end
+    }
     setspeaker("Suzuki")
     msgbox(format("Everything is ready, sir.\pIt only wants the master."))
     setspeaker(NULL)
-    closemessage
     release
     end
 }
@@ -307,6 +323,14 @@ script tarc3_MainDeck_EventScript_DiningSuzuki {
 script tarc3_MainDeck_EventScript_DiningRan {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
+        setspeaker("Ran")
+        msgbox(format("His leg is bound. Natsue hasn't left his side."))
+        msgbox(format("Suzuki's still looking for Takeshi.\pConan, don't go anywhere on your own. I mean it."))
+        setspeaker(NULL)
+        release
+        end
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_ROOM_SETTLES) {
         setspeaker("Franziska")
         msgbox(format("Everyone's accounted for except Takeshi.\pI've been counting heads since we sat down."))
@@ -368,6 +392,14 @@ script tarc3_MainDeck_EventScript_DiningTakeshi {
 script tarc3_MainDeck_EventScript_DiningJoji {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
+        setspeaker("Joji")
+        msgbox(format("That case stays locked. It has always stayed locked."))
+        msgbox(format("Somebody opened it, Conan.\pI'd like to know who, before they open it again."))
+        setspeaker(NULL)
+        release
+        end
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
         goto(tarc3_MainDeck_EventScript_GatherJoji)
     }
@@ -387,6 +419,14 @@ script tarc3_MainDeck_EventScript_DiningJoji {
 script tarc3_MainDeck_EventScript_DiningMariko {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
+        setspeaker("Mariko")
+        msgbox(format("Scorch marks. Wonderful.\pThat narrows it to everyone aboard."))
+        msgbox(format("Find Takeshi. Then we can all stop pretending."))
+        setspeaker(NULL)
+        release
+        end
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
         goto(tarc3_MainDeck_EventScript_GatherMariko)
     }
@@ -406,6 +446,14 @@ script tarc3_MainDeck_EventScript_DiningMariko {
 script tarc3_MainDeck_EventScript_DiningKitaro {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
+        setspeaker("Kitaro")
+        msgbox(format("I shouldn't have said that to Joji.\pIn front of everyone, like that."))
+        msgbox(format("But somebody in this room did it.\pThat's the part I can't put down."))
+        setspeaker(NULL)
+        release
+        end
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
         goto(tarc3_MainDeck_EventScript_GatherKitaro)
     }
@@ -424,6 +472,14 @@ script tarc3_MainDeck_EventScript_DiningKitaro {
 script tarc3_MainDeck_EventScript_DiningAkie {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
+        setspeaker("Akie")
+        msgbox(format("Two of them. Then a knife in the dark."))
+        msgbox(format("And they want us to sit here and wait our turn."))
+        setspeaker(NULL)
+        release
+        end
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
         goto(tarc3_MainDeck_EventScript_GatherAkie)
     }
@@ -458,6 +514,14 @@ script tarc3_MainDeck_EventScript_DiningTatsuo {
 script tarc3_MainDeck_EventScript_DiningIchiro {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
+        setspeaker("Ichiro")
+        msgbox(format("Suzuki bound it up. It looked worse than it was."))
+        msgbox(format("I keep going back over it, trying to find something useful.\pThere's nothing there. It was dark, and then it wasn't."))
+        setspeaker(NULL)
+        release
+        end
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
         goto(tarc3_MainDeck_EventScript_GatherIchiro)
     }
@@ -929,9 +993,9 @@ script tarc3_MainDeck_EventScript_Blackout {
     fadescreenswapbuffers(FADE_TO_BLACK)
     playse(SE_M_THUNDERBOLT2)
     waitse
+    fadescreenswapbuffers(FADE_FROM_BLACK)
     msgbox(format("(The lights...)"))
     closemessage
-    fadescreenswapbuffers(FADE_FROM_BLACK)
     fadescreenswapbuffers(FADE_TO_BLACK)
     fadescreenswapbuffers(FADE_FROM_BLACK)
     fadescreen(FADE_TO_BLACK)
@@ -980,17 +1044,30 @@ script tarc3_MainDeck_EventScript_SuzukiLeaves {
     playse(SE_EXIT)
     setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     removeobject(LOCALID_MAINDECK_SUZUKI_DINING)
-    delay(20)
-    playse(SE_M_CUT)
-    delay(60)
-    msgbox(format("(That came from the bathrooms!)"))
-    closemessage
-    delay(20)
+    delay(30)
     setspeaker("Franziska")
-    msgbox(format("That's Ichiro!"))
+    msgbox(format("He'll be a few minutes."))
+    msgbox(format("Come on, Conan. It's this way."))
     setspeaker(NULL)
     closemessage
-    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_left * 6))
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_left * 5))
+    waitmovement(0)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_SUZUKI_BELOW)
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_Scream {
+    lockall
+    playse(SE_M_CUT)
+    delay(20)
+    msgbox(format("(That came from the bathrooms!)"))
+    closemessage
+    setspeaker("Ran")
+    msgbox(format("That was Ichiro!"))
+    setspeaker(NULL)
+    closemessage
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_fast_left * 8))
     waitmovement(0)
     setflag(FLAG_HIDE_TARC3_DINING_RAN)
     removeobject(LOCALID_MAINDECK_RAN_DINING)
@@ -1016,7 +1093,6 @@ script tarc3_MainDeck_EventScript_GatherNoExit {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
     waitmovement(0)
     msgbox(format("(Nobody is leaving this room while they're still going at each other.\pI should hear the rest of it.)"))
-    closemessage
     releaseall
     end
 }

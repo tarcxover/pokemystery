@@ -449,8 +449,11 @@
 #define TARC3_ACT2_GATHER          6  // free talk; dining room sealed
 #define TARC3_ACT2_BLACKOUT        7  // CS10: Bathroom cut, then MainDeck return
 #define TARC3_ACT2_LEAVING_DINING  8  // Suzuki exit trigger armed
-#define TARC3_ACT2_TO_BATHROOM     9  // Ran waits in the corridor
-#define TARC3_ACT2_ICHIRO_FOUND   10  // Ichiro found in the bathroom
+#define TARC3_ACT2_SUZUKI_BELOW    9  // Suzuki gone below; scream trigger armed further down the corridor
+#define TARC3_ACT2_TO_BATHROOM    10  // Ran waits in the corridor
+#define TARC3_ACT2_ICHIRO_FOUND   11  // Ichiro found in the bathroom
+#define TARC3_ACT2_TO_ELECTRICAL  12  // family assembled on B1; player walks down
+#define TARC3_ACT2_SEARCH_TAKESHI 13  // free roam; Suzuki asked Conan to find Takeshi
 
 #if TESTING
 #define TESTING_VARS_START                  0x9000
