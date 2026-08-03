@@ -16,7 +16,7 @@
   "object_events": [
     {
       "local_id": "LOCALID_MAINDECK_NATSUE_1",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
       "x": 27,
       "y": 11,
       "elevation": 0,
@@ -44,7 +44,7 @@
     },
     {
       "local_id": "LOCALID_MAINDECK_MARIKO",
-      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+      "graphics_id": "OBJ_EVENT_GFX_MARIKO",
       "x": 20,
       "y": 10,
       "elevation": 0,
@@ -58,7 +58,7 @@
     },
     {
       "local_id": "LOCALID_MAINDECK_AKIE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
       "x": 21,
       "y": 10,
       "elevation": 0,
@@ -128,7 +128,7 @@
     },
     {
       "local_id": "LOCALID_MAINDECK_NATSUE_DINING",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
       "x": 38,
       "y": 13,
       "elevation": 0,
@@ -156,7 +156,7 @@
     },
     {
       "local_id": "LOCALID_MAINDECK_MARIKO_DINING",
-      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+      "graphics_id": "OBJ_EVENT_GFX_MARIKO",
       "x": 38,
       "y": 7,
       "elevation": 0,
@@ -184,7 +184,7 @@
     },
     {
       "local_id": "LOCALID_MAINDECK_AKIE_DINING",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
       "x": 42,
       "y": 7,
       "elevation": 0,
@@ -198,7 +198,7 @@
     },
     {
       "local_id": "LOCALID_MAINDECK_TATSUO_DINING",
-      "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+      "graphics_id": "OBJ_EVENT_GFX_TATSUO",
       "x": 42,
       "y": 8,
       "elevation": 0,
@@ -254,7 +254,7 @@
     },
     {
       "local_id": "LOCALID_MAINDECK_NATSUE_DECK",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
       "x": 7,
       "y": 7,
       "elevation": 0,

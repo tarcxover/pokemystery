@@ -58,7 +58,7 @@
     },
     {
       "local_id": "LOCALID_BATHROOM_NATSUE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
       "x": 8,
       "y": 4,
       "elevation": 0,
@@ -86,7 +86,7 @@
     },
     {
       "local_id": "LOCALID_BATHROOM_MARIKO",
-      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+      "graphics_id": "OBJ_EVENT_GFX_MARIKO",
       "x": 6,
       "y": 5,
       "elevation": 0,
@@ -100,7 +100,7 @@
     },
     {
       "local_id": "LOCALID_BATHROOM_AKIE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
       "x": 8,
       "y": 5,
       "elevation": 0,

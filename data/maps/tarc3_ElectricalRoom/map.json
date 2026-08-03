@@ -58,7 +58,7 @@
     },
     {
       "local_id": "LOCALID_ELEC_MARIKO",
-      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+      "graphics_id": "OBJ_EVENT_GFX_MARIKO",
       "x": 10,
       "y": 9,
       "elevation": 0,
@@ -72,7 +72,7 @@
     },
     {
       "local_id": "LOCALID_ELEC_AKIE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
       "x": 12,
       "y": 9,
       "elevation": 0,
