@@ -1914,6 +1914,16 @@ u8 TrySpawnObjectEventTemplate(const struct ObjectEventTemplate *objectEventTemp
     if (subspriteTables)
         SetSubspriteTables(&gSprites[gObjectEvents[objectEventId].spriteId], subspriteTables);
 
+    if (graphicsId == OBJ_EVENT_GFX_GOZO_DEAD || graphicsId == OBJ_EVENT_GFX_TATSUO_DEAD)
+    {
+        struct ObjectEvent *deadObjEvent = &gObjectEvents[objectEventId];
+        struct Sprite *deadSprite = &gSprites[deadObjEvent->spriteId];
+
+        InitObjectPriorityByElevation(deadSprite, deadObjEvent->previousElevation);
+        deadObjEvent->fixedPriority = TRUE;
+        deadSprite->subpriority = 0xFF;
+    }
+
     OnOverworldWildEncounterSpawn(&gObjectEvents[objectEventId]);
     return objectEventId;
 }
