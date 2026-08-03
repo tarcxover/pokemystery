@@ -29,7 +29,17 @@ script tarc3_Bathroom_OnLoad {
     }
     setflag(FLAG_HIDE_TARC3_BATH_FAMILY)
     setflag(FLAG_HIDE_TARC3_BATH_SUZUKI)
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_BATHROOM) {
+        call(tarc3_Bathroom_EventScript_Blood)
+    }
     end
+}
+
+script tarc3_Bathroom_EventScript_Blood {
+    setmetatile(7, 8, 0x453, FALSE) // blood spatter 1
+    setmetatile(7, 9, 0x45B, FALSE) // blood spatter 2
+    setmetatile(5, 11, 0x46F, FALSE) // knife
+    return
 }
 
 // CS10 (cut to ichiro)
@@ -77,6 +87,8 @@ script tarc3_Bathroom_EventScript_IchiroDown {
 }
 
 script tarc3_Bathroom_EventScript_Discovery {
+    call(tarc3_Bathroom_EventScript_Blood)
+    special(DrawWholeMapView)
     playse(SE_DOOR)
     delay(40)
     clearflag(FLAG_HIDE_TARC3_BATH_CAST)
@@ -100,6 +112,8 @@ script tarc3_Bathroom_EventScript_Discovery {
     msgbox(format("Ichiro! Are you ok?\pWhat happened!?"))
     closemessage
     delay(20)
+    applymovement(LOCALID_BATHROOM_KITARO, moves(face_player))
+    waitmovement(0)
     setspeaker("Ichiro")
     msgbox(format("The lights went out.\pSomeone came in...\pHe stabbed me!"))
     msgbox(format("I couldn't see him. I couldn't see anything."))
@@ -158,7 +172,7 @@ script tarc3_Bathroom_EventScript_Discovery {
     setspeaker(NULL)
     closemessage
     delay(20)
-    applymovement(LOCALID_BATHROOM_RAN, moves(walk_down * 2, walk_right))
+    applymovement(LOCALID_BATHROOM_RAN, moves(walk_down * 3, face_player))
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
     waitmovement(0)
     setspeaker("{RIVAL}")
