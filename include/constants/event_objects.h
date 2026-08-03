@@ -413,6 +413,12 @@ enum
     OBJ_EVENT_GFX_PUSHABLE_BOULDER_FRLG,
     OBJ_EVENT_GFX_CUTTABLE_TREE_FRLG,
     OBJ_EVENT_GFX_BREAKABLE_ROCK_FRLG,
+    OBJ_EVENT_GFX_GOZO,
+    OBJ_EVENT_GFX_TATSUO,
+    OBJ_EVENT_GFX_MAID,
+    OBJ_EVENT_GFX_AKIE,
+    OBJ_EVENT_GFX_MARIKO,
+    OBJ_EVENT_GFX_NATSUE,
     NUM_OBJ_EVENT_GFX,
 };
 
@@ -568,6 +574,12 @@ enum
 #define OBJ_EVENT_PAL_TAG_METEORITE               0x1131
 #define OBJ_EVENT_PAL_TAG_SEAGALLOP               0x1132
 #define OBJ_EVENT_PAL_TAG_SS_ANNE                 0x1133
+#define OBJ_EVENT_PAL_TAG_GOZO                       0x1134
+#define OBJ_EVENT_PAL_TAG_TATSUO                     0x1135
+#define OBJ_EVENT_PAL_TAG_MAID                       0x1136
+#define OBJ_EVENT_PAL_TAG_AKIE                       0x1137
+#define OBJ_EVENT_PAL_TAG_MARIKO                     0x1138
+#define OBJ_EVENT_PAL_TAG_NATSUE                     0x1139
 
 #if OW_FOLLOWERS_POKEBALLS
 // Vanilla

@@ -401,6 +401,18 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMauvi
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMauvilleOldMan2;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ApricornTree;
 
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Npc15M;
+
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RichkidM;
+
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Maid2F;
+
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RichkidF;
+
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GenericnpcF;
+
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lady;
+
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
     [OBJ_EVENT_GFX_BRENDAN_MACH_BIKE] =        &gObjectEventGraphicsInfo_BrendanMachBike,
@@ -791,6 +803,12 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_DEOXYS_N]                 = &gObjectEventGraphicsInfo_DeoxysN,
     [OBJ_EVENT_GFX_SS_ANNE]                  = &gObjectEventGraphicsInfo_SSAnne,
 #endif // IS_FRLG
+    [OBJ_EVENT_GFX_GOZO] =               &gObjectEventGraphicsInfo_Npc15M,
+    [OBJ_EVENT_GFX_TATSUO] =               &gObjectEventGraphicsInfo_RichkidM,
+    [OBJ_EVENT_GFX_MAID] =               &gObjectEventGraphicsInfo_Maid2F,
+    [OBJ_EVENT_GFX_AKIE] =               &gObjectEventGraphicsInfo_RichkidF,
+    [OBJ_EVENT_GFX_MARIKO] =               &gObjectEventGraphicsInfo_GenericnpcF,
+    [OBJ_EVENT_GFX_NATSUE] =               &gObjectEventGraphicsInfo_Lady,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

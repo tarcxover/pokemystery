@@ -466,6 +466,24 @@ const u32 gObjectEventPic_ApricornTree[] = INCGFX_U32("graphics/object_events/pi
 
 const u32 gFieldEffectObjectPic_ShinySparkle[] = INCGFX_U32("graphics/field_effects/pics/shiny_sparkle.png", ".4bpp", "-mwidth 2 -mheight 4");
 
+const u32 gObjectEventPic_Npc15M[] = INCGFX_U32("graphics/object_events/pics/people/npc15_m.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Npc15M[] = INCGFX_U16("graphics/object_events/pics/people/npc15_m.png", ".gbapal");
+
+const u32 gObjectEventPic_RichkidM[] = INCGFX_U32("graphics/object_events/pics/people/richkid_m.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_RichkidM[] = INCGFX_U16("graphics/object_events/pics/people/richkid_m.png", ".gbapal");
+
+const u32 gObjectEventPic_Maid2F[] = INCGFX_U32("graphics/object_events/pics/people/maid2_f.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Maid2F[] = INCGFX_U16("graphics/object_events/pics/people/maid2_f.png", ".gbapal");
+
+const u32 gObjectEventPic_RichkidF[] = INCGFX_U32("graphics/object_events/pics/people/richkid_f.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_RichkidF[] = INCGFX_U16("graphics/object_events/pics/people/richkid_f.png", ".gbapal");
+
+const u32 gObjectEventPic_GenericnpcF[] = INCGFX_U32("graphics/object_events/pics/people/genericnpc_f.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_GenericnpcF[] = INCGFX_U16("graphics/object_events/pics/people/genericnpc_f.png", ".gbapal");
+
+const u32 gObjectEventPic_Lady[] = INCGFX_U32("graphics/object_events/pics/people/lady_by_aveontrainer_dd60lsb_fullview.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Lady[] = INCGFX_U16("graphics/object_events/pics/people/lady_by_aveontrainer_dd60lsb_fullview.png", ".gbapal");
+
 #if IS_FRLG
 
 const u16 gObjectEventPic_RedNormal[] = INCGFX_U16("graphics/object_events/pics/people/red/red_normal.png", ".4bpp", "-mwidth 2 -mheight 4");
