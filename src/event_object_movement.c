@@ -582,6 +582,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPaletteLight,              OBJ_EVENT_PAL_TAG_LIGHT},
     {gObjectEventPaletteLight2,             OBJ_EVENT_PAL_TAG_LIGHT_2},
     {gObjectEventPaletteEmotes,             OBJ_EVENT_PAL_TAG_EMOTES},
+    {gObjectEventPaletteEmotionIcons,       OBJ_EVENT_PAL_TAG_EMOTION_ICONS},
     {gObjectEventPaletteNeonLight,          OBJ_EVENT_PAL_TAG_NEON_LIGHT},
     {gObjectEventPal_Npc15M,                  OBJ_EVENT_PAL_TAG_GOZO},
     {gObjectEventPal_RichkidM,                OBJ_EVENT_PAL_TAG_TATSUO},

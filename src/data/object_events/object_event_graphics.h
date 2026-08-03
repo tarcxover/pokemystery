@@ -390,6 +390,7 @@ const u16 gObjectEventPaletteLight2[] = INCGFX_U16("graphics/object_events/palet
 const u16 gObjectEventPal_Substitute[] = INCGFX_U16("graphics/object_events/pics/pokemon_old/substitute.png", ".gbapal");
 
 const u16 gObjectEventPaletteEmotes[] = INCGFX_U16("graphics/misc/emotes.pal", ".gbapal");
+const u16 gObjectEventPaletteEmotionIcons[] = INCGFX_U16("graphics/field_effects/palettes/emotion_icons.pal", ".gbapal");
 const u16 gObjectEventPaletteNeonLight[] = INCGFX_U16("graphics/object_events/palettes/neon_light.pal", ".gbapal");
 
 #if OW_FOLLOWERS_POKEBALLS

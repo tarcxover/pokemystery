@@ -580,6 +580,7 @@ enum
 #define OBJ_EVENT_PAL_TAG_AKIE                       0x1137
 #define OBJ_EVENT_PAL_TAG_MARIKO                     0x1138
 #define OBJ_EVENT_PAL_TAG_NATSUE                     0x1139
+#define OBJ_EVENT_PAL_TAG_EMOTION_ICONS              0x113A
 
 #if OW_FOLLOWERS_POKEBALLS
 // Vanilla
