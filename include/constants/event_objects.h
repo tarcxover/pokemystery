@@ -419,6 +419,8 @@ enum
     OBJ_EVENT_GFX_AKIE,
     OBJ_EVENT_GFX_MARIKO,
     OBJ_EVENT_GFX_NATSUE,
+    OBJ_EVENT_GFX_GOZO_DEAD,
+    OBJ_EVENT_GFX_TATSUO_DEAD,
     NUM_OBJ_EVENT_GFX,
 };
 
@@ -581,6 +583,8 @@ enum
 #define OBJ_EVENT_PAL_TAG_MARIKO                     0x1138
 #define OBJ_EVENT_PAL_TAG_NATSUE                     0x1139
 #define OBJ_EVENT_PAL_TAG_EMOTION_ICONS              0x113A
+#define OBJ_EVENT_PAL_TAG_GOZO_DEAD                  0x113B
+#define OBJ_EVENT_PAL_TAG_TATSUO_DEAD                0x113C
 
 #if OW_FOLLOWERS_POKEBALLS
 // Vanilla

@@ -485,6 +485,12 @@ const u16 gObjectEventPal_GenericnpcF[] = INCGFX_U16("graphics/object_events/pic
 const u32 gObjectEventPic_Lady[] = INCGFX_U32("graphics/object_events/pics/people/lady_by_aveontrainer_dd60lsb_fullview.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u16 gObjectEventPal_Lady[] = INCGFX_U16("graphics/object_events/pics/people/lady_by_aveontrainer_dd60lsb_fullview.png", ".gbapal");
 
+const u32 gObjectEventPic_GozoDead[] = INCGFX_U32("graphics/object_events/pics/people/gozo_dead.png", ".4bpp", "-mwidth 4 -mheight 2");
+const u16 gObjectEventPal_GozoDead[] = INCGFX_U16("graphics/object_events/pics/people/gozo_dead.png", ".gbapal");
+
+const u32 gObjectEventPic_TatsuoDead[] = INCGFX_U32("graphics/object_events/pics/people/tatsuo_dead.png", ".4bpp", "-mwidth 4 -mheight 2");
+const u16 gObjectEventPal_TatsuoDead[] = INCGFX_U16("graphics/object_events/pics/people/tatsuo_dead.png", ".gbapal");
+
 #if IS_FRLG
 
 const u16 gObjectEventPic_RedNormal[] = INCGFX_U16("graphics/object_events/pics/people/red/red_normal.png", ".4bpp", "-mwidth 2 -mheight 4");

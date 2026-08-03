@@ -142,7 +142,7 @@
     },
     {
       "local_id": "LOCALID_FOREDECK_TATSUO_BODY",
-      "graphics_id": "OBJ_EVENT_GFX_TATSUO",
+      "graphics_id": "OBJ_EVENT_GFX_TATSUO_DEAD",
       "x": 10,
       "y": 15,
       "elevation": 0,

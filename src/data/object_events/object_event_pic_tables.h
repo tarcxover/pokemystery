@@ -2518,3 +2518,11 @@ static const struct SpriteFrameImage sPicTable_GenericnpcF[] = {
 static const struct SpriteFrameImage sPicTable_Lady[] = {
     overworld_ascending_frames(gObjectEventPic_Lady, 2, 4),
 };
+
+static const struct SpriteFrameImage sPicTable_GozoDead[] = {
+    overworld_frame(gObjectEventPic_GozoDead, 4, 2, 0),
+};
+
+static const struct SpriteFrameImage sPicTable_TatsuoDead[] = {
+    overworld_frame(gObjectEventPic_TatsuoDead, 4, 2, 0),
+};

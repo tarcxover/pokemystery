@@ -30,7 +30,7 @@
     },
     {
       "local_id": "LOCALID_GOZOROOM_GOZO_BODY",
-      "graphics_id": "OBJ_EVENT_GFX_GOZO",
+      "graphics_id": "OBJ_EVENT_GFX_GOZO_DEAD",
       "x": 9,
       "y": 9,
       "elevation": 0,
