@@ -30,7 +30,7 @@
     },
     {
       "local_id": "LOCALID_GOZOROOM_GOZO_BODY",
-      "graphics_id": "OBJ_EVENT_GFX_OLD_MAN",
+      "graphics_id": "OBJ_EVENT_GFX_GOZO_DEAD",
       "x": 9,
       "y": 9,
       "elevation": 0,
@@ -72,7 +72,7 @@
     },
     {
       "local_id": "LOCALID_GOZOROOM_NATSUE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
       "x": 8,
       "y": 12,
       "elevation": 0,
@@ -100,7 +100,7 @@
     },
     {
       "local_id": "LOCALID_GOZOROOM_MARIKO",
-      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+      "graphics_id": "OBJ_EVENT_GFX_MARIKO",
       "x": 11,
       "y": 12,
       "elevation": 0,
@@ -128,7 +128,7 @@
     },
     {
       "local_id": "LOCALID_GOZOROOM_TATSUO",
-      "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+      "graphics_id": "OBJ_EVENT_GFX_TATSUO",
       "x": 11,
       "y": 13,
       "elevation": 0,
@@ -142,7 +142,7 @@
     },
     {
       "local_id": "LOCALID_GOZOROOM_AKIE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
       "x": 10,
       "y": 13,
       "elevation": 0,

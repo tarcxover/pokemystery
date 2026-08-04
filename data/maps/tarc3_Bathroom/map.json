@@ -30,7 +30,7 @@
     },
     {
       "local_id": "LOCALID_BATHROOM_ICHIRO_DOWN",
-      "graphics_id": "OBJ_EVENT_GFX_MAN_4",
+      "graphics_id": "OBJ_EVENT_GFX_ICHIRO_INJURED",
       "x": 7,
       "y": 8,
       "elevation": 0,
@@ -58,9 +58,9 @@
     },
     {
       "local_id": "LOCALID_BATHROOM_NATSUE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
-      "x": 8,
-      "y": 4,
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
+      "x": 7,
+      "y": 5,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -73,7 +73,7 @@
     {
       "local_id": "LOCALID_BATHROOM_KITARO",
       "graphics_id": "OBJ_EVENT_GFX_MAN_1",
-      "x": 6,
+      "x": 8,
       "y": 4,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -86,9 +86,9 @@
     },
     {
       "local_id": "LOCALID_BATHROOM_MARIKO",
-      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
-      "x": 6,
-      "y": 5,
+      "graphics_id": "OBJ_EVENT_GFX_MARIKO",
+      "x": 5,
+      "y": 4,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -100,7 +100,7 @@
     },
     {
       "local_id": "LOCALID_BATHROOM_AKIE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
       "x": 8,
       "y": 5,
       "elevation": 0,
@@ -115,7 +115,7 @@
     {
       "local_id": "LOCALID_BATHROOM_JOJI",
       "graphics_id": "OBJ_EVENT_GFX_COOK",
-      "x": 5,
+      "x": 7,
       "y": 4,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -129,7 +129,7 @@
     {
       "local_id": "LOCALID_BATHROOM_SUZUKI",
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
-      "x": 7,
+      "x": 6,
       "y": 3,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -143,7 +143,7 @@
   ],
   "warp_events": [
     {
-      "x": 7,
+      "x": 6,
       "y": 3,
       "elevation": 0,
       "dest_map": "MAP_TARC3_MAIN_DECK",

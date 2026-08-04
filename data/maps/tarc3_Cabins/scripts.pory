@@ -3,7 +3,7 @@ mapscripts tarc3_Cabins_MapScripts {}
 script tarc3_Cabins_EventScript_BedroomRan {
     lock
     faceplayer
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
         msgbox(format("Two beds, a window and a wardrobe. It's nicer than anywhere we stayed on Florio."))
         msgbox(format("Go up on deck and say hello properly. They've been kind to us."))
@@ -21,7 +21,7 @@ script tarc3_Cabins_EventScript_BedroomRan {
     } else {
         msgbox(format("Dinner is at seven, remember.\pI'd rather not be the ones who turn up late."))
     }
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("Shall we move to the dining room?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
         msgbox(format("Fair enough. I'm not in a hurry either.\pTell me when you're ready."))
@@ -55,7 +55,7 @@ script tarc3_Cabins_EventScript_BedroomRan {
 }
 
 script tarc3_Cabins_EventScript_FamilyTree {
-    setspeaker("Franziska")
+    setspeaker("{RIVAL}")
     msgbox(format("Let me get this family straight before we sit down with them."))
     msgbox(format("Gozo Hatamoto is the head of it.\pEveryone else is one of his children, one of his grandchildren, or married in."))
     msgbox(format("Natsue and Akie are his granddaughters.\pTheir father Shoichi was Gozo's eldest son. He and their mother died last year."))

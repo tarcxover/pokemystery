@@ -16,7 +16,7 @@
   "object_events": [
     {
       "local_id": "LOCALID_FOREDECK_NATSUE",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
       "x": 13,
       "y": 14,
       "elevation": 0,
@@ -114,7 +114,7 @@
     },
     {
       "local_id": "LOCALID_FOREDECK_TATSUO",
-      "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+      "graphics_id": "OBJ_EVENT_GFX_TATSUO",
       "x": 10,
       "y": 15,
       "elevation": 0,
@@ -128,7 +128,7 @@
     },
     {
       "local_id": "LOCALID_FOREDECK_GOZO",
-      "graphics_id": "OBJ_EVENT_GFX_OLD_MAN",
+      "graphics_id": "OBJ_EVENT_GFX_GOZO",
       "x": 17,
       "y": 13,
       "elevation": 0,
@@ -142,7 +142,7 @@
     },
     {
       "local_id": "LOCALID_FOREDECK_TATSUO_BODY",
-      "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+      "graphics_id": "OBJ_EVENT_GFX_TATSUO_DEAD",
       "x": 10,
       "y": 15,
       "elevation": 0,
@@ -170,7 +170,7 @@
     },
     {
       "local_id": "LOCALID_FOREDECK_NATSUE_2",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
       "x": 16,
       "y": 12,
       "elevation": 0,
@@ -212,7 +212,7 @@
     },
     {
       "local_id": "LOCALID_FOREDECK_MARIKO_2",
-      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+      "graphics_id": "OBJ_EVENT_GFX_MARIKO",
       "x": 12,
       "y": 13,
       "elevation": 0,
@@ -226,7 +226,7 @@
     },
     {
       "local_id": "LOCALID_FOREDECK_AKIE_2",
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
       "x": 11,
       "y": 15,
       "elevation": 0,

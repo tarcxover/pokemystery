@@ -89,6 +89,68 @@ static const struct SubspriteTable sOamTables_16x16[] = {
     {ARRAY_COUNT(sOamTable_16x16_4), sOamTable_16x16_4}
 };
 
+static const struct Subsprite sOamTable_GozoDead_0[] = {
+    {
+        .x = -10,
+        .y =  -8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 0,
+        .priority = 2
+    }
+};
+
+static const struct Subsprite sOamTable_GozoDead_1[] = {
+    {
+        .x = -10,
+        .y =  -8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 0,
+        .priority = 1
+    }
+};
+
+static const struct SubspriteTable sOamTables_GozoDead[] = {
+    {},
+    {ARRAY_COUNT(sOamTable_GozoDead_0), sOamTable_GozoDead_0},
+    {ARRAY_COUNT(sOamTable_GozoDead_1), sOamTable_GozoDead_1},
+    {ARRAY_COUNT(sOamTable_GozoDead_0), sOamTable_GozoDead_0},
+    {ARRAY_COUNT(sOamTable_GozoDead_0), sOamTable_GozoDead_0},
+    {ARRAY_COUNT(sOamTable_GozoDead_1), sOamTable_GozoDead_1}
+};
+
+static const struct Subsprite sOamTable_TatsuoDead_0[] = {
+    {
+        .x = -20,
+        .y =  -8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 0,
+        .priority = 2
+    }
+};
+
+static const struct Subsprite sOamTable_TatsuoDead_1[] = {
+    {
+        .x = -20,
+        .y =  -8,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 0,
+        .priority = 1
+    }
+};
+
+static const struct SubspriteTable sOamTables_TatsuoDead[] = {
+    {},
+    {ARRAY_COUNT(sOamTable_TatsuoDead_0), sOamTable_TatsuoDead_0},
+    {ARRAY_COUNT(sOamTable_TatsuoDead_1), sOamTable_TatsuoDead_1},
+    {ARRAY_COUNT(sOamTable_TatsuoDead_0), sOamTable_TatsuoDead_0},
+    {ARRAY_COUNT(sOamTable_TatsuoDead_0), sOamTable_TatsuoDead_0},
+    {ARRAY_COUNT(sOamTable_TatsuoDead_1), sOamTable_TatsuoDead_1}
+};
+
 static const struct Subsprite sOamTable_16x32_0[] = {
     {
         .x = -8,

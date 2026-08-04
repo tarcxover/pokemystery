@@ -390,6 +390,7 @@ const u16 gObjectEventPaletteLight2[] = INCGFX_U16("graphics/object_events/palet
 const u16 gObjectEventPal_Substitute[] = INCGFX_U16("graphics/object_events/pics/pokemon_old/substitute.png", ".gbapal");
 
 const u16 gObjectEventPaletteEmotes[] = INCGFX_U16("graphics/misc/emotes.pal", ".gbapal");
+const u16 gObjectEventPaletteEmotionIcons[] = INCGFX_U16("graphics/field_effects/palettes/emotion_icons.pal", ".gbapal");
 const u16 gObjectEventPaletteNeonLight[] = INCGFX_U16("graphics/object_events/palettes/neon_light.pal", ".gbapal");
 
 #if OW_FOLLOWERS_POKEBALLS
@@ -465,6 +466,33 @@ const u16 gFieldEffectObjectPalette_CaveDust[] = INCGFX_U16("graphics/field_effe
 const u32 gObjectEventPic_ApricornTree[] = INCGFX_U32("graphics/object_events/pics/misc/apricorn_tree.png", ".4bpp", "-mwidth 2 -mheight 2");
 
 const u32 gFieldEffectObjectPic_ShinySparkle[] = INCGFX_U32("graphics/field_effects/pics/shiny_sparkle.png", ".4bpp", "-mwidth 2 -mheight 4");
+
+const u32 gObjectEventPic_Npc15M[] = INCGFX_U32("graphics/object_events/pics/people/npc15_m.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Npc15M[] = INCGFX_U16("graphics/object_events/pics/people/npc15_m.png", ".gbapal");
+
+const u32 gObjectEventPic_RichkidM[] = INCGFX_U32("graphics/object_events/pics/people/richkid_m.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_RichkidM[] = INCGFX_U16("graphics/object_events/pics/people/richkid_m.png", ".gbapal");
+
+const u32 gObjectEventPic_Maid2F[] = INCGFX_U32("graphics/object_events/pics/people/maid2_f.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Maid2F[] = INCGFX_U16("graphics/object_events/pics/people/maid2_f.png", ".gbapal");
+
+const u32 gObjectEventPic_RichkidF[] = INCGFX_U32("graphics/object_events/pics/people/richkid_f.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_RichkidF[] = INCGFX_U16("graphics/object_events/pics/people/richkid_f.png", ".gbapal");
+
+const u32 gObjectEventPic_GenericnpcF[] = INCGFX_U32("graphics/object_events/pics/people/genericnpc_f.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_GenericnpcF[] = INCGFX_U16("graphics/object_events/pics/people/genericnpc_f.png", ".gbapal");
+
+const u32 gObjectEventPic_Lady[] = INCGFX_U32("graphics/object_events/pics/people/lady_by_aveontrainer_dd60lsb_fullview.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Lady[] = INCGFX_U16("graphics/object_events/pics/people/lady_by_aveontrainer_dd60lsb_fullview.png", ".gbapal");
+
+const u32 gObjectEventPic_GozoDead[] = INCGFX_U32("graphics/object_events/pics/people/gozo_dead.png", ".4bpp", "-mwidth 4 -mheight 2");
+const u16 gObjectEventPal_GozoDead[] = INCGFX_U16("graphics/object_events/pics/people/gozo_dead.png", ".gbapal");
+
+const u32 gObjectEventPic_TatsuoDead[] = INCGFX_U32("graphics/object_events/pics/people/tatsuo_dead.png", ".4bpp", "-mwidth 4 -mheight 2");
+const u16 gObjectEventPal_TatsuoDead[] = INCGFX_U16("graphics/object_events/pics/people/tatsuo_dead.png", ".gbapal");
+
+const u32 gObjectEventPic_IchiroInjured[] = INCGFX_U32("graphics/object_events/pics/people/ichiro_injured.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_IchiroInjured[] = INCGFX_U16("graphics/object_events/pics/people/ichiro_injured.png", ".gbapal");
 
 #if IS_FRLG
 

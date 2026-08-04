@@ -2494,3 +2494,39 @@ static const struct SpriteFrameImage sPicTable_MomFrlg[] = {
 };
 
 #endif // IS_FRLG
+
+static const struct SpriteFrameImage sPicTable_Npc15M[] = {
+    overworld_ascending_frames(gObjectEventPic_Npc15M, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_RichkidM[] = {
+    overworld_ascending_frames(gObjectEventPic_RichkidM, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Maid2F[] = {
+    overworld_ascending_frames(gObjectEventPic_Maid2F, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_RichkidF[] = {
+    overworld_ascending_frames(gObjectEventPic_RichkidF, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_GenericnpcF[] = {
+    overworld_ascending_frames(gObjectEventPic_GenericnpcF, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Lady[] = {
+    overworld_ascending_frames(gObjectEventPic_Lady, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_GozoDead[] = {
+    overworld_frame(gObjectEventPic_GozoDead, 4, 2, 0),
+};
+
+static const struct SpriteFrameImage sPicTable_TatsuoDead[] = {
+    overworld_frame(gObjectEventPic_TatsuoDead, 4, 2, 0),
+};
+
+static const struct SpriteFrameImage sPicTable_IchiroInjured[] = {
+    overworld_ascending_frames(gObjectEventPic_IchiroInjured, 2, 4),
+};

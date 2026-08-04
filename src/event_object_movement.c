@@ -582,7 +582,17 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPaletteLight,              OBJ_EVENT_PAL_TAG_LIGHT},
     {gObjectEventPaletteLight2,             OBJ_EVENT_PAL_TAG_LIGHT_2},
     {gObjectEventPaletteEmotes,             OBJ_EVENT_PAL_TAG_EMOTES},
+    {gObjectEventPaletteEmotionIcons,       OBJ_EVENT_PAL_TAG_EMOTION_ICONS},
     {gObjectEventPaletteNeonLight,          OBJ_EVENT_PAL_TAG_NEON_LIGHT},
+    {gObjectEventPal_Npc15M,                  OBJ_EVENT_PAL_TAG_GOZO},
+    {gObjectEventPal_RichkidM,                OBJ_EVENT_PAL_TAG_TATSUO},
+    {gObjectEventPal_Maid2F,                  OBJ_EVENT_PAL_TAG_MAID},
+    {gObjectEventPal_RichkidF,                OBJ_EVENT_PAL_TAG_AKIE},
+    {gObjectEventPal_GenericnpcF,             OBJ_EVENT_PAL_TAG_MARIKO},
+    {gObjectEventPal_Lady, OBJ_EVENT_PAL_TAG_NATSUE},
+    {gObjectEventPal_GozoDead,              OBJ_EVENT_PAL_TAG_GOZO_DEAD},
+    {gObjectEventPal_TatsuoDead,            OBJ_EVENT_PAL_TAG_TATSUO_DEAD},
+    {gObjectEventPal_IchiroInjured,         OBJ_EVENT_PAL_TAG_ICHIRO_INJURED},
 #ifdef BUGFIX
     {NULL,                                  OBJ_EVENT_PAL_TAG_NONE},
 #else
@@ -1904,6 +1914,16 @@ u8 TrySpawnObjectEventTemplate(const struct ObjectEventTemplate *objectEventTemp
     gSprites[gObjectEvents[objectEventId].spriteId].images = graphicsInfo->images;
     if (subspriteTables)
         SetSubspriteTables(&gSprites[gObjectEvents[objectEventId].spriteId], subspriteTables);
+
+    if (graphicsId == OBJ_EVENT_GFX_GOZO_DEAD || graphicsId == OBJ_EVENT_GFX_TATSUO_DEAD)
+    {
+        struct ObjectEvent *deadObjEvent = &gObjectEvents[objectEventId];
+        struct Sprite *deadSprite = &gSprites[deadObjEvent->spriteId];
+
+        InitObjectPriorityByElevation(deadSprite, deadObjEvent->previousElevation);
+        deadObjEvent->fixedPriority = TRUE;
+        deadSprite->subpriority = 0xFF;
+    }
 
     OnOverworldWildEncounterSpawn(&gObjectEvents[objectEventId]);
     return objectEventId;
