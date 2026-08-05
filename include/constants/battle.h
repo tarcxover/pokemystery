@@ -201,6 +201,8 @@ enum BattleSide
 #define STATUS1_ICY_ANY          (STATUS1_FREEZE | STATUS1_FROSTBITE)
 #define STATUS1_DAMAGING         (STATUS1_PSN_ANY | STATUS1_BURN | STATUS1_FROSTBITE)
 
+#define PERMANENT_VOLATILE 16 // Indicates permanency for battler volatiles
+
 enum VolatileFlags
 {
     V_BATON_PASSABLE = (1 << 0),
@@ -210,7 +212,7 @@ enum VolatileFlags
  * These are removed after exiting the battle or switching
  *  Enum,                                   Type                           Type, max value, flags */
 #define VOLATILE_DEFINITIONS(F) \
-    F(VOLATILE_CONFUSION,                   confusionTurns,                (u32, B_CONFUSION_TURNS + 1), V_BATON_PASSABLE) \
+    F(VOLATILE_CONFUSION,                   confusionTimer,                (u32, PERMANENT_VOLATILE), V_BATON_PASSABLE) \
     F(VOLATILE_FLINCHED,                    flinched,                      (u32, 1)) \
     F(VOLATILE_UPROAR,                      uproarTurns,                   (u32, 5)) \
     F(VOLATILE_TORMENT,                     torment,                       (u32, 1)) \
@@ -242,7 +244,6 @@ enum VolatileFlags
     F(VOLATILE_ELECTRIFIED,                 electrified,                   (u32, 1)) \
     F(VOLATILE_MUD_SPORT,                   mudSport,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_WATER_SPORT,                 waterSport,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_INFINITE_CONFUSION,          infiniteConfusion,             (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_SALT_CURE,                   saltCure,                      (u32, 1)) \
     F(VOLATILE_SYRUP_BOMB,                  syrupBomb,                     (u32, 1)) \
     F(VOLATILE_STICKY_SYRUPED_BY,           stickySyrupedBy,               (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
@@ -476,13 +477,16 @@ enum BattleTerrain
 #define MOVE_RESULT_PROTECTED              (1 << 16)
 #define MOVE_RESULT_EXTREMELY_EFFECTIVE    (1 << 17)
 #define MOVE_RESULT_MOSTLY_INEFFECTIVE     (1 << 18)
+#define MOVE_RESULT_NOT_PRESENT            (1 << 19) // Battler not present at the start of move resolution
 #define MOVE_RESULT_AVOIDED_ATTACK         (MOVE_RESULT_MISSED | MOVE_RESULT_FAILED | MOVE_RESULT_PROTECTED)
 #define MOVE_RESULT_NO_EFFECT              (MOVE_RESULT_MISSED | MOVE_RESULT_FAILED | MOVE_RESULT_PROTECTED | MOVE_RESULT_DOESNT_AFFECT_FOE)
 #define MOVE_RESULT_HIGH_EFFECTIVENESS     (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_EXTREMELY_EFFECTIVE)
 #define MOVE_RESULT_LOW_EFFECTIVENESS      (MOVE_RESULT_NOT_VERY_EFFECTIVE | MOVE_RESULT_MOSTLY_INEFFECTIVE)
+#define MOVE_RESULT_INVALID_TARGET         (MOVE_RESULT_NO_EFFECT | MOVE_RESULT_NOT_PRESENT)
 
 enum BattleWeather
 {
+    BATTLE_WEATHER_NONE,
     BATTLE_WEATHER_RAIN,
     BATTLE_WEATHER_RAIN_PRIMAL,
     BATTLE_WEATHER_RAIN_DOWNPOUR,
