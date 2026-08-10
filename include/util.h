@@ -8,6 +8,15 @@
 extern const u8 gMiscBlank_Gfx[]; // unused in Emerald
 typedef int (*CompareFunc)(const void*, const void*);
 
+static inline s32 Clamp(s32 min, s32 max, s32 value)
+{
+    if (value < min)
+        return min;
+    if (value > max)
+        return max;
+    return value;
+}
+
 u8 CreateInvisibleSpriteWithCallback(void (*callback)(struct Sprite *));
 void StoreWordInTwoHalfwords(u16 *h, u32 w);
 void LoadWordFromTwoHalfwords(u16 *h, u32 *w);
@@ -41,5 +50,7 @@ FOREACH_TYPE(DECLARE_COMPARE)
 #define lsearch(key, base, n) \
     _lsearch((key), (base), (n), COMPARE_GENERIC(base), sizeof((base)[0]))
 
+s32 SubtractClamped(s32 min, s32 max, s32 value, s32 delta);
+s32 AddClamped(s32 min, s32 max, s32 value, s32 delta);
 
 #endif // GUARD_UTIL_H
