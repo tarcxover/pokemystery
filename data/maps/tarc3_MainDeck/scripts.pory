@@ -169,6 +169,51 @@ script tarc3_MainDeck_EventScript_Joji {
     msgbox(format("Anyway. Dinner is nearly up, and I won't have it going cold."))
     msgbox(format("Fetch your friend from your cabin and come through together.\pI'm not sending Suzuki round twice."))
     setspeaker(NULL)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_JojiReflect)
+}
+
+script tarc3_MainDeck_EventScript_JojiReflect {
+    goto_if_set(FLAG_TARC3_REFLECT_JOJI, tarc3_MainDeck_EventScript_JojiReflectEnd)
+    setspeaker(NULL)
+    message(format("(Hmm... What did I make of all that?)"))
+    waitmessage
+    dynmultipush("Gozo hates his cooking", 0)
+    dynmultipush("Mariko is married", 1)
+    dynmultipush("Suzuki is subservient", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_MainDeck_EventScript_JojiReflectRefused)
+        case 3:
+            goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_JojiReflectIrrelevant)
+    }
+}
+
+script tarc3_MainDeck_EventScript_JojiReflectRefused {
+    msgbox(format("(Gozo turned his own son's cooking away, in front of the whole family.)\pYeah. I should note that down."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_JOJI)
+    // giveevidence(EVD_JOJI_REFUSED)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_JojiReflectIrrelevant {
+    msgbox(format("(True enough. I'm not sure it tells me anything, though.)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_JOJI)
+    goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_JojiReflectEnd {
     release
     end
 }

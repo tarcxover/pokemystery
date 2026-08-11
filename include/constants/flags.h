@@ -1715,7 +1715,7 @@
 #define FLAG_HIDE_TARC3_BATH_FAMILY                 (TARC3_RESERVED_FLAGS_START + 0x47)
 #define FLAG_HIDE_TARC3_BATH_SUZUKI                 (TARC3_RESERVED_FLAGS_START + 0x48)
 #define FLAG_HIDE_TARC3_ELEC_CAST                   (TARC3_RESERVED_FLAGS_START + 0x49)
-#define FLAG_UNUSED_0x9AA                           (TARC3_RESERVED_FLAGS_START + 0x4A) // Unused Flag
+#define FLAG_TARC3_REFLECT_JOJI                     (TARC3_RESERVED_FLAGS_START + 0x4A)
 #define FLAG_UNUSED_0x9AB                           (TARC3_RESERVED_FLAGS_START + 0x4B) // Unused Flag
 #define FLAG_UNUSED_0x9AC                           (TARC3_RESERVED_FLAGS_START + 0x4C) // Unused Flag
 #define FLAG_UNUSED_0x9AD                           (TARC3_RESERVED_FLAGS_START + 0x4D) // Unused Flag
