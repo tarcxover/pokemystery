@@ -14,6 +14,9 @@ EventScript_Follower::
 	lock
 	bufferlivemonnickname STR_VAR_1
 	playfirstmoncry
+	call tarc3_EventScript_FollowerHook
+	compare VAR_RESULT, TRUE
+	goto_if_eq EventScript_FollowerEnd
 	getfolloweraction
 EventScript_FollowerEnd::
 	waitfieldeffect FLDEFF_EMOTE
