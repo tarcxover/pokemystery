@@ -2157,3 +2157,6 @@ const u16 gItemIconPalette_CharcoalDust[] = INCGFX_U16("graphics/evidence/icons/
 
 const u32 gItemIcon_KitchenKnife[] = INCGFX_U32("graphics/evidence/icons/kitchen_knife.png", ".4bpp.smol");
 const u16 gItemIconPalette_KitchenKnife[] = INCGFX_U16("graphics/evidence/icons/kitchen_knife.png", ".gbapal");
+
+const u32 gItemIcon_Testimony[] = INCGFX_U32("graphics/evidence/icons/testimony.png", ".4bpp.smol");
+const u16 gItemIconPalette_Testimony[] = INCGFX_U16("graphics/evidence/icons/testimony.png", ".gbapal");
