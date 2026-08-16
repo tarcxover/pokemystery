@@ -2412,6 +2412,12 @@
 	.2byte \var
 	.endm
 
+	@ Stores the species of the first alive party member (the follower) into the specified var.
+	.macro getlivemonspecies var:req
+	callnative GetFirstLiveMonSpecies, requests_effects=1
+	.2byte \var
+	.endm
+
 	@ Saves the direction from where source object event would need to turn to to face the target into the specified var.
 	.macro getdirectiontoface var:req, sourceId:req, targetId:req
 	callnative GetDirectionToFaceScript, requests_effects=1

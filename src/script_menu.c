@@ -517,8 +517,9 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
     gMultiuseListMenuTemplate.totalItems = argc;
     gMultiuseListMenuTemplate.maxShowed = maxBeforeScroll;
     gMultiuseListMenuTemplate.moveCursorFunc = MultichoiceDynamic_MoveCursor;
-    gMultiuseListMenuTemplate.itemPrintFunc =
-        sDynamicListMenuEventCollections[sDynamicMenuEventId].itemPrintCB;
+    if (sDynamicMenuEventId != DYN_MULTICHOICE_CB_NONE)
+        gMultiuseListMenuTemplate.itemPrintFunc =
+            sDynamicListMenuEventCollections[sDynamicMenuEventId].itemPrintCB;
 
     u32 count = ((multiselect & 0xF000) >> 12);
 

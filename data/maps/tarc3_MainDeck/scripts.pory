@@ -86,8 +86,8 @@ script tarc3_MainDeck_EventScript_Mariko {
     faceplayer
     setspeaker("Mariko")
     if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
-        msgbox(format("Mariko Hatamoto. My husband handles the company. I handle the family."))
-        msgbox(format("You'll find we're not much of a wedding party.\pWe travel together perhaps twice a decade, and never happily."))
+        msgbox(format("I'm Mariko Hatamoto. My husband handles the company. I handle the family."))
+        msgbox(format("You'll find we're not much of a wedding party.\pWe travel together rarely, and never happily."))
         msgbox(format("The last time we were all in one room was a funeral.\pMy brother Shoichi and his wife. An accident, a couple years ago."))
         msgbox(format("We're in much better spirits today. It's a good chance to ask Father about..."))
         msgbox(format("Disregard that! This is a family matter."))
@@ -100,7 +100,6 @@ script tarc3_MainDeck_EventScript_Mariko {
     msgbox(format("He decides who belongs to this family. He always has."))
     setspeaker(NULL)
     closemessage
-    msgbox(format("(She counted something on her fingers the entire time she was speaking.)"))
     release
     end
 }
@@ -111,7 +110,6 @@ script tarc3_MainDeck_EventScript_Akie {
     setspeaker("Akie")
     if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
         msgbox(format("Akie. Natsue's sister, before you ask, and no, we're nothing alike."))
-        msgbox(format("If you're looking for my husband, don't. He'll find you."))
         setspeaker(NULL)
         release
         end
@@ -133,20 +131,64 @@ script tarc3_MainDeck_EventScript_Suzuki {
     faceplayer
     setspeaker("Suzuki")
     if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
-        msgbox(format("Good afternoon. Kenji Suzuki. I look after the household."))
+        msgbox(format("Good afternoon. Kenji Suzuki. I look after Gozo and the family."))
         msgbox(format("Dinner is not far away. You are both expected, whatever anyone tells you otherwise."))
         msgbox(format("The galley is through there, the cabins behind you.\pThe stairs will take you to the hold."))
-        msgbox(format("Go where you please. The crew keep to the bridge and their own berths.\pFor this voyage, the ship belongs to the family and nobody else."))
+        msgbox(format("The crew keep to the bridge and their own berths.\pFor this voyage, the ship belongs to the family and nobody else."))
         setspeaker(NULL)
         release
         end
     }
     msgbox(format("I heard about the deck. Apologies. Gozo speaks his mind with ruthless efficiency.\pIt's how he conducts his business, too."))
-    msgbox(format("Lately, Gozo has been considering his family's legacy. Where he allocates his capital and his attention.\pWhat is, and is not, returning on his investments..."))
-    msgbox(format("The young man with the sketchbook is not family, before you ask.\pIchiro grew up on Hatamoto Island. He and Natsue played together as children."))
-    msgbox(format("Gozo paid for his studies. Art school, on the mainland."))
+    msgbox(format("Lately, Gozo has been considering his legacy. His assets, his investments.\pWhat he wants to grow... and cut loose."))
+    msgbox(format("The young man with the sketchbook is not family, before you ask.\pIchiro is Natsue's childhood friend. He has always supported her."))
+    msgbox(format("Gozo paid for his studies. Art school - drawing is his passion."))
     msgbox(format("...Gozo tends to feel owed, when he invests in a person."))
     setspeaker(NULL)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_SuzukiReflect)
+}
+
+script tarc3_MainDeck_EventScript_SuzukiReflect {
+    goto_if_set(FLAG_TARC3_REFLECT_SUZUKI, tarc3_MainDeck_EventScript_SuzukiReflectEnd)
+    setspeaker(NULL)
+    message(format("(He chose every one of those words. What should I jot down?)"))
+    waitmessage
+    dynmultipush("Ichiro is a gifted artist", 0)
+    dynmultipush("Suzuki is very observant", 1)
+    dynmultipush("Gozo sponsored Ichiro's education", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 2:
+            goto(tarc3_MainDeck_EventScript_SuzukiReflectSponsorship)
+        case 3:
+            goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_SuzukiReflectIrrelevant)
+    }
+}
+
+script tarc3_MainDeck_EventScript_SuzukiReflectSponsorship {
+    msgbox(format("(Ichiro's whole education came out of Gozo's pocket. And Gozo counts what he's owed.)\pThat one goes in the notes."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_SUZUKI)
+    // giveevidence(EVD_ICHIRO_SPONSORSHIP)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_SuzukiReflectIrrelevant {
+    msgbox(format("(Probably true. I can't do anything with it, though.)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_SUZUKI)
+    goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_SuzukiReflectEnd {
     release
     end
 }
@@ -158,17 +200,60 @@ script tarc3_MainDeck_EventScript_Joji {
     if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
         msgbox(format("Joji Hatamoto. You might think we're a family of businesspeople.\pI travel the world, cooking only the finest foods."))
         msgbox(format("I run a restaurant back on the mainland. Kalosian cuisine, mostly.\pMy Pokémon assist, of course!"))
-        msgbox(format("I carry my own knives everywhere. Eight of them, in a roll.\pA chef who borrows a knife is a chef who has given up."))
         setspeaker(NULL)
         release
         end
     }
-    msgbox(format("You heard him. He won't touch Kalosian food. He never has."))
-    msgbox(format("I don't know why I thought a wedding would be any different.\pThe last time was Mariko's reception. He didn't eat then either."))
-    msgbox(format("Not a bite. Not even the bread.\pHe says the smell of a Kalosian loaf is enough to turn his stomach."))
+    msgbox(format("I asked Father what he made of the reception. I spent three days cooking that soup."))
+    msgbox(format("He heard the word Kalosian, and that was the end of it.\pHe wouldn't even touch it on Natsue's wedding day."))
+    msgbox(format("Not a bite. Not even the bread.\pHe says a Kalosian loaf is too rich. Psh!"))
     msgbox(format("Anyway. Dinner is nearly up, and I won't have it going cold."))
     msgbox(format("Fetch your friend from your cabin and come through together.\pI'm not sending Suzuki round twice."))
     setspeaker(NULL)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_JojiReflect)
+}
+
+script tarc3_MainDeck_EventScript_JojiReflect {
+    goto_if_set(FLAG_TARC3_REFLECT_JOJI, tarc3_MainDeck_EventScript_JojiReflectEnd)
+    setspeaker(NULL)
+    message(format("(Hmm... What did I make of all that?)"))
+    waitmessage
+    dynmultipush("Kitaro is married to Mariko", 1)
+    dynmultipush("Gozo hates his cooking", 0)
+    dynmultipush("Gozo doesn't respect his children", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_MainDeck_EventScript_JojiReflectRefused)
+        case 3:
+            goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_JojiReflectIrrelevant)
+    }
+}
+
+script tarc3_MainDeck_EventScript_JojiReflectRefused {
+    msgbox(format("(Gozo turned his own son's cooking away, in front of the whole family.)\pYeah. I should note that down."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_JOJI)
+    // giveevidence(EVD_JOJI_REFUSED)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_JojiReflectIrrelevant {
+    msgbox(format("(True enough. I'm not sure it tells me anything, though.)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_JOJI)
+    goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_JojiReflectEnd {
     release
     end
 }
@@ -177,12 +262,20 @@ script tarc3_MainDeck_EventScript_Joji {
 
 script tarc3_MainDeck_EventScript_Dinner {
     lockall
+    setflag(FLAG_HIDE_TARC3_MAINDECK_MARIKO)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_AKIE)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_SUZUKI)
+    setflag(FLAG_HIDE_TARC3_MAINDECK_JOJI)
+    removeobject(LOCALID_MAINDECK_MARIKO)
+    removeobject(LOCALID_MAINDECK_AKIE)
+    removeobject(LOCALID_MAINDECK_SUZUKI)
+    removeobject(LOCALID_MAINDECK_JOJI)
     delay(30)
     applymovement(LOCALID_MAINDECK_RAN_DINING, moves(face_up))
     waitmovement(0)
     delay(30)
     setspeaker("{RIVAL}")
-    msgbox(format("Hmm...\pWe've been sat here half an hour, and I don't think anyone has said a word."))
+    msgbox(format("Hmm...\pIt's been a very quiet dinner so far."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -196,13 +289,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(face_left))
     waitmovement(0)
     setspeaker("Suzuki")
-    msgbox(format("Forgive me. I found this in the corridor coming through from the galley.\pOutside Gozo's cabin, I think."))
-    msgbox(format("That was a little after seven.\pI have not stepped out of this room since."))
-    setspeaker(NULL)
-    closemessage
-    delay(20)
-    setspeaker("Natsue")
-    msgbox(format("That's... that's the one I pinned on Takeshi.\pThis afternoon, on the deck."))
+    msgbox(format("The second course will be ready shortly. Has Gozo not joined yet?"))
     setspeaker(NULL)
     closemessage
     delay(30)
@@ -211,6 +298,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     delay(30)
     applymovement(LOCALID_MAINDECK_TAKESHI_DINING, moves(walk_right * 7, walk_down, face_right))
     waitmovement(0)
+    copyobjectxytoperm(LOCALID_MAINDECK_TAKESHI_DINING)
     applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(face_up))
     waitmovement(0)
     delay(20)
@@ -231,7 +319,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     waitmovement(0)
     setspeaker("{RIVAL}")
     msgbox(format("My father seems to misplace his possessions constantly."))
-    msgbox(format("He's a private detective. Half our conversations at home sound like this one."))
+    msgbox(format("For a private detective, you would think he would be tidier."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -241,6 +329,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     delay(20)
     applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(emote_exclamation_mark))
     waitmovement(0)
+    playse(SE_PIN)
     delay(20)
     applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
     waitmovement(0)
@@ -258,9 +347,6 @@ script tarc3_MainDeck_EventScript_Dinner {
     setspeaker(NULL)
     closemessage
     delay(40)
-    msgbox(format("(The dining room falls silent.)"))
-    closemessage
-    delay(20)
     applymovement(LOCALID_CAMERA, moves(walk_down * 5))
     waitmovement(0)
     special(RemoveCameraObject)
@@ -268,7 +354,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(walk_in_place_slow_right))
     waitmovement(0)
     setspeaker("Suzuki")
-    msgbox(format("Please, talk amongst yourselves.\pI will fetch Gozo."))
+    msgbox(format("Please, talk amongst yourselves.\pI will see if Gozo will join us."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -279,6 +365,26 @@ script tarc3_MainDeck_EventScript_Dinner {
     removeobject(LOCALID_MAINDECK_SUZUKI_DINING)
     delay(30)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_DINNER_TABLE)
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_EvdPlate {
+    lockall
+    goto_if_set(FLAG_TARC3_DINING_FOUND_PLATE, tarc3_MainDeck_EventScript_EvdPlateSeen)
+    msgbox(format("The setting at the head of the table has not been touched. The bread beside it is whole."))
+    msgbox(format("(Gozo won't eat Kalosian food. And he certainly hasn't touched his bread.)"))
+    closemessage
+    // giveevidence(EVD_UNTOUCHED_PLATE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_DINING_FOUND_PLATE)
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_EvdPlateSeen {
+    msgbox(format("Gozo's place setting, still laid and still untouched."))
     releaseall
     end
 }
@@ -379,7 +485,7 @@ script tarc3_MainDeck_EventScript_DiningTakeshi {
     faceplayer
     setspeaker("Takeshi")
     msgbox(format("...Sorry. I'm poor company tonight."))
-    msgbox(format("He knew more about me than I thought.\pThat's all I can say. Please don't ask Natsue."))
+    msgbox(format("Gozo knew more about me than I thought.\pBut now... I think I'm at peace. I hope he is too."))
     setspeaker(NULL)
     closemessage
     if (!flag(FLAG_TARC3_DINNER_TALK_TAKESHI)) {
@@ -647,16 +753,19 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
 script tarc3_MainDeck_EventScript_TheScream {
     lockall
     delay(30)
-    fadeoutbgm(4)
-    delay(120)
+    fadeoutbgm(2)
+    delay(20)
     playse(SE_PIN)
-    delay(30)
+    delay(20)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
     applymovement(LOCALID_MAINDECK_RAN_DINING, moves(face_left))
     applymovement(LOCALID_MAINDECK_NATSUE_DINING, moves(face_left))
     applymovement(LOCALID_MAINDECK_TAKESHI_DINING, moves(face_left))
     waitmovement(0)
-    msgbox(format("Suzuki's voice carries the length of the corridor.\pHe is shouting for someone to come."))
+    setspeaker("Suzuki")
+    msgbox(format("There is blood on the master's door!"))
+    msgbox(format("Everyone come, quickly!"))
+    setspeaker(NULL)
     closemessage
     delay(20)
     setflag(FLAG_HIDE_TARC3_DINING_JOJI)
@@ -668,7 +777,7 @@ script tarc3_MainDeck_EventScript_TheScream {
     setflag(FLAG_HIDE_TARC3_DINING_TATSUO)
     setflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
     setflag(FLAG_HIDE_TARC3_DINING_RAN)
-    clearflag(FLAG_HIDE_TARC3_C1_SUZUKI)
+    clearflag(FLAG_HIDE_TARC3_GOZO_SUZUKI)
     clearflag(FLAG_HIDE_TARC3_HALL_NATSUE)
     clearflag(FLAG_HIDE_TARC3_HALL_TAKESHI)
     clearflag(FLAG_HIDE_TARC3_HALL_JOJI)
@@ -678,6 +787,7 @@ script tarc3_MainDeck_EventScript_TheScream {
     clearflag(FLAG_HIDE_TARC3_HALL_AKIE)
     clearflag(FLAG_HIDE_TARC3_HALL_TATSUO)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_THE_BODY)
+    fadescreenspeed(FADE_TO_BLACK, 6)
     warp(MAP_TARC3_GOZO_ROOM, 10, 11)
     waitstate
     end

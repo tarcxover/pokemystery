@@ -6309,6 +6309,20 @@ void IsFollowerFieldMoveUser(struct ScriptContext *ctx)
     }
 }
 
+void GetFirstLiveMonSpecies(struct ScriptContext *ctx)
+{
+    u32 varId = ScriptReadHalfword(ctx);
+
+    Script_RequestEffects(SCREFF_V1);
+    Script_RequestWriteVar(varId);
+
+    u16 *var = GetVarPointer(varId);
+    struct Pokemon *mon = GetFirstLiveMon();
+    if (var == NULL)
+        return;
+    *var = mon ? GetMonData(mon, MON_DATA_SPECIES) : SPECIES_NONE;
+}
+
 void SetTrainerMovementType(struct ObjectEvent *objectEvent, u8 movementType)
 {
     objectEvent->movementType = movementType;

@@ -38,22 +38,75 @@ tarc3_EventScript_Act1Setup::
 # 20 "data/scripts/tarc3_common.pory"
 	setflag FLAG_HIDE_TARC3_HALL_ICHIRO
 # 21 "data/scripts/tarc3_common.pory"
-	setflag FLAG_HIDE_TARC3_C1_SUZUKI
+	setflag FLAG_HIDE_TARC3_GOZO_SUZUKI
 # 22 "data/scripts/tarc3_common.pory"
-	setflag FLAG_HIDE_TARC3_C1_GOZO_BODY
+	setflag FLAG_HIDE_TARC3_GOZO_BODY
 # 23 "data/scripts/tarc3_common.pory"
+	setflag FLAG_HIDE_TARC3_GOZO_EVD_GARLAND
+# 24 "data/scripts/tarc3_common.pory"
+	setflag FLAG_HIDE_TARC3_HOLD_EVD_MANIFEST
+# 25 "data/scripts/tarc3_common.pory"
 	setvar VAR_TARC3_ACT1, TARC3_ACT1_BOARDED
 	return
 
 
 tarc3_EventScript_EvidenceCaptured::
-# 28 "data/scripts/tarc3_common.pory"
+# 30 "data/scripts/tarc3_common.pory"
 	playse SE_PC_LOGIN
-# 29 "data/scripts/tarc3_common.pory"
+# 31 "data/scripts/tarc3_common.pory"
 	msgbox tarc3_EventScript_EvidenceCaptured_Text_0
 	return
 
 
+tarc3_EventScript_FollowerHook::
+# 39 "data/scripts/tarc3_common.pory"
+	setvar VAR_RESULT, FALSE
+# 40 "data/scripts/tarc3_common.pory"
+	goto_if_ne VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1, tarc3_EventScript_FollowerHookEnd
+# 41 "data/scripts/tarc3_common.pory"
+	goto_if_set FLAG_TARC3_GOZO_FOUND_WEAPON, tarc3_EventScript_FollowerHookEnd
+# 42 "data/scripts/tarc3_common.pory"
+	getlivemonspecies VAR_0x8008
+# 43 "data/scripts/tarc3_common.pory"
+	goto_if_eq VAR_0x8008, SPECIES_MAGNEZONE, tarc3_EventScript_MagnezoneSearch
+# 44 "data/scripts/tarc3_common.pory"
+	goto tarc3_EventScript_FollowerHookEnd
+	return
+
+
+tarc3_EventScript_MagnezoneSearch::
+# 48 "data/scripts/tarc3_common.pory"
+	msgbox tarc3_EventScript_MagnezoneSearch_Text_0
+# 49 "data/scripts/tarc3_common.pory"
+	msgbox tarc3_EventScript_MagnezoneSearch_Text_1
+# 50 "data/scripts/tarc3_common.pory"
+	closemessage
+# 52 "data/scripts/tarc3_common.pory"
+	call tarc3_EventScript_EvidenceCaptured
+# 53 "data/scripts/tarc3_common.pory"
+	closemessage
+# 54 "data/scripts/tarc3_common.pory"
+	setflag FLAG_TARC3_GOZO_FOUND_WEAPON
+# 55 "data/scripts/tarc3_common.pory"
+	setvar VAR_RESULT, TRUE
+	return
+
+
+tarc3_EventScript_FollowerHookEnd::
+# 60 "data/scripts/tarc3_common.pory"
+	setvar VAR_RESULT, FALSE
+	return
+
+
 tarc3_EventScript_EvidenceCaptured_Text_0:
-# 29 "data/scripts/tarc3_common.pory"
+# 31 "data/scripts/tarc3_common.pory"
 	.string "<Evidence captured>$"
+
+tarc3_EventScript_MagnezoneSearch_Text_0:
+# 48 "data/scripts/tarc3_common.pory"
+	.string "Magnezone used its magnets to try and\n"
+	.string "find the knife!$"
+
+tarc3_EventScript_MagnezoneSearch_Text_1:
+# 49 "data/scripts/tarc3_common.pory"
+	.string "But nothing was found.$"

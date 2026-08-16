@@ -18,8 +18,10 @@ script tarc3_EventScript_Act1Setup {
     setflag(FLAG_HIDE_TARC3_HALL_AKIE)
     setflag(FLAG_HIDE_TARC3_HALL_TATSUO)
     setflag(FLAG_HIDE_TARC3_HALL_ICHIRO)
-    setflag(FLAG_HIDE_TARC3_C1_SUZUKI)
-    setflag(FLAG_HIDE_TARC3_C1_GOZO_BODY)
+    setflag(FLAG_HIDE_TARC3_GOZO_SUZUKI)
+    setflag(FLAG_HIDE_TARC3_GOZO_BODY)
+    setflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
+    setflag(FLAG_HIDE_TARC3_HOLD_EVD_MANIFEST)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_BOARDED)
     return
 }
@@ -27,5 +29,34 @@ script tarc3_EventScript_Act1Setup {
 script tarc3_EventScript_EvidenceCaptured {
     playse(SE_PC_LOGIN)
     msgbox(format("<Evidence captured>"))
+    return
+}
+
+// called from EventScript_Follower before the default follower behaviour
+// sets VAR_RESULT to TRUE if it handled the interaction itself
+
+script tarc3_EventScript_FollowerHook {
+    setvar(VAR_RESULT, FALSE)
+    goto_if_ne(VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1, tarc3_EventScript_FollowerHookEnd)
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_WEAPON, tarc3_EventScript_FollowerHookEnd)
+    getlivemonspecies(VAR_0x8008)
+    goto_if_eq(VAR_0x8008, SPECIES_MAGNEZONE, tarc3_EventScript_MagnezoneSearch)
+    goto(tarc3_EventScript_FollowerHookEnd)
+}
+
+script tarc3_EventScript_MagnezoneSearch {
+    msgbox(format("Magnezone used its magnets to try and find the knife!"))
+    msgbox(format("But nothing was found."))
+    closemessage
+    // giveevidence(EVD_NO_WEAPON)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_WEAPON)
+    setvar(VAR_RESULT, TRUE)
+    return
+}
+
+script tarc3_EventScript_FollowerHookEnd {
+    setvar(VAR_RESULT, FALSE)
     return
 }
