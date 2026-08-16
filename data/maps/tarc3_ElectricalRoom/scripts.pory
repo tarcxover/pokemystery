@@ -33,7 +33,7 @@ script tarc3_ElectricalRoom_EventScript_Breakers {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("(...There's scorching around the switch housing.)")) // this will become inspected/evidence instead - scorching in switch wiring > burn from the outside in/didn't burn out from a device drawing power
+    msgbox(format("{FONT_NARROW}(...There's scorching around the switch housing.)", "1_latin_rse_narrow")) // this will become inspected/evidence instead - scorching in switch wiring > burn from the outside in/didn't burn out from a device drawing power
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     // delay(20)
