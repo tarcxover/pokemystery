@@ -9,8 +9,10 @@ mapscripts tarc3_GozoRoom_MapScripts {
 
 script tarc3_GozoRoom_EventScript_TheBody {
     lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    waitmovement(0)
     delay(30)
-    clearflag(FLAG_HIDE_TARC3_C1_SUZUKI)
+    clearflag(FLAG_HIDE_TARC3_GOZO_SUZUKI)
     clearflag(FLAG_HIDE_TARC3_HALL_NATSUE)
     clearflag(FLAG_HIDE_TARC3_HALL_TAKESHI)
     clearflag(FLAG_HIDE_TARC3_HALL_JOJI)
@@ -28,16 +30,14 @@ script tarc3_GozoRoom_EventScript_TheBody {
     addobject(LOCALID_GOZOROOM_ICHIRO)
     addobject(LOCALID_GOZOROOM_AKIE)
     addobject(LOCALID_GOZOROOM_TATSUO)
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
-    waitmovement(0)
     delay(40)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(walk_in_place_slow_up))
     waitmovement(0)
     setspeaker("Suzuki")
     msgbox(format("It is locked. And he is not answering."))
-    msgbox(format("It can only be unlocked from inside the room, or with a door key.\pThere is only the one spare key, and it has been in my pocket all evening."))
+    msgbox(format("It can only be unlocked from inside the room, or with a door key.\pI have the only spare key for the room."))
     setspeaker("Mariko")
-    msgbox(format("Then...\pThen use it!"))
+    msgbox(format("Then use it!\pOpen it already!"))
     setspeaker(NULL)
     closemessage
     delay(30)
@@ -48,9 +48,10 @@ script tarc3_GozoRoom_EventScript_TheBody {
     msgbox(format("The lock turns.")) // probably a sound effect to use here
     closemessage
     delay(20)
+    playse(SE_EXIT)
     call(tarc3_GozoRoom_EventScript_RevealRoom)
     special(DrawWholeMapView)
-    clearflag(FLAG_HIDE_TARC3_C1_GOZO_BODY)
+    clearflag(FLAG_HIDE_TARC3_GOZO_BODY)
     addobject(LOCALID_GOZOROOM_GOZO_BODY)
     delay(30)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(walk_up))
@@ -66,21 +67,21 @@ script tarc3_GozoRoom_EventScript_TheBody {
     waitmovement(0)
     delay(40)
     msgbox(format("Gozo Hatamoto's body is on the floor."))
-    msgbox(format("Wounds across the chest. More than one, struck again and again. There is no weapon anywhere in the room.")) // this can probably become evidence
+    msgbox(format("Wounds across the chest. More than one, struck again and again."))
     closemessage
     delay(30)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_down))
     setspeaker("Suzuki")
     msgbox(format("Gozo."))
-    msgbox(format("...I walked past this door a little over half an hour ago.\pThere was nothing on the floor but that flower."))
-    msgbox(format("There was blood on the frame, though.\pI told myself it was nothing and kept walking."))
-    msgbox(format("I should have knocked."))
+    msgbox(format("...I walked past this door a little over half an hour ago."))
+    msgbox(format("I came back to call him through for dinner, but I saw the blood.\pThat is when I shouted for you all."))
     setspeaker(NULL)
     closemessage
     delay(30)
-    msgbox(format("(Blood on the frame, but the door was shut and locked.)"))
+    msgbox(format("(Blood on the doorframe, but the door was shut and locked.)"))
     msgbox(format("(That only happens one way. He was cut before the door closed, not after.)"))
     closemessage
+    // giveevidence(EVD_BLOODY_DOORFRAME)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     delay(30)
@@ -94,10 +95,14 @@ script tarc3_GozoRoom_EventScript_TheBody {
     delay(30)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     delay(30)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_down * 3))
+    waitmovement(0)
+    delay(20)
     applymovement(LOCALID_GOZOROOM_AKIE, moves(walk_in_place_slow_up))
     waitmovement(0)
     setspeaker("Akie")
-    msgbox(format("He did it to himself."))
+    msgbox(format("He must have done it to himself."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -109,15 +114,31 @@ script tarc3_GozoRoom_EventScript_TheBody {
     applymovement(LOCALID_GOZOROOM_ICHIRO, moves(emote_exclamation_mark))
     applymovement(LOCALID_GOZOROOM_TATSUO, moves(emote_exclamation_mark))
     waitmovement(0)
+    playse(SE_PIN)
+    delay(5)
+    playse(SE_PIN)
+    delay(3)
+    playse(SE_PIN)
+    delay(5)
+    playse(SE_PIN)
     delay(20)
     setspeaker("Akie")
-    msgbox(format("Don't look at me like that. He would do exactly this.\pLock the door and leave the rest of us staring at each other."))
+    msgbox(format("Don't look at me like that! He would do exactly this.\pLock the door and leave the rest of us staring at each other."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_GOZOROOM_MARIKO, moves(face_down))
+    waitmovement(0)
     setspeaker("Mariko")
     msgbox(format("Akie."))
     setspeaker("Akie")
     msgbox(format("You know I'm right. He hated every one of us."))
     setspeaker(NULL)
     closemessage
+    delay(20)
+    applymovement(LOCALID_CAMERA, moves(walk_up * 3))
+    waitmovement(0)
+    special(RemoveCameraObject)
     delay(20)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_up))
     applymovement(LOCALID_GOZOROOM_NATSUE, moves(face_up))
@@ -139,26 +160,39 @@ script tarc3_GozoRoom_EventScript_TheBody {
     setspeaker(NULL)
     closemessage
     delay(30)
-    msgbox(format("(A missing weapon. One door, one key, and it was opened from inside.)"))
+    msgbox(format("(If he is right, the blade has to be somewhere in this room.)"))
     msgbox(format("(And that flower was lying in the corridor before anybody knew he was dead.)"))
     closemessage
     delay(20)
     applymovement(LOCALID_GOZOROOM_MARIKO, moves(walk_in_place_slow_up))
     setspeaker("Mariko")
-    msgbox(format("Get him away from there. He's a child.")) // more than likely replacing conan with an adult character so can remove this
+    msgbox(format("Why is the stranger investigating?")) // more than likely replacing conan with an adult character so can remove this
     setspeaker(NULL)
     closemessage
     delay(20)
     applymovement(LOCALID_GOZOROOM_RAN, moves(walk_up,face_right))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("Please. Just... let him look."))
+    msgbox(format("Please. We... we want to help."))
     setspeaker(NULL)
     closemessage
     delay(30)
+    call(tarc3_GozoRoom_EventScript_ShowEvidence)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1)
     releaseall
     end
+}
+
+script tarc3_GozoRoom_EventScript_ShowEvidence {
+    clearflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
+    addobject(LOCALID_GOZOROOM_EVD_GARLAND)
+    return
+}
+
+script tarc3_GozoRoom_EventScript_ClearEvidence {
+    setflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
+    removeobject(LOCALID_GOZOROOM_EVD_GARLAND)
+    return
 }
 
 // CS4
@@ -173,7 +207,18 @@ script tarc3_GozoRoom_EventScript_Ran {
         release
         end
     }
-    msgbox(format("(PLACEHOLDER: Investigation & deduction?)")) 
+    setspeaker("{RIVAL}")
+    msgbox(format("They're all still standing out there waiting on somebody to say something."))
+    msgbox(format("Have you seen everything you need to in here?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Then take your time.\pI'll keep them out of your way as long as I can."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    setspeaker(NULL)
+    closemessage
+    msgbox(format("(PLACEHOLDER: Investigation & deduction?)"))
     closemessage
     delay(20)
     setspeaker("{RIVAL}")
@@ -187,12 +232,14 @@ script tarc3_GozoRoom_EventScript_Ran {
     closemessage
     delay(20)
     fadescreen(FADE_TO_BLACK)
-    setobjectxy(OBJ_EVENT_ID_PLAYER, 10, 11)
+    call(tarc3_GozoRoom_EventScript_ClearEvidence)
+    setobjectxy(OBJ_EVENT_ID_PLAYER, 11, 11)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     setobjectxy(LOCALID_GOZOROOM_SUZUKI, 9, 11)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_down))
     waitmovement(0)
     special(DrawWholeMapView)
+    hidefollower
     fadescreen(FADE_FROM_BLACK)
     delay(20)
     goto(tarc3_GozoRoom_EventScript_MarikosRevelation)
@@ -254,7 +301,7 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     applymovement(LOCALID_GOZOROOM_NATSUE, moves(face_down))
     waitmovement(0)
     delay(30)
-    applymovement(LOCALID_GOZOROOM_NATSUE, moves(walk_down * 2, walk_right * 5))
+    applymovement(LOCALID_GOZOROOM_NATSUE, moves(walk_down, walk_right * 5))
     waitmovement(0)
     playse(SE_EXIT)
     setflag(FLAG_HIDE_TARC3_HALL_NATSUE)
@@ -268,6 +315,9 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     setspeaker("Mariko")
     msgbox(format("The flower outside that door was his.\pHe has just told you why he wanted my father dead."))
     msgbox(format("He is not walking around this ship for another night."))
+    applymovement(LOCALID_GOZOROOM_TATSUO, moves(face_left))
+    waitmovement(0)
+    delay(20)
     setspeaker("Tatsuo")
     msgbox(format("Take him to the storage hold downstairs. It locks from the outside."))
     delay(60)
@@ -279,7 +329,7 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     closemessage
     delay(40)
     fadescreen(FADE_TO_BLACK)
-    setflag(FLAG_HIDE_TARC3_C1_SUZUKI)
+    setflag(FLAG_HIDE_TARC3_GOZO_SUZUKI)
     setflag(FLAG_HIDE_TARC3_HALL_TAKESHI)
     setflag(FLAG_HIDE_TARC3_HALL_JOJI)
     setflag(FLAG_HIDE_TARC3_HALL_MARIKO)
@@ -290,6 +340,437 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     clearflag(FLAG_HIDE_TARC3_LOCKUP_CAST)
     warp(MAP_TARC3_HOLD, 19, 17)
     waitstate
+    end
+}
+
+// investigation - physical evidence
+
+script tarc3_GozoRoom_EventScript_GozoBody {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_BODY, tarc3_GozoRoom_EventScript_GozoBodySeen)
+    msgbox(format("Wounds across the chest, and not one of them alone would have been enough."))
+    msgbox(format("(Whoever did this went on doing it long after he stopped fighting back.)"))
+    closemessage
+    // giveevidence(EVD_VICIOUS_ATTACK)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_BODY)
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_GozoBodySeen {
+    msgbox(format("Gozo Hatamoto. Struck again and again, and not once on the hands or arms."))
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_Window {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_WINDOW, tarc3_GozoRoom_EventScript_WindowSeen)
+    msgbox(format("The cabin window is painted into its frame. The catch has not been turned in years."))
+    msgbox(format("(Nobody came in this way, and nobody left by it either.)"))
+    closemessage
+    // giveevidence(EVD_SEALED_WINDOW)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_WINDOW)
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_WindowSeen {
+    msgbox(format("Painted shut. The one door was the only way in or out of this room."))
+    releaseall
+    end
+}
+
+// searching for the weapon - all three hiding places, or one Magnezone
+
+script tarc3_GozoRoom_EventScript_SearchBed {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_SEARCH_BED, tarc3_GozoRoom_EventScript_SearchBedSeen)
+    setflag(FLAG_TARC3_GOZO_SEARCH_BED)
+    msgbox(format("Dust, a single slipper, and the whole length of the frame. Nothing else."))
+    closemessage
+    goto(tarc3_GozoRoom_EventScript_SearchCheck)
+}
+
+script tarc3_GozoRoom_EventScript_SearchBedSeen {
+    msgbox(format("Nothing under the bed but dust and a slipper."))
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_SearchCouch {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_SEARCH_COUCH, tarc3_GozoRoom_EventScript_SearchCouchSeen)
+    setflag(FLAG_TARC3_GOZO_SEARCH_COUCH)
+    msgbox(format("Some coins, a pen, but no blade."))
+    closemessage
+    goto(tarc3_GozoRoom_EventScript_SearchCheck)
+}
+
+script tarc3_GozoRoom_EventScript_SearchCouchSeen {
+    msgbox(format("Two coins and a pen down the back of the couch. Nothing else."))
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_SearchBin {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_SEARCH_BIN, tarc3_GozoRoom_EventScript_SearchBinSeen)
+    setflag(FLAG_TARC3_GOZO_SEARCH_BIN)
+    msgbox(format("There are discarded bottles of medicine in here, but no blade."))
+    msgbox(format("(Somebody didn't want the others knowing about the medication.)"))
+    closemessage
+    // giveevidence(EVD_MEDICATION)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_MEDICATION)
+    goto(tarc3_GozoRoom_EventScript_SearchCheck)
+}
+
+script tarc3_GozoRoom_EventScript_SearchBinSeen {
+    msgbox(format("Only item of note are the discarded medicine bottles."))
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_SearchCheck {
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_WEAPON, tarc3_GozoRoom_EventScript_SearchEnd)
+    goto_if_unset(FLAG_TARC3_GOZO_SEARCH_BED, tarc3_GozoRoom_EventScript_SearchEnd)
+    goto_if_unset(FLAG_TARC3_GOZO_SEARCH_COUCH, tarc3_GozoRoom_EventScript_SearchEnd)
+    goto_if_unset(FLAG_TARC3_GOZO_SEARCH_BIN, tarc3_GozoRoom_EventScript_SearchEnd)
+    delay(20)
+    msgbox(format("(The bed, the couch and the bin. That is everywhere a blade could be in this room.)"))
+    msgbox(format("(There is no weapon in here. He could not have done this to himself and then hidden it.)"))
+    closemessage
+    // giveevidence(EVD_NO_WEAPON)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_WEAPON)
+    goto(tarc3_GozoRoom_EventScript_SearchEnd)
+}
+
+script tarc3_GozoRoom_EventScript_SearchEnd {
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdCrumbs {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_CRUMBS, tarc3_GozoRoom_EventScript_EvdCrumbsSeen)
+    msgbox(format("Crumbs of bread, pressed into the blood by the door."))
+    msgbox(format("(Somebody stood here with bread in their hand. Gozo never touched the stuff.)"))
+    closemessage
+    // giveevidence(EVD_BREADCRUMBS)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_CRUMBS)
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdCrumbsSeen {
+    msgbox(format("Breadcrumbs trodden into the blood, a step outside the door."))
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdCarpet {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_CARPET, tarc3_GozoRoom_EventScript_EvdCarpetSeen)
+    msgbox(format("The carpet where the garland was lying is bare. Around it the blood is thin and streaked."))
+    msgbox(format("(Wiped. And a step through that doorway it hasn't been touched at all.)"))
+    msgbox(format("(Somebody cleaned this side of the door, and only this side.)"))
+    closemessage
+    // giveevidence(EVD_CLEAN_CARPET)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_CARPET)
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdCarpetSeen {
+    msgbox(format("Carpet wiped clean outside the door. Inside it, untouched."))
+    releaseall
+    end
+}
+
+// investigation - Suzuki
+
+script tarc3_GozoRoom_EventScript_Suzuki {
+    lock
+    faceplayer
+    goto_if_unset(FLAG_TARC3_REFLECT_GOZO_SUZUKI_1, tarc3_GozoRoom_EventScript_SuzukiBeat1)
+    goto_if_unset(FLAG_TARC3_REFLECT_GOZO_SUZUKI_2, tarc3_GozoRoom_EventScript_SuzukiBeat2)
+    goto_if_unset(FLAG_TARC3_REFLECT_GOZO_SUZUKI_3, tarc3_GozoRoom_EventScript_SuzukiBeat3)
+    setspeaker("Suzuki")
+    msgbox(format("I have told you everything I know, and it has not helped him."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdGarland {
+    lockall
+    msgbox(format("A garland is lying in the corridor a step from the door."))
+    msgbox(format("(Not a mark on it. A man bled here, and this came away clean.)"))
+    closemessage
+    // giveevidence(EVD_UNSTAINED_GARLAND)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
+    removeobject(LOCALID_GOZOROOM_EVD_GARLAND)
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiBeat1 {
+    setspeaker("Suzuki")
+    msgbox(format("Gozo must have invited the assailant into his cabin.\pBut we found the door locked, and there was no one else in the room.\pHow could that be?"))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflect1)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect1 {
+    setspeaker(NULL)
+    message(format("How could Gozo's door be locked?"))
+    waitmessage
+    dynmultipush("The lock must be worn out", 0)
+    dynmultipush("It was locked from inside", 1)
+    dynmultipush("He did it to himself", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 1:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflect1Locked)
+        case 3:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+        default:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflect1Irrelevant)
+    }
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect1Locked {
+    msgbox(format("(Gozo must have locked the cabin door himself, before he bled out.)\pThat goes in the notes."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_1)
+    // giveevidence(EVD_LOCKED_DOOR)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect1Irrelevant {
+    msgbox(format("(Hmm. I suppose...)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_1)
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiBeat2 {
+    setspeaker("Suzuki")
+    msgbox(format("There is one spare key to this cabin, and it has been in my pocket since we sailed."))
+    msgbox(format("Gozo's room requires extra security.\pOther cabins can be entered freely."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflect2)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect2 {
+    setspeaker(NULL)
+    message(format("(What should I take away from that?)"))
+    waitmessage
+    dynmultipush("Suzuki stole Gozo's key", 0)
+    dynmultipush("Gozo lost his own key", 1)
+    dynmultipush("Suzuki has the only key", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 2:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflect2Key)
+        case 3:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+        default:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflect2Irrelevant)
+    }
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect2Key {
+    msgbox(format("(One key, in one pocket. And every other cabin aboard stands open all evening.)\pBoth halves of that matter."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_2)
+    // giveevidence(EVD_MASTER_KEY)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect2Irrelevant {
+    msgbox(format("(I've no way of checking that. Leave it.)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_2)
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiBeat3 {
+    setspeaker("Suzuki")
+    msgbox(format("I passed this door a little over half an hour ago."))
+    msgbox(format("The corridor was empty. There was nothing on the floor at all, except that flower."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflect3)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect3 {
+    setspeaker(NULL)
+    message(format("(He walked past all of it. What was he actually looking at?)"))
+    waitmessage
+    dynmultipush("Garland was there first", 0)
+    dynmultipush("He should have knocked", 1)
+    dynmultipush("Nobody heard a sound", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflect3Flower)
+        case 3:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+        default:
+            goto(tarc3_GozoRoom_EventScript_SuzukiReflect3Irrelevant)
+    }
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect3Flower {
+    msgbox(format("(Lying there half an hour before anyone knew he was dead.)\pTakeshi's garland, on the floor, waiting to be found."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_3)
+    // giveevidence(EVD_DROPPED_FLOWER)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflect3Irrelevant {
+    msgbox(format("(True. It isn't evidence, though.)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_3)
+    goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
+}
+
+script tarc3_GozoRoom_EventScript_SuzukiReflectEnd {
+    release
+    end
+}
+
+// investigation - the family in the corridor
+
+script tarc3_GozoRoom_EventScript_Takeshi {
+    lock
+    faceplayer
+    setspeaker("Takeshi")
+    msgbox(format("I was in this corridor before dinner. He asked me to come to his cabin."))
+    msgbox(format("We spoke. Then I went back to my own room and sat there until Suzuki called us.\pHe was alive when I closed that door behind me."))
+    msgbox(format("...I know how that sounds, standing here."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_GozoRoom_EventScript_Natsue {
+    lock
+    faceplayer
+    setspeaker("Natsue")
+    msgbox(format("I pinned that garland to Takeshi's jacket myself."))
+    msgbox(format("Comfey grew it on our island. There isn't another one like it aboard this ship."))
+    msgbox(format("And it was lying on the floor outside my grandfather's door."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_GozoRoom_EventScript_Joji {
+    lock
+    faceplayer
+    setspeaker("Joji")
+    msgbox(format("Where is the knife? That is the only part I can't get past."))
+    msgbox(format("I travel with my own set. Eight blades, in a case, in my cabin."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_GozoRoom_EventScript_Mariko {
+    lock
+    faceplayer
+    setspeaker("Mariko")
+    msgbox(format("Well? You wanted to look. Say something useful."))
+    msgbox(format("...I still need time to process."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_GozoRoom_EventScript_Kitaro {
+    lock
+    faceplayer
+    setspeaker("Kitaro")
+    msgbox(format("We're hours from any harbour, and the set on the bridge only reaches the coast station."))
+    msgbox(format("Everyone scattered after the ceremony. Cabins, the galley, the deck.\pI couldn't tell you where a single person was before dinner."))
+    msgbox(format("Nobody should be walking this ship alone tonight."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_GozoRoom_EventScript_Akie {
+    lock
+    faceplayer
+    setspeaker("Akie")
+    msgbox(format("Don't. I know what I said, and I'm not taking it back."))
+    msgbox(format("The door was locked and the key was in Suzuki's pocket.\pWho else was in that room?"))
+    msgbox(format("...Somebody in this corridor is a great deal richer than they were an hour ago."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_GozoRoom_EventScript_Tatsuo {
+    lock
+    faceplayer
+    setspeaker("Tatsuo")
+    msgbox(format("Terrible business. Truly."))
+    msgbox(format("He wrote a will, you know. The old man knew he was going to pass sooner or later."))
+    msgbox(format("Every person standing here is doing the same arithmetic.\pI'm only the one saying it out loud."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_GozoRoom_EventScript_Ichiro {
+    lock
+    faceplayer
+    setspeaker("Ichiro")
+    msgbox(format("I'm sorry. I've never seen anything like that."))
+    msgbox(format("I was in my cabin. Drawing.\pI didn't hear a thing until Suzuki started shouting."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("(He hasn't looked at the body once. He's watching the doorway.)"))
+    release
     end
 }
 

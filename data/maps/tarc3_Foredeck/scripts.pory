@@ -26,13 +26,11 @@ script tarc3_Foredeck_EventScript_Departure {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_down * 2, face_left))
     waitmovement(0)
-    delay(30)
-    playse(SE_SHIP)
     delay(40)
     applymovement(LOCALID_FOREDECK_NATSUE, moves(face_right))
     waitmovement(0)
     setspeaker("Natsue")
-    msgbox(format("I never introduced myself properly, did I.\pNatsue Hatamoto."))
+    msgbox(format("I never introduced myself properly, did I.\pI'm Natsue Hatamoto."))
     closemessage
     delay(20)
     applymovement(LOCALID_FOREDECK_NATSUE, moves(face_down))
@@ -56,9 +54,9 @@ script tarc3_Foredeck_EventScript_Departure {
     waitmovement(0)
     delay(30)
     setspeaker("Natsue")
-    msgbox(format("We held the ceremony on Florio this morning. Only the family."))
-    msgbox(format("My parents should have been sat at the front of it.\pThey died two years ago. Both of them, in the same accident."))
-    msgbox(format("I kept looking for them in the room all morning.\pI wanted them to see me dressed like this. Just the once."))
+    msgbox(format("We celebrated our wedding on Florio this morning. It was a small ceremony."))
+    msgbox(format("My parents should have been sat at the front of it.\pThey passed two years ago. Both of them, in the same accident."))
+    msgbox(format("I kept looking for them as I walked down the aisle.\pI wanted them to see me dressed like this..."))
     setspeaker("Takeshi")
     msgbox(format("Natsue."))
     applymovement(LOCALID_FOREDECK_NATSUE, moves(face_down))
@@ -71,7 +69,7 @@ script tarc3_Foredeck_EventScript_Departure {
     waitmovement(0)
     delay(20)
     setspeaker("Natsue")
-    msgbox(format("Oh. I almost forgot the most important part."))
+    msgbox(format("Oh. I almost forgot."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -83,19 +81,17 @@ script tarc3_Foredeck_EventScript_Departure {
     applymovement(LOCALID_FOREDECK_NATSUE, moves(face_down, walk_in_place_slow_down))
     waitmovement(0)
     delay(20)
-    msgbox(format("Natsue lifts a garland from her Comfey and pins it to Takeshi's lapel."))
+    msgbox(format("Natsue lifts a flower from her Comfey and pins it to Takeshi's lapel."))
     setspeaker("Natsue")
     msgbox(format("It's been my dream since I was small to give my partner one of these."))
-    msgbox(format("My Comfey grows them at home. Our island.\pYou can always tell a Hatamoto Island flower apart."))
+    msgbox(format("My Comfey grows the most beautiful flowers."))
     setspeaker(NULL)
-    closemessage
-    delay(20)
-    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     delay(20)
     applymovement(LOCALID_FOREDECK_NATSUE, moves(face_right))
     waitmovement(0)
     delay(30)
+    playse(SE_DOOR)
     clearflag(FLAG_HIDE_TARC3_FOREDECK_GOZO)
     addobject(LOCALID_FOREDECK_GOZO)
     delay(20)
@@ -104,6 +100,7 @@ script tarc3_Foredeck_EventScript_Departure {
     delay(20)
     applymovement(LOCALID_FOREDECK_GOZO, moves(emote_exclamation_mark))
     waitmovement(0)
+    playse(SE_PIN)
     delay(30)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
     applymovement(LOCALID_FOREDECK_NATSUE, moves(face_up))
@@ -111,7 +108,7 @@ script tarc3_Foredeck_EventScript_Departure {
     waitmovement(0)
     delay(20)
     setspeaker("Gozo")
-    msgbox(format("Strangers. On my ship."))
+    msgbox(format("Strangers? On my ship?"))
     msgbox(format("Who authorised this?"))
     setspeaker(NULL)
     closemessage
@@ -125,40 +122,10 @@ script tarc3_Foredeck_EventScript_Departure {
     msgbox(format("I did, Father."))
     msgbox(format("They missed the last ferry off Florio. There was room, and it seemed a small..."))
     setspeaker("Gozo")
-    msgbox(format("We'll discuss it."))
-    setspeaker(NULL)
-    closemessage
-    delay(30)
-    applymovement(LOCALID_FOREDECK_KITARO, moves(walk_up, walk_left * 2, face_right))
-    applymovement(LOCALID_FOREDECK_GOZO, moves(face_down))
-    waitmovement(0)
-    delay(20)
-    applymovement(LOCALID_FOREDECK_JOJI, moves(walk_right * 3, face_right))
-    waitmovement(0)
-    applymovement(LOCALID_FOREDECK_GOZO, moves(face_left))
-    waitmovement(0)
-    delay(20)
-    setspeaker("Joji")
-    msgbox(format("Father. You never did say what you made of the reception."))
-    msgbox(format("The consommé was a Shuckle berry reduction. Three days of work."))
-    setspeaker("Gozo")
-    msgbox(format("I was told it was Kalosian. That was enough."))
-    msgbox(format("Sauces to bury the food underneath.\pA cook who is ashamed of his ingredients."))
-    setspeaker("Joji")
-    msgbox(format("...Of course."))
-    setspeaker(NULL)
-    closemessage
-    delay(30)
-    applymovement(LOCALID_FOREDECK_JOJI, moves(walk_left * 3, face_right))
-    waitmovement(0)
-    delay(20)
-    applymovement(LOCALID_FOREDECK_GOZO, moves(face_left))
-    waitmovement(0)
-    delay(30)
-    setspeaker("Gozo")
-    msgbox(format("Kitaro. Pull the art school accounts when we dock."))
+    msgbox(format("Silence. We'll discuss it later."))
+    msgbox(format("I came out here with a request.\pPull the art school accounts when we dock."))
     msgbox(format("Three years of tuition and not one commission to show for it."))
-    msgbox(format("A boy can only trade on 'promising' for so long."))
+    msgbox(format("A boy can only trade on 'promising student' for so long."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -166,13 +133,10 @@ script tarc3_Foredeck_EventScript_Departure {
     applymovement(LOCALID_FOREDECK_TATSUO, moves(face_up))
     waitmovement(0)
     delay(40)
-    msgbox(format("(Ichiro didn't say a word.\pHe didn't need to. Everyone heard it.)"))
-    closemessage
-    delay(20)
     applymovement(LOCALID_FOREDECK_GOZO, moves(face_left))
     waitmovement(0)
     setspeaker("Gozo")
-    msgbox(format("Takeshi. With me."))
+    msgbox(format("Takeshi. Come, join me. We have much to discuss."))
     setspeaker(NULL)
     closemessage
     delay(40)
@@ -194,8 +158,31 @@ script tarc3_Foredeck_EventScript_Departure {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("I thought... the grandfather of the bride would be in a more cheerful mood."))
-    msgbox(format("I'm going back to the cabin before I say something I regret.\pCome and find me when you've had enough sea air."))
+    msgbox(format("I thought the grandfather of the bride would be in a more cheerful mood."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_NATSUE, moves(walk_down, face_right))
+    applymovement(LOCALID_FOREDECK_RAN, moves(face_left))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Natsue")
+    msgbox(format("Let's not dwell on it.\pCome with me, I'll introduce you to the rest of my family."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    // giveevidence(EVD_GARLAND)
+    // giveevidence(EVD_KITARO_HUMILIATED)
+    // giveevidence(EVD_TUITION_FUNDS)
+    // giveevidence(EVD_TAKESHIS_MEETING)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_FOREDECK_RAN, moves(face_up))
+    waitmovement(0)
+    setspeaker("{RIVAL}")
+    msgbox(format("You still have your notebook, right {PLAYER}? Might be useful to jot your thoughts down."))
+    msgbox(format("You never know which scrap turns out to matter."))
+    msgbox(format("Let's meet back at the cabin later.\pTake your time looking around."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -203,17 +190,16 @@ script tarc3_Foredeck_EventScript_Departure {
     setflag(FLAG_HIDE_TARC3_FOREDECK_RAN)
     setflag(FLAG_HIDE_TARC3_FOREDECK_NATSUE)
     setflag(FLAG_HIDE_TARC3_FOREDECK_COMFEY)
-    setflag(FLAG_HIDE_TARC3_FOREDECK_KITARO)
-    setflag(FLAG_HIDE_TARC3_FOREDECK_JOJI)
     removeobject(LOCALID_FOREDECK_RAN)
     removeobject(LOCALID_FOREDECK_NATSUE)
     removeobject(LOCALID_FOREDECK_COMFEY)
-    removeobject(LOCALID_FOREDECK_KITARO)
-    removeobject(LOCALID_FOREDECK_JOJI)
+    setobjectxy(LOCALID_FOREDECK_KITARO, 11, 12)
+    applymovement(LOCALID_FOREDECK_KITARO, moves(face_right))
+    waitmovement(0)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_DEPARTED)
     fadescreen(FADE_FROM_BLACK)
     delay(20)
-    msgbox(format("({RIVAL} is right. This family seems to be at each other's throats.)"))
+    msgbox(format("{FONT_NARROW}(Hmm.\pThis family is at each other's throats.)", "1_latin_rse_narrow"))
     closemessage
     releaseall
     end
@@ -225,16 +211,60 @@ script tarc3_Foredeck_EventScript_Ichiro {
     setspeaker("Ichiro")
     msgbox(format("Hm? Oh. You're the one they picked up at Florio."))
     msgbox(format("The wedding?\pIt was... fine. The location was nice."))
-    msgbox(format("I got some good sketches of the water, at least."))
+    msgbox(format("I got some good sketches, at least."))
     msgbox(format("...Natsue seems happy."))
     setspeaker(NULL)
     closemessage
-    applymovement(LOCALID_FOREDECK_ICHIRO, moves(face_right))
-    waitmovement(0)
-    msgbox(format("(His response felt sincere, but something is clearly on his mind.)"))
-    closemessage
+    if (var(VAR_TARC3_ACT1) >= TARC3_ACT1_DEPARTED && !defeated(TRAINER_TARC3_ICHIRO)) {
+        goto(tarc3_Foredeck_EventScript_IchiroBattle)
+    }
     release
     end
+}
+
+script tarc3_Foredeck_EventScript_IchiroBattle {
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("...You're carrying Pokémon."))
+    msgbox(format("I'm looking for a new source of inspiration.\pMay we battle?"))
+    setspeaker(NULL)
+    closemessage
+    trainerbattle_earlyrival(TRAINER_TARC3_ICHIRO, RIVAL_BATTLE_HEAL_AFTER, tarc3_Foredeck_Text_IchiroDefeat, tarc3_Foredeck_Text_IchiroVictory)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_IchiroBattleLost)
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("Thank you.\pI... I tend to fixate on my drawing subjects. Battles help break that up."))
+    msgbox(format("I'll heal your team."))
+    setspeaker(NULL)
+    closemessage
+    msgbox(format("{FONT_NARROW}(I think it had Slash, Doodle and Sketch?)\p(Worth remembering what a Pokémon can do, I suppose.)", "1_latin_rse_narrow"))
+    // giveevidence(EVD_SMEARGLE_REPERTOIRE)
+    closemessage
+    goto(tarc3_Foredeck_EventScript_IchiroBattleEnd)
+}
+
+script tarc3_Foredeck_EventScript_IchiroBattleLost {
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("Looks can be deceiving, I suppose.\pHere, let me put your team right before you go."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Foredeck_EventScript_IchiroBattleEnd)
+}
+
+script tarc3_Foredeck_EventScript_IchiroBattleEnd {
+    special(HealPlayerParty)
+    delay(20)
+    release
+    end
+}
+
+text tarc3_Foredeck_Text_IchiroDefeat {
+    format("Still can't focus.")
+}
+
+text tarc3_Foredeck_Text_IchiroVictory {
+    format("Huh.")
 }
 
 script tarc3_Foredeck_EventScript_Sketchbook {
@@ -246,7 +276,7 @@ script tarc3_Foredeck_EventScript_Sketchbook {
         end
     }
     msgbox(format("An open sketchbook, weighted flat against the rail."))
-    msgbox(format("Charcoal portraits. Page after page of them, and the same face every time."))
+    msgbox(format("Charcoal portraits. Page after page of them, and the same figure each time."))
     closemessage
     delay(20)
     playse(SE_M_GUST)
@@ -266,6 +296,18 @@ script tarc3_Foredeck_EventScript_Tatsuo {
     msgbox(format("A kid... They let a kid aboard?!\pWhy not, I guess.\pEveryone else here is also freeloading."))
     msgbox(format("You know what this family is worth? Neither do I.\pThe old man won't tell us."))
     msgbox(format("I just spend my time out here on the deck.\pAkie locks me out of the cabin when she's angry, and she's always angry."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Foredeck_EventScript_Kitaro {
+    lock
+    faceplayer
+    setspeaker("Kitaro")
+    msgbox(format("You heard all of that, I imagine.\pHe doesn't lower his voice. He never has."))
+    msgbox(format("Twenty-two years I've run that division for him.\pHe still introduces me as the man Mariko married."))
+    msgbox(format("...Forget I said any of that. You're a guest here."))
     setspeaker(NULL)
     release
     end
@@ -388,7 +430,7 @@ script tarc3_Foredeck_EventScript_Phase2ARan {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("(Investigation (wound, railing, deck floor.)"))
+    msgbox(format("{FONT_NARROW}(Investigation (wound, railing, deck floor.)", "1_latin_rse_narrow"))
     closemessage
     delay(20)
     setspeaker("{RIVAL}")

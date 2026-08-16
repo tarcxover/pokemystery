@@ -120,7 +120,7 @@ script tarc3_Hold_EventScript_JailTakeshi {
     applymovement(LOCALID_HOLD_TATSUO_LOCKUP, moves(emote_exclamation_mark))
     waitmovement(0)
     delay(60)
-    applymovement(LOCALID_HOLD_MARIKO_LOCKUP, moves(face_left))
+    applymovement(LOCALID_HOLD_MARIKO_LOCKUP, moves(face_up))
     waitmovement(0)
     setspeaker("Mariko")
     msgbox(format("You can spend whatever you like on your art school now, Ichiro."))
@@ -172,6 +172,14 @@ script tarc3_Hold_EventScript_JailTakeshi {
     delay(30)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     setspeaker("{RIVAL}")
+    msgbox(format("They've locked a man in a storage room on the strength of one flower."))
+    msgbox(format("Before we go up. Everything that just got said in here, while it's still straight in your head."))
+    setspeaker(NULL)
+    closemessage
+    call(tarc3_Hold_EventScript_RecapCS5)
+    call(tarc3_Hold_EventScript_RecapCS6)
+    delay(20)
+    setspeaker("{RIVAL}")
     msgbox(format("I'm going to find Natsue.\pSomebody should be with her, and it isn't going to be any of them."))
     msgbox(format("We'll be up by the door out to the deck. Come and find us."))
     setspeaker(NULL)
@@ -184,8 +192,134 @@ script tarc3_Hold_EventScript_JailTakeshi {
     setflag(FLAG_HIDE_TARC3_LOCKUP_CAST)
     delay(30)
     clearflag(FLAG_HIDE_TARC3_DECKDOOR_CAST)
+    clearflag(FLAG_HIDE_TARC3_HOLD_EVD_MANIFEST)
+    addobject(LOCALID_HOLD_EVD_MANIFEST)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_COMPLETE)
     setvar(VAR_TARC3_ACT2, TARC3_ACT2_DECK_DOOR)
+    releaseall
+    end
+}
+
+// CS6 recap - the reflections on what was said in CS5 and CS6
+
+script tarc3_Hold_EventScript_RecapCS5 {
+    goto_if_set(FLAG_TARC3_REFLECT_HOLD_CS5, tarc3_Hold_EventScript_RecapEnd)
+    setspeaker(NULL)
+    message(format("(Mariko put all of it in the open upstairs. What was worth keeping?)"))
+    waitmessage
+    dynmultipush("Takeshi is a Zaiki", 0)
+    dynmultipush("Mariko heard them argue", 1)
+    dynmultipush("Natsue walked out", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_Hold_EventScript_RecapHistory)
+        case 1:
+            goto(tarc3_Hold_EventScript_RecapArgument)
+        case 3:
+            goto(tarc3_Hold_EventScript_RecapEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_Hold_EventScript_RecapEnd)
+        default:
+            goto(tarc3_Hold_EventScript_RecapCS5Irrelevant)
+    }
+}
+
+script tarc3_Hold_EventScript_RecapHistory {
+    msgbox(format("(Gozo took his father's company and the man killed himself over it.)\pTakeshi married into the family that did it."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
+    // giveevidence(EVD_TAKESHIS_HISTORY)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_Hold_EventScript_RecapEnd)
+}
+
+script tarc3_Hold_EventScript_RecapArgument {
+    msgbox(format("(She stood at that door before dinner and heard her father shouting Takeshi's name.)\pSo she says."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
+    // giveevidence(EVD_OVERHEARD_ARGUMENT)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_Hold_EventScript_RecapEnd)
+}
+
+script tarc3_Hold_EventScript_RecapCS5Irrelevant {
+    msgbox(format("(I'd have walked out too. It doesn't tell me anything.)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
+    goto(tarc3_Hold_EventScript_RecapEnd)
+}
+
+script tarc3_Hold_EventScript_RecapCS6 {
+    goto_if_set(FLAG_TARC3_REFLECT_HOLD_CS6, tarc3_Hold_EventScript_RecapEnd)
+    setspeaker(NULL)
+    message(format("(And then Suzuki opened his mouth about the will.)"))
+    waitmessage
+    dynmultipush("Tatsuo married for money", 0)
+    dynmultipush("Joji wanted no part of it", 1)
+    dynmultipush("It all goes to Natsue", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_Hold_EventScript_RecapDebts)
+        case 2:
+            goto(tarc3_Hold_EventScript_RecapWill)
+        case 3:
+            goto(tarc3_Hold_EventScript_RecapEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_Hold_EventScript_RecapEnd)
+        default:
+            goto(tarc3_Hold_EventScript_RecapCS6Irrelevant)
+    }
+}
+
+script tarc3_Hold_EventScript_RecapDebts {
+    msgbox(format("(He said it to the whole room. He married Akie to inherit, and he isn't sorry.)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
+    // giveevidence(EVD_TATSUOS_DEBTS)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_Hold_EventScript_RecapEnd)
+}
+
+script tarc3_Hold_EventScript_RecapWill {
+    msgbox(format("(Every share and every property, to Natsue.)\pAnd three people in that room found out tonight."))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
+    // giveevidence(EVD_GOZOS_WILL)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_Hold_EventScript_RecapEnd)
+}
+
+script tarc3_Hold_EventScript_RecapCS6Irrelevant {
+    msgbox(format("(He kept out of it, at least. That's not worth writing down.)"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
+    goto(tarc3_Hold_EventScript_RecapEnd)
+}
+
+script tarc3_Hold_EventScript_RecapEnd {
+    return
+}
+
+script tarc3_Hold_EventScript_EvdManifest {
+    lockall
+    msgbox(format("The passenger manifest, hung by the stairs in Kitaro's handwriting."))
+    msgbox(format("(Family, one steward, one cook. The crew are berthed forward and none of them came aft.)"))
+    closemessage
+    // giveevidence(EVD_PASSENGER_MANIFEST)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_HIDE_TARC3_HOLD_EVD_MANIFEST)
+    removeobject(LOCALID_HOLD_EVD_MANIFEST)
     releaseall
     end
 }

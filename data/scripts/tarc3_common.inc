@@ -38,11 +38,11 @@ tarc3_EventScript_Act1Setup::
 # 20 "data/scripts/tarc3_common.pory"
 	setflag FLAG_HIDE_TARC3_HALL_ICHIRO
 # 21 "data/scripts/tarc3_common.pory"
-	setflag FLAG_HIDE_TARC3_C1_SUZUKI
+	setflag FLAG_HIDE_TARC3_GOZO_SUZUKI
 # 22 "data/scripts/tarc3_common.pory"
-	setflag FLAG_HIDE_TARC3_C1_GOZO_BODY
+	setflag FLAG_HIDE_TARC3_GOZO_BODY
 # 23 "data/scripts/tarc3_common.pory"
-	setflag FLAG_HIDE_TARC3_C1_EVD_GARLAND
+	setflag FLAG_HIDE_TARC3_GOZO_EVD_GARLAND
 # 24 "data/scripts/tarc3_common.pory"
 	setflag FLAG_HIDE_TARC3_HOLD_EVD_MANIFEST
 # 25 "data/scripts/tarc3_common.pory"
@@ -64,7 +64,7 @@ tarc3_EventScript_FollowerHook::
 # 40 "data/scripts/tarc3_common.pory"
 	goto_if_ne VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1, tarc3_EventScript_FollowerHookEnd
 # 41 "data/scripts/tarc3_common.pory"
-	goto_if_set FLAG_TARC3_C1_FOUND_WEAPON, tarc3_EventScript_FollowerHookEnd
+	goto_if_set FLAG_TARC3_GOZO_FOUND_WEAPON, tarc3_EventScript_FollowerHookEnd
 # 42 "data/scripts/tarc3_common.pory"
 	getlivemonspecies VAR_0x8008
 # 43 "data/scripts/tarc3_common.pory"
@@ -86,7 +86,7 @@ tarc3_EventScript_MagnezoneSearch::
 # 53 "data/scripts/tarc3_common.pory"
 	closemessage
 # 54 "data/scripts/tarc3_common.pory"
-	setflag FLAG_TARC3_C1_FOUND_WEAPON
+	setflag FLAG_TARC3_GOZO_FOUND_WEAPON
 # 55 "data/scripts/tarc3_common.pory"
 	setvar VAR_RESULT, TRUE
 	return

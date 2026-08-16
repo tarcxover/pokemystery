@@ -25,8 +25,8 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_HIDE_TARC3_C1_SUZUKI"
+      "script": "tarc3_GozoRoom_EventScript_Suzuki",
+      "flag": "FLAG_HIDE_TARC3_GOZO_SUZUKI"
     },
     {
       "local_id": "LOCALID_GOZOROOM_GOZO_BODY",
@@ -39,8 +39,8 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_HIDE_TARC3_C1_GOZO_BODY"
+      "script": "tarc3_GozoRoom_EventScript_GozoBody",
+      "flag": "FLAG_HIDE_TARC3_GOZO_BODY"
     },
     {
       "local_id": "LOCALID_GOZOROOM_RAN",
@@ -67,7 +67,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_GozoRoom_EventScript_Takeshi",
       "flag": "FLAG_HIDE_TARC3_HALL_TAKESHI"
     },
     {
@@ -81,13 +81,13 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_GozoRoom_EventScript_Natsue",
       "flag": "FLAG_HIDE_TARC3_HALL_NATSUE"
     },
     {
       "local_id": "LOCALID_GOZOROOM_JOJI",
       "graphics_id": "OBJ_EVENT_GFX_COOK",
-      "x": 10,
+      "x": 11,
       "y": 12,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
@@ -95,13 +95,13 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_GozoRoom_EventScript_Joji",
       "flag": "FLAG_HIDE_TARC3_HALL_JOJI"
     },
     {
       "local_id": "LOCALID_GOZOROOM_MARIKO",
       "graphics_id": "OBJ_EVENT_GFX_MARIKO",
-      "x": 11,
+      "x": 10,
       "y": 12,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
@@ -109,54 +109,12 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_GozoRoom_EventScript_Mariko",
       "flag": "FLAG_HIDE_TARC3_HALL_MARIKO"
     },
     {
       "local_id": "LOCALID_GOZOROOM_KITARO",
       "graphics_id": "OBJ_EVENT_GFX_MAN_1",
-      "x": 12,
-      "y": 11,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_HIDE_TARC3_HALL_KITARO"
-    },
-    {
-      "local_id": "LOCALID_GOZOROOM_TATSUO",
-      "graphics_id": "OBJ_EVENT_GFX_TATSUO",
-      "x": 11,
-      "y": 13,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_HIDE_TARC3_HALL_TATSUO"
-    },
-    {
-      "local_id": "LOCALID_GOZOROOM_AKIE",
-      "graphics_id": "OBJ_EVENT_GFX_AKIE",
-      "x": 10,
-      "y": 13,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_HIDE_TARC3_HALL_AKIE"
-    },
-    {
-      "local_id": "LOCALID_GOZOROOM_ICHIRO",
-      "graphics_id": "OBJ_EVENT_GFX_MAN_4",
       "x": 7,
       "y": 13,
       "elevation": 0,
@@ -165,8 +123,64 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_GozoRoom_EventScript_Kitaro",
+      "flag": "FLAG_HIDE_TARC3_HALL_KITARO"
+    },
+    {
+      "local_id": "LOCALID_GOZOROOM_TATSUO",
+      "graphics_id": "OBJ_EVENT_GFX_TATSUO",
+      "x": 11,
+      "y": 14,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_GozoRoom_EventScript_Tatsuo",
+      "flag": "FLAG_HIDE_TARC3_HALL_TATSUO"
+    },
+    {
+      "local_id": "LOCALID_GOZOROOM_AKIE",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
+      "x": 10,
+      "y": 14,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_GozoRoom_EventScript_Akie",
+      "flag": "FLAG_HIDE_TARC3_HALL_AKIE"
+    },
+    {
+      "local_id": "LOCALID_GOZOROOM_ICHIRO",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_4",
+      "x": 8,
+      "y": 14,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_GozoRoom_EventScript_Ichiro",
       "flag": "FLAG_HIDE_TARC3_HALL_ICHIRO"
+    },
+    {
+      "local_id": "LOCALID_GOZOROOM_EVD_GARLAND",
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 8,
+      "y": 11,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_GozoRoom_EventScript_EvdGarland",
+      "flag": "FLAG_HIDE_TARC3_GOZO_EVD_GARLAND"
     }
   ],
   "warp_events": [],
@@ -178,8 +192,51 @@
       "y": 4,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "NULL",
-      "notes": "note to self: turn these into windows -> evidence"
+      "script": "tarc3_GozoRoom_EventScript_Window"
+    },
+    {
+      "type": "sign",
+      "x": 8,
+      "y": 5,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_GozoRoom_EventScript_SearchBed",
+      "notes": "under the bed"
+    },
+    {
+      "type": "sign",
+      "x": 13,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_GozoRoom_EventScript_SearchCouch",
+      "notes": "under the couch"
+    },
+    {
+      "type": "sign",
+      "x": 13,
+      "y": 5,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_GozoRoom_EventScript_SearchBin",
+      "notes": "the bin - medication"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 11,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_GozoRoom_EventScript_EvdCrumbs",
+      "notes": "blood and breadcrumbs in the corridor"
+    },
+    {
+      "type": "sign",
+      "x": 8,
+      "y": 11,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_GozoRoom_EventScript_EvdCarpet"
     }
   ]
 }

@@ -8,6 +8,14 @@ mapscripts tarc3_FlorioIsland_MapScripts {
 script tarc3_FlorioIsland_EventScript_OpeningCutscene {
     lockall
     setflag(FLAG_SYS_POKEMON_GET)
+    setflag(FLAG_BADGE01_GET)
+    setflag(FLAG_BADGE02_GET)
+    setflag(FLAG_BADGE03_GET)
+    setflag(FLAG_BADGE04_GET)
+    setflag(FLAG_BADGE05_GET)
+    setflag(FLAG_BADGE06_GET)
+    setflag(FLAG_BADGE07_GET)
+    setflag(FLAG_BADGE08_GET)
     delay(30)
     waitmovement(0)
     setspeaker("{RIVAL}")
