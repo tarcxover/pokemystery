@@ -40,12 +40,12 @@ script tarc3_FlorioIsland_EventScript_OpeningCutscene {
     setspeaker("{RIVAL}")
     msgbox(format("It's gone...\pAnd that was the last one until tomorrow!"))
     setspeaker(NULL)
-    msgbox(format("(We've lost our ride home. There has to be another way off this island...)"))
+    msgbox(format("{FONT_NARROW}(We've lost our ride home. There has to be another way off this island...)", "1_latin_rse_narrow"))
     setspeaker("{RIVAL}")
     msgbox(format("You've talked about nothing but this island's Pokémon all morning.\pGo and look at them. We're not going anywhere."))
     msgbox(format("I'll ask around the pier and find us a way home.\pCome and find me down at the dock when you're done."))
     setspeaker(NULL)
-    msgbox(format("({RIVAL}'s on the case, then. And I still haven't caught a single Pokémon...)"))
+    msgbox(format("{FONT_NARROW}({RIVAL}'s on the case, then. And I still haven't caught a single Pokémon...)", "1_latin_rse_narrow"))
     closemessage
     applymovement(LOCALID_FLORIO_RAN_1, moves(walk_down * 7))
     waitmovement(0)
@@ -185,7 +185,7 @@ script tarc3_FlorioIsland_EventScript_AfterCatch {
         release
         end
     }
-    msgbox(format("(That's three of them.\p{RIVAL}'s had long enough to work her magic. Time to head back to the dock.)"))
+    msgbox(format("{FONT_NARROW}(That's three of them.\p{RIVAL}'s had long enough to work her magic. Time to head back to the dock.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_HIDE_TARC3_FLORIO_DACHSBUN)
     setflag(FLAG_HIDE_TARC3_FLORIO_TANGROWTH)
@@ -211,7 +211,7 @@ script tarc3_FlorioIsland_EventScript_AfterCatch {
 script tarc3_FlorioIsland_EventScript_DockBlock {
     lockall
     if (var(VAR_TARC3_FLORIO_INTRO) == 1) {
-        msgbox(format("({RIVAL}'s still asking around for a way home. I should take a proper look at the island while she does.)"))
+        msgbox(format("{FONT_NARROW}({RIVAL}'s still asking around for a way home. I should take a proper look at the island while she does.)", "1_latin_rse_narrow"))
         closemessage
         applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
         waitmovement(0)

@@ -205,7 +205,7 @@ script tarc3_Hold_EventScript_JailTakeshi {
 script tarc3_Hold_EventScript_RecapCS5 {
     goto_if_set(FLAG_TARC3_REFLECT_HOLD_CS5, tarc3_Hold_EventScript_RecapEnd)
     setspeaker(NULL)
-    message(format("(Mariko put all of it in the open upstairs. What was worth keeping?)"))
+    message(format("{FONT_NARROW}(Mariko put all of it in the open upstairs. What was worth keeping?)", "1_latin_rse_narrow"))
     waitmessage
     dynmultipush("Takeshi is a Zaiki", 0)
     dynmultipush("Mariko heard them argue", 1)
@@ -228,7 +228,7 @@ script tarc3_Hold_EventScript_RecapCS5 {
 }
 
 script tarc3_Hold_EventScript_RecapHistory {
-    msgbox(format("(Gozo took his father's company and the man killed himself over it.)\pTakeshi married into the family that did it."))
+    msgbox(format("{FONT_NARROW}(Gozo took his father's company and the man killed himself over it.)\pTakeshi married into the family that did it.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
     // giveevidence(EVD_TAKESHIS_HISTORY)
@@ -238,7 +238,7 @@ script tarc3_Hold_EventScript_RecapHistory {
 }
 
 script tarc3_Hold_EventScript_RecapArgument {
-    msgbox(format("(She stood at that door before dinner and heard her father shouting Takeshi's name.)\pSo she says."))
+    msgbox(format("{FONT_NARROW}(She stood at that door before dinner and heard her father shouting Takeshi's name.)\pSo she says.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
     // giveevidence(EVD_OVERHEARD_ARGUMENT)
@@ -248,7 +248,7 @@ script tarc3_Hold_EventScript_RecapArgument {
 }
 
 script tarc3_Hold_EventScript_RecapCS5Irrelevant {
-    msgbox(format("(I'd have walked out too. It doesn't tell me anything.)"))
+    msgbox(format("{FONT_NARROW}(I'd have walked out too. It doesn't tell me anything.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
     goto(tarc3_Hold_EventScript_RecapEnd)
@@ -257,7 +257,7 @@ script tarc3_Hold_EventScript_RecapCS5Irrelevant {
 script tarc3_Hold_EventScript_RecapCS6 {
     goto_if_set(FLAG_TARC3_REFLECT_HOLD_CS6, tarc3_Hold_EventScript_RecapEnd)
     setspeaker(NULL)
-    message(format("(And then Suzuki opened his mouth about the will.)"))
+    message(format("{FONT_NARROW}(And then Suzuki opened his mouth about the will.)", "1_latin_rse_narrow"))
     waitmessage
     dynmultipush("Tatsuo married for money", 0)
     dynmultipush("Joji wanted no part of it", 1)
@@ -280,7 +280,7 @@ script tarc3_Hold_EventScript_RecapCS6 {
 }
 
 script tarc3_Hold_EventScript_RecapDebts {
-    msgbox(format("(He said it to the whole room. He married Akie to inherit, and he isn't sorry.)"))
+    msgbox(format("{FONT_NARROW}(He said it to the whole room. He married Akie to inherit, and he isn't sorry.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
     // giveevidence(EVD_TATSUOS_DEBTS)
@@ -290,7 +290,7 @@ script tarc3_Hold_EventScript_RecapDebts {
 }
 
 script tarc3_Hold_EventScript_RecapWill {
-    msgbox(format("(Every share and every property, to Natsue.)\pAnd three people in that room found out tonight."))
+    msgbox(format("{FONT_NARROW}(Every share and every property, to Natsue.)\pAnd three people in that room found out tonight.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
     // giveevidence(EVD_GOZOS_WILL)
@@ -300,7 +300,7 @@ script tarc3_Hold_EventScript_RecapWill {
 }
 
 script tarc3_Hold_EventScript_RecapCS6Irrelevant {
-    msgbox(format("(He kept out of it, at least. That's not worth writing down.)"))
+    msgbox(format("{FONT_NARROW}(He kept out of it, at least. That's not worth writing down.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
     goto(tarc3_Hold_EventScript_RecapEnd)
@@ -313,7 +313,7 @@ script tarc3_Hold_EventScript_RecapEnd {
 script tarc3_Hold_EventScript_EvdManifest {
     lockall
     msgbox(format("The passenger manifest, hung by the stairs in Kitaro's handwriting."))
-    msgbox(format("(Family, one steward, one cook. The crew are berthed forward and none of them came aft.)"))
+    msgbox(format("{FONT_NARROW}(Family, one steward, one cook. The crew are berthed forward and none of them came aft.)", "1_latin_rse_narrow"))
     closemessage
     // giveevidence(EVD_PASSENGER_MANIFEST)
     call(tarc3_EventScript_EvidenceCaptured)
@@ -383,7 +383,7 @@ script tarc3_Hold_EventScript_TakeshiGone {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("(Then somebody outside this room opened it for him.)"))
+    msgbox(format("{FONT_NARROW}(Then somebody outside this room opened it for him.)", "1_latin_rse_narrow"))
     closemessage
     delay(30)
     fadescreen(FADE_TO_BLACK)

@@ -120,8 +120,8 @@ script tarc3_MainDeck_EventScript_Akie {
     delay(20)
     applymovement(LOCALID_MAINDECK_AKIE, moves(face_left))
     waitmovement(0)
-    msgbox(format("(She lowers her voice and turns back to Mariko. Only fragments carry.)"))
-    msgbox(format("(...everything goes to... not to the eldest...)"))
+    msgbox(format("{FONT_NARROW}(She lowers her voice and turns back to Mariko. Only fragments carry.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(...everything goes to... not to the eldest...)", "1_latin_rse_narrow"))
     release
     end
 }
@@ -152,7 +152,7 @@ script tarc3_MainDeck_EventScript_Suzuki {
 script tarc3_MainDeck_EventScript_SuzukiReflect {
     goto_if_set(FLAG_TARC3_REFLECT_SUZUKI, tarc3_MainDeck_EventScript_SuzukiReflectEnd)
     setspeaker(NULL)
-    message(format("(He chose every one of those words. What should I jot down?)"))
+    message(format("{FONT_NARROW}(He chose every one of those words. What should I jot down?)", "1_latin_rse_narrow"))
     waitmessage
     dynmultipush("Ichiro is a gifted artist", 0)
     dynmultipush("Suzuki is very observant", 1)
@@ -173,7 +173,7 @@ script tarc3_MainDeck_EventScript_SuzukiReflect {
 }
 
 script tarc3_MainDeck_EventScript_SuzukiReflectSponsorship {
-    msgbox(format("(Ichiro's whole education came out of Gozo's pocket. And Gozo counts what he's owed.)\pThat one goes in the notes."))
+    msgbox(format("{FONT_NARROW}(Ichiro's whole education came out of Gozo's pocket. And Gozo counts what he's owed.)\pThat one goes in the notes.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_SUZUKI)
     // giveevidence(EVD_ICHIRO_SPONSORSHIP)
@@ -182,7 +182,7 @@ script tarc3_MainDeck_EventScript_SuzukiReflectSponsorship {
 }
 
 script tarc3_MainDeck_EventScript_SuzukiReflectIrrelevant {
-    msgbox(format("(Probably true. I can't do anything with it, though.)"))
+    msgbox(format("{FONT_NARROW}(Probably true. I can't do anything with it, though.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_SUZUKI)
     goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
@@ -217,7 +217,7 @@ script tarc3_MainDeck_EventScript_Joji {
 script tarc3_MainDeck_EventScript_JojiReflect {
     goto_if_set(FLAG_TARC3_REFLECT_JOJI, tarc3_MainDeck_EventScript_JojiReflectEnd)
     setspeaker(NULL)
-    message(format("(Hmm... What did I make of all that?)"))
+    message(format("{FONT_NARROW}(Hmm... What did I make of all that?)", "1_latin_rse_narrow"))
     waitmessage
     dynmultipush("Kitaro is married to Mariko", 1)
     dynmultipush("Gozo hates his cooking", 0)
@@ -238,7 +238,7 @@ script tarc3_MainDeck_EventScript_JojiReflect {
 }
 
 script tarc3_MainDeck_EventScript_JojiReflectRefused {
-    msgbox(format("(Gozo turned his own son's cooking away, in front of the whole family.)\pYeah. I should note that down."))
+    msgbox(format("{FONT_NARROW}(Gozo turned his own son's cooking away, in front of the whole family.)\pYeah. I should note that down.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_JOJI)
     // giveevidence(EVD_JOJI_REFUSED)
@@ -247,7 +247,7 @@ script tarc3_MainDeck_EventScript_JojiReflectRefused {
 }
 
 script tarc3_MainDeck_EventScript_JojiReflectIrrelevant {
-    msgbox(format("(True enough. I'm not sure it tells me anything, though.)"))
+    msgbox(format("{FONT_NARROW}(True enough. I'm not sure it tells me anything, though.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_JOJI)
     goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
@@ -373,7 +373,7 @@ script tarc3_MainDeck_EventScript_EvdPlate {
     lockall
     goto_if_set(FLAG_TARC3_DINING_FOUND_PLATE, tarc3_MainDeck_EventScript_EvdPlateSeen)
     msgbox(format("The setting at the head of the table has not been touched. The bread beside it is whole."))
-    msgbox(format("(Gozo won't eat Kalosian food. And he certainly hasn't touched his bread.)"))
+    msgbox(format("{FONT_NARROW}(Gozo won't eat Kalosian food. And he certainly hasn't touched his bread.)", "1_latin_rse_narrow"))
     closemessage
     // giveevidence(EVD_UNTOUCHED_PLATE)
     call(tarc3_EventScript_EvidenceCaptured)
@@ -403,7 +403,7 @@ script tarc3_MainDeck_EventScript_DinnerNoExit {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
     waitmovement(0)
-    msgbox(format("(Everyone is waiting on Gozo.\pI should talk to the family members to pass the time.)"))
+    msgbox(format("{FONT_NARROW}(Everyone is waiting on Gozo.\pI should talk to the family members to pass the time.)", "1_latin_rse_narrow"))
     releaseall
     end
 }
@@ -637,7 +637,7 @@ script tarc3_MainDeck_EventScript_DiningIchiro {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("(He glances down the table at Natsue, then back at his plate.)"))
+    msgbox(format("{FONT_NARROW}(He glances down the table at Natsue, then back at his plate.)", "1_latin_rse_narrow"))
     closemessage
     if (!flag(FLAG_TARC3_DINNER_TALK_ICHIRO)) {
         setflag(FLAG_TARC3_DINNER_TALK_ICHIRO)
@@ -810,7 +810,7 @@ script tarc3_MainDeck_EventScript_RoomSettles {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("(I should gather evidence from the family.)"))
+    msgbox(format("{FONT_NARROW}(I should gather evidence from the family.)", "1_latin_rse_narrow"))
     closemessage
     setvar(VAR_TARC3_ACT2, TARC3_ACT2_GATHER)
     applymovement(LOCALID_CAMERA, moves(walk_down * 2))
@@ -1104,7 +1104,7 @@ script tarc3_MainDeck_EventScript_Blackout {
     playse(SE_M_THUNDERBOLT2)
     waitse
     fadescreenswapbuffers(FADE_FROM_BLACK)
-    msgbox(format("(The lights...)"))
+    msgbox(format("{FONT_NARROW}(The lights...)", "1_latin_rse_narrow"))
     closemessage
     fadescreenswapbuffers(FADE_TO_BLACK)
     fadescreenswapbuffers(FADE_FROM_BLACK)
@@ -1171,7 +1171,7 @@ script tarc3_MainDeck_EventScript_Scream {
     lockall
     playse(SE_M_CUT)
     delay(20)
-    msgbox(format("(That came from the bathrooms!)"))
+    msgbox(format("{FONT_NARROW}(That came from the bathrooms!)", "1_latin_rse_narrow"))
     closemessage
     setspeaker("{RIVAL}")
     msgbox(format("That was Ichiro!"))
@@ -1202,7 +1202,7 @@ script tarc3_MainDeck_EventScript_GatherNoExit {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
     waitmovement(0)
-    msgbox(format("(Nobody is leaving this room while they're still going at each other.\pI should hear the rest of it.)"))
+    msgbox(format("{FONT_NARROW}(Nobody is leaving this room while they're still going at each other.\pI should hear the rest of it.)", "1_latin_rse_narrow"))
     releaseall
     end
 }

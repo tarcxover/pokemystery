@@ -104,10 +104,10 @@ script tarc3_Bathroom_EventScript_Discovery {
     playse(SE_M_THUNDERBOLT2)
     animateflash(0)
     setflashlevel(0)
-    msgbox(format("(The lights came back. Suzuki found the breaker.)"))
+    msgbox(format("{FONT_NARROW}(The lights came back. Suzuki found the breaker.)", "1_latin_rse_narrow"))
     closemessage
     delay(20)
-    msgbox(format("(Ichiro is on the floor. He's bleeding from his thigh.)"))
+    msgbox(format("{FONT_NARROW}(Ichiro is on the floor. He's bleeding from his thigh.)", "1_latin_rse_narrow"))
     setspeaker("Natsue")
     msgbox(format("Ichiro! Are you ok?\pWhat happened!?"))
     closemessage
