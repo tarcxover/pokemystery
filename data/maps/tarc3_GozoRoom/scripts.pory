@@ -458,6 +458,20 @@ script tarc3_GozoRoom_EventScript_SearchEnd {
     end
 }
 
+// pokemon evidence interaction. see tarc3_EventScript_FollowerMagnezone for context
+
+script tarc3_GozoRoom_EventScript_FollowerMagnezoneSearch {
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_WEAPON, tarc3_EventScript_FollowerHookEnd)
+    msgbox(format("Magnezone used its magnets to try and find the knife!"))
+    msgbox(format("But nothing was found."))
+    closemessage
+    // giveevidence(EVD_NO_WEAPON)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_WEAPON)
+    goto(tarc3_EventScript_FollowerHandled)
+}
+
 script tarc3_GozoRoom_EventScript_EvdCrumbs {
     lockall
     goto_if_set(FLAG_TARC3_GOZO_FOUND_CRUMBS, tarc3_GozoRoom_EventScript_EvdCrumbsSeen)

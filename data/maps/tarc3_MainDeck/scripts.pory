@@ -13,12 +13,17 @@ mapscripts tarc3_MainDeck_MapScripts {
 
 script tarc3_MainDeck_OnTransition {
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT && var(VAR_TARC3_ACT2) <= TARC3_ACT2_TO_BATHROOM) {
-        setflashlevel(7)
+        if (flag(FLAG_TARC3_MAGNEZONE_FLASH)) {
+            setflashlevel(4)
+        } else {
+            setflashlevel(7)
+        }
     }
     end
 }
 
 script tarc3_MainDeck_OnLoad {
+    setflag(FLAG_HIDE_TARC3_COMFEY)
     if (var(VAR_TARC3_ACT2) == TARC3_ACT2_DECK_DOOR) {
         clearflag(FLAG_HIDE_TARC3_DECKDOOR_CAST)
     } else {
@@ -30,9 +35,11 @@ script tarc3_MainDeck_OnLoad {
         setflag(FLAG_HIDE_TARC3_CORRIDOR_RAN)
     }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
-        clearflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
+        clearflag(FLAG_HIDE_TARC3_DINING_ICHIRO_HURT)
         clearflag(FLAG_HIDE_TARC3_DINING_RAN)
         clearflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+    } else {
+        setflag(FLAG_HIDE_TARC3_DINING_ICHIRO_HURT)
     }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
         clearflag(FLAG_HIDE_TARC3_DINING_KITARO)
@@ -327,9 +334,9 @@ script tarc3_MainDeck_EventScript_Dinner {
     applymovement(LOCALID_CAMERA, moves(walk_up * 5))
     waitmovement(0)
     delay(20)
+    playse(SE_PIN)
     applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(emote_exclamation_mark))
     waitmovement(0)
-    playse(SE_PIN)
     delay(20)
     applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
     waitmovement(0)
@@ -413,11 +420,21 @@ script tarc3_MainDeck_EventScript_DiningSuzuki {
     faceplayer
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
         setspeaker("Suzuki")
-        msgbox(format("I have kept them all in this room, Conan."))
+        msgbox(format("I have kept them all in this room, {PLAYER}.\pThe cabin doors are all unlocked."))
         msgbox(format("Takeshi is aboard. He must be.\pThere is nowhere else for him to be."))
         setspeaker(NULL)
         release
         end
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
+        setspeaker("Suzuki")
+        msgbox(format("Nobody is to go wandering.\pThe breaker is below, and I will see to it myself."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
+        goto(tarc3_MainDeck_EventScript_GatherSuzuki)
     }
     setspeaker("Suzuki")
     msgbox(format("Everything is ready, sir.\pIt only wants the master."))
@@ -432,14 +449,22 @@ script tarc3_MainDeck_EventScript_DiningRan {
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
         setspeaker("{RIVAL}")
         msgbox(format("His leg is bound. Natsue hasn't left his side."))
-        msgbox(format("Suzuki's still looking for Takeshi.\pConan, don't go anywhere on your own. I mean it."))
+        msgbox(format("Go on, {PLAYER}. Suzuki is waiting on you to find Takeshi."))
+        msgbox(format("I'll stay with Ichiro and keep this room together.\pJust don't take any risks out there."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
+        setspeaker("{RIVAL}")
+        msgbox(format("Stay where I can hear you, {PLAYER}.\pThe corridor is pitch black."))
         setspeaker(NULL)
         release
         end
     }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_ROOM_SETTLES) {
         setspeaker("{RIVAL}")
-        msgbox(format("Everyone's accounted for except Takeshi.\pI've been counting heads since we sat down."))
+        msgbox(format("So much to keep track of. Everyone in this room has their own agenda."))
         setspeaker(NULL)
         release
         end
@@ -459,8 +484,17 @@ script tarc3_MainDeck_EventScript_DiningRan {
 script tarc3_MainDeck_EventScript_DiningNatsue {
     lock
     faceplayer
-    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_LEAVING_DINING) {
-        msgbox(format("I'm scared..."))
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
+        setspeaker("Natsue")
+        msgbox(format("We've cleaned the wound up. I've got him.\pPlease find Takeshi!"))
+        setspeaker(NULL)
+        release
+        end
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
+        setspeaker("Natsue")
+        msgbox(format("I can't see anything.\pIs everyone still here?"))
+        setspeaker(NULL)
         release
         end
     }
@@ -501,7 +535,14 @@ script tarc3_MainDeck_EventScript_DiningJoji {
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
         setspeaker("Joji")
         msgbox(format("That case stays locked. It has always stayed locked."))
-        msgbox(format("Somebody opened it, Conan.\pI'd like to know who, before they open it again."))
+        msgbox(format("Somebody opened it, {PLAYER}.\pI'd like to know who, before they open it again."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
+        setspeaker("Joji")
+        msgbox(format("Everybody stay by the table.\pThe last thing we need is somebody on the floor in the dark."))
         setspeaker(NULL)
         release
         end
@@ -533,6 +574,14 @@ script tarc3_MainDeck_EventScript_DiningMariko {
         release
         end
     }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
+        setspeaker("Mariko")
+        msgbox(format("Lights - now - of all moments?"))
+        msgbox(format("Nobody leaves this room.\pI want to know exactly where every one of you is."))
+        setspeaker(NULL)
+        release
+        end
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
         goto(tarc3_MainDeck_EventScript_GatherMariko)
     }
@@ -560,6 +609,13 @@ script tarc3_MainDeck_EventScript_DiningKitaro {
         release
         end
     }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
+        setspeaker("Kitaro")
+        msgbox(format("I don't feel good about this.\pWe should all stay close to one another."))
+        setspeaker(NULL)
+        release
+        end
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
         goto(tarc3_MainDeck_EventScript_GatherKitaro)
     }
@@ -572,6 +628,50 @@ script tarc3_MainDeck_EventScript_DiningKitaro {
         setflag(FLAG_TARC3_DINNER_TALK_KITARO)
         addvar(VAR_TARC3_DINNER_TALKED, 1)
     }
+    goto(tarc3_MainDeck_EventScript_DiningKitaroReflect)
+}
+
+script tarc3_MainDeck_EventScript_DiningKitaroReflect {
+    goto_if_set(FLAG_TARC3_REFLECT_KITARO_DINNER, tarc3_MainDeck_EventScript_DiningKitaroReflectEnd)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(He didn't have to tell me any of that. What stood out?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Kitaro benefited from nepotism", 0)
+    dynmultipush("Gozo refused his resignation", 1)
+    dynmultipush("Kitaro married in", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 1:
+            goto(tarc3_MainDeck_EventScript_DiningKitaroReflectResign)
+        case 3:
+            goto(tarc3_MainDeck_EventScript_DiningKitaroReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_DiningKitaroReflectEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_DiningKitaroReflectIrrelevant)
+    }
+}
+
+script tarc3_MainDeck_EventScript_DiningKitaroReflectResign {
+    msgbox(format("{FONT_NARROW}(Three times he's asked to walk away, and three times Gozo has held him there.)\p(A man kept somewhere he doesn't want to be.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_KITARO_DINNER)
+    // giveevidence(EVD_RESIGNATION_REQUEST)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_DiningKitaroReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_DiningKitaroReflectIrrelevant {
+    msgbox(format("{FONT_NARROW}(Fair enough. I can't do much with that.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_KITARO_DINNER)
+    goto(tarc3_MainDeck_EventScript_DiningKitaroReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_DiningKitaroReflectEnd {
     goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
 }
 
@@ -582,6 +682,13 @@ script tarc3_MainDeck_EventScript_DiningAkie {
         setspeaker("Akie")
         msgbox(format("Two of them. Then a knife in the dark."))
         msgbox(format("And they want us to sit here and wait our turn."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
+        setspeaker("Akie")
+        msgbox(format("Of course. Of course the lights go as well."))
         setspeaker(NULL)
         release
         end
@@ -622,11 +729,11 @@ script tarc3_MainDeck_EventScript_DiningIchiro {
     faceplayer
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
         setspeaker("Ichiro")
-        msgbox(format("Suzuki bound it up. It looked worse than it was."))
+        msgbox(format("Natsue bound it up. It looked worse than it was."))
         msgbox(format("I keep going back over it, trying to find something useful.\pThere's nothing there. It was dark, and then it wasn't."))
         setspeaker(NULL)
-        release
-        end
+        closemessage
+        goto(tarc3_MainDeck_EventScript_DiningIchiroEvidence)
     }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_GATHER) {
         goto(tarc3_MainDeck_EventScript_GatherIchiro)
@@ -644,6 +751,29 @@ script tarc3_MainDeck_EventScript_DiningIchiro {
         addvar(VAR_TARC3_DINNER_TALKED, 1)
     }
     goto(tarc3_MainDeck_EventScript_DinnerTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_DiningIchiroEvidence {
+    if (!flag(FLAG_TARC3_ICHIRO_FOUND_LIE)) {
+        msgbox(format("{FONT_NARROW}(Dark the whole time, by his own account. He never saw a single thing.)", "1_latin_rse_narrow"))
+        closemessage
+        // giveevidence(EVD_BATHROOM_BLACKOUT)
+        call(tarc3_EventScript_EvidenceCaptured)
+        closemessage
+        setflag(FLAG_TARC3_ICHIRO_FOUND_LIE)
+    }
+    if (!flag(FLAG_TARC3_ICHIRO_FOUND_LEG)) {
+        msgbox(format("{FONT_NARROW}(The bandage is wrapped around his thigh.)", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}(Not a cut on his palms. Nothing on his forearms either.)", "1_latin_rse_narrow"))
+        closemessage
+        // giveevidence(EVD_INJURED_LEG)
+        // giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
+        call(tarc3_EventScript_EvidenceCaptured)
+        closemessage
+        setflag(FLAG_TARC3_ICHIRO_FOUND_LEG)
+    }
+    release
+    end
 }
 
 // CS7 (probably a better way to do this)
@@ -705,16 +835,17 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     delay(20)
     applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_up))
     setspeaker("{RIVAL}")
-    msgbox(format("{PLAYER} and I don't think he did it."))
-    msgbox(format("{PLAYER} thinks the garland didn't fall off him.\pIt was lying flat in the corridor, undamaged.\pSomebody was guaranteed to walk past and notice it."))
-    msgbox(format("Somebody put it there. That means somebody wanted him blamed.")) // maybe this should be a conversation the player is able to have with Natsue instead?
+    msgbox(format("Nobody in that room proved anything. They decided first, and went looking for reasons after."))
+    msgbox(format("That garland was lying flat in the corridor and it wasn't damaged at all.\pAnybody walking past was going to see it."))
+    msgbox(format("I don't know what that means yet.\pBut it's a question which none of them asked."))
     closemessage
     delay(20)
+    playse(SE_PIN)
     applymovement(LOCALID_MAINDECK_NATSUE_DECK, moves(emote_exclamation_mark))
     waitmovement(0)
     delay(20)
     setspeaker("Natsue")
-    msgbox(format("Then whoever did it is still on this ship with us!"))
+    msgbox(format("Then whoever did it... Is still on this ship with us!"))
     setspeaker("{RIVAL}")
     delay(40)
     msgbox(format("Yes.\pThey are."))
@@ -727,17 +858,23 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_left))
     applymovement(LOCALID_MAINDECK_NATSUE_DECK, moves(face_left))
     waitmovement(0)
-    delay(30)
+    delay(80)
     playse(SE_BANG)
-    delay(40)
+    delay(80)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark))
     waitmovement(0)
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("Did you hear that!?"))
+    msgbox(format("What was that!?"))
     setspeaker("Natsue")
     msgbox(format("There were two sounds.\pA splash... and a thud."))
     setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(A splash on its own could be any water Pokémon outside.\pBut a loud thud on the deck afterwards..?)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_TWO_SOUNDS)
+    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     delay(30)
     setspeaker("{RIVAL}")
@@ -810,7 +947,7 @@ script tarc3_MainDeck_EventScript_RoomSettles {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(I should gather evidence from the family.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(I should use this time to talk to members of the family.)", "1_latin_rse_narrow"))
     closemessage
     setvar(VAR_TARC3_ACT2, TARC3_ACT2_GATHER)
     applymovement(LOCALID_CAMERA, moves(walk_down * 2))
@@ -822,10 +959,10 @@ script tarc3_MainDeck_EventScript_RoomSettles {
 
 script tarc3_MainDeck_EventScript_GatherTalkDone {
     addvar(VAR_TARC3_GATHER_TALKED, 1)
-    if (var(VAR_TARC3_GATHER_TALKED) == 2) {
+    if (var(VAR_TARC3_GATHER_TALKED) == 3) {
         goto(tarc3_MainDeck_EventScript_IchiroExcusesHimself)
     }
-    if (var(VAR_TARC3_GATHER_TALKED) >= 4) {
+    if (var(VAR_TARC3_GATHER_TALKED) >= 8) {
         goto(tarc3_MainDeck_EventScript_Blackout)
     }
     release
@@ -899,12 +1036,56 @@ script tarc3_MainDeck_EventScript_GatherMariko {
         setvar(VAR_TARC3_GATHER_MARIKO, 2)
         setspeaker(NULL)
         closemessage
-        goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+        goto(tarc3_MainDeck_EventScript_GatherMarikoReflect)
     }
     msgbox(format("I've said my piece."))
     setspeaker(NULL)
     release
     end
+}
+
+script tarc3_MainDeck_EventScript_GatherMarikoReflect {
+    goto_if_set(FLAG_TARC3_REFLECT_GATHER_MARIKO, tarc3_MainDeck_EventScript_GatherMarikoReflectEnd)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(She's trying to avoid answering the question. Was that worth anything?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Akie is seeing someone", 0)
+    dynmultipush("Mariko is deflecting", 1)
+    dynmultipush("Mariko dislikes Akie", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_MainDeck_EventScript_GatherMarikoReflectAffair)
+        case 3:
+            goto(tarc3_MainDeck_EventScript_GatherMarikoReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_GatherMarikoReflectEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_GatherMarikoReflectIrrelevant)
+    }
+}
+
+script tarc3_MainDeck_EventScript_GatherMarikoReflectAffair {
+    msgbox(format("{FONT_NARROW}(Akie has been seeing somebody. Mariko wants me to ask whether Tatsuo found out.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GATHER_MARIKO)
+    // giveevidence(EVD_AKIES_AFFAIR)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_GatherMarikoReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherMarikoReflectIrrelevant {
+    msgbox(format("{FONT_NARROW}(Obviously. That isn't evidence of anything.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GATHER_MARIKO)
+    goto(tarc3_MainDeck_EventScript_GatherMarikoReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherMarikoReflectEnd {
+    goto(tarc3_MainDeck_EventScript_GatherTalkDone)
 }
 
 script tarc3_MainDeck_EventScript_GatherKitaro {
@@ -945,6 +1126,50 @@ script tarc3_MainDeck_EventScript_GatherKitaro {
     waitmovement(0)
     special(RemoveCameraObject)
     setflag(FLAG_TARC3_GATHER_KITARO)
+    goto(tarc3_MainDeck_EventScript_GatherKitaroReflect)
+}
+
+script tarc3_MainDeck_EventScript_GatherKitaroReflect {
+    goto_if_set(FLAG_TARC3_REFLECT_GATHER_KITARO, tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(He answered her before he thought about it. What's worth keeping?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Nobody has an alibi", 0)
+    dynmultipush("Mariko is enjoying this", 1)
+    dynmultipush("Kitaro went for a walk", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 2:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroReflectWalk)
+        case 3:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroReflectIrrelevant)
+    }
+}
+
+script tarc3_MainDeck_EventScript_GatherKitaroReflectWalk {
+    msgbox(format("{FONT_NARROW}(He said everyone was in their cabin. Then Mariko put him out in the corridors on his own.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GATHER_KITARO)
+    // giveevidence(EVD_KITAROS_WALK)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherKitaroReflectIrrelevant {
+    msgbox(format("{FONT_NARROW}(True, but it's true of everybody in this room.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GATHER_KITARO)
+    goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherKitaroReflectEnd {
     goto(tarc3_MainDeck_EventScript_GatherTalkDone)
 }
 
@@ -952,11 +1177,13 @@ script tarc3_MainDeck_EventScript_GatherJoji {
     setspeaker("Joji")
     if (var(VAR_TARC3_GATHER_JOJI) == 0) {
         msgbox(format("Nobody in this room should be naming names."))
-        msgbox(format("I've been in the galley or in my cabin all evening.\pMy knives haven't left their storage."))
+        msgbox(format("I've been in the galley or in my cabin all evening.\pI'm sure my knives haven't left their storage."))
+        msgbox(format("Years ago, I asked Father for a loan. For my restaurant.\pIn response, he... bought me a cheap pair of knives."))
+        msgbox(format("It's kind of ironic, now."))
         setvar(VAR_TARC3_GATHER_JOJI, 1)
         setspeaker(NULL)
         closemessage
-        goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+        goto(tarc3_MainDeck_EventScript_GatherJojiReflect)
     }
     if (var(VAR_TARC3_GATHER_JOJI) == 1) {
         msgbox(format("Poor Ichiro...\pFather told him on this ship that he was finished paying for that school.\pSaid it in the open, where people could hear."))
@@ -973,26 +1200,72 @@ script tarc3_MainDeck_EventScript_GatherJoji {
     end
 }
 
+script tarc3_MainDeck_EventScript_GatherJojiReflect {
+    goto_if_set(FLAG_TARC3_REFLECT_GATHER_JOJI, tarc3_MainDeck_EventScript_GatherJojiReflectEnd)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(He volunteered a lot there. Which part matters?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Joji has no alibi either", 0)
+    dynmultipush("Joji resents the family", 1)
+    dynmultipush("Gozo refused him a loan", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 2:
+            goto(tarc3_MainDeck_EventScript_GatherJojiReflectDebt)
+        case 3:
+            goto(tarc3_MainDeck_EventScript_GatherJojiReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_GatherJojiReflectEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_GatherJojiReflectIrrelevant)
+    }
+}
+
+script tarc3_MainDeck_EventScript_GatherJojiReflectDebt {
+    msgbox(format("{FONT_NARROW}(He asked his father to back the restaurant and was refused.)\p(He brought it up before anybody asked him to.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GATHER_JOJI)
+    // giveevidence(EVD_JOJIS_DEBT)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_GatherJojiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherJojiReflectIrrelevant {
+    msgbox(format("{FONT_NARROW}(Maybe. I don't think that helps, though.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GATHER_JOJI)
+    goto(tarc3_MainDeck_EventScript_GatherJojiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherJojiReflectEnd {
+    goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+}
+
 script tarc3_MainDeck_EventScript_GatherNatsue {
-    setspeaker("Natsue")
     if (flag(FLAG_TARC3_GATHER_NATSUE)) {
+        setspeaker("Natsue")
         msgbox(format("Somebody opened that door.\pThat's the part none of them will look at."))
         setspeaker(NULL)
         release
         end
     }
+    setspeaker("Natsue")
     msgbox(format("He was behind a bolted door."))
     msgbox(format("Whatever they've decided he is, he cannot have been in two places."))
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("That bolt only works from the outside. And nobody forced it."))
+    msgbox(format("{FONT_NARROW}(That bolt only works from the outside. And nobody forced it.)", "1_latin_rse_narrow"))
+    closemessage
+    setspeaker("Natsue")
     msgbox(format("Takeshi couldn't have let himself out.\pSomeone opened that door for him."))
+    setspeaker(NULL)
     closemessage
     delay(20)
-    special(SpawnCameraObject)
-    applymovement(LOCALID_CAMERA, moves(walk_up * 2))
-    waitmovement(0)
+    call(tarc3_MainDeck_EventScript_GatherNatsuePanUp)
     delay(20)
     applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
     waitmovement(0)
@@ -1001,7 +1274,9 @@ script tarc3_MainDeck_EventScript_GatherNatsue {
     setspeaker(NULL)
     closemessage
     delay(20)
+    setspeaker("Natsue")
     msgbox(format("We don't know where he is! He could be hurt!"))
+    setspeaker(NULL)
     closemessage
     delay(20)
     setspeaker("Mariko")
@@ -1011,15 +1286,107 @@ script tarc3_MainDeck_EventScript_GatherNatsue {
     delay(20)
     applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_right))
     waitmovement(0)
-    setspeaker("{RIVAL}")
-    msgbox(format("Don't worry Natsue... We'll prove his innocence."))
     setspeaker(NULL)
-    closemessage
     delay(20)
+    call(tarc3_MainDeck_EventScript_GatherNatsuePanDown)
+    setflag(FLAG_TARC3_GATHER_NATSUE)
+    goto(tarc3_MainDeck_EventScript_GatherNatsueReflect)
+}
+
+// Natsue can be spoken to from 38,12; 37,13 or 38,14 so the pan onto
+// Mariko at (38,7) is measured from wherever the player is standing
+
+script tarc3_MainDeck_EventScript_GatherNatsuePanUp {
+    getplayerxy(VAR_0x8004, VAR_0x8005)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    if (var(VAR_0x8005) >= 13) {
+        applymovement(LOCALID_CAMERA, moves(walk_up))
+        waitmovement(0)
+    }
+    if (var(VAR_0x8005) >= 14) {
+        applymovement(LOCALID_CAMERA, moves(walk_up))
+        waitmovement(0)
+    }
+    return
+}
+
+script tarc3_MainDeck_EventScript_GatherNatsuePanDown {
+    getplayerxy(VAR_0x8004, VAR_0x8005)
+    if (var(VAR_0x8005) >= 14) {
+        applymovement(LOCALID_CAMERA, moves(walk_down))
+        waitmovement(0)
+    }
+    if (var(VAR_0x8005) >= 13) {
+        applymovement(LOCALID_CAMERA, moves(walk_down))
+        waitmovement(0)
+    }
     applymovement(LOCALID_CAMERA, moves(walk_down * 2))
     waitmovement(0)
     special(RemoveCameraObject)
-    setflag(FLAG_TARC3_GATHER_NATSUE)
+    return
+}
+
+script tarc3_MainDeck_EventScript_GatherNatsueReflect {
+    goto_if_set(FLAG_TARC3_REFLECT_GATHER_NATSUE, tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(Two different perspectives on Takeshi. What makes sense?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Natsue trusts him", 0)
+    dynmultipush("Mariko says he had help", 1)
+    dynmultipush("Nobody forced the bolt", 2)
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 1:
+            goto(tarc3_MainDeck_EventScript_GatherNatsueReflectAccomplice)
+        case 3:
+            goto(tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_GatherNatsueReflectIrrelevant)
+    }
+}
+
+script tarc3_MainDeck_EventScript_GatherNatsueReflectAccomplice {
+    msgbox(format("{FONT_NARROW}(Mariko is convinced of Takeshi's involvement. Is she suggesting he has an accomplice?)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(Could she be right?)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GATHER_NATSUE)
+    // giveevidence(EVD_AN_ACCOMPLICE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherNatsueReflectIrrelevant {
+    msgbox(format("{FONT_NARROW}(I already know that much. It's not what I need from her.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GATHER_NATSUE)
+    goto(tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherNatsueReflectEnd {
+    goto(tarc3_MainDeck_EventScript_GatherTalkDone)
+}
+
+script tarc3_MainDeck_EventScript_GatherSuzuki {
+    setspeaker("Suzuki")
+    if (flag(FLAG_TARC3_GATHER_SUZUKI)) {
+        msgbox(format("I bolted that door. I will not pretend otherwise to make this easier."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("Thirty-one years I have kept this family's doors.\pTonight I put a man behind one."))
+    msgbox(format("The others will tell you what they believe.\pI can only tell you what I did, and I drew that bolt myself."))
+    msgbox(format("I also carry every key aboard this ship.\pIf you mean to ask who could have gone where tonight, begin with me."))
+    setspeaker(NULL)
+    closemessage
+    setflag(FLAG_TARC3_GATHER_SUZUKI)
     goto(tarc3_MainDeck_EventScript_GatherTalkDone)
 }
 
@@ -1088,14 +1455,21 @@ script tarc3_MainDeck_EventScript_Blackout {
     applymovement(LOCALID_MAINDECK_KITARO_DINING, moves(face_down))
     waitmovement(0)
     setspeaker("Kitaro")
-    msgbox(format("Hmm. I think someone should be with Ichiro."))
+    msgbox(format("Hmm. Ichiro has been gone a long while now."))
+    msgbox(format("I think someone should be with him."))
     setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(He's been out of this room a lot longer than a wash takes.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_LONG_ABSENCE)
+    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     delay(20)
     applymovement(LOCALID_MAINDECK_MARIKO_DINING, moves(face_down))
     waitmovement(0)
     setspeaker("Mariko")
-    msgbox(format("Takeshi could be anywhere!"))
+    msgbox(format("And Takeshi could be anywhere!"))
     setspeaker(NULL)
     closemessage
     delay(30)
@@ -1119,7 +1493,7 @@ script tarc3_MainDeck_EventScript_Blackout {
 
 script tarc3_MainDeck_EventScript_BlackoutReturn {
     lockall
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2, walk_left, face_left))
     waitmovement(0)
     delay(20)
     setspeaker("{RIVAL}")
@@ -1134,7 +1508,7 @@ script tarc3_MainDeck_EventScript_BlackoutReturn {
     setspeaker(NULL)
     closemessage
     delay(20)
-    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_faster_up * 3, walk_faster_left * 4, face_left))
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_up * 3, walk_left * 4, face_left))
     waitmovement(0)
     delay(20)
     setspeaker("{RIVAL}")
@@ -1150,6 +1524,8 @@ script tarc3_MainDeck_EventScript_BlackoutReturn {
 script tarc3_MainDeck_EventScript_SuzukiLeaves {
     lockall
     applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(walk_up * 6, walk_left, walk_up))
+    waitmovement(0)
+    applymovement(LOCALID_MAINDECK_RAN_DINING, moves(face_left))
     waitmovement(0)
     playse(SE_EXIT)
     setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
@@ -1170,11 +1546,11 @@ script tarc3_MainDeck_EventScript_SuzukiLeaves {
 script tarc3_MainDeck_EventScript_Scream {
     lockall
     playse(SE_M_CUT)
-    delay(20)
+    delay(60)
     msgbox(format("{FONT_NARROW}(That came from the bathrooms!)", "1_latin_rse_narrow"))
     closemessage
     setspeaker("{RIVAL}")
-    msgbox(format("That was Ichiro!"))
+    msgbox(format("Ichiro!"))
     setspeaker(NULL)
     closemessage
     applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_fast_left * 8))
@@ -1183,6 +1559,24 @@ script tarc3_MainDeck_EventScript_Scream {
     removeobject(LOCALID_MAINDECK_RAN_DINING)
     clearflag(FLAG_HIDE_TARC3_CORRIDOR_RAN)
     setvar(VAR_TARC3_ACT2, TARC3_ACT2_TO_BATHROOM)
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_ScreamNoExitDeck {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
+    waitmovement(0)
+    msgbox(format("{FONT_NARROW}(That came from the bathrooms. I need to get there right away.)", "1_latin_rse_narrow"))
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_ScreamNoExitStairs {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)
+    msgbox(format("{FONT_NARROW}(That came from the bathrooms. I need to get there right away.)", "1_latin_rse_narrow"))
     releaseall
     end
 }

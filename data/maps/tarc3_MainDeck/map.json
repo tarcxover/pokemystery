@@ -225,6 +225,20 @@
       "flag": "FLAG_HIDE_TARC3_DINING_ICHIRO"
     },
     {
+      "local_id": "LOCALID_MAINDECK_ICHIRO_HURT",
+      "graphics_id": "OBJ_EVENT_GFX_ICHIRO_INJURED",
+      "x": 38,
+      "y": 12,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_MainDeck_EventScript_DiningIchiro",
+      "flag": "FLAG_HIDE_TARC3_DINING_ICHIRO_HURT"
+    },
+    {
       "local_id": "LOCALID_MAINDECK_RAN_DINING",
       "graphics_id": "OBJ_EVENT_GFX_MAY_NORMAL",
       "x": 41,
@@ -278,7 +292,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NULL",
-      "flag": "FLAG_HIDE_TARC3_DECKDOOR_CAST"
+      "flag": "FLAG_HIDE_TARC3_COMFEY"
     },
     {
       "local_id": "LOCALID_MAINDECK_RAN_DECK",
@@ -698,6 +712,60 @@
       "var": "VAR_TARC3_ACT2",
       "var_value": "TARC3_ACT2_DECK_DOOR",
       "script": "tarc3_MainDeck_EventScript_DeckDoorFrom13"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 10,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_TO_BATHROOM",
+      "script": "tarc3_MainDeck_EventScript_ScreamNoExitDeck"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_TO_BATHROOM",
+      "script": "tarc3_MainDeck_EventScript_ScreamNoExitDeck"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 8,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_TO_BATHROOM",
+      "script": "tarc3_MainDeck_EventScript_ScreamNoExitStairs"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 8,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_TO_BATHROOM",
+      "script": "tarc3_MainDeck_EventScript_ScreamNoExitStairs"
+    },
+    {
+      "type": "trigger",
+      "x": 9,
+      "y": 8,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_TO_BATHROOM",
+      "script": "tarc3_MainDeck_EventScript_ScreamNoExitStairs"
+    },
+    {
+      "type": "trigger",
+      "x": 10,
+      "y": 8,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_TO_BATHROOM",
+      "script": "tarc3_MainDeck_EventScript_ScreamNoExitStairs"
     }
   ],
   "bg_events": [

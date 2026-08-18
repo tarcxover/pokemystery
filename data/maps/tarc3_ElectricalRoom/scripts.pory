@@ -28,21 +28,21 @@ script tarc3_ElectricalRoom_EventScript_Breakers {
     setspeaker(NULL)
     closemessage
     delay(20)
+    applymovement(LOCALID_ELEC_SUZUKI, moves(emote_question_mark))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("This ship is twenty years old. This could just be an accident."))
+    msgbox(format("Nobody may have touched anything.\pShe is simply old."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
     setspeaker("Kitaro")
     msgbox(format("Breakers trip when something draws too much power.\pIt would have tripped again if the fault happened again."))
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(...There's scorching around the switch housing.)", "1_latin_rse_narrow")) // this will become inspected/evidence instead - scorching in switch wiring > burn from the outside in/didn't burn out from a device drawing power
-    call(tarc3_EventScript_EvidenceCaptured)
+    msgbox(format("{FONT_NARROW}(...There's scorching around the switch housing.)", "1_latin_rse_narrow"))
     closemessage
-    // delay(20)
-    // applymovement(LOCALID_ELEC_JOJI, moves(emote_question_mark))
-    // waitmovement(0)
-    // setspeaker("Joji")
-    // msgbox(format("This ship is forty years old.\pThis might not be recent damage."))
-    // setspeaker(NULL)
-    // closemessage
     delay(20)
     applymovement(LOCALID_ELEC_MARIKO, moves(face_down))
     waitmovement(0)
@@ -58,7 +58,7 @@ script tarc3_ElectricalRoom_EventScript_Breakers {
     closemessage
     delay(20)
     setspeaker("Suzuki")
-    msgbox(format("{PLAYER}. Help me find Takeshi.\p"))
+    msgbox(format("{PLAYER}. After you finish your inspection here, help me find Takeshi upstairs.\p"))
     msgbox(format("The rest of you, go back to the dining room.\pStay together, and stay where I can find you."))
     setspeaker(NULL)
     closemessage
@@ -79,7 +79,26 @@ script tarc3_ElectricalRoom_EventScript_Breakers {
 
 script tarc3_ElectricalRoom_EventScript_Breaker {
     lockall
-    msgbox(format("The scorching around the switch housing. Blistered outward, not inward.\pWhatever did this was standing in this room.")) // maybe remove this
+    goto_if_set(FLAG_TARC3_ELEC_FOUND_PANEL, tarc3_ElectricalRoom_EventScript_BreakerSeen)
+    msgbox(format("The scorching around the switch housing is blistered outward, not inward."))
+    msgbox(format("{FONT_NARROW}(Nothing inside this panel burned out. The heat arrived from the room.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_SCORCHED_PANEL)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(And Suzuki merely suggested it's just because the ship is twenty years old?)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_OLD_WIRING)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_ELEC_FOUND_PANEL)
+    releaseall
+    end
+}
+
+script tarc3_ElectricalRoom_EventScript_BreakerSeen {
+    msgbox(format("Scorched around the switch housing, and blistered outward."))
     releaseall
     end
 }

@@ -10,7 +10,11 @@ script tarc3_Bathroom_OnTransition {
     if (var(VAR_TARC3_ACT2) == TARC3_ACT2_BLACKOUT) {
         setflashlevel(8)
     } elif (var(VAR_TARC3_ACT2) == TARC3_ACT2_TO_BATHROOM) {
-        setflashlevel(7)
+        if (flag(FLAG_TARC3_MAGNEZONE_FLASH)) {
+            setflashlevel(4)
+        } else {
+            setflashlevel(7)
+        }
     }
     end
 }
@@ -38,7 +42,7 @@ script tarc3_Bathroom_OnLoad {
 script tarc3_Bathroom_EventScript_Blood {
     setmetatile(7, 8, 0x453, FALSE) // blood spatter 1
     setmetatile(7, 9, 0x45B, FALSE) // blood spatter 2
-    setmetatile(5, 11, 0x46F, FALSE) // knife
+    setmetatile(7, 10, 0x46F, FALSE) // knife
     return
 }
 
@@ -51,8 +55,8 @@ script tarc3_Bathroom_EventScript_BlackoutCut {
     clearflag(FLAG_HIDE_TARC3_BATH_ICHIRO_UP)
     addobject(LOCALID_BATHROOM_ICHIRO_UP)
     delay(20)
-    animateflash(7)
-    setflashlevel(7)
+    animateflash(6)
+    setflashlevel(6)
     delay(30)
     applymovement(LOCALID_BATHROOM_ICHIRO_UP, moves(emote_exclamation_mark))
     waitmovement(0)
@@ -82,8 +86,93 @@ script tarc3_Bathroom_EventScript_IchiroDown {
     setspeaker("Ichiro")
     msgbox(format("I didn't see anything. I'm sorry."))
     setspeaker(NULL)
+    closemessage
+    if (!flag(FLAG_TARC3_ICHIRO_FOUND_LIE)) {
+        msgbox(format("{FONT_NARROW}(The lights were already out when whoever it was came in. He never saw a thing.)", "1_latin_rse_narrow"))
+        closemessage
+        // giveevidence(EVD_BATHROOM_BLACKOUT)
+        call(tarc3_EventScript_EvidenceCaptured)
+        closemessage
+        setflag(FLAG_TARC3_ICHIRO_FOUND_LIE)
+    }
+    if (!flag(FLAG_TARC3_ICHIRO_FOUND_LEG)) {
+        msgbox(format("The cut is on the outside of his thigh. It is still bleeding into his trouser leg."))
+        msgbox(format("{FONT_NARROW}(His hands are clean. No cuts on the palms, nothing on the forearms.)", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}(He was stabbed in the dark and he never once put a hand up.)", "1_latin_rse_narrow"))
+        closemessage
+        // giveevidence(EVD_INJURED_LEG)
+        // giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
+        call(tarc3_EventScript_EvidenceCaptured)
+        closemessage
+        setflag(FLAG_TARC3_ICHIRO_FOUND_LEG)
+    }
     releaseall
     end
+}
+
+script tarc3_Bathroom_EventScript_EvdKnife {
+    lockall
+    goto_if_set(FLAG_TARC3_BATH_FOUND_KNIFE, tarc3_Bathroom_EventScript_EvdKnifeSeen)
+    msgbox(format("A cook's knife on the tiles, off to Ichiro's right. The blade points away from him."))
+    msgbox(format("{FONT_NARROW}(Handle nearest his own hand, and barely a stride from where he's sitting.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(An attacker running for the door doesn't set it down at his victim's fingertips.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_BATHROOM_KNIFE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_BATH_FOUND_KNIFE)
+    releaseall
+    end
+}
+
+script tarc3_Bathroom_EventScript_EvdKnifeSeen {
+    msgbox(format("Joji's knife, lying to Ichiro's right with the handle turned back towards him."))
+    releaseall
+    end
+}
+
+script tarc3_Bathroom_EventScript_Natsue {
+    lock
+    faceplayer
+    setspeaker("Natsue")
+    msgbox(format("First Grandfather, then Tatsuo, and now Ichiro.\pWhat is happening on this ship?"))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Bathroom_EventScript_Akie {
+    lock
+    faceplayer
+    setspeaker("Akie")
+    msgbox(format("Whoever it was walked past all of us. None of us heard a thing."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Bathroom_EventScript_Ran {
+    lock
+    faceplayer
+    if (var(VAR_TARC3_ACT2) > TARC3_ACT2_ICHIRO_FOUND) {
+        setspeaker("{RIVAL}")
+        msgbox(format("Go on down with them, {PLAYER}. We've got him."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    setspeaker("{RIVAL}")
+    msgbox(format("Nobody has moved anything. Look at all of it while you can."))
+    msgbox(format("Have you seen everything you need in here?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Then take your time. I'll keep them by the door."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Bathroom_EventScript_DiscoverySuzuki)
 }
 
 script tarc3_Bathroom_EventScript_Discovery {
@@ -129,6 +218,14 @@ script tarc3_Bathroom_EventScript_Discovery {
     setspeaker(NULL)
     closemessage
     delay(20)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    delay(60)
+    applymovement(LOCALID_CAMERA, moves(walk_up * 4))
+    waitmovement(0)
+    delay(20)
+    playse(SE_PIN)
     applymovement(LOCALID_BATHROOM_JOJI, moves(face_right, emote_exclamation_mark))
     waitmovement(0)
     setspeaker("Joji")
@@ -150,6 +247,31 @@ script tarc3_Bathroom_EventScript_Discovery {
     msgbox(format("Only one of us wasn't in that room.\pTakeshi."))
     setspeaker(NULL)
     closemessage
+    delay(20)
+    setspeaker("{RIVAL}")
+    msgbox(format("Nobody touch anything. Not until {PLAYER} has looked."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(Ichiro, the knife, the floor. Then I'll tell {RIVAL} I'm done.)", "1_latin_rse_narrow"))
+    closemessage
+    applymovement(LOCALID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    releaseall
+    end
+}
+
+script tarc3_Bathroom_EventScript_NoExit {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)
+    msgbox(format("{FONT_NARROW}(I'm not leaving this room until I've looked at all of it.)", "1_latin_rse_narrow"))
+    releaseall
+    end
+}
+
+script tarc3_Bathroom_EventScript_DiscoverySuzuki {
     delay(30)
     opendoor(7, 3)
     waitdooranim
@@ -160,6 +282,13 @@ script tarc3_Bathroom_EventScript_Discovery {
     closedoor(7, 3)
     waitdooranim
     delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    applymovement(LOCALID_BATHROOM_RAN, moves(face_up))
+    applymovement(LOCALID_BATHROOM_NATSUE, moves(face_up))
+    applymovement(LOCALID_BATHROOM_AKIE, moves(face_up))
+    applymovement(LOCALID_BATHROOM_KITARO, moves(face_left))
+    applymovement(LOCALID_BATHROOM_JOJI, moves(face_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
     setspeaker("Suzuki")
     msgbox(format("Forgive me. The ship's main breaker had tripped."))
     msgbox(format("I'm no electrician, I couldn't tell you what was wrong with it."))
@@ -172,8 +301,7 @@ script tarc3_Bathroom_EventScript_Discovery {
     setspeaker(NULL)
     closemessage
     delay(20)
-    applymovement(LOCALID_BATHROOM_RAN, moves(walk_down * 3, face_player))
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_BATHROOM_RAN, moves(face_player))
     waitmovement(0)
     setspeaker("{RIVAL}")
     msgbox(format("Go with them, {PLAYER}. We'll stay with Ichiro."))

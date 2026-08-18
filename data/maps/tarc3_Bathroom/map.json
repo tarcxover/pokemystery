@@ -53,7 +53,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_Bathroom_EventScript_Ran",
       "flag": "FLAG_HIDE_TARC3_BATH_CAST"
     },
     {
@@ -67,7 +67,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_Bathroom_EventScript_Natsue",
       "flag": "FLAG_HIDE_TARC3_BATH_CAST"
     },
     {
@@ -109,7 +109,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_Bathroom_EventScript_Akie",
       "flag": "FLAG_HIDE_TARC3_BATH_FAMILY"
     },
     {
@@ -151,6 +151,25 @@
       "notes": "bathroom to main deck"
     }
   ],
-  "coord_events": [],
-  "bg_events": []
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 4,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_ICHIRO_FOUND",
+      "script": "tarc3_Bathroom_EventScript_NoExit"
+    }
+  ],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 7,
+      "y": 10,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Bathroom_EventScript_EvdKnife"
+    }
+  ]
 }
