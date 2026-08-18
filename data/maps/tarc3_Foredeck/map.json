@@ -137,7 +137,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "tarc3_Foredeck_EventScript_EvdBody",
       "flag": "FLAG_HIDE_TARC3_DECK2_BODY"
     },
     {
@@ -180,7 +180,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NULL",
-      "flag": "FLAG_HIDE_TARC3_DECK2_FOLLOWERS"
+      "flag": "FLAG_HIDE_TARC3_COMFEY"
     },
     {
       "local_id": "LOCALID_FOREDECK_SUZUKI_2",
@@ -285,7 +285,17 @@
       "notes": "to main deck"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 12,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_INVESTIGATE_2A",
+      "script": "tarc3_Foredeck_EventScript_Phase2ANoExit"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",
@@ -294,6 +304,22 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_Foredeck_EventScript_Sketchbook"
+    },
+    {
+      "type": "sign",
+      "x": 16,
+      "y": 17,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Foredeck_EventScript_EvdPipe"
+    },
+    {
+      "type": "sign",
+      "x": 18,
+      "y": 17,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Foredeck_EventScript_EvdCloth"
     }
   ]
 }

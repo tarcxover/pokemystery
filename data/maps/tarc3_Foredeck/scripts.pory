@@ -7,9 +7,10 @@ mapscripts tarc3_Foredeck_MapScripts {
 }
 
 script tarc3_Foredeck_OnLoad {
+    setflag(FLAG_HIDE_TARC3_COMFEY)
     setflag(FLAG_HIDE_TARC3_DECK2_CAST)
     setflag(FLAG_HIDE_TARC3_DECK2_FOLLOWERS)
-    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_HOLD_SEARCH) {
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_BODY_ON_DECK) {
         setflag(FLAG_HIDE_TARC3_DECK2_BODY)
         setflag(FLAG_HIDE_TARC3_DECK2_RAN)
     } elif (var(VAR_TARC3_ACT2) == TARC3_ACT2_INVESTIGATE_2A) {
@@ -317,8 +318,6 @@ script tarc3_Foredeck_EventScript_Kitaro {
 
 script tarc3_Foredeck_EventScript_TatsuoBody {
     lockall
-    clearflag(FLAG_HIDE_TARC3_DECK2_BODY)
-    addobject(LOCALID_FOREDECK_TATSUO_BODY)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 3, walk_down * 2, face_left))
     waitmovement(0)
     delay(20)
@@ -327,11 +326,9 @@ script tarc3_Foredeck_EventScript_TatsuoBody {
     clearflag(FLAG_HIDE_TARC3_DECK2_FOLLOWERS)
     addobject(LOCALID_FOREDECK_RAN_2)
     addobject(LOCALID_FOREDECK_NATSUE_2)
-    addobject(LOCALID_FOREDECK_COMFEY_2)
     delay(20)
     applymovement(LOCALID_FOREDECK_RAN_2, moves(walk_left, face_left))
     applymovement(LOCALID_FOREDECK_NATSUE_2, moves(walk_left, face_left))
-    applymovement(LOCALID_FOREDECK_COMFEY_2, moves(walk_left, face_left))
     waitmovement(0)
     delay(20)
     fadenewbgm(MUS_NONE)
@@ -364,11 +361,9 @@ script tarc3_Foredeck_EventScript_TatsuoBody {
     setobjectxy(OBJ_EVENT_ID_PLAYER, 12, 15)
     setobjectxy(LOCALID_FOREDECK_RAN_2, 12, 14)
     setobjectxy(LOCALID_FOREDECK_NATSUE_2, 13, 14)
-    setobjectxy(LOCALID_FOREDECK_COMFEY_2, 13, 15)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
     applymovement(LOCALID_FOREDECK_RAN_2, moves(face_left))
     applymovement(LOCALID_FOREDECK_NATSUE_2, moves(face_left))
-    applymovement(LOCALID_FOREDECK_COMFEY_2, moves(face_left))
     waitmovement(0)
     fadescreen(FADE_FROM_BLACK)
     delay(40)
@@ -402,8 +397,11 @@ script tarc3_Foredeck_EventScript_TatsuoBody {
     setspeaker(NULL)
     closemessage
     delay(40)
+    applymovement(LOCALID_FOREDECK_MARIKO_2, moves(face_left))
+    waitmovement(0)
     setspeaker("Mariko")
     msgbox(format("You stay here. I'll check the hold myself."))
+    applymovement(LOCALID_FOREDECK_SUZUKI_2, moves(face_right))
     setspeaker("Suzuki")
     msgbox(format("...No. There is a killer aboard. For everyone's safety, we will check together."))
     setspeaker(NULL)
@@ -427,19 +425,83 @@ script tarc3_Foredeck_EventScript_Phase2ARan {
     faceplayer
     setspeaker("{RIVAL}")
     msgbox(format("There you are.\pNow that we have a moment, you should inspect the crime scene."))
+    msgbox(format("Have you seen everything you need out here?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Then take your time.\pTatsuo, the deck, the rails. All of it."))
+        setspeaker(NULL)
+        release
+        end
+    }
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(Investigation (wound, railing, deck floor.)", "1_latin_rse_narrow"))
-    closemessage
-    delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("We should all go to the dining room."))
-    msgbox(format("Nobody should be standing out here on their own.\pNot until we know who opened that hold."))
+    msgbox(format("I agree, we can finish up with this scene for now."))
+    msgbox(format("We should meet the others in the dining room.\pWe need to know who opened that hold."))
     setspeaker(NULL)
     closemessage
     delay(20)
     goto(tarc3_Foredeck_EventScript_ToDiningRoom)
+}
+
+script tarc3_Foredeck_EventScript_Phase2ANoExit {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left))
+    waitmovement(0)
+    msgbox(format("{FONT_NARROW}(Hmm. I should talk to {RIVAL} before leaving.)", "1_latin_rse_narrow"))
+    releaseall
+    end
+}
+
+// investigation
+
+script tarc3_Foredeck_EventScript_EvdBody {
+    lockall
+    goto_if_set(FLAG_TARC3_DECK2_FOUND_BODY, tarc3_Foredeck_EventScript_EvdBodySeen)
+    msgbox(format("The back of Tatsuo's skull is caved in. One blow, from something blunt and heavy."))
+    msgbox(format("{FONT_NARROW}(Nothing in his hands. Nothing torn. He never saw it coming.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_BLUNT_WOUND)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_DECK2_FOUND_BODY)
+    releaseall
+    end
+}
+
+script tarc3_Foredeck_EventScript_EvdBodySeen {
+    msgbox(format("Tatsuo Kaneko. Struck once from behind, with something blunt."))
+    releaseall
+    end
+}
+
+script tarc3_Foredeck_EventScript_EvdPipe {
+    lockall
+    goto_if_set(FLAG_TARC3_DECK2_FOUND_PIPE, tarc3_Foredeck_EventScript_EvdPipeSeen)
+    msgbox(format("A rack of spare pipes, lashed down along the bulwark. The row is even, except for one gap."))
+    msgbox(format("{FONT_NARROW}(Something blunt and heavy, lying out here where anybody could pick it up.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_DISPLACED_PIPE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_DECK2_FOUND_PIPE)
+    releaseall
+    end
+}
+
+script tarc3_Foredeck_EventScript_EvdPipeSeen {
+    msgbox(format("One pipe missing from the rack, and the lashing left loose."))
+    releaseall
+    end
+}
+
+// placeholder - BLOODY_CLOTH is intended for a pokemon evidence interaction
+
+script tarc3_Foredeck_EventScript_EvdCloth {
+    lockall
+    msgbox(format("Something pale is caught down in the scupper, well out of reach."))
+    releaseall
+    end
 }
 
 script tarc3_Foredeck_EventScript_ToDiningRoom {

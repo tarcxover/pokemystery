@@ -8,6 +8,7 @@ mapscripts tarc3_Hold_MapScripts {
 }
 
 script tarc3_Hold_OnLoad {
+    setflag(FLAG_HIDE_TARC3_COMFEY)
     if (var(VAR_TARC3_ACT2) != TARC3_ACT2_HOLD_SEARCH) {
         setflag(FLAG_HIDE_TARC3_HOLD2_CAST)
     }
@@ -192,8 +193,6 @@ script tarc3_Hold_EventScript_JailTakeshi {
     setflag(FLAG_HIDE_TARC3_LOCKUP_CAST)
     delay(30)
     clearflag(FLAG_HIDE_TARC3_DECKDOOR_CAST)
-    clearflag(FLAG_HIDE_TARC3_HOLD_EVD_MANIFEST)
-    addobject(LOCALID_HOLD_EVD_MANIFEST)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_COMPLETE)
     setvar(VAR_TARC3_ACT2, TARC3_ACT2_DECK_DOOR)
     releaseall
@@ -312,14 +311,57 @@ script tarc3_Hold_EventScript_RecapEnd {
 
 script tarc3_Hold_EventScript_EvdManifest {
     lockall
+    if (var(VAR_TARC3_ACT1) < TARC3_ACT1_COMPLETE) {
+        msgbox(format("The passenger manifest, hung by the stairs in Kitaro's handwriting."))
+        releaseall
+        end
+    }
+    goto_if_set(FLAG_TARC3_HOLD_FOUND_MANIFEST, tarc3_Hold_EventScript_EvdManifestSeen)
     msgbox(format("The passenger manifest, hung by the stairs in Kitaro's handwriting."))
     msgbox(format("{FONT_NARROW}(Family, one steward, one cook. The crew are berthed forward and none of them came aft.)", "1_latin_rse_narrow"))
     closemessage
     // giveevidence(EVD_PASSENGER_MANIFEST)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
-    setflag(FLAG_HIDE_TARC3_HOLD_EVD_MANIFEST)
-    removeobject(LOCALID_HOLD_EVD_MANIFEST)
+    setflag(FLAG_TARC3_HOLD_FOUND_MANIFEST)
+    releaseall
+    end
+}
+
+script tarc3_Hold_EventScript_EvdManifestSeen {
+    msgbox(format("The manifest. Family, one steward, one cook, and nobody else aft of the bridge."))
+    releaseall
+    end
+}
+
+// investigation - the storage door
+
+script tarc3_Hold_EventScript_EvdStorageDoor {
+    lockall
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_HOLD_SEARCH) {
+        goto(tarc3_Hold_EventScript_EvdStorageDoorShut)
+    }
+    goto_if_set(FLAG_TARC3_HOLD_FOUND_DOOR, tarc3_Hold_EventScript_EvdStorageDoorSeen)
+    msgbox(format("The bolt is drawn back and resting in its keeper. Not bent, not forced, not a mark on the plate."))
+    msgbox(format("{FONT_NARROW}(It only works from out here. No handle on the inside, and Suzuki shot it across in front of everybody.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(So somebody stood where I'm standing and slid it open again.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_UNDAMAGED_DOOR)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_HOLD_FOUND_DOOR)
+    releaseall
+    end
+}
+
+script tarc3_Hold_EventScript_EvdStorageDoorShut {
+    msgbox(format("A heavy storage door, bolted from this side. There is no handle on the other one."))
+    releaseall
+    end
+}
+
+script tarc3_Hold_EventScript_EvdStorageDoorSeen {
+    msgbox(format("The bolt slid back clean. Nobody broke this door open."))
     releaseall
     end
 }
@@ -331,6 +373,7 @@ script tarc3_Hold_EventScript_TakeshiGone {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
     delay(40)
+    playse(SE_PIN)
     applymovement(LOCALID_HOLD_KITARO_SEARCH, moves(emote_exclamation_mark))
     waitmovement(0)
     delay(20)
@@ -342,14 +385,14 @@ script tarc3_Hold_EventScript_TakeshiGone {
     waitmovement(0)
     delay(40)
     setspeaker("Suzuki")
-    msgbox(format("Empty.\pHis jacket is on the floor and he is not in here."))
+    msgbox(format("Empty.\pThere's nowhere in here to hide."))
     setspeaker(NULL)
     closemessage
     delay(30)
     applymovement(LOCALID_HOLD_SUZUKI_SEARCH, moves(walk_up, face_left))
     waitmovement(0)
     delay(20)
-    applymovement(LOCALID_HOLD_KITARO_SEARCH, moves(walk_in_place_fast_right))
+    applymovement(LOCALID_HOLD_KITARO_SEARCH, moves(walk_in_place_fast_down))
     waitmovement(0)
     setspeaker("Kitaro")
     msgbox(format("The bolt isn't broken. Look at it."))
@@ -383,7 +426,7 @@ script tarc3_Hold_EventScript_TakeshiGone {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(Then somebody outside this room opened it for him.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(Could someone outside this room have opened it for him..?)", "1_latin_rse_narrow"))
     closemessage
     delay(30)
     fadescreen(FADE_TO_BLACK)
