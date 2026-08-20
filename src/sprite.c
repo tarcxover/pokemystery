@@ -2223,14 +2223,13 @@ s32 CalcSpriteDisplayCenterOffset(struct Sprite *sprite)
         }
     }
 
-    DebugPrintfLevel(MGBA_LOG_WARN,
-                     "totalWidth(%d) is more than DISPLAY_WIDTH (240)",
-                     totalWidth);
-
     /* totalWidth = Clamp(0, DISPLAY_WIDTH, totalWidth); */
     s32 spriteOriginOffset = (totalWidth/2);
-
-    s32 offsetX = spriteOriginOffset + (totalWidth - DISPLAY_WIDTH)/2;
+    s32 emptyLength = DISPLAY_WIDTH - totalWidth;
+    DebugPrintf("emptyLength: %d", emptyLength);
+    s32 offsetX = spriteOriginOffset;
+    offsetX += emptyLength/2;
+    /* offsetX -= spriteOriginOffset/2; */
 
     return offsetX;
 }
