@@ -417,3 +417,6 @@ const u16 gMetatileAttributes_PorytilesManaged_Tarc3_OutsideShip[] = INCBIN_U16(
 
 const u16 gMetatiles_PorytilesManaged_Tarc3_Bathroom[] = INCBIN_U16("data/tilesets/secondary/tarc3_bathroom/porytiles_bin/metatiles.bin");
 const u16 gMetatileAttributes_PorytilesManaged_Tarc3_Bathroom[] = INCBIN_U16("data/tilesets/secondary/tarc3_bathroom/porytiles_bin/metatile_attributes.bin");
+
+const u16 gMetatiles_PorytilesManaged_Tarc3_Cabins[] = INCBIN_U16("data/tilesets/secondary/tarc3_cabins/porytiles_bin/metatiles.bin");
+const u16 gMetatileAttributes_PorytilesManaged_Tarc3_Cabins[] = INCBIN_U16("data/tilesets/secondary/tarc3_cabins/porytiles_bin/metatile_attributes.bin");
