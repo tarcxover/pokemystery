@@ -248,3 +248,16 @@ u32 _lsearch(const void *key, const void *base, u32 n, CompareFunc cmp, size_t s
     }
     return UINT32_MAX;
 }
+
+void CopyTiles(const Tile4BPP* src, Tile4BPP* dest, u32 count)
+{
+    CpuCopy32(src, dest, count*sizeof(Tile4BPP));
+}
+
+void FillTiles(const Tile4BPP *src, Tile4BPP *dest, u32 count)
+{
+    while (count--)
+    {
+        *dest++ = *src;
+    }
+}

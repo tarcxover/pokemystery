@@ -271,6 +271,11 @@ extern s16 gSpriteCoordOffsetY;
 extern struct OamMatrix gOamMatrices[OAM_MATRIX_COUNT];
 extern bool8 gAffineAnimsDisabled;
 
+static inline Tile4BPP* SpriteTile(struct Sprite* sprite)
+{
+    return OBJ_TILE(sprite->oam.tileNum);
+}
+
 void ResetSpriteData(void);
 void AnimateSprites(void);
 void BuildOamBuffer(void);
@@ -344,5 +349,6 @@ u32 *GetSrcPtrFromSprite(struct Sprite *sprite);
 u32 GetSpriteWidth(struct Sprite *sprite);
 u32 GetSpriteHeight(struct Sprite *sprite);
 u32 CountFreePaletteSlots(void);
+s32 CalcSpriteDisplayCenterOffset(struct Sprite* sprite);
 
 #endif //GUARD_SPRITE_H

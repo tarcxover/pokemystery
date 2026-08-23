@@ -15,6 +15,7 @@ struct Even_CreateSpriteStruct {
     u8 subpriority;
     u8 spriteShape : 2;
     u8 spriteSize : 2;
+    u16 overrideSize;
     SpriteCallback callback;
 };
 

@@ -8,5 +8,6 @@ s16 MathUtil_Div16Shift(u8 s, s16 x, s16 y);
 s32 MathUtil_Div32(s32 x, s32 y);
 s16 MathUtil_Inv16(s16 y);
 u32 MathUtil_Exponent(u32 x, u32 y);
+u32 MathUtil_RoundUp(u32 numToRound, u32 multiple);
 
 #endif // GUARD_MATH_UTIL_H

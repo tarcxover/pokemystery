@@ -53,4 +53,8 @@ FOREACH_TYPE(DECLARE_COMPARE)
 s32 SubtractClamped(s32 min, s32 max, s32 value, s32 delta);
 s32 AddClamped(s32 min, s32 max, s32 value, s32 delta);
 
+
+void CopyTiles(const Tile4BPP* src, Tile4BPP* dest, u32 count);
+void FillTiles(const Tile4BPP *src, Tile4BPP *dest, u32 count);
+
 #endif // GUARD_UTIL_H

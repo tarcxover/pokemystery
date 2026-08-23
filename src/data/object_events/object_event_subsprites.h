@@ -1,6 +1,10 @@
 #define SUBSPRITE_TABLE_ENTRY(x) {ARRAY_COUNT(x), x}
 #define SUBSPRITE_SHAPE(w, h) .shape = SPRITE_SHAPE(w##x##h), .size = SPRITE_SIZE(w##x##h)
 
+#define SUBSPRITE(_x, _y, dim, offset, prio) \
+    { .x = _x, .y = _y, SUBSPRITE_SHAPE(dim), .tileOffset = offset, .priority = prio }
+
+
 static const struct Subsprite sOamTable_16x16_0[] = {
     {
         .x = -8,
