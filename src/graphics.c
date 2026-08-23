@@ -2160,3 +2160,4 @@ const u16 gItemIconPalette_KitchenKnife[] = INCGFX_U16("graphics/evidence/icons/
 
 const u32 gItemIcon_Testimony[] = INCGFX_U32("graphics/evidence/icons/testimony.png", ".4bpp.smol");
 const u16 gItemIconPalette_Testimony[] = INCGFX_U16("graphics/evidence/icons/testimony.png", ".gbapal");
+

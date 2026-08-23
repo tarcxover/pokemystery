@@ -1,4 +1,6 @@
 #include "global.h"
+#include "gba/defines.h"
+#include "gba/isagbprint.h"
 #include "sprite.h"
 #include "main.h"
 #include "overworld.h"
@@ -7,6 +9,7 @@
 #include "text.h"
 #include "battle_anim.h"
 #include "test/test.h"
+#include "util.h"
 
 #define MAX_SPRITE_COPY_REQUESTS 64
 
@@ -2195,4 +2198,39 @@ u32 CountFreePaletteSlots(void)
             count++;
 
     return count;
+}
+
+s32 CalcSpriteDisplayCenterOffset(struct Sprite *sprite)
+{
+    u32 totalWidth = 0;
+    const struct SubspriteTable *subspriteTable;
+
+    subspriteTable = &sprite->subspriteTables[sprite->subspriteTableNum];
+
+    if (!subspriteTable || !subspriteTable->subsprites)
+    {
+        totalWidth = GetSpriteWidth(sprite);
+    }
+    else
+    {
+        u32 subspriteCount = subspriteTable[sprite->subspriteTableNum].subspriteCount;
+
+        for (u32 i = 0; i < subspriteCount; i++)
+        {
+            auto subsprite = subspriteTable->subsprites[i];
+            totalWidth += gOamDimensions[subsprite.shape][subsprite.size].width;
+            DebugPrintf("totalWidth: %d", totalWidth);
+        }
+    }
+
+    DebugPrintfLevel(MGBA_LOG_WARN,
+                     "totalWidth(%d) is more than DISPLAY_WIDTH (240)",
+                     totalWidth);
+
+    /* totalWidth = Clamp(0, DISPLAY_WIDTH, totalWidth); */
+    s32 spriteOriginOffset = (totalWidth/2);
+
+    s32 offsetX = spriteOriginOffset + (totalWidth - DISPLAY_WIDTH)/2;
+
+    return offsetX;
 }

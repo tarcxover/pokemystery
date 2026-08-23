@@ -68,3 +68,16 @@ u32 MathUtil_Exponent(u32 x, u32 y)
 
     return result;
 }
+
+u32 MathUtil_RoundUp(u32 numToRound, u32 multiple)
+{
+    if (multiple == 0)
+        return numToRound;
+
+    int remainder = numToRound % multiple;
+
+    if (remainder == 0)
+        return numToRound;
+
+    return numToRound + multiple - remainder;
+}

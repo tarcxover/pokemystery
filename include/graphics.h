@@ -3469,5 +3469,4 @@ extern const u16 gItemIconPalette_KitchenKnife[];
 
 extern const u32 gItemIcon_Testimony[];
 extern const u16 gItemIconPalette_Testimony[];
-
 #endif //GUARD_GRAPHICS_H

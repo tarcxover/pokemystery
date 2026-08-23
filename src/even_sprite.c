@@ -102,8 +102,9 @@ u32 Even_CreateSprite(struct Even_CreateSpriteStruct *createStruct)
         break;
     }
 
+
     spriteSheet.data = spriteSrc;
-    spriteSheet.size = byteSize;
+    spriteSheet.size = createStruct->overrideSize ? createStruct->overrideSize : byteSize;
     spriteSheet.tag = createStruct->tileTag;
     LoadSpriteSheet(&spriteSheet);
 
