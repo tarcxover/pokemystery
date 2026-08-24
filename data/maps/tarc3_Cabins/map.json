@@ -27,17 +27,135 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "tarc3_Cabins_EventScript_BedroomRan",
       "flag": "FLAG_HIDE_TARC3_BEDROOM_RAN"
+    },
+    {
+      "local_id": "LOCALID_CABINS_TAKESHI_CLOSET",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+      "x": 19,
+      "y": 2,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_TARC3_CABIN_TAKESHI"
+    },
+    {
+      "local_id": "LOCALID_CABINS_NATSUE",
+      "graphics_id": "OBJ_EVENT_GFX_NATSUE",
+      "x": 18,
+      "y": 3,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Cabins_EventScript_GatherNatsue",
+      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
+    },
+    {
+      "local_id": "LOCALID_CABINS_ICHIRO",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_4",
+      "x": 20,
+      "y": 3,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Cabins_EventScript_GatherIchiro",
+      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
+    },
+    {
+      "local_id": "LOCALID_CABINS_SUZUKI",
+      "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
+      "x": 18,
+      "y": 4,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Cabins_EventScript_GatherSuzuki",
+      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
+    },
+    {
+      "local_id": "LOCALID_CABINS_AKIE",
+      "graphics_id": "OBJ_EVENT_GFX_AKIE",
+      "x": 21,
+      "y": 4,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Cabins_EventScript_GatherAkie",
+      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
+    },
+    {
+      "local_id": "LOCALID_CABINS_KITARO",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_1",
+      "x": 21,
+      "y": 5,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Cabins_EventScript_GatherKitaro",
+      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
+    },
+    {
+      "local_id": "LOCALID_CABINS_JOJI",
+      "graphics_id": "OBJ_EVENT_GFX_COOK",
+      "x": 18,
+      "y": 5,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Cabins_EventScript_GatherJoji",
+      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
+    },
+    {
+      "local_id": "LOCALID_CABINS_MARIKO",
+      "graphics_id": "OBJ_EVENT_GFX_MARIKO",
+      "x": 17,
+      "y": 6,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Cabins_EventScript_GatherMariko",
+      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
+    },
+    {
+      "local_id": "LOCALID_CABINS_RAN",
+      "graphics_id": "OBJ_EVENT_GFX_MAY_NORMAL",
+      "x": 21,
+      "y": 6,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "tarc3_Cabins_EventScript_GatherRan",
+      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
     }
   ],
   "warp_events": [
-    {
-      "x": 3,
-      "y": 7,
-      "elevation": 0,
-      "dest_map": "MAP_TARC3_MAIN_DECK",
-      "dest_warp_id": "0",
-      "notes": "gozo cabin to main deck"
-    },
     {
       "x": 4,
       "y": 7,
@@ -45,14 +163,6 @@
       "dest_map": "MAP_TARC3_MAIN_DECK",
       "dest_warp_id": "0",
       "notes": "gozo cabin to main deck"
-    },
-    {
-      "x": 18,
-      "y": 7,
-      "elevation": 0,
-      "dest_map": "MAP_TARC3_MAIN_DECK",
-      "dest_warp_id": "1",
-      "notes": "akie & tatsuo cabin to main deck"
     },
     {
       "x": 19,
@@ -63,28 +173,12 @@
       "notes": "akie & tatsuo cabin to main deck"
     },
     {
-      "x": 33,
-      "y": 7,
-      "elevation": 0,
-      "dest_map": "MAP_TARC3_MAIN_DECK",
-      "dest_warp_id": "2",
-      "notes": "natsue & takeshi cabin to main deck"
-    },
-    {
       "x": 34,
       "y": 7,
       "elevation": 0,
       "dest_map": "MAP_TARC3_MAIN_DECK",
       "dest_warp_id": "2",
       "notes": "natsue & takeshi cabin to main deck"
-    },
-    {
-      "x": 48,
-      "y": 8,
-      "elevation": 0,
-      "dest_map": "MAP_TARC3_MAIN_DECK",
-      "dest_warp_id": "3",
-      "notes": "ichiro cabin to main deck"
     },
     {
       "x": 49,
@@ -127,16 +221,80 @@
       "notes": "conan & ran cabin to main deck"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT3",
+      "var_value": "TARC3_ACT3_ASSEMBLED",
+      "script": "tarc3_Cabins_EventScript_GatherNoExit"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",
-      "x": 4,
+      "x": 19,
+      "y": 2,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Cabins_EventScript_EvdCloset",
+      "notes": "akie's cabin - the closet, Takeshi is inside"
+    },
+    {
+      "type": "sign",
+      "x": 5,
+      "y": 18,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Cabins_EventScript_EvdKnifeRoll",
+      "notes": "joji's cabin - the knife roll, two slots empty"
+    },
+    {
+      "type": "sign",
+      "x": 37,
+      "y": 18,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Cabins_EventScript_EvdResignation",
+      "notes": "kitaro's cabin - desk, resignation note"
+    },
+    {
+      "type": "sign",
+      "x": 47,
+      "y": 2,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Cabins_EventScript_EvdSketchbook",
+      "notes": "ichiro's cabin - the sketchbooks"
+    },
+    {
+      "type": "sign",
+      "x": 49,
+      "y": 2,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Cabins_EventScript_EvdSupplies",
+      "notes": "ichiro's cabin - art supply bag, charcoal and bread"
+    },
+    {
+      "type": "sign",
+      "x": 17,
+      "y": 22,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Cabins_EventScript_EvdEnvelope",
+      "notes": "mariko's cabin - desk, torn will envelope"
+    },
+    {
+      "type": "sign",
+      "x": 33,
       "y": 1,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "NULL",
-      "notes": "note to self: turn these into windows"
+      "script": "tarc3_Cabins_EventScript_EvdPicture",
+      "notes": "takeshi & natsue's cabin - family photograph"
     }
   ]
 }

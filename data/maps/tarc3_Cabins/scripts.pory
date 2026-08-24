@@ -1,4 +1,19 @@
-mapscripts tarc3_Cabins_MapScripts {}
+mapscripts tarc3_Cabins_MapScripts {
+    MAP_SCRIPT_ON_LOAD: tarc3_Cabins_OnLoad
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TARC3_ACT3, TARC3_ACT3_GATHERING: tarc3_Cabins_EventScript_Assembly
+    ]
+}
+
+script tarc3_Cabins_OnLoad {
+    setflag(FLAG_HIDE_TARC3_CABIN_TAKESHI)
+    if (var(VAR_TARC3_ACT3) >= TARC3_ACT3_GATHERING) {
+        clearflag(FLAG_HIDE_TARC3_CABIN_CAST)
+    } else {
+        setflag(FLAG_HIDE_TARC3_CABIN_CAST)
+    }
+    end
+}
 
 script tarc3_Cabins_EventScript_BedroomRan {
     lock
@@ -66,4 +81,452 @@ script tarc3_Cabins_EventScript_FamilyTree {
     setspeaker(NULL)
     closemessage
     return
+}
+
+// INVESTIGATION - the cabin search
+// (active while VAR_TARC3_ACT2 = TARC3_ACT2_SEARCH_TAKESHI)
+
+script tarc3_Cabins_EventScript_EvdKnifeRoll {
+    lockall
+    goto_if_set(FLAG_TARC3_CABIN_FOUND_KNIVES, tarc3_Cabins_EventScript_EvdKnifeRollSeen)
+    msgbox(format("Joji's custom-made travel bag. A knife roll lies on top, with space for eight blades stitched into the canvas."))
+    msgbox(format("Two of them are empty."))
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(One turned up beside Ichiro. So where is the other one?)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_MISSING_KNIVES)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(There's a dark smear on the inside of the flap.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_RESIDUE_ON_CASE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_CABIN_FOUND_KNIVES)
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdKnifeRollSeen {
+    msgbox(format("Joji's knife roll. Two missing knives, and a dark smear on the inside."))
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdResignation {
+    lockall
+    goto_if_set(FLAG_TARC3_CABIN_FOUND_RESIGNATION, tarc3_Cabins_EventScript_EvdResignationSeen)
+    msgbox(format("A folder of Corporation papers, squared off on the desk."))
+    msgbox(format("One document details a project that is running significantly behind schedule.\pA comment in red ink reads 'Gozo is furious. Please fix.'"))
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}Kitaro appears to be under significant pressure at work.\p", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_RESIGNATION_NOTE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_CABIN_FOUND_RESIGNATION)
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdResignationSeen {
+    msgbox(format("Documents showing delayed projects and forecasts not being met.'"))
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdSketchbook {
+    lockall
+    goto_if_set(FLAG_TARC3_CABIN_FOUND_SKETCHBOOK, tarc3_Cabins_EventScript_EvdSketchbookSeen)
+    msgbox(format("It appears to be Ichiro's sketchbook."))
+    closemessage
+    delay(20)
+    msgbox(format("There are dozens of charcoal sketches in here, with a variety of subjects.\pPokémon, landscapes, people..."))
+    closemessage
+    delay(20)
+    playse(SE_PIN)
+    delay(20)
+    msgbox(format("{FONT_NARROW}(There's a section of the book dedicated to the same girl.)\p(Natsue.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(20)
+    msgbox(format("The last page is dated today.\pNatsue on the island, in her wedding dress, drawn from a distance."))
+    closemessage
+    // giveevidence(EVD_SKETCHBOOK)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_CABIN_FOUND_SKETCHBOOK)
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdSketchbookSeen {
+    msgbox(format("Ichiro's sketchbook. A whole section of it is Natsue."))
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdSupplies {
+    lockall
+    goto_if_set(FLAG_TARC3_CABIN_FOUND_SUPPLIES, tarc3_Cabins_EventScript_EvdSuppliesSeen)
+    msgbox(format("A bag of art supplies. Sticks of charcoal, a sharpener, and a can of fixative."))
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(These must be Ichiro's sketching supplies.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_CHARCOAL_SUPPLIES)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(There's also a torn end of bread with dark smudges. Is this being used as an eraser?)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_BREAD_ERASER)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_CABIN_FOUND_SUPPLIES)
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdSuppliesSeen {
+    msgbox(format("Charcoal and a torn end of bread."))
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdEnvelope {
+    lockall
+    goto_if_set(FLAG_TARC3_CABIN_FOUND_ENVELOPE, tarc3_Cabins_EventScript_EvdEnvelopeSeen)
+    msgbox(format("A torn envelope on the desk, Corporation letterhead.\pThe untorn half reads 'FINAL WISHES O...'."))
+    msgbox(format("{FONT_NARROW}(She knew there was a will before Suzuki opened his mouth downstairs.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_WILL_CORRESPONDENCE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_CABIN_FOUND_ENVELOPE)
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdEnvelopeSeen {
+    msgbox(format("A torn envelope, once containing some form of Gozo's will."))
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdPicture {
+    lockall
+    goto_if_set(FLAG_TARC3_CABIN_FOUND_PICTURE, tarc3_Cabins_EventScript_EvdPictureSeen)
+    msgbox(format("A framed photograph hung on the wall.\pIt features a proud man and a younger boy, standing in front of a building."))
+    msgbox(format("{FONT_NARROW}(Zaiki Research Institute is on a sign outside the building.)\p(This must be Takeshi and his father.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_FAMILY_PICTURE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_CABIN_FOUND_PICTURE)
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdPictureSeen {
+    msgbox(format("A photo of Takeshi and his father outside the Zaiki Research Institute."))
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdCloset {
+    lockall
+    goto_if_set(FLAG_TARC3_CABIN_FOUND_TAKESHI, tarc3_Cabins_EventScript_EvdClosetSeen)
+    msgbox(format("A tall closet against the back wall. The door is slightly ajar."))
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(...Something in there is breathing.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(30)
+    playse(SE_DOOR)
+    clearflag(FLAG_HIDE_TARC3_CABIN_TAKESHI)
+    addobject(LOCALID_CABINS_TAKESHI_CLOSET)
+    delay(30)
+    applymovement(LOCALID_CABINS_TAKESHI_CLOSET, moves(emote_exclamation_mark))
+    waitmovement(0)
+    playse(SE_PIN)
+    delay(20)
+    setspeaker("Takeshi")
+    msgbox(format("Is it safe?\pDon't call them.\pI... I'm not a killer. I can tell you everything."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setspeaker("Takeshi")
+    msgbox(format("I didn't escape the cell on my own. I didn't even hear the door unlock.\pI just heard my door slowly creak open while someone rushed up the stairs."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(He didn't open it. Somebody let him out without a word.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_UNLOCKED_CELL)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    delay(20)
+    setvar(VAR_TEMP_4, 0)
+    setvar(VAR_TEMP_5, 0)
+    setvar(VAR_TEMP_6, 0)
+    goto(tarc3_Cabins_EventScript_EvdClosetTopics)
+}
+
+script tarc3_Cabins_EventScript_EvdClosetTopics {
+    if (var(VAR_TEMP_4) == 1 && var(VAR_TEMP_5) == 1 && var(VAR_TEMP_6) == 1) {
+        goto(tarc3_Cabins_EventScript_EvdClosetTopicsEnd)
+    }
+    setspeaker(NULL)
+    message(format("(What do I still need to hear from him?)"))
+    waitmessage
+    if (var(VAR_TEMP_4) == 0) {
+        dynmultipush("Your escape", 0)
+    }
+    if (var(VAR_TEMP_5) == 0) {
+        dynmultipush("Your garland", 1)
+    }
+    if (var(VAR_TEMP_6) == 0) {
+        dynmultipush("Gozo conversation", 2)
+    }
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_Cabins_EventScript_EvdClosetEscape)
+        case 1:
+            goto(tarc3_Cabins_EventScript_EvdClosetGarland)
+        case 2:
+            goto(tarc3_Cabins_EventScript_EvdClosetGozo)
+        default:
+            goto(tarc3_Cabins_EventScript_EvdClosetTopics)
+    }
+}
+
+script tarc3_Cabins_EventScript_EvdClosetEscape {
+    setvar(VAR_TEMP_4, 1)
+    setspeaker("Takeshi")
+    msgbox(format("Once I could leave, I went up to find Natsue. That's all I wanted."))
+    msgbox(format("But everyone was rushing towards the deck door. I needed to hide."))
+    msgbox(format("The first unlocked door I found was this one."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(Straight into the nearest open cabin. He never had time to plan a thing.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(20)
+    goto(tarc3_Cabins_EventScript_EvdClosetTopics)
+}
+
+script tarc3_Cabins_EventScript_EvdClosetGarland {
+    setvar(VAR_TEMP_5, 1)
+    setspeaker("Takeshi")
+    msgbox(format("I last had the garland on the salon deck. Before Gozo called me in."))
+    msgbox(format("Ichiro asked me about it.\pHe wanted to know where the flower came from."))
+    msgbox(format("He leaned in close enough to look at it. I remember, because he hardly ever starts a conversation."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(The last person to put a hand near that flower, and then it turns up outside a dead man's door.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_GARLAND_PROVENANCE)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    delay(20)
+    goto(tarc3_Cabins_EventScript_EvdClosetTopics)
+}
+
+script tarc3_Cabins_EventScript_EvdClosetGozo {
+    setvar(VAR_TEMP_6, 1)
+    setspeaker("Takeshi")
+    msgbox(format("Gozo said he had known who I was for months, and let the wedding go ahead anyway."))
+    msgbox(format("I told him the truth. That my plan had been to ruin him...\pAnd that I gave it up.\pThat I love her."))
+    msgbox(format("He said he knew. That's why he chose me."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(Mariko stood outside that door and heard all of it. But she repeated only the first half to the room.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_WITHHELD_HALF)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    delay(20)
+    goto(tarc3_Cabins_EventScript_EvdClosetTopics)
+}
+
+script tarc3_Cabins_EventScript_EvdClosetTopicsEnd {
+    setspeaker("Takeshi")
+    msgbox(format("They won't listen to me. You saw them. You... You believe me, right?"))
+    msgbox(format("I'll stay here. You need to prove my innocence and reveal who the killer is!"))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CABINS_TAKESHI_CLOSET, moves(walk_in_place_slow_down))
+    waitmovement(0)
+    setspeaker("Takeshi")
+    msgbox(format("...Thank you."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    playse(SE_DOOR)
+    setflag(FLAG_HIDE_TARC3_CABIN_TAKESHI)
+    removeobject(LOCALID_CABINS_TAKESHI_CLOSET)
+    delay(30)
+    setflag(FLAG_TARC3_CABIN_FOUND_TAKESHI)
+    msgbox(format("{FONT_NARROW}(Now that I know where Takeshi is, I should prepare to make my accusation.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(I'll tell {RIVAL} when I'm ready. Everyone needs to be in the same room.)", "1_latin_rse_narrow"))
+    closemessage
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_EvdClosetSeen {
+    msgbox(format("The closet door. Takeshi is still in here."))
+    releaseall
+    end
+}
+
+// ACT THREE - the family assembles in Akie's cabin (CS11)
+// triggers via tarc3_MainDeck_EventScript_DiningRan
+
+script tarc3_Cabins_EventScript_Assembly {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    waitmovement(0)
+    delay(30)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_up))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_CABINS_RAN, moves(face_left))
+    waitmovement(0)
+    setspeaker("{RIVAL}")
+    msgbox(format("That's everyone. Nobody should be left by themselves."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CABINS_MARIKO, moves(face_right))
+    waitmovement(0)
+    setspeaker("Mariko")
+    msgbox(format("Say whatever it is you brought us here to say."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CABINS_SUZUKI, moves(walk_in_place_slow_down))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("Let him speak, Mariko.\pHe has been the sole person on this ship trying to make sense of this tragedy."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_CABINS_ICHIRO, moves(walk_in_place_slow_down))
+    waitmovement(0)
+    setspeaker("Ichiro")
+    msgbox(format("Ugh... My leg. Did you really need me here?"))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    setspeaker("{RIVAL}")
+    msgbox(format("{PLAYER} needed all of us to be gathered here together."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(I have documented all of the evidence. It's time to lay it out.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CAMERA, moves(walk_down))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    setvar(VAR_TARC3_ACT3, TARC3_ACT3_ASSEMBLED)
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherNoExit {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+    waitmovement(0)
+    releaseall
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherRan {
+    lock
+    faceplayer
+    setspeaker("{RIVAL}")
+    msgbox(format("{FONT_NARROW}(PLACEHOLDER: CS11 - the deduction runs from here.)", "1_latin_rse_narrow"))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherMariko {
+    lock
+    faceplayer
+    setspeaker("Mariko")
+    msgbox(format("We are all standing here. Get on with it."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherSuzuki {
+    lock
+    faceplayer
+    setspeaker("Suzuki")
+    msgbox(format("Whatever you have found, say it plainly."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherNatsue {
+    lock
+    faceplayer
+    setspeaker("Natsue")
+    msgbox(format("You've pieced together what happened.\pI trust you."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherAkie {
+    lock
+    faceplayer
+    setspeaker("Akie")
+    msgbox(format("The last time I was in this room... I was arguing with Tatsuo. I just want this to be over."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherKitaro {
+    lock
+    faceplayer
+    setspeaker("Kitaro")
+    msgbox(format("If you've worked it out, I would rather hear it than keep guessing."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherJoji {
+    lock
+    faceplayer
+    setspeaker("Joji")
+    msgbox(format("Go on. I'd like the truth. I know I am implicated... But I am innocent."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_Cabins_EventScript_GatherIchiro {
+    lock
+    faceplayer
+    setspeaker("Ichiro")
+    msgbox(format("You went through our cabins, didn't you."))
+    setspeaker(NULL)
+    release
+    end
 }

@@ -48,6 +48,17 @@ script tarc3_MainDeck_OnLoad {
         clearflag(FLAG_HIDE_TARC3_DINING_JOJI)
         clearflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     }
+    // act three moves the whole room down to Akie's cabin
+    if (var(VAR_TARC3_ACT3) >= TARC3_ACT3_GATHERING) {
+        setflag(FLAG_HIDE_TARC3_DINING_ICHIRO_HURT)
+        setflag(FLAG_HIDE_TARC3_DINING_RAN)
+        setflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+        setflag(FLAG_HIDE_TARC3_DINING_KITARO)
+        setflag(FLAG_HIDE_TARC3_DINING_MARIKO)
+        setflag(FLAG_HIDE_TARC3_DINING_AKIE)
+        setflag(FLAG_HIDE_TARC3_DINING_JOJI)
+        setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    }
     end
 }
 
@@ -419,12 +430,7 @@ script tarc3_MainDeck_EventScript_DiningSuzuki {
     lock
     faceplayer
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
-        setspeaker("Suzuki")
-        msgbox(format("I have kept them all in this room, {PLAYER}.\pThe cabin doors are all unlocked."))
-        msgbox(format("Takeshi is aboard. He must be.\pThere is nowhere else for him to be."))
-        setspeaker(NULL)
-        release
-        end
+        goto(tarc3_MainDeck_EventScript_SuzukiSearch)
     }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
         setspeaker("Suzuki")
@@ -437,7 +443,7 @@ script tarc3_MainDeck_EventScript_DiningSuzuki {
         goto(tarc3_MainDeck_EventScript_GatherSuzuki)
     }
     setspeaker("Suzuki")
-    msgbox(format("Everything is ready, sir.\pIt only wants the master."))
+    msgbox(format("Everything is ready, sir."))
     setspeaker(NULL)
     release
     end
@@ -446,6 +452,9 @@ script tarc3_MainDeck_EventScript_DiningSuzuki {
 script tarc3_MainDeck_EventScript_DiningRan {
     lock
     faceplayer
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
+        goto(tarc3_MainDeck_EventScript_DiningRanAct3)
+    }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
         setspeaker("{RIVAL}")
         msgbox(format("His leg is bound. Natsue hasn't left his side."))
@@ -534,8 +543,7 @@ script tarc3_MainDeck_EventScript_DiningJoji {
     faceplayer
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_SEARCH_TAKESHI) {
         setspeaker("Joji")
-        msgbox(format("That case stays locked. It has always stayed locked."))
-        msgbox(format("Somebody opened it, {PLAYER}.\pI'd like to know who, before they open it again."))
+        msgbox(format("Somebody opened my knife case, {PLAYER}.\pI'd like to know who, before they open it again."))
         setspeaker(NULL)
         release
         end
@@ -553,7 +561,7 @@ script tarc3_MainDeck_EventScript_DiningJoji {
     setspeaker("Joji")
     msgbox(format("Well. Nobody has eaten a thing."))
     msgbox(format("Three days I spent on that consommé.\pNot one spoon lifted."))
-    msgbox(format("Even Ichiro here, and he always clears his plate.\pThe boy lives on nothing at art school."))
+    msgbox(format("Even Ichiro here, and he always clears his plate."))
     setspeaker(NULL)
     closemessage
     if (!flag(FLAG_TARC3_DINNER_TALK_JOJI)) {
@@ -1497,7 +1505,7 @@ script tarc3_MainDeck_EventScript_BlackoutReturn {
     waitmovement(0)
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("Conan, come with me. We'll check on him."))
+    msgbox(format("{PLAYER}, come with me. We'll check on him."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -1533,7 +1541,7 @@ script tarc3_MainDeck_EventScript_SuzukiLeaves {
     delay(30)
     setspeaker("{RIVAL}")
     msgbox(format("He'll be a few minutes."))
-    msgbox(format("Come on, Conan. It's this way."))
+    msgbox(format("Come on, {PLAYER}. It's this way."))
     setspeaker(NULL)
     closemessage
     applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_left * 5))
@@ -1586,7 +1594,7 @@ script tarc3_MainDeck_EventScript_CorridorRan {
     faceplayer
     setspeaker("{RIVAL}")
     msgbox(format("I'll wait here for the others."))
-    msgbox(format("You go in, Conan. I'll bring the others."))
+    msgbox(format("You go in, {PLAYER}. I'll bring the others."))
     setspeaker(NULL)
     release
     end
@@ -1598,5 +1606,176 @@ script tarc3_MainDeck_EventScript_GatherNoExit {
     waitmovement(0)
     msgbox(format("{FONT_NARROW}(Nobody is leaving this room while they're still going at each other.\pI should hear the rest of it.)", "1_latin_rse_narrow"))
     releaseall
+    end
+}
+
+// ACT THREE
+// player finds sketchbook & unlocks this dialogue
+
+script tarc3_MainDeck_EventScript_SuzukiSearch {
+    if (flag(FLAG_TARC3_SUZUKI_SEARCH_TALKED)) {
+        goto(tarc3_MainDeck_EventScript_SuzukiSearchAgain)
+    }
+    setspeaker("Suzuki")
+    msgbox(format("I have kept them all in this room, {PLAYER}.\pThe cabin doors are all unlocked."))
+    setspeaker(NULL)
+    closemessage
+    setvar(VAR_TEMP_4, 0)
+    setvar(VAR_TEMP_5, 0)
+    goto(tarc3_MainDeck_EventScript_SuzukiSearchTopics)
+}
+
+script tarc3_MainDeck_EventScript_SuzukiSearchAgain {
+    if (flag(FLAG_TARC3_CABIN_FOUND_SKETCHBOOK) && !flag(FLAG_TARC3_REFLECT_SUZUKI_SUITOR)) {
+        setspeaker("Suzuki")
+        msgbox(format("Was there something else, {PLAYER}?"))
+        setspeaker(NULL)
+        closemessage
+        setvar(VAR_TEMP_4, 1)
+        setvar(VAR_TEMP_5, 1)
+        goto(tarc3_MainDeck_EventScript_SuzukiSearchTopics)
+    }
+    setspeaker("Suzuki")
+    msgbox(format("Every cabin door is open to you.\pFind him, and I will keep the rest of them where they are."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_SuzukiSearchTopics {
+    if (var(VAR_TEMP_4) == 1 && var(VAR_TEMP_5) == 1) {
+        if (!flag(FLAG_TARC3_CABIN_FOUND_SKETCHBOOK) || flag(FLAG_TARC3_REFLECT_SUZUKI_SUITOR)) {
+            setflag(FLAG_TARC3_SUZUKI_SEARCH_TALKED)
+            goto(tarc3_MainDeck_EventScript_SuzukiSearchEnd)
+        }
+    }
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(What do I need from him?)", "1_latin_rse_narrow"))
+    waitmessage
+    if (var(VAR_TEMP_4) == 0) {
+        dynmultipush("Where Takeshi is", 0)
+    }
+    if (var(VAR_TEMP_5) == 0) {
+        dynmultipush("Your years of service", 1)
+    }
+    if (flag(FLAG_TARC3_CABIN_FOUND_SKETCHBOOK) && !flag(FLAG_TARC3_REFLECT_SUZUKI_SUITOR)) {
+        dynmultipush("Natsue's secret suitor", 2)
+    }
+    dynmultipush("Nothing", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_MainDeck_EventScript_SuzukiSearchTakeshi)
+        case 1:
+            goto(tarc3_MainDeck_EventScript_SuzukiSearchService)
+        case 2:
+            goto(tarc3_MainDeck_EventScript_SuzukiSuitor)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_SuzukiSearchEnd)
+        default:
+            goto(tarc3_MainDeck_EventScript_SuzukiSearchEnd)
+    }
+}
+
+script tarc3_MainDeck_EventScript_SuzukiSearchTakeshi {
+    setvar(VAR_TEMP_4, 1)
+    setspeaker("Suzuki")
+    msgbox(format("Takeshi is aboard. He must be.\pThere is nowhere else for him to hide."))
+    msgbox(format("I have unlocked all cabin doors. You may investigate without interruption."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_MainDeck_EventScript_SuzukiSearchTopics)
+}
+
+script tarc3_MainDeck_EventScript_SuzukiSearchService {
+    setvar(VAR_TEMP_5, 1)
+    setspeaker("Suzuki")
+    msgbox(format("Thirty-one years with the master.\pI have carried his letters, his accounts and his moods."))
+    msgbox(format("A man tells his valet things he would not tell his own family.\pI have never repeated one of them."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(...He is telling me he knows more than he has said.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(20)
+    goto(tarc3_MainDeck_EventScript_SuzukiSearchTopics)
+}
+
+script tarc3_MainDeck_EventScript_SuzukiSuitor {
+    delay(40)
+    playse(SE_PIN)
+    applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(30)
+    setspeaker("Suzuki")
+    msgbox(format("Ichiro approaching Gozo to ask for Natsue's hand?"))
+    msgbox(format("...How could you possibly know that?"))
+    msgbox(format("There was only one person Master Gozo felt he could share that with. Me."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setspeaker("Suzuki")
+    msgbox(format("Yes. It happened."))
+    msgbox(format("A few weeks before the engagement to Takeshi was announced.\pThe master refused. Very harshly."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    msgbox(format("{FONT_NARROW}(Ichiro's wedding invitation wasn't graciousness. It was calculated, silent torture.)", "1_latin_rse_narrow"))
+    closemessage
+    // giveevidence(EVD_REFUSED_SUITOR)
+    call(tarc3_EventScript_EvidenceCaptured)
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_SUZUKI_SUITOR)
+    delay(20)
+    goto(tarc3_MainDeck_EventScript_SuzukiSearchTopics)
+}
+
+script tarc3_MainDeck_EventScript_SuzukiSearchEnd {
+    setspeaker("Suzuki")
+    msgbox(format("Go, {PLAYER}."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_DiningRanAct3 {
+    setspeaker("{RIVAL}")
+    if (!flag(FLAG_TARC3_CABIN_FOUND_TAKESHI)) {
+        msgbox(format("Suzuki unlocked every cabin door.\pTakeshi must be behind one of them."))
+        msgbox(format("Find him, {PLAYER}.\pOne way or another, we can get to the bottom of this nightmare if we find him."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("You found him. I can see it in your eyes."))
+    msgbox(format("Akie's room? Fitting.\pAfter Tatsuo's death, she hasn't had much reason to be in there."))
+    closemessage
+    delay(20)
+    msgbox(format("Are you ready to put this in front of all of them?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Then go back over it.\pOnce I bring them down there, you don't get a second run at it."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("I'll collect everyone."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    setvar(VAR_TARC3_ACT3, TARC3_ACT3_GATHERING)
+    setflag(FLAG_HIDE_TARC3_DINING_ICHIRO_HURT)
+    setflag(FLAG_HIDE_TARC3_DINING_RAN)
+    setflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+    setflag(FLAG_HIDE_TARC3_DINING_KITARO)
+    setflag(FLAG_HIDE_TARC3_DINING_MARIKO)
+    setflag(FLAG_HIDE_TARC3_DINING_AKIE)
+    setflag(FLAG_HIDE_TARC3_DINING_JOJI)
+    setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    clearflag(FLAG_HIDE_TARC3_CABIN_CAST)
+    fadescreenspeed(FADE_TO_BLACK, 6)
+    warp(MAP_TARC3_CABINS, 19, 6)
+    waitstate
     end
 }

@@ -1749,18 +1749,17 @@
 #define FLAG_TARC3_MAGNEZONE_FLASH                  (TARC3_RESERVED_FLAGS_START + 0x69)
 #define FLAG_HIDE_TARC3_DINING_ICHIRO_HURT          (TARC3_RESERVED_FLAGS_START + 0x6A)
 #define FLAG_HIDE_TARC3_COMFEY                      (TARC3_RESERVED_FLAGS_START + 0x6B)
-#define FLAG_UNUSED_0x9CC                           (TARC3_RESERVED_FLAGS_START + 0x6C) // Unused Flag
-#define FLAG_UNUSED_0x9CD                           (TARC3_RESERVED_FLAGS_START + 0x6D) // Unused Flag
-#define FLAG_UNUSED_0x9CE                           (TARC3_RESERVED_FLAGS_START + 0x6E) // Unused Flag
-#define FLAG_UNUSED_0x9CF                           (TARC3_RESERVED_FLAGS_START + 0x6F) // Unused Flag
-#define FLAG_UNUSED_0x9D0                           (TARC3_RESERVED_FLAGS_START + 0x70) // Unused Flag
-#define FLAG_UNUSED_0x9D1                           (TARC3_RESERVED_FLAGS_START + 0x71) // Unused Flag
-#define FLAG_UNUSED_0x9D2                           (TARC3_RESERVED_FLAGS_START + 0x72) // Unused Flag
-#define FLAG_UNUSED_0x9D3                           (TARC3_RESERVED_FLAGS_START + 0x73) // Unused Flag
-#define FLAG_UNUSED_0x9D4                           (TARC3_RESERVED_FLAGS_START + 0x74) // Unused Flag
-#define FLAG_UNUSED_0x9D5                           (TARC3_RESERVED_FLAGS_START + 0x75) // Unused Flag
-#define FLAG_UNUSED_0x9D6                           (TARC3_RESERVED_FLAGS_START + 0x76) // Unused Flag
-#define FLAG_UNUSED_0x9D7                           (TARC3_RESERVED_FLAGS_START + 0x77) // Unused Flag
+#define FLAG_TARC3_CABIN_FOUND_KNIVES               (TARC3_RESERVED_FLAGS_START + 0x6C)
+#define FLAG_TARC3_CABIN_FOUND_RESIGNATION          (TARC3_RESERVED_FLAGS_START + 0x6E)
+#define FLAG_TARC3_CABIN_FOUND_SKETCHBOOK           (TARC3_RESERVED_FLAGS_START + 0x6F)
+#define FLAG_TARC3_CABIN_FOUND_SUPPLIES             (TARC3_RESERVED_FLAGS_START + 0x70)
+#define FLAG_TARC3_CABIN_FOUND_ENVELOPE             (TARC3_RESERVED_FLAGS_START + 0x71)
+#define FLAG_TARC3_CABIN_FOUND_PICTURE              (TARC3_RESERVED_FLAGS_START + 0x72)
+#define FLAG_TARC3_CABIN_FOUND_TAKESHI              (TARC3_RESERVED_FLAGS_START + 0x73)
+#define FLAG_TARC3_REFLECT_SUZUKI_SUITOR            (TARC3_RESERVED_FLAGS_START + 0x74)
+#define FLAG_HIDE_TARC3_CABIN_TAKESHI               (TARC3_RESERVED_FLAGS_START + 0x75)
+#define FLAG_HIDE_TARC3_CABIN_CAST                  (TARC3_RESERVED_FLAGS_START + 0x76)
+#define FLAG_TARC3_SUZUKI_SEARCH_TALKED             (TARC3_RESERVED_FLAGS_START + 0x77)
 #define FLAG_UNUSED_0x9D8                           (TARC3_RESERVED_FLAGS_START + 0x78) // Unused Flag
 #define FLAG_UNUSED_0x9D9                           (TARC3_RESERVED_FLAGS_START + 0x79) // Unused Flag
 #define FLAG_UNUSED_0x9DA                           (TARC3_RESERVED_FLAGS_START + 0x7A) // Unused Flag

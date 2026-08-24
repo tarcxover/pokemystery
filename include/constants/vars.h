@@ -285,7 +285,7 @@
 #define VAR_TARC3_GATHER_AKIE                            0x4105 // Akie's conversation counter
 #define VAR_TARC3_GATHER_MARIKO                          0x4106 // Mariko's conversation counter
 #define VAR_TARC3_GATHER_JOJI                            0x4107 // Joji's conversation counter
-#define VAR_UNUSED_0x4108                                0x4108 // Unused Var
+#define VAR_TARC3_ACT3                                   0x4108 // Act three state machine, see TARC3_ACT3_* below
 #define VAR_UNUSED_0x4109                                0x4109 // Unused Var
 #define VAR_UNUSED_0x410A                                0x410A // Unused Var
 #define VAR_UNUSED_0x410B                                0x410B // Unused Var
@@ -431,29 +431,34 @@
 // state machine definitions
 
 // VAR_TARC3_ACT1
-#define TARC3_ACT1_BOARDED         1  // departure cutscene armed: Foredeck
+#define TARC3_ACT1_BOARDED         1  // departure cutscene: Foredeck
 #define TARC3_ACT1_DEPARTED        2  // free roam before dinner
-#define TARC3_ACT1_DINNER          3  // dinner cutscene armed: MainDeck
+#define TARC3_ACT1_DINNER          3  // dinner cutscene: MainDeck
 #define TARC3_ACT1_DINNER_TABLE    4  // dinner conversations; dining room sealed
-#define TARC3_ACT1_THE_BODY        5  // CS3 armed: Gozo's room
-#define TARC3_ACT1_INVESTIGATE_1   6  // free roam; CS4 and CS5 run off Ran
-#define TARC3_ACT1_JAIL_TAKESHI    7  // CS6 armed: Hold
+#define TARC3_ACT1_THE_BODY        5  // CS3: Gozo's room
+#define TARC3_ACT1_INVESTIGATE_1   6  // free roam; CS4 and CS5 run off Franziska
+#define TARC3_ACT1_JAIL_TAKESHI    7  // CS6: Hold
 #define TARC3_ACT1_COMPLETE        8  // act one over, VAR_TARC3_ACT2 takes over
 
 // VAR_TARC3_ACT2
-#define TARC3_ACT2_DECK_DOOR       1  // CS7 armed: MainDeck west lobby
-#define TARC3_ACT2_BODY_ON_DECK    2  // CS8 armed: Foredeck
+#define TARC3_ACT2_DECK_DOOR       1  // CS7: MainDeck west lobby
+#define TARC3_ACT2_BODY_ON_DECK    2  // CS8: Foredeck
 #define TARC3_ACT2_HOLD_SEARCH     3  // CS8 continues: Hold
-#define TARC3_ACT2_INVESTIGATE_2A  4  // free roam; Ran waits on the Foredeck
-#define TARC3_ACT2_ROOM_SETTLES    5  // CS9 armed: dining room
+#define TARC3_ACT2_INVESTIGATE_2A  4  // free roam; Franziska waits on the Foredeck
+#define TARC3_ACT2_ROOM_SETTLES    5  // CS9: dining room
 #define TARC3_ACT2_GATHER          6  // free talk; dining room sealed
 #define TARC3_ACT2_BLACKOUT        7  // CS10: Bathroom cut, then MainDeck return
-#define TARC3_ACT2_LEAVING_DINING  8  // Suzuki exit trigger armed
-#define TARC3_ACT2_SUZUKI_BELOW    9  // Suzuki gone below; scream trigger armed further down the corridor
-#define TARC3_ACT2_TO_BATHROOM    10  // Ran waits in the corridor
+#define TARC3_ACT2_LEAVING_DINING  8  // Suzuki exit trigger
+#define TARC3_ACT2_SUZUKI_BELOW    9  // Suzuki gone below; scream trigger further down the corridor
+#define TARC3_ACT2_TO_BATHROOM    10  // Franziska waits in the corridor
 #define TARC3_ACT2_ICHIRO_FOUND   11  // Ichiro found in the bathroom
 #define TARC3_ACT2_TO_ELECTRICAL  12  // family assembled on B1; player walks down
-#define TARC3_ACT2_SEARCH_TAKESHI 13  // free roam; Suzuki asked Conan to find Takeshi
+#define TARC3_ACT2_SEARCH_TAKESHI 13  // free roam; Suzuki asked Miles to find Takeshi
+
+// VAR_TARC3_ACT3
+#define TARC3_ACT3_CABIN_SEARCH    0  // free roam; the cabin search runs while ACT2 is SEARCH_TAKESHI
+#define TARC3_ACT3_GATHERING       1  // move to Akie's cabin
+#define TARC3_ACT3_ASSEMBLED       2  // everyone gathered in Akie's cabin; the deduction follows
 
 #if TESTING
 #define TESTING_VARS_START                  0x9000

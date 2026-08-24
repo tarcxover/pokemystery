@@ -9340,7 +9340,7 @@
       "width": 50,
       "height": 20,
       "primary_tileset": "gTileset_Tarc3_InsideShip",
-      "secondary_tileset": "gTileset_Tarc3_Bathroom",
+      "secondary_tileset": "gTileset_Tarc3_Cabins",
       "border_filepath": "data/layouts/tarc3_MainDeck/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_MainDeck/map.bin"
     },
@@ -9370,7 +9370,7 @@
       "width": 60,
       "height": 40,
       "primary_tileset": "gTileset_Tarc3_InsideShip",
-      "secondary_tileset": "gTileset_BattleArena",
+      "secondary_tileset": "gTileset_Tarc3_Cabins",
       "border_filepath": "data/layouts/tarc3_Cabins/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_Cabins/map.bin"
     },
