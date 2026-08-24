@@ -277,13 +277,14 @@ script tarc3_Foredeck_EventScript_Sketchbook {
         end
     }
     msgbox(format("An open sketchbook, weighted flat against the rail."))
-    msgbox(format("Charcoal portraits. Page after page of them, and the same figure each time."))
+    msgbox(format("It's a half-finished sketch of a woman standing next to a man with dark hair."))
     closemessage
     delay(20)
     playse(SE_M_GUST)
     delay(30)
     msgbox(format("The wind takes the pages before {PLAYER} can make out who it is."))
     closemessage
+    // giveevidence(EVD_CHARCOAL_SKETCHES)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     releaseall
@@ -393,7 +394,7 @@ script tarc3_Foredeck_EventScript_TatsuoBody {
     setspeaker("Mariko")
     msgbox(format("Is he?"))
     delay(40)
-    msgbox(format("Have one of you been down there since? Even once?"))
+    msgbox(format("Have any of you been down there since? Even once?"))
     setspeaker(NULL)
     closemessage
     delay(40)

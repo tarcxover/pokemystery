@@ -323,7 +323,7 @@
       "y": 8,
       "elevation": 0,
       "dest_map": "MAP_TARC3_CABINS",
-      "dest_warp_id": "2",
+      "dest_warp_id": "1",
       "notes": "akie & tatsuo cabin"
     },
     {
@@ -331,7 +331,7 @@
       "y": 8,
       "elevation": 0,
       "dest_map": "MAP_TARC3_CABINS",
-      "dest_warp_id": "4",
+      "dest_warp_id": "2",
       "notes": "naksue & takeshi cabin"
     },
     {
@@ -339,7 +339,7 @@
       "y": 8,
       "elevation": 0,
       "dest_map": "MAP_TARC3_CABINS",
-      "dest_warp_id": "6",
+      "dest_warp_id": "3",
       "notes": "ichiro cabin"
     },
     {
@@ -347,7 +347,7 @@
       "y": 13,
       "elevation": 0,
       "dest_map": "MAP_TARC3_CABINS",
-      "dest_warp_id": "8",
+      "dest_warp_id": "4",
       "notes": "joji cabin"
     },
     {
@@ -355,7 +355,7 @@
       "y": 13,
       "elevation": 0,
       "dest_map": "MAP_TARC3_CABINS",
-      "dest_warp_id": "9",
+      "dest_warp_id": "5",
       "notes": "mariko cabin"
     },
     {
@@ -363,7 +363,7 @@
       "y": 13,
       "elevation": 0,
       "dest_map": "MAP_TARC3_CABINS",
-      "dest_warp_id": "10",
+      "dest_warp_id": "6",
       "notes": "kitaro cabin"
     },
     {
@@ -371,7 +371,7 @@
       "y": 13,
       "elevation": 0,
       "dest_map": "MAP_TARC3_CABINS",
-      "dest_warp_id": "11",
+      "dest_warp_id": "7",
       "notes": "conan & ran cabin"
     },
     {

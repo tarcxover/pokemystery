@@ -1574,3 +1574,14 @@ const struct Tileset gTileset_Tarc3_Bathroom =
     .metatileAttributes = gMetatileAttributes_PorytilesManaged_Tarc3_Bathroom,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_Tarc3_Cabins =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PorytilesManaged_Tarc3_Cabins,
+    .palettes = gTilesetPalettes_PorytilesManaged_Tarc3_Cabins,
+    .metatiles = gMetatiles_PorytilesManaged_Tarc3_Cabins,
+    .metatileAttributes = gMetatileAttributes_PorytilesManaged_Tarc3_Cabins,
+    .callback = NULL,
+};
