@@ -26,12 +26,6 @@ script tarc3_EventScript_Act1Setup {
     return
 }
 
-script tarc3_EventScript_EvidenceCaptured {
-    playse(SE_PC_LOGIN)
-    msgbox(format("<Evidence captured>"))
-    return
-}
-
 // called from EventScript_Follower before the default follower behaviour.
 // dispatches on the follower's species; each species router picks a handler
 // for wherever the player currently is. handlers live in the map they happen

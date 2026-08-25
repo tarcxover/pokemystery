@@ -96,7 +96,6 @@ script tarc3_Cabins_EventScript_EvdKnifeRoll {
     msgbox(format("{FONT_NARROW}(One turned up beside Ichiro. So where is the other one?)", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_MISSING_KNIVES)
-    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     delay(20)
     msgbox(format("{FONT_NARROW}(There's a dark smear on the inside of the flap.)", "1_latin_rse_narrow"))
@@ -153,7 +152,6 @@ script tarc3_Cabins_EventScript_EvdSketchbook {
     msgbox(format("The last page is dated today.\pNatsue on the island, in her wedding dress, drawn from a distance."))
     closemessage
     giveevidence(EVD_SKETCHBOOK)
-    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_SKETCHBOOK)
     releaseall
@@ -180,7 +178,6 @@ script tarc3_Cabins_EventScript_EvdSupplies {
     msgbox(format("{FONT_NARROW}(There's also a torn end of bread with dark smudges. Is this being used as an eraser?)", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_BREAD_ERASER)
-    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_SUPPLIES)
     releaseall
@@ -219,7 +216,6 @@ script tarc3_Cabins_EventScript_EvdPicture {
     msgbox(format("{FONT_NARROW}(Zaiki Research Institute is on a sign outside the building.)\p(This must be Takeshi and his father.)", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_FAMILY_PICTURE)
-    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_PICTURE)
     releaseall
@@ -262,7 +258,6 @@ script tarc3_Cabins_EventScript_EvdCloset {
     msgbox(format("{FONT_NARROW}(He didn't open it. Somebody let him out without a word.)", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_UNLOCKED_CELL)
-    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     delay(20)
     setvar(VAR_TEMP_4, 0)

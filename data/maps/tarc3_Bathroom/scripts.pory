@@ -91,7 +91,6 @@ script tarc3_Bathroom_EventScript_IchiroDown {
         msgbox(format("{FONT_NARROW}(The lights were already out when whoever it was came in. He never saw a thing.)", "1_latin_rse_narrow"))
         closemessage
         giveevidence(EVD_BATHROOM_BLACKOUT)
-        call(tarc3_EventScript_EvidenceCaptured)
         closemessage
         setflag(FLAG_TARC3_ICHIRO_FOUND_LIE)
     }
@@ -102,7 +101,6 @@ script tarc3_Bathroom_EventScript_IchiroDown {
         closemessage
         giveevidence(EVD_INJURED_LEG)
         giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
-        call(tarc3_EventScript_EvidenceCaptured)
         closemessage
         setflag(FLAG_TARC3_ICHIRO_FOUND_LEG)
     }
@@ -118,7 +116,6 @@ script tarc3_Bathroom_EventScript_EvdKnife {
     msgbox(format("{FONT_NARROW}(An attacker running for the door doesn't set it down at his victim's fingertips.)", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_BATHROOM_KNIFE)
-    call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     setflag(FLAG_TARC3_BATH_FOUND_KNIFE)
     releaseall
