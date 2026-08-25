@@ -178,7 +178,6 @@ script tarc3_Hold_EventScript_JailTakeshi {
     setspeaker(NULL)
     closemessage
     call(tarc3_Hold_EventScript_RecapCS5)
-    call(tarc3_Hold_EventScript_RecapCS6)
     delay(20)
     setspeaker("{RIVAL}")
     msgbox(format("I'm going to find Natsue.\pSomebody should be with her, and it isn't going to be any of them."))
@@ -230,8 +229,7 @@ script tarc3_Hold_EventScript_RecapHistory {
     msgbox(format("{FONT_NARROW}(Gozo took his father's company and the man killed himself over it.)\pTakeshi married into the family that did it.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
-    // giveevidence(EVD_TAKESHIS_HISTORY)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_TAKESHIS_HISTORY)
     closemessage
     goto(tarc3_Hold_EventScript_RecapEnd)
 }
@@ -240,8 +238,7 @@ script tarc3_Hold_EventScript_RecapArgument {
     msgbox(format("{FONT_NARROW}(She stood at that door before dinner and heard her father shouting Takeshi's name.)\pSo she says.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
-    // giveevidence(EVD_OVERHEARD_ARGUMENT)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_OVERHEARD_ARGUMENT)
     closemessage
     goto(tarc3_Hold_EventScript_RecapEnd)
 }
@@ -250,58 +247,6 @@ script tarc3_Hold_EventScript_RecapCS5Irrelevant {
     msgbox(format("{FONT_NARROW}(I'd have walked out too. It doesn't tell me anything.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
-    goto(tarc3_Hold_EventScript_RecapEnd)
-}
-
-script tarc3_Hold_EventScript_RecapCS6 {
-    goto_if_set(FLAG_TARC3_REFLECT_HOLD_CS6, tarc3_Hold_EventScript_RecapEnd)
-    setspeaker(NULL)
-    message(format("{FONT_NARROW}(And then Suzuki opened his mouth about the will.)", "1_latin_rse_narrow"))
-    waitmessage
-    dynmultipush("Tatsuo married for money", 0)
-    dynmultipush("Joji wanted no part of it", 1)
-    dynmultipush("It all goes to Natsue", 2)
-    dynmultipush("Cancel", 3)
-    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
-    closemessage
-    switch (var(VAR_RESULT)) {
-        case 0:
-            goto(tarc3_Hold_EventScript_RecapDebts)
-        case 2:
-            goto(tarc3_Hold_EventScript_RecapWill)
-        case 3:
-            goto(tarc3_Hold_EventScript_RecapEnd)
-        case MULTI_B_PRESSED:
-            goto(tarc3_Hold_EventScript_RecapEnd)
-        default:
-            goto(tarc3_Hold_EventScript_RecapCS6Irrelevant)
-    }
-}
-
-script tarc3_Hold_EventScript_RecapDebts {
-    msgbox(format("{FONT_NARROW}(He said it to the whole room. He married Akie to inherit, and he isn't sorry.)", "1_latin_rse_narrow"))
-    closemessage
-    setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
-    // giveevidence(EVD_TATSUOS_DEBTS)
-    call(tarc3_EventScript_EvidenceCaptured)
-    closemessage
-    goto(tarc3_Hold_EventScript_RecapEnd)
-}
-
-script tarc3_Hold_EventScript_RecapWill {
-    msgbox(format("{FONT_NARROW}(Every share and every property, to Natsue.)\pAnd three people in that room found out tonight.", "1_latin_rse_narrow"))
-    closemessage
-    setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
-    // giveevidence(EVD_GOZOS_WILL)
-    call(tarc3_EventScript_EvidenceCaptured)
-    closemessage
-    goto(tarc3_Hold_EventScript_RecapEnd)
-}
-
-script tarc3_Hold_EventScript_RecapCS6Irrelevant {
-    msgbox(format("{FONT_NARROW}(He kept out of it, at least. That's not worth writing down.)", "1_latin_rse_narrow"))
-    closemessage
-    setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
     goto(tarc3_Hold_EventScript_RecapEnd)
 }
 
@@ -320,8 +265,7 @@ script tarc3_Hold_EventScript_EvdManifest {
     msgbox(format("The passenger manifest, hung by the stairs in Kitaro's handwriting."))
     msgbox(format("{FONT_NARROW}(Family, one steward, one cook. The crew are berthed forward and none of them came aft.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_PASSENGER_MANIFEST)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_PASSENGER_MANIFEST cut
     closemessage
     setflag(FLAG_TARC3_HOLD_FOUND_MANIFEST)
     releaseall
@@ -346,8 +290,7 @@ script tarc3_Hold_EventScript_EvdStorageDoor {
     msgbox(format("{FONT_NARROW}(It only works from out here. No handle on the inside, and Suzuki shot it across in front of everybody.)", "1_latin_rse_narrow"))
     msgbox(format("{FONT_NARROW}(So somebody stood where I'm standing and slid it open again.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_UNDAMAGED_DOOR)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_UNDAMAGED_DOOR cut
     closemessage
     setflag(FLAG_TARC3_HOLD_FOUND_DOOR)
     releaseall

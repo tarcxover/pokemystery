@@ -95,14 +95,12 @@ script tarc3_Cabins_EventScript_EvdKnifeRoll {
     delay(20)
     msgbox(format("{FONT_NARROW}(One turned up beside Ichiro. So where is the other one?)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_MISSING_KNIVES)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_MISSING_KNIVES)
     closemessage
     delay(20)
     msgbox(format("{FONT_NARROW}(There's a dark smear on the inside of the flap.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_RESIDUE_ON_CASE)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_RESIDUE_ON_CASE cut
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_KNIVES)
     releaseall
@@ -124,8 +122,7 @@ script tarc3_Cabins_EventScript_EvdResignation {
     delay(20)
     msgbox(format("{FONT_NARROW}Kitaro appears to be under significant pressure at work.\p", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_RESIGNATION_NOTE)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_RESIGNATION_NOTE cut
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_RESIGNATION)
     releaseall
@@ -154,8 +151,7 @@ script tarc3_Cabins_EventScript_EvdSketchbook {
     delay(20)
     msgbox(format("The last page is dated today.\pNatsue on the island, in her wedding dress, drawn from a distance."))
     closemessage
-    // giveevidence(EVD_SKETCHBOOK)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_SKETCHBOOK)
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_SKETCHBOOK)
     releaseall
@@ -176,14 +172,12 @@ script tarc3_Cabins_EventScript_EvdSupplies {
     delay(20)
     msgbox(format("{FONT_NARROW}(These must be Ichiro's sketching supplies.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_CHARCOAL_SUPPLIES)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_CHARCOAL_SUPPLIES cut
     closemessage
     delay(20)
     msgbox(format("{FONT_NARROW}(There's also a torn end of bread with dark smudges. Is this being used as an eraser?)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_BREAD_ERASER)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_BREAD_ERASER)
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_SUPPLIES)
     releaseall
@@ -202,8 +196,7 @@ script tarc3_Cabins_EventScript_EvdEnvelope {
     msgbox(format("A torn envelope on the desk, Corporation letterhead.\pThe untorn half reads 'FINAL WISHES O...'."))
     msgbox(format("{FONT_NARROW}(She knew there was a will before Suzuki opened his mouth downstairs.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_WILL_CORRESPONDENCE)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_WILL_CORRESPONDENCE cut
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_ENVELOPE)
     releaseall
@@ -222,8 +215,7 @@ script tarc3_Cabins_EventScript_EvdPicture {
     msgbox(format("A framed photograph hung on the wall.\pIt features a proud man and a younger boy, standing in front of a building."))
     msgbox(format("{FONT_NARROW}(Zaiki Research Institute is on a sign outside the building.)\p(This must be Takeshi and his father.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_FAMILY_PICTURE)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_FAMILY_PICTURE)
     closemessage
     setflag(FLAG_TARC3_CABIN_FOUND_PICTURE)
     releaseall
@@ -265,8 +257,7 @@ script tarc3_Cabins_EventScript_EvdCloset {
     delay(20)
     msgbox(format("{FONT_NARROW}(He didn't open it. Somebody let him out without a word.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_UNLOCKED_CELL)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_UNLOCKED_CELL)
     closemessage
     delay(20)
     setvar(VAR_TEMP_4, 0)
@@ -331,8 +322,7 @@ script tarc3_Cabins_EventScript_EvdClosetGarland {
     delay(20)
     msgbox(format("{FONT_NARROW}(The last person to put a hand near that flower, and then it turns up outside a dead man's door.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_GARLAND_PROVENANCE)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_GARLAND_PROVENANCE cut
     closemessage
     delay(20)
     goto(tarc3_Cabins_EventScript_EvdClosetTopics)
@@ -349,8 +339,7 @@ script tarc3_Cabins_EventScript_EvdClosetGozo {
     delay(20)
     msgbox(format("{FONT_NARROW}(Mariko stood outside that door and heard all of it. But she repeated only the first half to the room.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_WITHHELD_HALF)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_WITHHELD_HALF cut
     closemessage
     delay(20)
     goto(tarc3_Cabins_EventScript_EvdClosetTopics)

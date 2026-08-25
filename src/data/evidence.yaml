@@ -1,117 +1,611 @@
 evidence:
-  - id: LAPEL_FLOWER
-    name: Lapel Flower
-    icon: LapelFlower
-    recipes: NULL
-    description: |
-      A decorative lapel
-      flower.
-    details: |
-      A flower found outside the
-      victim's cabin. It appeared
-      to implicate Takeshi, but
-      was deliberately left there
-      to frame him.
-
-  - id: BLOODY_DOORFRAME
-    name: Bloody Doorframe
-    icon: BloodyDoorframe
-    recipes: NULL
-    description: |
-      Blood found on the
-      cabin doorframe.
-    details: |
-      The blood proves the victim
-      was attacked while the door
-      was open. He managed to
-      retreat into his cabin and
-      lock the door before dying.
-
-  - id: LOCKED_DOOR
-    name: Locked Door
-    icon: LockedDoor
-    recipes: NULL
-    description: |
-      The victim's cabin
-      was locked from
-      the inside.
-    details: |
-      The locked room was not a trick.
-      After being stabbed
-      outside, the victim locked
-      the door himself while
-      trying to escape his attacker.
-
-  - id: VICTIM_MURDERED
-    name: Victim Murdered
-    icon: BloodyKnife
-    recipes:
-      - [BLOODY_DOORFRAME, LOCKED_DOOR]
-    description: |
-      The victim was
-      murdered.
-    details: |
-      The evidence shows the
-      death was not suicide.
-      The attack happened outside
-      the cabin before the victim
-      went inside.
-
-  - id: CHARCOAL_DUST
-    name: Charcoal Dust
-    icon: CharcoalDust
-    recipes: NULL
-    description: |
-      Fine charcoal dust.
-      It's mixed with
-      blood
-    details: |
-      Charcoal dust mixed
-      with blood. Found
-      near the victim's
-      body. Did the killer
-      Leave this here?
-
-  - id: BLOODY_BREADCRUST
-    name: Bloody Bread Crust
+  - id: BREADCRUMBS
+    name: Breadcrumbs
     icon: BloodyBreadCrust
+    # question: [gozo]
+    # implicates: []
     recipes: NULL
     description: |
-      A bloody piece of
-      bread.
+      Crumbs of bread
+      lying in the blood
+      outside the cabin.
     details: |
-      A piece of bread found
-      near the victim's body.
-      It's soaked in his
-      blood.
+      tba
 
-  - id: PLANTED_FLOWER
-    name: Planted Flower
+  - id: DARK_RESIDUE
+    name: Dark Residue
+    icon: CharcoalDust
+    # question: [gozo]
+    # implicates: []
+    recipes: NULL
+    description: |
+      The crumbs carry a
+      fine black dust.
+    details: |
+      tba
+
+  - id: DROPPED_FLOWER
+    name: Dropped Flower
+    icon: LapelFlower
+    # question: [gozo]
+    # implicates: []
+    recipes: NULL
+    description: |
+      Suzuki saw Takeshi's
+      garland outside the
+      cabin before Gozo's
+      death.
+    details: |
+      tba
+
+  - id: SKETCHBOOK
+    name: Sketchbook
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Dozens of drawings.
+      Most of them are of
+      Natsue.
+    details: |
+      tba
+
+  - id: REFUSED_SUITOR
+    name: Refused Suitor
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Someone asked Gozo
+      for Natsue's hand.
+      He refused harshly.
+    details: |
+      tba
+
+  - id: TUITION_FUNDS
+    name: Tuition Funds
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Gozo said he was
+      done paying for the
+      boy's schooling.
+    details: |
+      tba
+
+  - id: ICHIRO_SPONSORSHIP
+    name: Sponsorship
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Gozo paid for
+      Ichiro's art
+      training for years.
+    details: |
+      tba
+
+  - id: BREAD_ERASER
+    name: Bread Eraser
+    icon: BloodyBreadCrust
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      A dry loaf in the
+      art bag, used to
+      lift charcoal.
+    details: |
+      tba
+
+  - id: TAKESHIS_MEETING
+    name: Requested Meeting
+    icon: LapelFlower
+    # question: [gozo]
+    # implicates: [TAKESHI]
+    recipes: NULL
+    description: |
+      Gozo asked Takeshi
+      to come and see him
+      before dinner.
+    details: |
+      tba
+
+  - id: TAKESHIS_HISTORY
+    name: Takeshi's History
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [TAKESHI]
+    recipes: NULL
+    description: |
+      Gozo ruined Takeshi's
+      father, who took his
+      own life.
+    details: |
+      tba
+
+  - id: FAMILY_PICTURE
+    name: Family Picture
     icon: PlantedFlower
-    recipes:
-      - [BLOODY_BREADCRUST, LAPEL_FLOWER]
-      - [CHARCOAL_DUST, LAPEL_FLOWER]
-      - [BLOODY_DOORFRAME, LAPEL_FLOWER]
-    description: |
-      A lapel flower was
-      planted at the
-      crime scene
-    details: |
-      The lapel flower found
-      at the crime scene was
-      planted by the culprit.
-      They were trying to
-      frame Takeshi.
-
-  - id: KITCHEN_KNIFE
-    name: Kitchen Knife
-    icon: KitchenKnife
+    # question: [gozo]
+    # implicates: [TAKESHI]
     recipes: NULL
     description: |
-      A fancy kitchen knife.
-      This belongs to Joji.
-      How did it get here?
+      Takeshi as a boy,
+      smiling with both
+      his parents.
     details: |
-      A kitchen knife owned by
-      Joji. It was used to attack
-      Ichiro during the blackout.
+      tba
+
+  - id: OVERHEARD_ARGUMENT
+    name: Overheard Row
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [TAKESHI]
+    recipes: NULL
+    description: |
+      Mariko heard Gozo
+      and Takeshi arguing
+      before dinner.
+    details: |
+      tba
+
+  - id: UNREQUITED_LOVE
+    name: Unrequited Love
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes:
+      - [SKETCHBOOK, REFUSED_SUITOR]
+    description: |
+      The man who asked
+      for Natsue drew
+      nobody else.
+    details: |
+      tba
+
+  - id: SPONSORSHIP_WITHDRAWAL
+    name: Withdrawn Funds
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes:
+      - [TUITION_FUNDS, ICHIRO_SPONSORSHIP]
+    description: |
+      Gozo was cutting off
+      the career he had
+      paid to build.
+    details: |
+      tba
+
+  - id: ARTIST_AT_THE_DOOR
+    name: Artist at the Door
+    icon: BloodyBreadCrust
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes:
+      - [BREADCRUMBS, BREAD_ERASER]
+      - [BREADCRUMBS, DARK_RESIDUE]
+    description: |
+      The crumbs in the
+      blood came from an
+      artist's eraser.
+    details: |
+      tba
+
+  - id: GOZOS_FINAL_MEETING
+    name: Final Meeting
+    icon: PlantedFlower
+    # question: [gozo]
+    # implicates: [TAKESHI]
+    recipes:
+      - [DROPPED_FLOWER, TAKESHIS_MEETING]
+    description: |
+      Takeshi was summoned
+      to the cabin, and
+      his flower was there.
+    details: |
+      tba
+
+  - id: TAKESHIS_REVENGE
+    name: Takeshi's Revenge
+    icon: PlantedFlower
+    # question: [gozo]
+    # implicates: [TAKESHI]
+    recipes:
+      - [TAKESHIS_HISTORY, FAMILY_PICTURE]
+    description: |
+      He joined the company
+      of the man who
+      destroyed his father.
+    details: |
+      tba
+
+  - id: TWIN_REFUSAL
+    name: Twin Refusal
+    icon: Testimony
+    # question: [gozo]
+    # implicates: [ICHIRO]
+    recipes:
+      - [UNREQUITED_LOVE, SPONSORSHIP_WITHDRAWAL]
+    description: |
+      Gozo refused his
+      passions: his love
+      and his art.
+    details: |
+      tba
+
+  - id: TWO_SOUNDS
+    name: Two Sounds
+    icon: Testimony
+    # question: [tatsuo]
+    # implicates: []
+    recipes: NULL
+    description: |
+      A splash. Then,
+      after it, something
+      falling.
+    details: |
+      tba
+
+  - id: BLOODY_CLOTH
+    name: Bloody Cloth
+    icon: BloodyKnife
+    # question: [tatsuo]
+    # implicates: []
+    recipes: NULL
+    description: |
+      A bloodied cloth,
+      snagged on the
+      boat's deck.
+    details: |
+      tba
+
+  - id: UNLOCKED_CELL
+    name: Unlocked Cell
+    icon: LockedDoor
+    # question: [tatsuo]
+    # implicates: []
+    recipes: NULL
+    description: |
+      Takeshi heard his
+      door unbolted, then
+      footsteps leaving.
+    details: |
+      tba
+
+  - id: CHARCOAL_ON_BOLT
+    name: Charcoal on Bolt
+    icon: CharcoalDust
+    # question: [tatsuo]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Black dust smeared
+      on the storeroom
+      bolt.
+    details: |
+      tba
+
+  - id: LONG_ABSENCE
+    name: Long Absence
+    icon: Testimony
+    # question: [tatsuo, lights]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Ichiro left the table
+      long before the
+      lights went out.
+    details: |
+      tba
+
+  - id: AN_ACCOMPLICE
+    name: An Accomplice
+    icon: Testimony
+    # question: [tatsuo, ichiro]
+    # implicates: [TAKESHI]
+    recipes: NULL
+    description: |
+      Mariko says Takeshi
+      had help from someone
+      aboard.
+    details: |
+      tba
+
+  - id: OPEN_SERVICE_DOOR
+    name: Open Service Door
+    icon: LockedDoor
+    # question: [tatsuo, lights, ichiro]
+    # implicates: [TAKESHI]
+    recipes: NULL
+    description: |
+      The deck door by the
+      bathroom is unlatched.
+    details: |
+      tba
+
+  - id: BLOOD_ON_THE_STAIR
+    name: Blood on the Stair
+    icon: BloodyDoorframe
+    # question: [tatsuo, ichiro]
+    # implicates: [ICHIRO, TAKESHI]
+    recipes: NULL
+    description: |
+      A smear on the
+      stairwell between the
+      hold and the cabins.
+    details: |
+      tba
+
+  - id: SILENCED_WITNESS
+    name: Silenced Witness
+    icon: BloodyKnife
+    # question: [tatsuo]
+    # implicates: [ICHIRO]
+    recipes:
+      - [TWO_SOUNDS, BLOODY_CLOTH]
+    description: |
+      Tatsuo died because
+      he saw the weapon
+      go over the side.
+    details: |
+      tba
+
+  - id: THE_ACCOMPLICE_THEORY
+    name: Accomplice Theory
+    icon: LockedDoor
+    # question: [tatsuo, ichiro]
+    # implicates: [TAKESHI]
+    recipes:
+      - [AN_ACCOMPLICE, UNLOCKED_CELL]
+    description: |
+      Someone freed Takeshi,
+      and he was loose all
+      night.
+    details: |
+      tba
+
+  - id: SCORCHED_PANEL
+    name: Scorched Panel
+    icon: CharcoalDust
+    # question: [lights]
+    # implicates: []
+    recipes: NULL
+    description: |
+      Burns around the
+      breaker, spreading
+      from outside in.
+    details: |
+      tba
+
+  - id: SMEARGLE_REPERTOIRE
+    name: Smeargle's Moves
+    icon: Testimony
+    # question: [lights]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Ichiro's Smeargle
+      fought with no
+      electric move.
+    details: |
+      tba
+
+  - id: SMEARGLES_MOVESET
+    name: Sketched Move
+    icon: Testimony
+    # question: [lights]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Smeargle knows
+      Discharge now. It
+      did not before.
+    details: |
+      tba
+
+  - id: FOCUSED_BURN
+    name: Focused Burn
+    icon: CharcoalDust
+    # question: [lights]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      The burn is narrow.
+      One strike, not a
+      broad discharge.
+    details: |
+      tba
+
+  - id: THE_HOLD_ADJOINS
+    name: Adjoining Hold
+    icon: LockedDoor
+    # question: [lights]
+    # implicates: [TAKESHI]
+    recipes: NULL
+    description: |
+      The storeroom is on
+      the same deck as the
+      breaker panel.
+    details: |
+      tba
+
+  - id: SMEARGLE_KNOWS_DISCHARGE
+    name: Copied Discharge
+    icon: Testimony
+    # question: [lights]
+    # implicates: [ICHIRO]
+    recipes:
+      - [SMEARGLE_REPERTOIRE, SMEARGLES_MOVESET]
+    description: |
+      Smeargle learned an
+      electric move during
+      this voyage.
+    details: |
+      tba
+
+  - id: PANEL_STRUCK
+    name: Panel Struck
+    icon: CharcoalDust
+    # question: [lights]
+    # implicates: [ICHIRO]
+    recipes:
+      - [SCORCHED_PANEL, FOCUSED_BURN]
+    description: |
+      The breaker was hit
+      by one focused
+      electric strike.
+    details: |
+      tba
+
+  - id: THE_NEAREST_HAND
+    name: Nearest Hand
+    icon: LockedDoor
+    # question: [lights]
+    # implicates: [TAKESHI]
+    recipes:
+      - [THE_HOLD_ADJOINS, OPEN_SERVICE_DOOR]
+    description: |
+      The escaped man was
+      loose on the breaker
+      deck.
+    details: |
+      tba
+
+  - id: SKETCHED_DISCHARGE
+    name: Sketched Discharge
+    icon: CharcoalDust
+    # question: [lights]
+    # implicates: [ICHIRO]
+    recipes:
+      - [SMEARGLE_KNOWS_DISCHARGE, PANEL_STRUCK]
+    description: |
+      The blackout was a
+      Pokemon's move, aimed
+      at the breaker.
+    details: |
+      tba
+
+  - id: INJURED_LEG
+    name: Injured Leg
+    icon: BloodyDoorframe
+    # question: [ichiro]
+    # implicates: []
+    recipes: NULL
+    description: |
+      One clean wound to
+      the right thigh.
+    details: |
+      tba
+
+  - id: BATHROOM_BLACKOUT
+    name: Total Darkness
+    icon: Testimony
+    # question: [ichiro]
+    # implicates: []
+    recipes: NULL
+    description: |
+      Ichiro says the lights
+      went out and he never
+      saw his attacker.
+    details: |
+      tba
+
+  - id: BATHROOM_KNIFE
+    name: Bathroom Knife
+    icon: KitchenKnife
+    # question: [ichiro]
+    # implicates: []
+    recipes: NULL
+    description: |
+      Joji's knife, on the
+      floor beside him.
+    details: |
+      tba
+
+  - id: MISSING_KNIVES
+    name: Missing Knives
+    icon: KitchenKnife
+    # question: [ichiro]
+    # implicates: []
+    recipes: NULL
+    description: |
+      Eight slots in the
+      roll. Two of them
+      are empty.
+    details: |
+      tba
+
+  - id: NO_DEFENSIVE_WOUNDS
+    name: No Defence
+    icon: BloodyDoorframe
+    # question: [ichiro]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      No cuts to his hands
+      or his forearms.
+    details: |
+      tba
+
+  - id: THE_SECOND_STORY
+    name: The Second Story
+    icon: Testimony
+    # question: [ichiro]
+    # implicates: [ICHIRO]
+    recipes: NULL
+    description: |
+      Pressed on the dark,
+      Ichiro adds a detail
+      he could not have seen.
+    details: |
+      tba
+
+  - id: IMPOSSIBLE_PRECISION
+    name: Impossible Aim
+    icon: BloodyKnife
+    # question: [ichiro]
+    # implicates: [ICHIRO]
+    recipes:
+      - [BATHROOM_BLACKOUT, INJURED_LEG]
+    description: |
+      One clean, careful
+      wound, placed in
+      total darkness.
+    details: |
+      tba
+
+  - id: INCONSISTENT_DISPOSAL
+    name: Left Behind
+    icon: KitchenKnife
+    # question: [ichiro]
+    # implicates: [ICHIRO]
+    recipes:
+      - [BATHROOM_KNIFE, MISSING_KNIVES]
+    description: |
+      The first knife was
+      thrown to sea. The
+      second was left lying.
+    details: |
+      tba
+
+  - id: SELF_INFLICTED_WOUND
+    name: Self-Inflicted
+    icon: BloodyKnife
+    # question: [ichiro]
+    # implicates: [ICHIRO]
+    recipes:
+      - [IMPOSSIBLE_PRECISION, INCONSISTENT_DISPOSAL]
+    description: |
+      There was no
+      attacker. He did
+      it himself.
+    details: |
+      tba
+

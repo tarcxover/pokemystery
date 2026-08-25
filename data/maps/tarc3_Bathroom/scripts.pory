@@ -90,8 +90,7 @@ script tarc3_Bathroom_EventScript_IchiroDown {
     if (!flag(FLAG_TARC3_ICHIRO_FOUND_LIE)) {
         msgbox(format("{FONT_NARROW}(The lights were already out when whoever it was came in. He never saw a thing.)", "1_latin_rse_narrow"))
         closemessage
-        // giveevidence(EVD_BATHROOM_BLACKOUT)
-        call(tarc3_EventScript_EvidenceCaptured)
+        giveevidence(EVD_BATHROOM_BLACKOUT)
         closemessage
         setflag(FLAG_TARC3_ICHIRO_FOUND_LIE)
     }
@@ -100,9 +99,8 @@ script tarc3_Bathroom_EventScript_IchiroDown {
         msgbox(format("{FONT_NARROW}(His hands are clean. No cuts on the palms, nothing on the forearms.)", "1_latin_rse_narrow"))
         msgbox(format("{FONT_NARROW}(He was stabbed in the dark and he never once put a hand up.)", "1_latin_rse_narrow"))
         closemessage
-        // giveevidence(EVD_INJURED_LEG)
-        // giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
-        call(tarc3_EventScript_EvidenceCaptured)
+        giveevidence(EVD_INJURED_LEG)
+        giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
         closemessage
         setflag(FLAG_TARC3_ICHIRO_FOUND_LEG)
     }
@@ -117,8 +115,7 @@ script tarc3_Bathroom_EventScript_EvdKnife {
     msgbox(format("{FONT_NARROW}(Handle nearest his own hand, and barely a stride from where he's sitting.)", "1_latin_rse_narrow"))
     msgbox(format("{FONT_NARROW}(An attacker running for the door doesn't set it down at his victim's fingertips.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_BATHROOM_KNIFE)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_BATHROOM_KNIFE)
     closemessage
     setflag(FLAG_TARC3_BATH_FOUND_KNIFE)
     releaseall

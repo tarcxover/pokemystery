@@ -83,14 +83,12 @@ script tarc3_ElectricalRoom_EventScript_Breaker {
     msgbox(format("The scorching around the switch housing is blistered outward, not inward."))
     msgbox(format("{FONT_NARROW}(Nothing inside this panel burned out. The heat arrived from the room.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_SCORCHED_PANEL)
-    call(tarc3_EventScript_EvidenceCaptured)
+    giveevidence(EVD_SCORCHED_PANEL)
     closemessage
     delay(20)
     msgbox(format("{FONT_NARROW}(And Suzuki merely suggested it's just because the ship is twenty years old?)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_OLD_WIRING)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_OLD_WIRING cut
     closemessage
     setflag(FLAG_TARC3_ELEC_FOUND_PANEL)
     releaseall
