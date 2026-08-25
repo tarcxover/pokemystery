@@ -1760,7 +1760,7 @@
 #define FLAG_HIDE_TARC3_CABIN_TAKESHI               (TARC3_RESERVED_FLAGS_START + 0x75)
 #define FLAG_HIDE_TARC3_CABIN_CAST                  (TARC3_RESERVED_FLAGS_START + 0x76)
 #define FLAG_TARC3_SUZUKI_SEARCH_TALKED             (TARC3_RESERVED_FLAGS_START + 0x77)
-#define FLAG_UNUSED_0x9D8                           (TARC3_RESERVED_FLAGS_START + 0x78) // Unused Flag
+#define FLAG_TARC3_EVIDENCE_MENU                    (TARC3_RESERVED_FLAGS_START + 0x78) // Unlocks the EVIDENCE start menu entry
 #define FLAG_UNUSED_0x9D9                           (TARC3_RESERVED_FLAGS_START + 0x79) // Unused Flag
 #define FLAG_UNUSED_0x9DA                           (TARC3_RESERVED_FLAGS_START + 0x7A) // Unused Flag
 #define FLAG_UNUSED_0x9DB                           (TARC3_RESERVED_FLAGS_START + 0x7B) // Unused Flag
