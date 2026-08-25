@@ -5,6 +5,7 @@
 #include "constants/field_weather.h"
 #include "constants/item.h"
 #include "constants/items.h"
+#include "constants/script_menu.h"
 #include "event_data.h"
 #include "evidence.h"
 #include "field_weather.h"
@@ -14,6 +15,7 @@
 #include "international_string_util.h"
 #include "item.h"
 #include "item_icon.h"
+#include "item_use.h"
 #include "line_break.h"
 #include "list_menu.h"
 #include "main.h"
@@ -50,13 +52,14 @@
 #include "gpu_regs.h"
 #include "util.h"
 #include <string.h>
+#include "random.h"
 
-#define MAX_SELECTIONS 8
+#define MAX_SELECTIONS 4
 
 #define TASK_DATA(...) struct { s16 __VA_ARGS__; } *tData = (void *)gTasks[taskId].data
 #define TASK_DATA_N(n,...) struct { s16 __VA_ARGS__; } *tData = (void *)&gTasks[taskId].data[n]
 
-#define ACCUSE_MENU_BORDER_TILE 0x1D5
+#define ACCUSE_MENU_BORDER_TILE 439
 #define ACCUSE_MENU_DIALOG_TILE 0x1DD
 
 enum {
@@ -74,6 +77,13 @@ enum {
 
 };
 
+typedef struct AccuseMenuInit
+{
+    MainCallback cb;
+    enum Questions question;
+    enum Suspects suspect;
+} AccuseMenuInit;
+
 struct AccuseMenuState
 {
     MainCallback savedCallback;
@@ -85,6 +95,10 @@ struct AccuseMenuState
     u8 maxSelections;
     u8 remainingSelections;
     u32 selected[MAX_SELECTIONS];
+    enum Questions question;
+    u8 msgWinId;
+    u8 yesNoWinId;
+    u8 progTaskId;
 };
 
 struct AccuseMenuPrint {
@@ -101,6 +115,8 @@ enum WindowIds
     WIN_ACCUSE_LIST,
     WIN_ACCUSE_DESC,
     WIN_ACCUSE_NAME,
+    WIN_ACCUSE_SUSPECT,
+    WIN_ACCUSE_QUES,
     WIN_ACCUSE_HINTS,
     WIN_ACCUSE_COUNT
 };
@@ -109,25 +125,33 @@ static EWRAM_DATA struct AccuseMenuState *sAccuseMenuState = NULL;
 static EWRAM_DATA u8 *sBg1TilemapBuffer = NULL;
 static EWRAM_DATA u8 *sBg2TilemapBuffer = NULL;
 
+EWRAM_DATA enum Evidence gAccuseEvidence[MAX_SELECTIONS];
+
 static const struct BgTemplate sAccuseMenuBgTemplates[] =
 {
     {
         .bg = 0,
         .charBaseIndex = 0,
-        .mapBaseIndex = 31,
+        .mapBaseIndex = 7,
         .priority = 1
     },
     {
         .bg = 1,
         .charBaseIndex = 1,
-        .mapBaseIndex = 30,
+        .mapBaseIndex = 15,
         .priority = 2
     },
     {
         .bg = 2,
         .charBaseIndex = 2,
-        .mapBaseIndex = 29,
+        .mapBaseIndex = 23,
         .priority = 3
+    },
+    {
+        .bg = 3,
+        .charBaseIndex = 3,
+        .mapBaseIndex = 22,
+        .priority = 0
     }
 };
 
@@ -135,29 +159,18 @@ static const struct WindowTemplate sAccuseMenuWindowTemplates[] = {
     [WIN_ACCUSE_LIST] =
         {
             .bg = 0,
-            .tilemapLeft = 18,
-            .tilemapTop = 1,
+            .tilemapLeft = 0,
+            .tilemapTop = 2,
             .width = 11,
-            .height = 16,
+            .height = 15,
             .paletteNum = 15,
             .baseBlock = 1,
         },
-
-    /* [WIN_ACCUSE_MSG] = */
-    /*     { */
-    /*         .bg = 2, */
-    /*         .tilemapLeft = 2, */
-    /*         .tilemapTop = 15, */
-    /*         .width = 27, */
-    /*         .height = 4, */
-    /*         .paletteNum = 15, */
-    /*         .baseBlock = 1, */
-    /*     }, */
     [WIN_ACCUSE_DESC] =
         {
             .bg = 0,
-            .tilemapLeft = 1,
-            .tilemapTop = 11,
+            .tilemapLeft = 12,
+            .tilemapTop = 9,
             .width = 15,
             .height = 7,
             .paletteNum = 15,
@@ -166,17 +179,37 @@ static const struct WindowTemplate sAccuseMenuWindowTemplates[] = {
     [WIN_ACCUSE_NAME] =
         {
             .bg = 0,
-            .tilemapLeft = 3,
-            .tilemapTop = 9,
-            .width = 12,
-            .height = 2,
+            .tilemapLeft = 13,
+            .tilemapTop = 6,
+            .width = 15,
+            .height = 3,
+            .paletteNum = 15,
+            .baseBlock = 1,
+        },
+    [WIN_ACCUSE_SUSPECT] =
+        {
+            .bg = 0,
+            .tilemapLeft = 1,
+            .tilemapTop = 0,
+            .width = 8,
+            .height = 3,
+            .paletteNum = 15,
+            .baseBlock = 1,
+        },
+    [WIN_ACCUSE_QUES] =
+        {
+            .bg = 0,
+            .tilemapLeft = 12,
+            .tilemapTop = 0,
+            .width = 16,
+            .height = 3,
             .paletteNum = 15,
             .baseBlock = 1,
         },
     [WIN_ACCUSE_HINTS] =
         {
             .bg = 0,
-            .tilemapLeft = 16,
+            .tilemapLeft = 13,
             .tilemapTop = 16,
             .width = 14,
             .height = 2,
@@ -184,6 +217,36 @@ static const struct WindowTemplate sAccuseMenuWindowTemplates[] = {
             .baseBlock = 1,
         },
     DUMMY_WIN_TEMPLATE,
+};
+
+static const struct WindowTemplate sAccuseMsgWinTemplHelp = {
+    .bg = 3,
+    .tilemapLeft = 2,
+    .tilemapTop = 3,
+    .width = 26,
+    .height = 14,
+    .paletteNum = 14,
+    .baseBlock = 1,
+};
+
+static const struct WindowTemplate sAccuseMsgWinTemplNotify = {
+    .bg = 3,
+    .tilemapLeft = 1,
+    .tilemapTop = 12,
+    .width = 28,
+    .height = 7,
+    .paletteNum = 14,
+    .baseBlock = 1,
+};
+
+static const struct WindowTemplate sAccuseMsgWinTemplYesNo = {
+    .bg = 3,
+    .tilemapLeft = 1,
+    .tilemapTop = 2,
+    .width = 7,
+    .height = 4,
+    .paletteNum = 14,
+    .baseBlock = 200,
 };
 
 static const u32 sAccuseMenuTiles[] = INCBIN_U32("graphics/accuse_menu/bg/tiles.4bpp.smol");
@@ -194,22 +257,24 @@ static const u32 sAccuseMenuScrollingBgTiles[] = INCGFX_U32("graphics/accuse_men
 static const u32 sAccuseMenuScrollingBgTilemap[] = INCBIN_U32("graphics/accuse_menu/scroll/map.bin.smolTM");
 static const u16 sAccuseMenuScrollingBgPalette[] = INCGFX_U16("graphics/accuse_menu/scroll/palette_01.pal", ".gbapal");
 
+static const u32 sAccuseMenuBorderTiles[] = INCGFX_U32("graphics/accuse_menu/border_tiles.png", ".4bpp");
+static const u32 sAccuseMenuBorderPalette[] = INCGFX_U32("graphics/accuse_menu/border_tiles.png", ".gbapal");
+
 static const u32 sAccuseMenuProgBarGfx[] = INCGFX_U32("graphics/accuse_menu/progbar/progbar.png", ".4bpp");
 static const u16 sAccuseMenuProgBarPal[] = INCGFX_U16("graphics/accuse_menu/progbar/progbar.png", ".gbapal");
 
 static const ProgBar_Template sAccuseProgBarTemplate = 
 {
-    .totalBarPixels = 228,
+    .totalBarPixels = 130,
     .numStartTiles = 1,
     .numEndTiles = 1,
-    .xOffset = 3,
-    .yPos = 146,
+    .xOffset = 48,
+    .yPos = 112,
     .tileTag = PROG_BAR_TAG,
     .palTag = PROG_BAR_TAG,
     .pal = sAccuseMenuProgBarPal,
     .barGfx = (const Tile4BPP*)sAccuseMenuProgBarGfx,
 };
-
 
 static EWRAM_INIT ProgBar_Tracker sAccuseMenuProgTracker = {0, 0, 0};
 
@@ -226,13 +291,13 @@ static const struct ListMenuTemplate sAccuseMenuListTemplate =
 {
     .item_X = 12,
     .cursor_X = 4,
-    .upText_Y = 8,
+    .upText_Y = 10,
     .cursorPal = TEXT_COLOR_DARK_GRAY,
     .fillValue = 0,
     .cursorShadowPal = TEXT_COLOR_LIGHT_GRAY,
     .lettersSpacing = 0,
     .scrollMultiple = LIST_NO_MULTIPLE_SCROLL,
-    .itemVerticalPadding = 0,
+    .itemVerticalPadding = 1,
     .fontId = FONT_SMALL,
     .maxShowed = 6,
 };
@@ -253,14 +318,14 @@ static union TextColor sAccuseMenuWindowFontColors[] = {
     [FONT_BLUE] =
         {
             .background = TEXT_COLOR_TRANSPARENT,
-            .foreground = TEXT_COLOR_BLUE,
-            .shadow     = TEXT_COLOR_LIGHT_BLUE,
+            .foreground = TEXT_COLOR_LIGHT_BLUE,
+            .shadow     = TEXT_COLOR_BLUE,
         },
     [FONT_RED] =
         {
             .background = TEXT_COLOR_TRANSPARENT,
-            .foreground = TEXT_COLOR_RED,
-            .shadow     = TEXT_COLOR_LIGHT_RED,
+            .foreground = TEXT_COLOR_LIGHT_RED,
+            .shadow     = TEXT_COLOR_RED,
         },
     [FONT_GREEN] =
         {
@@ -276,7 +341,7 @@ enum {
     EVD_POS_RESULT,
 };
 
-static const struct Coords16 sAccuseMenuIconPos = {34, 53};
+static const struct Coords16 sAccuseMenuIconPos = {111, 43};
 
 static const u8 sText_DeductionSuccess[] = _("Deduction Successful. Recieved new evidence:\n{STR_VAR_1}");
 
@@ -287,18 +352,19 @@ static void AccuseMenu_VBlankCB(void);
 static void Task_AccuseMenuWaitFadeIn(u8 taskId);
 static void Task_AccuseMenuInitList(u8 taskId);
 static void Task_AccuseMenuMainInput(u8 taskId);
-static void Task_AccuseMenuHandleDeduction(u8 taskId);
+static void Task_AccuseMenuHandleAccuse(u8 taskId);
 static void Task_AccuseMenuWaitFadeAndExit(u8 taskId);
 static void Task_AccuseMenuScrollBg(u8 taskId);
+static void Task_MessagWinInput(u8 taskId);
 
-static void AccuseMenu_Init(MainCallback callback);
+static void AccuseMenu_Init(AccuseMenuInit* init);
 static void AccuseMenu_ResetGpuRegsAndBgs(void);
 static bool8 AccuseMenu_InitBgs(void);
 static void AccuseMenu_FadeAndBail(void);
 static bool8 AccuseMenu_LoadGraphics(void);
 static void AccuseMenu_InitWindows(void);
 static u32 CreateEvidenceListMenu(struct ListMenuTemplate* t);
-static void DrawAccuseMenuMsgWin(u8 winId);
+static u32 DrawAccuseMenuMsgWin(const struct WindowTemplate* t, const u8* string);
 static void AccuseMenuPrintMsg(struct AccuseMenuPrint *p);
 static void AccuseMenuCenterText(struct AccuseMenuPrint *p);
 static u32 CreateEvidenceIcon(u32 pos, u32 input);
@@ -308,23 +374,37 @@ static void RedrawEvidenceIcons(void);
 static u32 GetListMaxShowable(struct ListMenuTemplate* t);
 static void AccuseMenuList_PrintFunc(const struct ListMenu *list, u32 index, u8 y);
 static void PrintDescription(enum Item id);
-static void PrintDeductionMessage(struct EvidenceInfo e);
-static void ClearAccuseMenuWinMsg(u8 winId);
 static void PrintAccuseMenuHints(u32 color);
 static void PrintAccuseMenuItemName(enum Item item);
+static void PrintAccuseMenuSuspect(enum Suspects suspect);
+static void PrintAccuseMenuQuestion();
 static u32 FillEvdList(struct ListMenuItem *items);
 static u32 AddAccuseMenuScrollArrows(struct ListMenu *list);
-
+static u32 CalculateScore(u32* evidence, u32 count);
+static void UNUSED Accuse_CreateYesNoMenu(const struct WindowTemplate *window, u16 baseTileNum, u8 paletteNum, u8 initialCursorPos);
+static void HideAccuseMenuMsgWin(u8 winId);
 
 static void Accuse_CreateProgBar();
 
 static void AccuseMenu_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu *list);
 static void AccuseMenu_FreeResources(void);
 
+static EWRAM_DATA AccuseMenuInit sAccuseMenuInit;
+
+void ScrCmd_openaccusemenu(struct ScriptContext* ctx)
+{
+    Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
+    enum Questions q = ScriptReadByte(ctx);
+    enum Suspects s = ScriptReadByte(ctx);
+    sAccuseMenuInit.question = q;
+    sAccuseMenuInit.suspect = s;
+    CB2_InitAccuseMenu();
+}
 
 void CB2_InitAccuseMenu(void)
 {
     FadeScreen(FADE_TO_BLACK, 0);
+    sAccuseMenuInit.cb = CB2_ReturnToField;
     CreateTask(Task_OpenAccuseMenu, 1);
 }
 
@@ -333,17 +413,17 @@ void Task_OpenAccuseMenu(u8 taskId)
     if (!gPaletteFade.active)
     {
         CleanupOverworldWindowsAndTilemaps();
-        AccuseMenu_Init(CB2_ReturnToFieldWithOpenMenu);
+        AccuseMenu_Init(&sAccuseMenuInit);
         DestroyTask(taskId);
     }
 }
 
-static void AccuseMenu_Init(MainCallback callback)
+static void AccuseMenu_Init(AccuseMenuInit* init)
 {
     sAccuseMenuState = AllocZeroed(sizeof(struct AccuseMenuState));
     if (sAccuseMenuState == NULL)
     {
-        SetMainCallback2(callback);
+        SetMainCallback2(init->cb);
         return;
     }
 
@@ -351,9 +431,10 @@ static void AccuseMenu_Init(MainCallback callback)
         sAccuseMenuState->spriteIds[i] = SPRITE_NONE;
 
     sAccuseMenuState->loadState = 0;
-    sAccuseMenuState->savedCallback = callback;
+    sAccuseMenuState->savedCallback = init->cb;
     sAccuseMenuState->maxSelections = MAX_SELECTIONS;
     sAccuseMenuState->remainingSelections = sAccuseMenuState->maxSelections;
+    sAccuseMenuState->question = sAccuseMenuInit.question;
 
     SetMainCallback2(AccuseMenu_SetupCB);
 }
@@ -433,10 +514,15 @@ static void AccuseMenu_SetupCB(void)
         gMain.state++;
         break;
     case 6:
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
+        PrintAccuseMenuQuestion();
+        PrintAccuseMenuSuspect(SUSPECT_ICHIRO);
         gMain.state++;
         break;
     case 7:
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
+        gMain.state++;
+        break;
+    case 8:
         CreateTask(Task_AccuseMenuScrollBg, 0);
         SetVBlankCallback(AccuseMenu_VBlankCB);
         SetMainCallback2(AccuseMenu_MainCB);
@@ -448,6 +534,17 @@ static void Task_AccuseMenuMainInput(u8 taskId)
 {
     TASK_DATA(state, listTaskId, p1, p2);
 
+    if (JOY_NEW(SELECT_BUTTON))
+    {
+        sAccuseMenuState->msgWinId = DrawAccuseMenuMsgWin(&sAccuseMsgWinTemplHelp, COMPOUND_STRING(
+            "Accuse the suspect by selecting upto 4 pieces of evidence that prove they did it. "
+            "The current issue under consideration is shown at the top. The stronger your evidence,"
+            "the better the accusation."
+        ));
+        RemoveScrollIndicatorArrowPair(sAccuseMenuState->scrollIndicatorTask);
+        gTasks[taskId].func = Task_MessagWinInput;
+    }
+
     struct ListMenu* list = (void*) gTasks[tData->listTaskId].data;
     s32 input = ListMenu_ProcessInput(tData->listTaskId);
     switch (input)
@@ -458,22 +555,19 @@ static void Task_AccuseMenuMainInput(u8 taskId)
         if(JOY_NEW(START_BUTTON))
             {
                 tData->state = 0;
-                tData->p1 = sAccuseMenuState->selected[0];
-                tData->p2 = sAccuseMenuState->selected[1];
-                if (sAccuseMenuState->maxSelections - sAccuseMenuState->remainingSelections < 2)
-                {
-                    PlaySE(SE_FAILURE);
-                    break;
-                }
-                gTasks[taskId].func = Task_AccuseMenuHandleDeduction;
+                RemoveScrollIndicatorArrowPair(sAccuseMenuState->scrollIndicatorTask);
+                gTasks[taskId].func = Task_AccuseMenuHandleAccuse;
             }
         break;
     case LIST_CANCEL:
         if (!gTasks[taskId].data[1])
         {
-            gSpecialVar_Result = MULTI_B_PRESSED;
-            FadeScreen(FADE_TO_BLACK, 0);
-            gTasks[taskId].func = Task_AccuseMenuWaitFadeAndExit;
+            u32 max = sAccuseMenuState->maxSelections;
+            u32 *listptr = sAccuseMenuState->selected;
+            memset(listptr, 0, max * sizeof(sAccuseMenuState->selected[0]));
+            sAccuseMenuState->remainingSelections = max;
+            RedrawListMenu(tData->listTaskId);
+            goto finish;
         }
         break;
     default: {
@@ -507,79 +601,70 @@ static void Task_AccuseMenuMainInput(u8 taskId)
         else
             color = sAccuseMenuWindowFontColors[FONT_RED].asU32;
         PrintAccuseMenuHints(color);
-        gSpecialVar_Result = input;
         break;
     }
     }
 }
 
-static void Task_AccuseMenuHandleDeduction(u8 taskId)
+static void Task_AccuseMenuHandleAccuse(u8 taskId)
 {
     TASK_DATA(state, listTaskId, p1, p2);
     struct ListMenu *list = (void *)gTasks[tData->listTaskId].data;
 
     switch (tData->state)
     {
-    case 0: {
-
-        enum Evidence e = GetDeduction(tData->p1 - ITEM_EVIDENCE_START,
-                                       tData->p2 - ITEM_EVIDENCE_START);
-
-        struct EvidenceInfo c = gEvidence[e];
-
-        if (e == EVD_COUNT || CheckBagHasItem(c.itemId, 1))
-        {
-            PlaySE(SE_FAILURE);
-            gTasks[taskId].func = Task_AccuseMenuMainInput;
-            return;
-        }
-
-
-        if (CheckBagHasSpace(c.itemId, 1))
-            AddBagItem(c.itemId, 1);
-
-        PlaySE(SE_SHINY);
-        RemoveScrollIndicatorArrowPair(sAccuseMenuState->scrollIndicatorTask);
-        PrintDeductionMessage(c);
-        sAccuseMenuState->spriteIds[EVD_POS_RESULT] =
-            CreateEvidenceIcon(EVD_POS_RESULT, c.itemId);
-        ShowBg(2);
+    case 0:
+        sAccuseMenuState->msgWinId = DrawAccuseMenuMsgWin(&sAccuseMsgWinTemplNotify, COMPOUND_STRING("Are you sure?"));
+        CreateYesNoMenu(&sAccuseMsgWinTemplYesNo, ACCUSE_MENU_BORDER_TILE, 14, 0);
         tData->state++;
         break;
-    }
     case 1:
-        if (JOY_NEW(A_BUTTON))
-        {
-            sAccuseMenuState->remainingSelections = sAccuseMenuState->maxSelections;
-            memset(sAccuseMenuState->selected, 0xFF, sizeof(sAccuseMenuState->selected));
-            DestroyAllEvidenceIcons();
-            DestroyEvidenceIcon(EVD_POS_RESULT);
-
-            u32 evdCount = FillEvdList(sAccuseMenuState->evidence);
-            list->template.totalItems = evdCount;
-            list->template.items = sAccuseMenuState->evidence;
-
-            u32 maxShowable = GetListMaxShowable(&list->template);
-            if (list->template.totalItems > maxShowable)
+        s8 input = Menu_ProcessInputNoWrapClearOnChoose();
+            if (input == 0)
             {
-                if (list->selectedRow > maxShowable / 2)
-                    list->selectedRow = maxShowable / 2;
-                list->template.maxShowed = maxShowable;
+                tData->state++;
             }
-            else
-            {
-                list->template.maxShowed = list->template.totalItems;
+            else if (input != MENU_NOTHING_CHOSEN) {
+                HideAccuseMenuMsgWin(sAccuseMenuState->msgWinId);
+                sAccuseMenuState->scrollIndicatorTask = AddAccuseMenuScrollArrows(list);
+                gTasks[taskId].func = Task_AccuseMenuMainInput;
             }
-            tData->state++;
-        }
         break;
     case 2:
-        /* ClearAccuseMenuWinMsg(WIN_ACCUSE_MSG); */
-        HideBg(2);
-        sAccuseMenuState->scrollIndicatorTask = AddAccuseMenuScrollArrows(list);
-        PrintAccuseMenuHints(sAccuseMenuWindowFontColors[FONT_RED].asU32);
-        RedrawListMenu(tData->listTaskId);
-        gTasks[taskId].func = Task_AccuseMenuMainInput;
+        u32 count = sAccuseMenuState->maxSelections -
+                    sAccuseMenuState->remainingSelections;
+        u32 score = CalculateScore(sAccuseMenuState->selected, count);
+        gSpecialVar_Result = score;
+        gAccuseScore += score;
+
+        for (u32 i = 0; i < MAX_SELECTIONS; i++)
+        {
+            enum Evidence e =
+                sAccuseMenuState->selected[i] - ITEM_EVIDENCE_START;
+            gAccuseEvidence[i] = i < count ? e : EVD_COUNT;
+        }
+
+        HideAccuseMenuMsgWin(sAccuseMenuState->msgWinId);
+        tData->state++;
+        break;
+    case 3:
+        gAccuseMenuProgTracker.target = gAccuseScore;
+        ProgBar_State* progState = (void*)gTasks[sAccuseMenuState->progTaskId].data;
+        if (!progState->animating)
+            tData->state++;
+        break;
+    case 4:
+        PlaySE(SE_SUCCESS);
+        tData->state++;
+    case 5 ... 30:
+        tData->state++;
+        break;
+    case 31:
+        if (IsSEPlaying())
+            break;
+        FadeScreen(FADE_TO_BLACK, 0);
+        gTasks[taskId].func = Task_AccuseMenuWaitFadeAndExit;
+        break;
     }
 }
 
@@ -634,16 +719,19 @@ static void AccuseMenu_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMe
 
     PrintDescription(itemIndex);
     PrintAccuseMenuItemName(itemIndex);
+    u32 evdId = itemIndex - ITEM_EVIDENCE_START;
+    u32 score = gEvidence[evdId].score;
+    DebugPrintf("Score: %d", score);
 }
 
 static const struct ScrollArrowsTemplate sEvidenceMenuScrollArrowTemplate =
 {
     .firstArrowType = SCROLL_ARROW_UP,
-    .firstX = 180,
-    .firstY = 8,
+    .firstX = 40,
+    .firstY = 26,
     .secondArrowType = SCROLL_ARROW_DOWN,
-    .secondX = 180,
-    .secondY = 152,
+    .secondX = 40,
+    .secondY = 134,
     .fullyUpThreshold = 0,
     .fullyDownThreshold = 0,
     .tileTag = ACCUSE_TAG_SCROLL_ARROW,
@@ -711,8 +799,8 @@ static u32 CreateEvidenceIcon(u32 pos, u32 itemId)
 {
     u32 id = AddItemIconSprite(ACCUSE_TAG_P1 + pos, ACCUSE_TAG_P1 + pos, itemId);
     struct Sprite* sprite = &gSprites[id];
-    sprite->x = sAccuseMenuIconPos.x + (pos % (MAX_SELECTIONS/2)) * 27;
-    sprite->y = sAccuseMenuIconPos.y + (pos / (MAX_SELECTIONS/2)) * 27;
+    sprite->x = sAccuseMenuIconPos.x + (pos % (MAX_SELECTIONS)) * 36;
+    sprite->y = sAccuseMenuIconPos.y + (pos / (MAX_SELECTIONS)) * 40;
     return id;
 }
 
@@ -767,7 +855,7 @@ static void AccuseMenuList_PrintFunc(const struct ListMenu *list, u32 index, u8 
     bool32 selected = lsearch(&id, sAccuseMenuState->selected, sAccuseMenuState->maxSelections) != UINT32_MAX;
 
     const u32 color = selected ? sAccuseMenuWindowFontColors[FONT_BLUE].asU32
-                               : sAccuseMenuWindowFontColors[FONT_BLACK].asU32;
+                               : sAccuseMenuWindowFontColors[FONT_WHITE].asU32;
 
     const u8 *name = item->name;
 
@@ -826,6 +914,7 @@ static bool8 AccuseMenu_InitBgs(void)
     ShowBg(0);
     ShowBg(1);
     ShowBg(2);
+    ShowBg(3);
 
     return TRUE;
 }
@@ -854,11 +943,12 @@ static bool8 AccuseMenu_LoadGraphics(void)
         sAccuseMenuState->loadState++;
         break;
     case 2:
-        LoadBgTiles(2, GetWindowFrameTilesPal(gSaveBlock2Ptr->optionsWindowFrameType)->tiles, 0x120, ACCUSE_MENU_BORDER_TILE);
-        LoadPalette(GetWindowFrameTilesPal(gSaveBlock2Ptr->optionsWindowFrameType)->pal, BG_PLTT_ID(2), PLTT_SIZE_4BPP);
+        LoadBgTiles(3, sAccuseMenuBorderTiles, 0x120, ACCUSE_MENU_BORDER_TILE);
+        LoadPalette(sAccuseMenuBorderPalette, BG_PLTT_ID(2), PLTT_SIZE_4BPP);
         LoadPalette(sAccuseMenuPalette, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
         LoadPalette(sAccuseMenuScrollingBgPalette, BG_PLTT_ID(1), PLTT_SIZE_4BPP);
         LoadPalette(gMessageBox_Pal, BG_PLTT_ID(15), PLTT_SIZE_4BPP);
+        LoadPalette(sAccuseMenuBorderPalette, BG_PLTT_ID(14), PLTT_SIZE_4BPP);
         sAccuseMenuState->loadState++;
     default:
         sAccuseMenuState->loadState = 0;
@@ -881,7 +971,7 @@ enum WindowTilePosition
     TILE_COUNT,
 };
 
-static void UNUSED DrawAccuseMenuWindowBorder(const struct WindowTemplate *template, u16 baseTileNum)
+static void DrawAccuseMenuWindowBorder(const struct WindowTemplate *template, u16 baseTileNum)
 {
     u32 topLeft     = baseTileNum + TILE_TOP_LEFT;
     u32 top         = baseTileNum + TILE_TOP;
@@ -924,7 +1014,6 @@ static void AccuseMenu_InitWindows(void)
     }
     ScheduleBgCopyTilemapToVram(0);
     FillWindowPixelBuffer(WIN_ACCUSE_LIST, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
-    /* DrawAccuseMenuMsgWin(WIN_ACCUSE_MSG); */
     PrintAccuseMenuHints(sAccuseMenuWindowFontColors[FONT_RED].asU32);
     for (int i = 0; i < WIN_ACCUSE_COUNT; i++)
     {
@@ -933,32 +1022,66 @@ static void AccuseMenu_InitWindows(void)
     }
 }
 
-static void DrawAccuseMenuMsgWin(u8 winId)
+static u32 DrawAccuseMenuMsgWin(const struct WindowTemplate *t, const u8 *string)
 {
-    LoadMessageBoxGfx(winId, ACCUSE_MENU_DIALOG_TILE, BG_PLTT_ID(15));
-    DrawDialogFrameWithCustomTile(winId, TRUE, ACCUSE_MENU_DIALOG_TILE);
+    u32 msgWin = AddWindow(t);
+    FillWindowPixelBuffer(msgWin, PIXEL_FILL(1));
+    DrawAccuseMenuWindowBorder(t, ACCUSE_MENU_BORDER_TILE);
+    PutWindowTilemap(msgWin);
+
+    union TextColor c = {{
+        .background = 0,
+        .foreground = 2,
+        .shadow = 3,
+    }};
+
+    struct AccuseMenuPrint p = {
+        .font = FONT_SMALL,
+        .x = 2,
+        .window = msgWin,
+        .text = gStringVar4,
+        .color = c,
+    };
+
+    StringCopy(gStringVar4, string);
+    StripLineBreaks(gStringVar4);
+    u32 w = GetWindowAttribute(p.window, WINDOW_WIDTH) * 8;
+    BreakStringAutomatic(gStringVar4, w, 8, p.font, HIDE_SCROLL_PROMPT);
+
+    AccuseMenuPrintMsg(&p);
+    CopyWindowToVram(msgWin, COPYWIN_FULL);
+    SetGpuReg(REG_OFFSET_BLDCNT,
+              (BLDCNT_TGT1_ALL & ~BLDCNT_TGT1_BG3) | BLDCNT_EFFECT_DARKEN);
+    SetGpuReg(REG_OFFSET_BLDY, 10);
+    ShowBg(3);
+    return msgWin;
+}
+
+static void HideAccuseMenuMsgWin(u8 winId)
+{
+    FillWindowPixelBuffer(winId, PIXEL_FILL(0));
+    ClearStdWindowAndFrame(winId, 0);
     CopyWindowToVram(winId, COPYWIN_FULL);
+    SetGpuReg(REG_OFFSET_BLDCNT, 0);
+    SetGpuReg(REG_OFFSET_BLDY, 0);
+    HideBg(3);
+    RemoveWindow(winId);
 }
 
-static void ClearAccuseMenuWinMsg(u8 winId)
+static void Task_MessagWinInput(u8 taskId)
 {
-    LoadMessageBoxGfx(winId, ACCUSE_MENU_DIALOG_TILE, BG_PLTT_ID(15));
-    DrawDialogFrameWithCustomTile(winId, TRUE, ACCUSE_MENU_DIALOG_TILE);
-    CopyWindowToVram(winId, COPYWIN_GFX);
-}
+    TASK_DATA(state, listTaskId, p1, p2);
 
-static void PrintDeductionMessage(struct EvidenceInfo e)
-{
-    /* gTextFlags.canABSpeedUpPrint = TRUE; */
-    /* struct AccuseMenuPrint p = { */
-    /*     .font = FONT_SMALL, */
-    /*     .window = WIN_ACCUSE_MSG, */
-    /*     .text = gStringVar4, */
-    /*     .color = sAccuseMenuWindowFontColors[FONT_BLACK], */
-    /* }; */
-    /* StringCopy(gStringVar1, GetItemName(e.itemId)); */
-    /* StringExpandPlaceholders(gStringVar4, sText_DeductionSuccess); */
-    /* AccuseMenuPrintMsg(&p); */
+    if (JOY_NEW(A_BUTTON | SELECT_BUTTON))
+    {
+        struct ListMenu *list = (void *)gTasks[tData->listTaskId].data;
+        HideAccuseMenuMsgWin(sAccuseMenuState->msgWinId);
+        HideBg(3);
+        sAccuseMenuState->scrollIndicatorTask = AddAccuseMenuScrollArrows(list);
+        PrintAccuseMenuHints(sAccuseMenuWindowFontColors[FONT_RED].asU32);
+        /* RedrawListMenu(tData->listTaskId); */
+        gTasks[taskId].func = Task_AccuseMenuMainInput;
+    }
 }
 
 static void PrintDescription(enum Item id)
@@ -972,8 +1095,8 @@ static void PrintDescription(enum Item id)
         .text = gStringVar4,
         .color = {{
             TEXT_COLOR_TRANSPARENT,
+            TEXT_COLOR_WHITE,
             TEXT_COLOR_DARK_GRAY,
-            TEXT_COLOR_LIGHT_GRAY,
         }},
     };
     StringCopy(gStringVar4, GetItemDescription(id));
@@ -995,9 +1118,9 @@ static void PrintAccuseMenuHints(u32 color)
         .font = fontId,
         .window = WIN_ACCUSE_HINTS,
         .x = x,
-        .y = 1,
+        .y = 0,
         .text = text,
-        .color.asU32 = color,
+        .color = sAccuseMenuWindowFontColors[FONT_RED],
     };
     AccuseMenuPrintMsg(&p);
     CopyWindowToVram(WIN_ACCUSE_HINTS, COPYWIN_GFX);
@@ -1011,7 +1134,7 @@ static void PrintAccuseMenuItemName(enum Item item)
         .font = FONT_SMALL_NARROWER,
         .window = WIN_ACCUSE_NAME,
         .x = 0,
-        .y = 0,
+        .y = 6,
         .text = GetItemName(item),
         .color = sAccuseMenuWindowFontColors[FONT_WHITE],
     };
@@ -1019,6 +1142,41 @@ static void PrintAccuseMenuItemName(enum Item item)
     AccuseMenuCenterText(&p);
     AccuseMenuPrintMsg(&p);
     CopyWindowToVram(WIN_ACCUSE_NAME, COPYWIN_GFX);
+}
+
+static void PrintAccuseMenuSuspect(enum Suspects suspect)
+{
+    FillWindowPixelBuffer(WIN_ACCUSE_SUSPECT, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
+
+    struct AccuseMenuPrint p = {
+        .font = FONT_SMALL_NARROWER,
+        .window = WIN_ACCUSE_SUSPECT,
+        .x = 0,
+        .y = 6,
+        .text = GetSuspectText(suspect),
+        .color = sAccuseMenuWindowFontColors[FONT_WHITE],
+    };
+
+    AccuseMenuCenterText(&p);
+    AccuseMenuPrintMsg(&p);
+    CopyWindowToVram(WIN_ACCUSE_SUSPECT, COPYWIN_GFX);
+}
+
+static void PrintAccuseMenuQuestion()
+{
+    FillWindowPixelBuffer(WIN_ACCUSE_QUES, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
+
+    struct AccuseMenuPrint p = {
+        .font = FONT_SMALL_NARROWER,
+        .window = WIN_ACCUSE_QUES,
+        .x = 6,
+        .y = 6,
+        .text = GetQuestionText(sAccuseMenuState->question),
+        .color = sAccuseMenuWindowFontColors[FONT_WHITE],
+    };
+
+    AccuseMenuPrintMsg(&p);
+    CopyWindowToVram(WIN_ACCUSE_QUES, COPYWIN_GFX);
 }
 
 static void AccuseMenuPrintMsg(struct AccuseMenuPrint *p)
@@ -1053,39 +1211,75 @@ static void Task_AccuseMenuScrollBg(u8 taskId)
     }
 }
 
-// For Testing
-static void Task_ProgressBarHandleInput(u8 taskId)
+static bool32 _ImplicatesSuspect(enum Suspects suspect, enum Evidence evidence)
 {
-    TASK_DATA(barId);
-    const u32 step = 1;
+    auto suspectPtr = gEvidence[evidence].suspects;
 
-    if (JOY_NEW(L_BUTTON) && JOY_NEW(R_BUTTON)) {
-        ProgBar_Destroy(&sAccuseProgBarTemplate, tData->barId);
-        DestroyTask(taskId);
-        return;
-    }
-
-    if (JOY_HELD(R_BUTTON))
-        sAccuseMenuProgTracker.curr = AddClamped(0, sAccuseMenuProgTracker.max, sAccuseMenuProgTracker.curr, step);
-    else if (JOY_HELD(L_BUTTON))
-        sAccuseMenuProgTracker.curr = SubtractClamped(0, sAccuseMenuProgTracker.max, sAccuseMenuProgTracker.curr, step);
-
-    if (JOY_HELD(L_BUTTON | R_BUTTON))
+    while (TRUE)
     {
-        ProgBar_FillWithEmpty(&sAccuseProgBarTemplate, &sAccuseMenuProgTracker, tData->barId);
-        u32 filledPixels = ProgBar_CalcFilledPixels(&sAccuseMenuProgTracker, sAccuseProgBarTemplate.totalBarPixels);
-        ProgBar_Update(&sAccuseProgBarTemplate, &sAccuseMenuProgTracker, filledPixels, tData->barId);
+        if (*suspectPtr == suspect)
+        {
+
+            return TRUE;
+        }
+        else if (*suspectPtr == SUSPECT_COUNT)
+        {
+            return FALSE;
+        }
+        else
+        {
+            suspectPtr++;
+        }
     }
+}
+
+static u32 CalculateScore(u32* evidence, u32 count)
+{
+    u32 score = 0;
+    for (u32 i = 0; i < count; i++)
+    {
+        enum Evidence e = evidence[i] - ITEM_EVIDENCE_START;
+        if (_ImplicatesSuspect(sAccuseMenuInit.suspect, e))
+        {
+            score += gEvidence[e].score;
+        }
+    }
+    return score;
+}
+
+static void Accuse_CreateYesNoMenu(const struct WindowTemplate *window, u16 baseTileNum, u8 paletteNum, u8 initialCursorPos)
+{
+    struct TextPrinterTemplate printer;
+
+    sAccuseMenuState->yesNoWinId = AddWindow(window);
+    DrawStdFrameWithCustomTileAndPalette(sAccuseMenuState->yesNoWinId, TRUE, baseTileNum, paletteNum);
+
+    printer.currentChar = gText_YesNo;
+    printer.type = WINDOW_TEXT_PRINTER;
+    printer.windowId = sAccuseMenuState->yesNoWinId;
+    printer.fontId = FONT_NORMAL;
+    printer.x = 8;
+    printer.y = 1;
+    printer.currentX = printer.x;
+    printer.currentY = printer.y;
+    printer.color.foreground = GetFontAttribute(FONT_NORMAL, FONTATTR_COLOR_FOREGROUND);
+    printer.color.background = GetFontAttribute(FONT_NORMAL, FONTATTR_COLOR_BACKGROUND);
+    printer.color.shadow = GetFontAttribute(FONT_NORMAL, FONTATTR_COLOR_SHADOW);
+    printer.color.accent = GetFontAttribute(FONT_NORMAL, FONTATTR_COLOR_ACCENT);
+    printer.letterSpacing = 0;
+    printer.lineSpacing = 0;
+
+    AddTextPrinter(&printer, TEXT_SKIP_DRAW, NULL);
+    InitMenuInUpperLeftCornerNormal(sAccuseMenuState->yesNoWinId, 2, initialCursorPos);
 }
 
 static void Accuse_CreateProgBar()
 {
-    sAccuseMenuProgTracker.max = 100;
-    sAccuseMenuProgTracker.curr = 100;
-    u32 barId = ProgBar_CreateBar(&sAccuseProgBarTemplate,&sAccuseMenuProgTracker);
-    u32 taskId = CreateTask(Task_ProgressBarHandleInput, 0);
-    TASK_DATA(barId);
-    tData->barId = barId;
+    gAccuseMenuProgTracker.max = 100;
+    gAccuseMenuProgTracker.curr = gAccuseScore;
+    gAccuseMenuProgTracker.target = gAccuseMenuProgTracker.curr;
+    u32 progTaskId = ProgBar_CreateBar(&sAccuseProgBarTemplate,&gAccuseMenuProgTracker);
+    sAccuseMenuState->progTaskId = progTaskId;
 }
 
 static void AccuseMenu_FreeResources(void)

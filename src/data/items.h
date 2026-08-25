@@ -21,7 +21,7 @@
 #define ITEM_NAME(str) COMPOUND_STRING_SIZE_LIMIT(str, ITEM_NAME_LENGTH)
 #define ITEM_PLURAL_NAME(str) COMPOUND_STRING_SIZE_LIMIT(str, ITEM_NAME_PLURAL_LENGTH)
 
-#define EVIDENCE_ITEM(id, _name, _description, details, icon) \
+#define EVIDENCE_ITEM(id, _name, _description, details, icon, ...) \
     [CAT(ITEM_, id)] = {                                      \
         .name = _name,                                        \
         .price = 0,                                           \
