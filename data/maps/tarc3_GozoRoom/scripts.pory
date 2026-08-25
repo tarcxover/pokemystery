@@ -81,8 +81,7 @@ script tarc3_GozoRoom_EventScript_TheBody {
     msgbox(format("{FONT_NARROW}(Blood on the doorframe, but the door was shut and locked.)", "1_latin_rse_narrow"))
     msgbox(format("{FONT_NARROW}(That only happens one way. He was cut before the door closed, not after.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_BLOODY_DOORFRAME)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_BLOODY_DOORFRAME cut
     closemessage
     delay(30)
     msgbox(format("{FONT_NARROW}(The blood has gone dark at the edges.\pIt happened about forty minutes ago.)", "1_latin_rse_narrow"))
@@ -351,8 +350,7 @@ script tarc3_GozoRoom_EventScript_GozoBody {
     msgbox(format("Wounds across the chest, and not one of them alone would have been enough."))
     msgbox(format("{FONT_NARROW}(Whoever did this went on doing it long after he stopped fighting back.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_VICIOUS_ATTACK)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_VICIOUS_ATTACK cut
     closemessage
     setflag(FLAG_TARC3_GOZO_FOUND_BODY)
     releaseall
@@ -371,8 +369,7 @@ script tarc3_GozoRoom_EventScript_Window {
     msgbox(format("The cabin window is painted into its frame. The catch has not been turned in years."))
     msgbox(format("{FONT_NARROW}(Nobody came in this way, and nobody left by it either.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_SEALED_WINDOW)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_SEALED_WINDOW cut
     closemessage
     setflag(FLAG_TARC3_GOZO_FOUND_WINDOW)
     releaseall
@@ -424,8 +421,7 @@ script tarc3_GozoRoom_EventScript_SearchBin {
     msgbox(format("There are discarded bottles of medicine in here, but no blade."))
     msgbox(format("{FONT_NARROW}(Somebody didn't want the others knowing about the medication.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_MEDICATION)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_MEDICATION cut
     closemessage
     setflag(FLAG_TARC3_GOZO_FOUND_MEDICATION)
     goto(tarc3_GozoRoom_EventScript_SearchCheck)
@@ -446,8 +442,7 @@ script tarc3_GozoRoom_EventScript_SearchCheck {
     msgbox(format("{FONT_NARROW}(The bed, the couch and the bin. That is everywhere a blade could be in this room.)", "1_latin_rse_narrow"))
     msgbox(format("{FONT_NARROW}(There is no weapon in here. He could not have done this to himself and then hidden it.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_NO_WEAPON)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_NO_WEAPON cut
     closemessage
     setflag(FLAG_TARC3_GOZO_FOUND_WEAPON)
     goto(tarc3_GozoRoom_EventScript_SearchEnd)
@@ -465,8 +460,7 @@ script tarc3_GozoRoom_EventScript_FollowerMagnezoneSearch {
     msgbox(format("Magnezone used its magnets to try and find the knife!"))
     msgbox(format("But nothing was found."))
     closemessage
-    // giveevidence(EVD_NO_WEAPON)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_NO_WEAPON cut
     closemessage
     setflag(FLAG_TARC3_GOZO_FOUND_WEAPON)
     goto(tarc3_EventScript_FollowerHandled)
@@ -478,7 +472,7 @@ script tarc3_GozoRoom_EventScript_EvdCrumbs {
     msgbox(format("Crumbs of bread, pressed into the blood by the door."))
     msgbox(format("{FONT_NARROW}(Somebody stood here with bread in their hand. Gozo never touched the stuff.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_BREADCRUMBS)
+    giveevidence(EVD_BREADCRUMBS)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     setflag(FLAG_TARC3_GOZO_FOUND_CRUMBS)
@@ -499,8 +493,7 @@ script tarc3_GozoRoom_EventScript_EvdCarpet {
     msgbox(format("{FONT_NARROW}(Wiped. And a step through that doorway it hasn't been touched at all.)", "1_latin_rse_narrow"))
     msgbox(format("{FONT_NARROW}(Somebody cleaned this side of the door, and only this side.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_CLEAN_CARPET)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_CLEAN_CARPET cut
     closemessage
     setflag(FLAG_TARC3_GOZO_FOUND_CARPET)
     releaseall
@@ -533,8 +526,7 @@ script tarc3_GozoRoom_EventScript_EvdGarland {
     msgbox(format("A garland is lying in the corridor a step from the door."))
     msgbox(format("{FONT_NARROW}(Not a mark on it. A man bled here, and this came away clean.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_UNSTAINED_GARLAND)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_UNSTAINED_GARLAND cut
     closemessage
     setflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
     removeobject(LOCALID_GOZOROOM_EVD_GARLAND)
@@ -576,8 +568,7 @@ script tarc3_GozoRoom_EventScript_SuzukiReflect1Locked {
     msgbox(format("{FONT_NARROW}(Gozo must have locked the cabin door himself, before he bled out.)\pThat goes in the notes.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_1)
-    // giveevidence(EVD_LOCKED_DOOR)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_LOCKED_DOOR cut
     closemessage
     goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
 }
@@ -624,8 +615,7 @@ script tarc3_GozoRoom_EventScript_SuzukiReflect2Key {
     msgbox(format("{FONT_NARROW}(One key, in one pocket. And every other cabin aboard stands open all evening.)\pBoth halves of that matter.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_2)
-    // giveevidence(EVD_MASTER_KEY)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_MASTER_KEY cut
     closemessage
     goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
 }
@@ -672,7 +662,7 @@ script tarc3_GozoRoom_EventScript_SuzukiReflect3Flower {
     msgbox(format("{FONT_NARROW}(Lying there half an hour before anyone knew he was dead.)\pTakeshi's garland, on the floor, waiting to be found.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_3)
-    // giveevidence(EVD_DROPPED_FLOWER)
+    giveevidence(EVD_DROPPED_FLOWER)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)

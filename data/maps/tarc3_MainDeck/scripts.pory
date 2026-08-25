@@ -194,7 +194,7 @@ script tarc3_MainDeck_EventScript_SuzukiReflectSponsorship {
     msgbox(format("{FONT_NARROW}(Ichiro's whole education came out of Gozo's pocket. And Gozo counts what he's owed.)\pThat one goes in the notes.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_SUZUKI)
-    // giveevidence(EVD_ICHIRO_SPONSORSHIP)
+    giveevidence(EVD_ICHIRO_SPONSORSHIP)
     closemessage
     goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
 }
@@ -259,7 +259,6 @@ script tarc3_MainDeck_EventScript_JojiReflectRefused {
     msgbox(format("{FONT_NARROW}(Gozo turned his own son's cooking away, in front of the whole family.)\pYeah. I should note that down.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_JOJI)
-    // giveevidence(EVD_JOJI_REFUSED)
     closemessage
     goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
 }
@@ -393,8 +392,7 @@ script tarc3_MainDeck_EventScript_EvdPlate {
     msgbox(format("The setting at the head of the table has not been touched. The bread beside it is whole."))
     msgbox(format("{FONT_NARROW}(Gozo won't eat Kalosian food. And he certainly hasn't touched his bread.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_UNTOUCHED_PLATE)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_UNTOUCHED_PLATE cut
     closemessage
     setflag(FLAG_TARC3_DINING_FOUND_PLATE)
     releaseall
@@ -666,8 +664,7 @@ script tarc3_MainDeck_EventScript_DiningKitaroReflectResign {
     msgbox(format("{FONT_NARROW}(Three times he's asked to walk away, and three times Gozo has held him there.)\p(A man kept somewhere he doesn't want to be.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_KITARO_DINNER)
-    // giveevidence(EVD_RESIGNATION_REQUEST)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_RESIGNATION_REQUEST cut
     closemessage
     goto(tarc3_MainDeck_EventScript_DiningKitaroReflectEnd)
 }
@@ -765,7 +762,7 @@ script tarc3_MainDeck_EventScript_DiningIchiroEvidence {
     if (!flag(FLAG_TARC3_ICHIRO_FOUND_LIE)) {
         msgbox(format("{FONT_NARROW}(Dark the whole time, by his own account. He never saw a single thing.)", "1_latin_rse_narrow"))
         closemessage
-        // giveevidence(EVD_BATHROOM_BLACKOUT)
+        giveevidence(EVD_BATHROOM_BLACKOUT)
         call(tarc3_EventScript_EvidenceCaptured)
         closemessage
         setflag(FLAG_TARC3_ICHIRO_FOUND_LIE)
@@ -774,8 +771,8 @@ script tarc3_MainDeck_EventScript_DiningIchiroEvidence {
         msgbox(format("{FONT_NARROW}(The bandage is wrapped around his thigh.)", "1_latin_rse_narrow"))
         msgbox(format("{FONT_NARROW}(Not a cut on his palms. Nothing on his forearms either.)", "1_latin_rse_narrow"))
         closemessage
-        // giveevidence(EVD_INJURED_LEG)
-        // giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
+        giveevidence(EVD_INJURED_LEG)
+        giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
         call(tarc3_EventScript_EvidenceCaptured)
         closemessage
         setflag(FLAG_TARC3_ICHIRO_FOUND_LEG)
@@ -881,7 +878,7 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     delay(20)
     msgbox(format("{FONT_NARROW}(A splash on its own could be any water Pokémon outside.\pBut a loud thud on the deck afterwards..?)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_TWO_SOUNDS)
+    giveevidence(EVD_TWO_SOUNDS)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     delay(30)
@@ -1079,8 +1076,7 @@ script tarc3_MainDeck_EventScript_GatherMarikoReflectAffair {
     msgbox(format("{FONT_NARROW}(Akie has been seeing somebody. Mariko wants me to ask whether Tatsuo found out.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GATHER_MARIKO)
-    // giveevidence(EVD_AKIES_AFFAIR)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_AKIES_AFFAIR cut
     closemessage
     goto(tarc3_MainDeck_EventScript_GatherMarikoReflectEnd)
 }
@@ -1164,8 +1160,7 @@ script tarc3_MainDeck_EventScript_GatherKitaroReflectWalk {
     msgbox(format("{FONT_NARROW}(He said everyone was in their cabin. Then Mariko put him out in the corridors on his own.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GATHER_KITARO)
-    // giveevidence(EVD_KITAROS_WALK)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_KITAROS_WALK cut
     closemessage
     goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
 }
@@ -1235,8 +1230,7 @@ script tarc3_MainDeck_EventScript_GatherJojiReflectDebt {
     msgbox(format("{FONT_NARROW}(He asked his father to back the restaurant and was refused.)\p(He brought it up before anybody asked him to.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GATHER_JOJI)
-    // giveevidence(EVD_JOJIS_DEBT)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_JOJIS_DEBT cut
     closemessage
     goto(tarc3_MainDeck_EventScript_GatherJojiReflectEnd)
 }
@@ -1364,7 +1358,7 @@ script tarc3_MainDeck_EventScript_GatherNatsueReflectAccomplice {
     msgbox(format("{FONT_NARROW}(Could she be right?)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GATHER_NATSUE)
-    // giveevidence(EVD_AN_ACCOMPLICE)
+    giveevidence(EVD_AN_ACCOMPLICE)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     goto(tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
@@ -1470,7 +1464,7 @@ script tarc3_MainDeck_EventScript_Blackout {
     delay(20)
     msgbox(format("{FONT_NARROW}(He's been out of this room a lot longer than a wash takes.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_LONG_ABSENCE)
+    giveevidence(EVD_LONG_ABSENCE)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     delay(20)
@@ -1724,7 +1718,7 @@ script tarc3_MainDeck_EventScript_SuzukiSuitor {
     delay(30)
     msgbox(format("{FONT_NARROW}(Ichiro's wedding invitation wasn't graciousness. It was calculated, silent torture.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_REFUSED_SUITOR)
+    giveevidence(EVD_REFUSED_SUITOR)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     setflag(FLAG_TARC3_REFLECT_SUZUKI_SUITOR)

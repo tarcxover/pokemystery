@@ -230,7 +230,7 @@ script tarc3_Hold_EventScript_RecapHistory {
     msgbox(format("{FONT_NARROW}(Gozo took his father's company and the man killed himself over it.)\pTakeshi married into the family that did it.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
-    // giveevidence(EVD_TAKESHIS_HISTORY)
+    giveevidence(EVD_TAKESHIS_HISTORY)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     goto(tarc3_Hold_EventScript_RecapEnd)
@@ -240,7 +240,7 @@ script tarc3_Hold_EventScript_RecapArgument {
     msgbox(format("{FONT_NARROW}(She stood at that door before dinner and heard her father shouting Takeshi's name.)\pSo she says.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
-    // giveevidence(EVD_OVERHEARD_ARGUMENT)
+    giveevidence(EVD_OVERHEARD_ARGUMENT)
     call(tarc3_EventScript_EvidenceCaptured)
     closemessage
     goto(tarc3_Hold_EventScript_RecapEnd)
@@ -282,8 +282,7 @@ script tarc3_Hold_EventScript_RecapDebts {
     msgbox(format("{FONT_NARROW}(He said it to the whole room. He married Akie to inherit, and he isn't sorry.)", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
-    // giveevidence(EVD_TATSUOS_DEBTS)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_TATSUOS_DEBTS cut
     closemessage
     goto(tarc3_Hold_EventScript_RecapEnd)
 }
@@ -292,8 +291,7 @@ script tarc3_Hold_EventScript_RecapWill {
     msgbox(format("{FONT_NARROW}(Every share and every property, to Natsue.)\pAnd three people in that room found out tonight.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS6)
-    // giveevidence(EVD_GOZOS_WILL)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_GOZOS_WILL cut
     closemessage
     goto(tarc3_Hold_EventScript_RecapEnd)
 }
@@ -320,8 +318,7 @@ script tarc3_Hold_EventScript_EvdManifest {
     msgbox(format("The passenger manifest, hung by the stairs in Kitaro's handwriting."))
     msgbox(format("{FONT_NARROW}(Family, one steward, one cook. The crew are berthed forward and none of them came aft.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_PASSENGER_MANIFEST)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_PASSENGER_MANIFEST cut
     closemessage
     setflag(FLAG_TARC3_HOLD_FOUND_MANIFEST)
     releaseall
@@ -346,8 +343,7 @@ script tarc3_Hold_EventScript_EvdStorageDoor {
     msgbox(format("{FONT_NARROW}(It only works from out here. No handle on the inside, and Suzuki shot it across in front of everybody.)", "1_latin_rse_narrow"))
     msgbox(format("{FONT_NARROW}(So somebody stood where I'm standing and slid it open again.)", "1_latin_rse_narrow"))
     closemessage
-    // giveevidence(EVD_UNDAMAGED_DOOR)
-    call(tarc3_EventScript_EvidenceCaptured)
+    // EVD_UNDAMAGED_DOOR cut
     closemessage
     setflag(FLAG_TARC3_HOLD_FOUND_DOOR)
     releaseall
