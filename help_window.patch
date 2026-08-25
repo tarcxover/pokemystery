@@ -1,0 +1,293 @@
+From 1c83d11cca7076013334b49d5ad9e744048cecfe Mon Sep 17 00:00:00 2001
+From: LinathanZel <LinathanZel@github.com>
+Date: Sun, 4 Jan 2026 03:13:08 -0500
+Subject: [PATCH 1/3] Base commit for adding Help Windows
+
+---
+ asm/macros/event.inc   | 19 ++++++++++++++
+ include/help_window.h  | 21 +++++++++++++++
+ src/data/help_window.h | 42 ++++++++++++++++++++++++++++++
+ src/help_window.c      | 59 ++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 141 insertions(+)
+ create mode 100644 include/help_window.h
+ create mode 100644 src/data/help_window.h
+ create mode 100644 src/help_window.c
+
+diff --git a/asm/macros/event.inc b/asm/macros/event.inc
+index f621dd16cdf0..1f9596ba284b 100644
+--- a/asm/macros/event.inc
++++ b/asm/macros/event.inc
+@@ -2510,3 +2510,22 @@
+ 	compare \a, \b
+ 	cant_see_if 5
+ 	.endm
++
++	@ Shows the message box containing the help window and its header and description.
++	.macro showhelpwindow id:req
++	callnative ShowHelpInfoWindow, requests_effects=1
++	.2byte \id
++	.endm
++	
++	@ Destroys the help window.
++	.macro hidehelpwindow
++	callnative HideHelpInfoWindow
++	.endm
++
++	@ Creates a help window.
++	.macro helpwindow id:req
++	showhelpwindow \id
++	waitbuttonpress
++	hidehelpwindow
++	closemessage
++	.endm
+diff --git a/include/help_window.h b/include/help_window.h
+new file mode 100644
+index 000000000000..8d9386880736
+--- /dev/null
++++ b/include/help_window.h
+@@ -0,0 +1,21 @@
++#ifndef GUARD_HELP_WINDOW_H
++#define GUARD_HELP_WINDOW_H
++
++#include "global.h"
++#include "script.h"
++#include "text.h"
++
++struct HelpWindow
++{
++    const u8 *header;
++    const u8 *desc;
++    u8 headerFont;
++    u8 descFont;
++};
++
++extern const struct HelpWindow gHelpWindowInfo[];
++
++void ShowHelpInfoWindow(struct ScriptContext *ctx);
++void HideHelpInfoWindow(void);
++
++#endif //GUARD_HELP_WINDOW_H
+diff --git a/src/data/help_window.h b/src/data/help_window.h
+new file mode 100644
+index 000000000000..9464e9a30841
+--- /dev/null
++++ b/src/data/help_window.h
+@@ -0,0 +1,42 @@
++// Add new IDs here
++enum {
++    HELP_START_MENU,
++    HELP_MEGA_EVOLUTION,
++    HELP_MASTER_BALL,
++    HELP_COUNT
++};
++
++// Add entries here
++// These entries are example entries which you can replace, but they exist to get you started.
++const struct HelpWindow gHelpWindowInfo[] =
++{
++    [HELP_START_MENU] =
++    {
++        .header = COMPOUND_STRING("Information: Pokédex"),
++        .desc = COMPOUND_STRING("To access the Pokédex, press {START_BUTTON}\n"
++                                "while you're in the overworld!"
++                            ),
++        .headerFont = FONT_NORMAL,
++        .descFont = FONT_NORMAL
++    },
++    [HELP_MEGA_EVOLUTION] =
++    {
++        .header = COMPOUND_STRING("Information: Mega Evolution"),
++        .desc = COMPOUND_STRING("In battle, press {START_BUTTON} to Mega Evolve!\n\n"
++                                "The Pokémon must hold their Mega Stone\n"
++                                "to be able to Mega Evolve.\n"
++                                "You can only Mega Evolve once per battle."
++                            ),
++    },
++    [HELP_MASTER_BALL] =
++    {
++        .header = COMPOUND_STRING("Information: Master Ball"),
++        .desc = COMPOUND_STRING("There is only one Master Ball in Pokémon;\n"
++                                "use it wisely!\n"
++                                "Professor Oak suggests using it on a Pokémon\n"
++                                "you want to add to your team but are hard to\n"
++                                "catch, like a Fearow or Tentacruel!"
++                            ),
++    },
++    // Add more entries
++};
+diff --git a/src/help_window.c b/src/help_window.c
+new file mode 100644
+index 000000000000..6df305ac859f
+--- /dev/null
++++ b/src/help_window.c
+@@ -0,0 +1,59 @@
++#include "global.h"
++#include "menu.h"
++#include "string_util.h"
++#include "sound.h"
++#include "text.h"
++#include "window.h"
++#include "help_window.h"
++#include "constants/songs.h"
++#include "data/help_window.h"
++
++static u8 helpWindowId = 0;
++static const struct WindowTemplate sHelpWindowTemplate = {
++    .bg = 0,
++    .tilemapLeft = 2,
++    .tilemapTop = 3,
++    .width = 26,
++    .height = 14,
++    .paletteNum = 15,
++    .baseBlock = 8
++};
++
++void ShowHelpInfoWindow(struct ScriptContext *ctx)
++{
++    u16 helpTutorialId = ScriptReadHalfword(ctx);
++    PlaySE(SE_RG_HELP_OPEN);
++    u32 xOffset;
++    u32 yOffset;
++    yOffset = 1;
++    xOffset = 0;
++    u8 headerColor[3] = {0, 8, 3};
++    u8 headerFont = FONT_NORMAL;
++    u8 descFont = FONT_SMALL;
++
++    helpWindowId = AddWindow(&sHelpWindowTemplate);
++    DrawStdWindowFrame(helpWindowId, FALSE);
++
++    // Set non-default values if any
++    if (gHelpWindowInfo[helpTutorialId].headerFont)
++        headerFont = gHelpWindowInfo[helpTutorialId].headerFont;
++    if (gHelpWindowInfo[helpTutorialId].descFont)
++        descFont = gHelpWindowInfo[helpTutorialId].descFont;
++
++    // Header Text
++    StringCopy(gStringVar4, gHelpWindowInfo[helpTutorialId].header);
++    AddTextPrinterParameterized4(helpWindowId, headerFont, xOffset, yOffset, 0, 0, headerColor, 0, gStringVar4);
++    yOffset += 16;
++    // Description (can fiddle with text fonts and what not)
++    StringCopy(gStringVar4, gHelpWindowInfo[helpTutorialId].desc);
++    AddTextPrinterParameterized(helpWindowId, descFont, gStringVar4, 0, yOffset, TEXT_SKIP_DRAW, NULL);
++
++    CopyWindowToVram(helpWindowId, COPYWIN_FULL);
++}
++
++void HideHelpInfoWindow(void)
++{
++    PlaySE(SE_RG_HELP_CLOSE);
++    ClearStdWindowAndFrame(helpWindowId, FALSE);
++    RemoveWindow(helpWindowId);
++}
+
+From 56f34aed0fcd2bfeb06004cf8ec822596bcd1685 Mon Sep 17 00:00:00 2001
+From: LinathanZel <LinathanZel@github.com>
+Date: Sun, 4 Jan 2026 03:34:36 -0500
+Subject: [PATCH 2/3] Added fourth example showcasing narrower text
+
+---
+ src/data/help_window.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/src/data/help_window.h b/src/data/help_window.h
+index 9464e9a30841..513c63c64544 100644
+--- a/src/data/help_window.h
++++ b/src/data/help_window.h
+@@ -3,6 +3,7 @@ enum {
+     HELP_START_MENU,
+     HELP_MEGA_EVOLUTION,
+     HELP_MASTER_BALL,
++    HELP_GIMMIGHOUL_COINS,
+     HELP_COUNT
+ };
+ 
+@@ -38,5 +39,15 @@ const struct HelpWindow gHelpWindowInfo[] =
+                                 "catch, like a Fearow or Tentacruel!"
+                             ),
+     },
++    [HELP_GIMMIGHOUL_COINS] =
++    {
++        .header = COMPOUND_STRING("Information: Evolving Gimmighoul into Gholdengo"),
++        .desc = COMPOUND_STRING("To evolve Gimmighoul into Gholdengo, you\n"
++                                "need to gather 999 {COLOR RED}Gimmighoul Coins{COLOR DARK_GRAY}.\n\n"
++                                "You can find Gimmighoul Coins scattered\n"
++                                "all around Paldea."
++                            ),
++        .headerFont = FONT_NARROWER,
++    },
+     // Add more entries
+ };
+
+From 3fcb1576d3ac66d834fb7cb2417586d937de6567 Mon Sep 17 00:00:00 2001
+From: LinathanZel <LinathanZel@github.com>
+Date: Sun, 4 Jan 2026 14:53:01 -0500
+Subject: [PATCH 3/3] Fixed an issue where identifiers were unable to be used
+ in event scripts
+
+---
+ data/event_scripts.s            |  1 +
+ include/constants/help_window.h |  8 ++++++++
+ include/help_window.h           |  1 +
+ src/data/help_window.h          | 10 +---------
+ 4 files changed, 11 insertions(+), 9 deletions(-)
+ create mode 100644 include/constants/help_window.h
+
+diff --git a/data/event_scripts.s b/data/event_scripts.s
+index 960a5fa084f1..c342c6bac7ad 100644
+--- a/data/event_scripts.s
++++ b/data/event_scripts.s
+@@ -35,6 +35,7 @@
+ #include "constants/item.h"
+ #include "constants/items.h"
+ #include "constants/heal_locations.h"
++#include "constants/help_window.h"
+ #include "constants/layouts.h"
+ #include "constants/lilycove_lady.h"
+ #include "constants/map_scripts.h"
+diff --git a/include/constants/help_window.h b/include/constants/help_window.h
+new file mode 100644
+index 000000000000..5608079d3689
+--- /dev/null
++++ b/include/constants/help_window.h
+@@ -0,0 +1,8 @@
++// Add new IDs here
++enum {
++    HELP_START_MENU,
++    HELP_MEGA_EVOLUTION,
++    HELP_MASTER_BALL,
++    HELP_GIMMIGHOUL_COINS,
++    HELP_COUNT
++};
+diff --git a/include/help_window.h b/include/help_window.h
+index 8d9386880736..a39413bbd5c6 100644
+--- a/include/help_window.h
++++ b/include/help_window.h
+@@ -4,6 +4,7 @@
+ #include "global.h"
+ #include "script.h"
+ #include "text.h"
++#include "constants/help_window.h"
+ 
+ struct HelpWindow
+ {
+diff --git a/src/data/help_window.h b/src/data/help_window.h
+index 513c63c64544..20cab3f0d909 100644
+--- a/src/data/help_window.h
++++ b/src/data/help_window.h
+@@ -1,14 +1,6 @@
+-// Add new IDs here
+-enum {
+-    HELP_START_MENU,
+-    HELP_MEGA_EVOLUTION,
+-    HELP_MASTER_BALL,
+-    HELP_GIMMIGHOUL_COINS,
+-    HELP_COUNT
+-};
+-
+ // Add entries here
+ // These entries are example entries which you can replace, but they exist to get you started.
++// Remember to modify include/constants/help_window.h to include identifiers so they can be used in event scripts.
+ const struct HelpWindow gHelpWindowInfo[] =
+ {
+     [HELP_START_MENU] =

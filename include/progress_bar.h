@@ -1,5 +1,6 @@
 #pragma once
 
+#include "task.h"
 #define PROG_BAR_TAG 0x2001
 
 typedef struct ProgBar_Template
@@ -26,7 +27,8 @@ typedef struct ProgBar_State
 {
     u8 barSpriteId;
     u8 taskId;
-    ProgBar_Template *template;
+    const ProgBar_Template *template;
+    bool32 animating;
     ProgBar_Tracker *tracker;
 } ProgBar_State;
 
@@ -35,6 +37,9 @@ enum ProgBar_Threshold {
     PROG_THRESHOLD_MED = 75,
     PROG_THRESHOLD_HIGH = 100,
 };
+
+
+STATIC_ASSERT(sizeof(ProgBar_State) <= sizeof(((struct Task *)NULL)->data), ProgBarStateTooLargeForTaskData);
 
 u32 ProgBar_CreateBar(const ProgBar_Template* t, ProgBar_Tracker* tracker);
 void ProgBar_Update(const ProgBar_Template* t, ProgBar_Tracker* tracker, u32 filledPixels, u32 barId);
