@@ -69,3 +69,4 @@ __pycache__
 tools/poryscript/poryscript
 data/maps/**/scripts.inc
 include/constants/evidence_macros.h
+.porydaw/
