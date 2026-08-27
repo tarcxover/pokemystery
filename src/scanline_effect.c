@@ -1,6 +1,8 @@
 #include "global.h"
 #include "battle.h"
+#include "battle_util.h"
 #include "data.h"
+#include "gba/isagbprint.h"
 #include "task.h"
 #include "trig.h"
 #include "scanline_effect.h"
@@ -118,6 +120,10 @@ static void CopyValue32Bit(void)
 #define tDelayInterval        data[5]
 #define tRegOffset            data[6]
 #define tApplyBattleBgOffsets data[7]
+
+#define tScrollSpeed          data[2]
+#define tDirection            data[7]
+#define tAccumulator          data[15]
 
 static void TaskFunc_UpdateWavePerFrame(u8 taskId)
 {
@@ -245,6 +251,62 @@ u8 ScanlineEffect_InitWave(u8 startLine, u8 endLine, u8 frequency, u8 amplitude,
         gScanlineEffectRegBuffers[1][i] = gScanlineEffectRegBuffers[0][offset];
         offset++;
     }
+
+    return taskId;
+}
+
+static void TaskFunc_UpdateBgScroll(u8 taskId)
+{
+    s32 dir = gTasks[taskId].tDirection;
+    if (gTasks[taskId].tFramesUntilMove != 0)
+    {
+        gTasks[taskId].tFramesUntilMove--;
+    }
+    else
+    {
+        gTasks[taskId].tFramesUntilMove = gTasks[taskId].tDelayInterval;
+
+        s16 *accumulator = &gTasks[taskId].tAccumulator;
+        *accumulator += 256;
+        s16 pixels = *accumulator >> 8;
+        *accumulator &= 0xFF;
+
+        for (u32 i = gTasks[taskId].tStartLine; i < gTasks[taskId].tEndLine; i++)
+        {
+            if (pixels != 0)
+                gScanlineEffectRegBuffers[gScanlineEffect.srcBuffer][i] += (pixels * dir);
+        }
+    }
+}
+
+u8 ScanlineEffect_InitScroll(u8 startLine, u8 endLine, u8 speed, u8 direction, u8 delayInterval, u8 regOffset, u32 shouldClear)
+{
+    struct ScanlineEffectParams params;
+
+    if (shouldClear)
+        ScanlineEffect_Clear();
+
+    params.dmaDest = (void *)(REG_ADDR_BG0HOFS + regOffset);
+    params.dmaControl = SCANLINE_EFFECT_DMACNT_16BIT;
+    params.initState = 1;
+    ScanlineEffect_SetParams(params);
+
+    u8 taskId = CreateTask(TaskFunc_UpdateBgScroll, 0);
+
+    gTasks[taskId].tStartLine            = startLine;
+    gTasks[taskId].tEndLine              = endLine;
+    gTasks[taskId].tScrollSpeed          = speed;
+    gTasks[taskId].tSrcBufferOffset      = 0;
+    gTasks[taskId].tFramesUntilMove      = delayInterval;
+    gTasks[taskId].tDelayInterval        = delayInterval;
+    gTasks[taskId].tRegOffset            = regOffset;
+    gTasks[taskId].tDirection            = direction;
+
+    /* for (u32 i = startLine; i < endLine; i++) */
+    /* { */
+    /*     gScanlineEffectRegBuffers[0][i] = gScanlineEffectRegBuffers[0][320 + i]; */
+    /*     gScanlineEffectRegBuffers[1][i] = gScanlineEffectRegBuffers[0][320 + i]; */
+    /* } */
 
     return taskId;
 }

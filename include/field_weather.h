@@ -1,6 +1,7 @@
 #ifndef GUARD_WEATHER_H
 #define GUARD_WEATHER_H
 
+#include "global.h"
 #include "sprite.h"
 #include "constants/field_weather.h"
 #include "constants/weather.h"

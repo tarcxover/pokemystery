@@ -14,9 +14,6 @@
 #include "math_util.h"
 #include "subsprite.h"
 
-#define TASK_DATA(...) struct { s16 __VA_ARGS__; } *tData = (void *)gTasks[taskId].data
-#define TASK_DATA_N(n,...) struct { s16 __VA_ARGS__; } *tData = (void *)&gTasks[taskId].data[n]
-
 #define PROG_BAR_MAX_SUBSPRITES 8
 
 static struct Subsprite ProgBar_DynamicSubsprites[PROG_BAR_MAX_SUBSPRITES];

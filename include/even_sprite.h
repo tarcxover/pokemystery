@@ -15,7 +15,10 @@ struct Even_CreateSpriteStruct {
     u8 subpriority;
     u8 spriteShape : 2;
     u8 spriteSize : 2;
-    u16 overrideSize;
+    struct SpriteFrameImage* images;
+    u32 numFrames;
+    const struct SubspriteTable* subspriteTable;
+    const union AnimCmd *const *anims;
     SpriteCallback callback;
 };
 
