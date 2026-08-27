@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "config/quickstart.h"
+#include "custom_title.h"
 #include "quickstart.h"
 #include "title_screen.h"
 #include "sprite.h"
@@ -563,6 +564,8 @@ static void VBlankCB(void)
 
 void CB2_InitTitleScreen(void)
 {
+    CB2_InitCustomTitleScreen();
+    return;
     if (IS_FRLG)
     {
         CB2_InitTitleScreenFrlg();
@@ -570,6 +573,7 @@ void CB2_InitTitleScreen(void)
     }
     switch (gMain.state)
     {
+
     default:
     case 0:
         SetVBlankCallback(NULL);

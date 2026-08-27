@@ -42,5 +42,6 @@ void ScanlineEffect_Clear(void);
 void ScanlineEffect_SetParams(struct ScanlineEffectParams params);
 void ScanlineEffect_InitHBlankDmaTransfer(void);
 u8 ScanlineEffect_InitWave(u8 startLine, u8 endLine, u8 frequency, u8 amplitude, u8 delayInterval, u8 regOffset, bool8 applyBattleBgOffsets);
+u8 ScanlineEffect_InitScroll(u8 startLine, u8 endLine, u8 speed, u8 direction, u8 delayInterval, u8 regOffset, u32 shouldClear);
 
 #endif // GUARD_SCANLINE_EFFECT_H
