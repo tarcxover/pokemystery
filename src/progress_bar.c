@@ -118,7 +118,6 @@ static u32 ProgBar_DrawBar(const ProgBar_Template* t)
 
 static u32 _ProgBar_CreateSprite(const ProgBar_Template* t, s32 x, s32 y)
 {
-    u32 byteSize = ProgBar_GfxSize(t);
     struct Even_CreateSpriteStruct cs = {0};
     cs.sprite = gBlankGfxCompressed;
     cs.spriteCompressed = TRUE;
@@ -130,7 +129,6 @@ static u32 _ProgBar_CreateSprite(const ProgBar_Template* t, s32 x, s32 y)
     cs.posX = x;
     cs.posY = y;
     cs.subpriority = 0;
-    cs.overrideSize = byteSize;
     return Even_CreateSprite(&cs);
 }
 
