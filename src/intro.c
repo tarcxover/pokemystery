@@ -1049,10 +1049,56 @@ static void SerialCB_CopyrightScreen(void)
     GameCubeMultiBoot_HandleSerialInterrupt(&gMultibootProgramStruct);
 }
 
+static bool8 SetUpCopyrightScreenCustom(void)
+{
+    switch (gMain.state)
+    {
+    case 0:
+        SetVBlankCallback(NULL);
+        SetGpuReg(REG_OFFSET_BLDCNT, 0);
+        SetGpuReg(REG_OFFSET_BLDALPHA, 0);
+        SetGpuReg(REG_OFFSET_BLDY, 0);
+        ((vu16*)PLTT)[0] = RGB_WHITE;
+        SetGpuReg(REG_OFFSET_DISPCNT, 0);
+        SetGpuReg(REG_OFFSET_BG0HOFS, 0);
+        SetGpuReg(REG_OFFSET_BG0VOFS, 0);
+        DmaFill16(3, 0, VRAM, VRAM_SIZE);
+        DmaFill32(3, 0, OAM, OAM_SIZE);
+        DmaFill16(3, 0, PLTT + sizeof(vu16), PLTT_SIZE - sizeof(vu16));
+        ResetPaletteFade();
+        ScanlineEffect_Stop();
+        ResetTasks();
+        ResetSpriteData();
+        FreeAllSpritePalettes();
+        LoadCopyrightGraphics(0 * BG_CHAR_SIZE, 7 * BG_SCREEN_SIZE, BG_PLTT_ID(0));
+        SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_16COLOR | BGCNT_SCREENBASE(7));
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_WHITEALPHA);
+        EnableInterrupts(INTR_FLAG_VBLANK);
+        SetVBlankCallback(VBlankCB_Intro);
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON);
+        SetSerialCallback(SerialCB_CopyrightScreen);
+        gMain.state++;
+        break;
+    case 1:
+        if (!UpdatePaletteFade())
+        {
+            gMain.state++;
+                SetSerialCallback(SerialCB);
+            return FALSE;
+        }
+        break;
+    case 2:
+        ResetSerial();
+        SetMainCallback2(CB2_InitTitleScreen);
+        /* CreateTask(Task_HandleExpansionIntro, 0); */
+        break;
+    }
+    return TRUE;
+}
+
 static u8 SetUpCopyrightScreen(void)
 {
-    if (IS_FRLG)
-        return SetUpCopyrightScreenFrlg();
+    return SetUpCopyrightScreenCustom();
 
     switch (gMain.state)
     {
@@ -1087,8 +1133,6 @@ static u8 SetUpCopyrightScreen(void)
         GameCubeMultiBoot_Init(&gMultibootProgramStruct);
     // REG_DISPCNT needs to be overwritten the second time, because otherwise the intro won't show up on VBA 1.7.2 and John GBA Lite emulators.
     // The REG_DISPCNT overwrite is NOT needed in m-GBA, No$GBA, VBA 1.8.0, My Boy and Pizza Boy GBA emulators.
-    case COPYRIGHT_EMULATOR_BLEND:
-        REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON;
     default:
         UpdatePaletteFade();
         gMain.state++;
