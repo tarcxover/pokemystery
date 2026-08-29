@@ -569,6 +569,8 @@ gSongTable::
 	song mus_logic, MUSIC_PLAYER_BGM, 0
 	song mus_trial, MUSIC_PLAYER_BGM, 0
 	song mus_confrontation_presto, MUSIC_PLAYER_BGM, 0
+	song mus_black_sun, MUSIC_PLAYER_BGM, 0
+	song mus_heart_of_fire, MUSIC_PLAYER_BGM, 0
 	song ph_trap_blend, MUSIC_PLAYER_SE2, 2
 	song ph_trap_held, MUSIC_PLAYER_SE2, 2
 	song ph_trap_solo, MUSIC_PLAYER_SE2, 2
