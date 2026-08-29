@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assertf.h"
 #include "even_sprite.h"
 #include "gba/types.h"
 #include "global.h"
@@ -8,6 +9,7 @@
 #include "item.h"
 #include "sprite.h"
 #include "task.h"
+#include <string.h>
 
 static const struct OamData sOamData_ItemIcon =
 {
@@ -48,6 +50,54 @@ const struct SpriteTemplate gTempSpriteTemplate =
     .callback = SpriteCallbackDummy,
 };
 
+static u32 _GetOamByteSize(u32 spriteSize, u32 spriteShape)
+{
+    u32 byteSize = 0;
+    switch (spriteSize)
+    {
+    case ST_OAM_SIZE_0:
+        if (spriteShape == ST_OAM_SQUARE)
+            byteSize = 32;
+        else
+            byteSize = 64;
+        break;
+    case ST_OAM_SIZE_1:
+        byteSize = 128;
+        break;
+    case ST_OAM_SIZE_2:
+        if (spriteShape == ST_OAM_SQUARE)
+            byteSize = 512;
+        else
+            byteSize = 256;
+        break;
+    case ST_OAM_SIZE_3:
+        if (spriteShape == ST_OAM_SQUARE)
+            byteSize = 2048;
+        else
+            byteSize = 1024;
+        break;
+    }
+    return byteSize;
+}
+
+static u32 _GetSpriteByteSize(struct Even_CreateSpriteStruct *cs)
+{
+    if (cs->subspriteTable == NULL)
+        return _GetOamByteSize(cs->spriteSize, cs->spriteShape);
+
+    const struct Subsprite* subsprites = cs->subspriteTable->subsprites;
+    u32 count = cs->subspriteTable->subspriteCount;
+
+    u32 byteSize = 0;
+    for (u32 i = 0; i < count; i++)
+    {
+        u32 size = subsprites[i].size;
+        u32 shape = subsprites[i].shape;
+        byteSize +=  _GetOamByteSize(size, shape);
+    }
+    return byteSize;
+}
+
 u32 Even_CreateSprite(struct Even_CreateSpriteStruct *createStruct)
 {
     u8 spriteId;
@@ -76,38 +126,22 @@ u32 Even_CreateSprite(struct Even_CreateSpriteStruct *createStruct)
         LoadSpritePalette(&spritePalette);
     }
 
-    u32 byteSize = 0;
-    switch (createStruct->spriteSize)
+    u32 byteSize = _GetSpriteByteSize(createStruct);
+
+
+    if (!createStruct->numFrames)
     {
-    case ST_OAM_SIZE_0:
-        if (createStruct->spriteShape == ST_OAM_SQUARE)
-            byteSize = 32;
-        else
-            byteSize = 64;
-        break;
-    case ST_OAM_SIZE_1:
-        byteSize = 128;
-        break;
-    case ST_OAM_SIZE_2:
-        if (createStruct->spriteShape == ST_OAM_SQUARE)
-            byteSize = 512;
-        else
-            byteSize = 256;
-        break;
-    case ST_OAM_SIZE_3:
-        if (createStruct->spriteShape == ST_OAM_SQUARE)
-            byteSize = 2048;
-        else
-            byteSize = 1024;
-        break;
+        spriteSheet.data = spriteSrc;
+        spriteSheet.size = byteSize;
+        spriteSheet.tag = createStruct->tileTag;
+        LoadSpriteSheet(&spriteSheet);
     }
-
-
-    spriteSheet.data = spriteSrc;
-    spriteSheet.size = createStruct->overrideSize ? createStruct->overrideSize : byteSize;
-    spriteSheet.tag = createStruct->tileTag;
-    LoadSpriteSheet(&spriteSheet);
-
+    else
+    {
+        createStruct->images->data = createStruct->sprite;
+        createStruct->images->size = byteSize;
+        createStruct->images->relativeFrames = TRUE;
+    }
 
     spriteTemplate = Alloc(sizeof(*spriteTemplate));
     CpuCopy16(&gTempSpriteTemplate, spriteTemplate, sizeof(*spriteTemplate));
@@ -115,17 +149,30 @@ u32 Even_CreateSprite(struct Even_CreateSpriteStruct *createStruct)
     spriteTemplate->paletteTag = createStruct->palTag;
     spriteTemplate->oam = &oamData;
 
+    if (createStruct->anims)
+        spriteTemplate->anims = createStruct->anims;
+
+    if (createStruct->numFrames)
+    {
+        spriteTemplate->images = createStruct->images;
+    }
+
     if (createStruct->callback == NULL)
         spriteTemplate->callback = SpriteCallbackDummy;
     else
         spriteTemplate->callback = createStruct->callback;
 
     spriteId = CreateSprite(spriteTemplate, createStruct->posX, createStruct->posY, createStruct->subpriority);
+    struct Sprite* spritePtr = &gSprites[spriteId];
+
+    if (createStruct->subspriteTable)
+        SetSubspriteTables(spritePtr, createStruct->subspriteTable);
 
     Free(spriteTemplate);
 
     if (createStruct->spriteCompressed)
         Free(spriteSrc);
+
     return spriteId;
 }
 

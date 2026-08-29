@@ -6,6 +6,7 @@
 #include "sprite.h"
 #include "task.h"
 #include "gpu_regs.h"
+#include "title_screen.h"
 #include "trig.h"
 #include "main.h"
 #include "intro.h"
@@ -276,15 +277,7 @@ void Task_HandleExpansionIntro(u8 taskId)
             ResetSpriteData();
             FreeAllSpritePalettes();
             DestroyTask(taskId);
-            if (IS_FRLG)
-            {
-                SetMainCallback2(CB2_SetUpIntroFrlg);
-            }
-            else
-            {
-                CreateTask(Task_Scene1_Load, 0);
-                SetMainCallback2(MainCB2_Intro);
-            }
+            SetMainCallback2(CB2_InitTitleScreen);
         }
         break;
     }

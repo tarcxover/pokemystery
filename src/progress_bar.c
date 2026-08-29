@@ -14,9 +14,6 @@
 #include "math_util.h"
 #include "subsprite.h"
 
-#define TASK_DATA(...) struct { s16 __VA_ARGS__; } *tData = (void *)gTasks[taskId].data
-#define TASK_DATA_N(n,...) struct { s16 __VA_ARGS__; } *tData = (void *)&gTasks[taskId].data[n]
-
 #define PROG_BAR_MAX_SUBSPRITES 8
 
 static struct Subsprite ProgBar_DynamicSubsprites[PROG_BAR_MAX_SUBSPRITES];
@@ -121,7 +118,6 @@ static u32 ProgBar_DrawBar(const ProgBar_Template* t)
 
 static u32 _ProgBar_CreateSprite(const ProgBar_Template* t, s32 x, s32 y)
 {
-    u32 byteSize = ProgBar_GfxSize(t);
     struct Even_CreateSpriteStruct cs = {0};
     cs.sprite = gBlankGfxCompressed;
     cs.spriteCompressed = TRUE;
@@ -133,7 +129,6 @@ static u32 _ProgBar_CreateSprite(const ProgBar_Template* t, s32 x, s32 y)
     cs.posX = x;
     cs.posY = y;
     cs.subpriority = 0;
-    cs.overrideSize = byteSize;
     return Even_CreateSprite(&cs);
 }
 
@@ -242,7 +237,7 @@ static u32 ProgBar_GfxSize(const ProgBar_Template* t)
 static void Task_ProgressBarHandleInput(u8 taskId)
 {
     TASK_DATA(barId);
-    constexpr u32 step = 1;
+    const u32 step = 1;
 
     if (JOY_NEW(L_BUTTON) && JOY_NEW(R_BUTTON)) {
         ProgBar_Destroy(&ProgBar_DefaultTemplate, tData->barId);

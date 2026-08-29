@@ -37,4 +37,7 @@ u32 GetWordTaskArg(u8 taskId, u8 dataElem);
 #define ClearTaskData(taskId) \
     CpuFastFill(0, &gTasks[taskId].data, 16 * sizeof(s16))
 
+#define TASK_DATA(...) struct { s16 __VA_ARGS__; } *tData = (void *)gTasks[taskId].data
+#define TASK_DATA_N(n,...) struct { s16 __VA_ARGS__; } *tData = (void *)&gTasks[taskId].data[n]
+
 #endif // GUARD_TASK_H

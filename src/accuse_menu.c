@@ -1057,7 +1057,7 @@ static void Task_AccuseMenuScrollBg(u8 taskId)
 static void Task_ProgressBarHandleInput(u8 taskId)
 {
     TASK_DATA(barId);
-    constexpr u32 step = 1;
+    const u32 step = 1;
 
     if (JOY_NEW(L_BUTTON) && JOY_NEW(R_BUTTON)) {
         ProgBar_Destroy(&sAccuseProgBarTemplate, tData->barId);
