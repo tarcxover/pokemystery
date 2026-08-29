@@ -286,13 +286,13 @@
 #define VAR_TARC3_GATHER_MARIKO                          0x4106 // Mariko's conversation counter
 #define VAR_TARC3_GATHER_JOJI                            0x4107 // Joji's conversation counter
 #define VAR_TARC3_ACT3                                   0x4108 // Act three state machine, see TARC3_ACT3_* below
-#define VAR_UNUSED_0x4109                                0x4109 // Unused Var
-#define VAR_UNUSED_0x410A                                0x410A // Unused Var
-#define VAR_UNUSED_0x410B                                0x410B // Unused Var
-#define VAR_UNUSED_0x410C                                0x410C // Unused Var
-#define VAR_UNUSED_0x410D                                0x410D // Unused Var
-#define VAR_UNUSED_0x410E                                0x410E // Unused Var
-#define VAR_UNUSED_0x410F                                0x410F // Unused Var
+#define VAR_TARC3_ACCUSED                                0x4109 // who the player named, see TARC3_ACCUSED_* below
+#define VAR_TARC3_ENDING                                 0x410A // which ending score bucket was used, see TARC3_ENDING_* below
+#define VAR_TARC3_ACCUSE_T3                              0x410B // bitmask of the three T3s presented, see TARC3_T3_* below
+#define VAR_TARC3_ACCUSE_HITS                            0x410C // count of scoring T2/T3 presentations
+#define VAR_TARC3_ACCUSE_SCORE                           0x410D // total points across all four questions
+#define VAR_TARC3_ACCUSE_QSCORE                          0x410E // points scored in the current question
+#define VAR_TARC3_ACCUSE_SLOT                            0x410F // evidence presented this question (0-3)
 #define VAR_UNUSED_0x4110                                0x4110 // Unused Var
 #define VAR_UNUSED_0x4111                                0x4111 // Unused Var
 #define VAR_UNUSED_0x4112                                0x4112 // Unused Var
@@ -459,6 +459,33 @@
 #define TARC3_ACT3_CABIN_SEARCH    0  // free roam; the cabin search runs while ACT2 is SEARCH_TAKESHI
 #define TARC3_ACT3_GATHERING       1  // move to Akie's cabin
 #define TARC3_ACT3_ASSEMBLED       2  // everyone gathered in Akie's cabin; the deduction follows
+#define TARC3_ACT3_ACCUSATION      3  // the accusation scene is running
+#define TARC3_ACT3_COMPLETE        4  // an ending has played
+
+// VAR_TARC3_ACCUSED
+#define TARC3_ACCUSED_ICHIRO       1
+#define TARC3_ACCUSED_TAKESHI      2
+
+// VAR_TARC3_ENDING
+#define TARC3_ENDING_PERFECT       1  // Ichiro, all three T3s held
+#define TARC3_ENDING_GOOD          2  // Ichiro, at least one deduction, fewer than three T3s
+#define TARC3_ENDING_BAD           3  // Ichiro, no deduction made
+#define TARC3_ENDING_WORST         4  // the wrong suspect was named and believed
+#define TARC3_ENDING_WORST_REFUSED 5  // the wrong suspect was named and the case refused
+
+// VAR_TARC3_ACCUSE_T3 - one bit per T3 premise, Q2 has no T3 by design
+#define TARC3_T3_TWIN_REFUSAL      1  // question one
+#define TARC3_T3_SKETCHED_DISCHARGE 2 // question three
+#define TARC3_T3_SELF_INFLICTED    4  // question four
+#define TARC3_T3_ALL               7
+
+// Reachable VAR_TARC3_ACCUSE_T3 masks that the Good ending's epilogue tint keys off
+#define TARC3_T3_REFUSAL_ONLY      (TARC3_T3_TWIN_REFUSAL)
+#define TARC3_T3_REFUSAL_LIGHTS    (TARC3_T3_TWIN_REFUSAL | TARC3_T3_SKETCHED_DISCHARGE)
+#define TARC3_T3_REFUSAL_WOUND     (TARC3_T3_TWIN_REFUSAL | TARC3_T3_SELF_INFLICTED)
+
+// "None" entry in the accusation evidence menus; EVD_* ids are 0-46
+#define TARC3_ACCUSE_NONE          999
 
 #if TESTING
 #define TESTING_VARS_START                  0x9000

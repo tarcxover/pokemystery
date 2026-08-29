@@ -333,13 +333,13 @@ evidence:
   - id: BLOOD_ON_THE_STAIR
     name: Blood on the Stair
     icon: BloodyDoorframe
-    # question: [tatsuo, ichiro]
-    # implicates: [ICHIRO, TAKESHI]
+    # question: [tatsuo]
+    # implicates: [ICHIRO]
     recipes: NULL
     description: |
-      A smear on the
-      stairwell between the
-      hold and the cabins.
+      A smear of blood and
+      charcoal on the steps
+      down to the hold.
     details: |
       tba
 

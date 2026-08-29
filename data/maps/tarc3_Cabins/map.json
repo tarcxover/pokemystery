@@ -152,7 +152,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "tarc3_Cabins_EventScript_GatherRan",
-      "flag": "FLAG_HIDE_TARC3_CABIN_CAST"
+      "flag": "FLAG_HIDE_TARC3_CABIN_RAN"
     }
   ],
   "warp_events": [
