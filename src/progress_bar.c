@@ -237,7 +237,7 @@ static u32 ProgBar_GfxSize(const ProgBar_Template* t)
 static void Task_ProgressBarHandleInput(u8 taskId)
 {
     TASK_DATA(barId);
-    constexpr u32 step = 1;
+    const u32 step = 1;
 
     if (JOY_NEW(L_BUTTON) && JOY_NEW(R_BUTTON)) {
         ProgBar_Destroy(&ProgBar_DefaultTemplate, tData->barId);
