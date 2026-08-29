@@ -1686,6 +1686,8 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 
 
 	.include "data/scripts/tarc3_common.inc"
+	.include "data/scripts/tarc3_accusation.inc"
+	.include "data/scripts/tarc3_accusation_evidence.inc"
 	.include "data/scripts/pc_transfer.inc"
 	.include "data/scripts/questionnaire.inc"
 	.include "data/scripts/abnormal_weather.inc"

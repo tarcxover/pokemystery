@@ -1,0 +1,1301 @@
+// ACT THREE - the accusation (CS11)
+
+script tarc3_Accusation_EventScript_Begin {
+    lockall
+    hidefollower
+    setvar(VAR_TARC3_ACT3, TARC3_ACT3_ACCUSATION)
+    setvar(VAR_TARC3_ACCUSED, 0)
+    setvar(VAR_TARC3_ENDING, 0)
+    setvar(VAR_TARC3_ACCUSE_T3, 0)
+    setvar(VAR_TARC3_ACCUSE_HITS, 0)
+    setvar(VAR_TARC3_ACCUSE_SCORE, 0)
+    setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
+    setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    clearflag(FLAG_TARC3_ACCUSE_CRUMBS)
+    clearflag(FLAG_TARC3_ACCUSE_HISTORY)
+    call(tarc3_Accusation_EventScript_TakeTheFloor)
+    special(SpawnCameraObject)
+    applymovement(LOCALID_CAMERA, moves(walk_up))
+    waitmovement(0)
+    delay(20)
+    setspeaker(NULL)
+    msgbox(format("Begin, {PLAYER} Edgeworth.\pThey have wasted quite enough of my evening already."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Accusation_EventScript_Naming)
+}
+
+// the player takes the floor at (19,6)
+
+script tarc3_Accusation_EventScript_TakeTheFloor {
+    special(StorePlayerCoordsInVars)
+    if (var(VAR_0x8005) == 7) {
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left, walk_up, walk_left, face_up))
+    } else {
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left, face_up))
+    }
+    waitmovement(0)
+    return
+}
+
+// naming the accused
+
+script tarc3_Accusation_EventScript_Naming {
+    setspeaker("{PLAYER}")
+    msgbox(format("Two men were killed aboard this ship tonight.\pA third was attacked in a darkened room."))
+    msgbox(format("One person is responsible for the whole of it.\pI intend to name that person, and to demonstrate - with evidence, not intuition - that it could have been no one else."))
+    closemessage
+    delay(20)
+    goto(tarc3_Accusation_EventScript_NameMenu)
+}
+
+script tarc3_Accusation_EventScript_NameMenu {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(Whose name am I about to place before this room?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Ichiro", 0)
+    dynmultipush("Takeshi", 1)
+    dynmultistack(0, 0, TRUE, 2, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    if (var(VAR_RESULT) == 1) {
+        msgbox(format("{FONT_NARROW}(Takeshi. Am I certain on this?)", "1_latin_rse_narrow"), MSGBOX_YESNO)
+        closemessage
+        if (var(VAR_RESULT) == NO) {
+            goto(tarc3_Accusation_EventScript_NameMenu)
+        }
+        goto(tarc3_Accusation_EventScript_NameTakeshi)
+    }
+    setspeaker(NULL)
+    msgbox(format("{FONT_NARROW}(Ichiro. Am I certain on this?)", "1_latin_rse_narrow"), MSGBOX_YESNO)
+    closemessage
+    if (var(VAR_RESULT) == NO) {
+        goto(tarc3_Accusation_EventScript_NameMenu)
+    }
+    goto(tarc3_Accusation_EventScript_NameIchiro)
+}
+
+script tarc3_Accusation_EventScript_NameIchiro {
+    setvar(VAR_TARC3_ACCUSED, TARC3_ACCUSED_ICHIRO)
+    setspeaker("{PLAYER}")
+    msgbox(format("It was Ichiro."))
+    closemessage
+    playse(SE_PIN)
+    applymovement(LOCALID_CABINS_JOJI, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(5)
+    playse(SE_PIN)
+    applymovement(LOCALID_CABINS_MARIKO, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+    playse(SE_PIN)
+    applymovement(LOCALID_CABINS_KITARO, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(60)
+    setspeaker("Joji")
+    msgbox(format("No. No! Absolutely not."))
+    setspeaker("Mariko")
+    msgbox(format("...The one who was stabbed?"))
+    setspeaker("Kitaro")
+    msgbox(format("{PLAYER}, we found him bleeding on a bathroom floor."))
+    setspeaker("Ichiro")
+    msgbox(format("..."))
+    msgbox(format("You are... mistaken."))
+    setspeaker("{PLAYER}")
+    msgbox(format("Then permit me to lay out the facts of each of tonight's incidents. In order."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q1)
+}
+
+script tarc3_Accusation_EventScript_NameTakeshi {
+    setvar(VAR_TARC3_ACCUSED, TARC3_ACCUSED_TAKESHI)
+    setspeaker("{PLAYER}")
+    msgbox(format("It was Takeshi who killed Gozo.\pTatsuo observed him disposing of the evidence afterwards. That was reason enough to kill him also."))
+    setspeaker("Mariko")
+    msgbox(format("Finally. Thank you."))
+    setspeaker("Natsue")
+    msgbox(format("He isn't even in the room! He can't answer you!"))
+    msgbox(format("You're accusing a man who isn't here to speak!"))
+    closemessage
+    delay(30)
+    call(tarc3_Accusation_EventScript_OpenCloset)
+    setspeaker("Takeshi")
+    msgbox(format("...I'm here."))
+    msgbox(format("Don't, Natsue. Don't attempt to defend a man who your family know is guilty."))
+    msgbox(format("You're better than that. You always have been."))
+    setspeaker("{PLAYER}")
+    msgbox(format("I will present the evidence of four incidents, and demonstrate that you are the killer."))
+    setspeaker("Takeshi")
+    msgbox(format("Make your accusations. I know the truth.\pIf you proceed down this path, a killer will walk free."))
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q1)
+}
+
+// takeshi 'exits' closet
+
+script tarc3_Accusation_EventScript_OpenCloset {
+    playse(SE_DOOR)
+    clearflag(FLAG_HIDE_TARC3_CABIN_TAKESHI)
+    addobject(LOCALID_CABINS_TAKESHI_CLOSET)
+    delay(30)
+    applymovement(LOCALID_CABINS_NATSUE, moves(face_up))
+    waitmovement(0)
+    delay(30)
+    applymovement(LOCALID_CABINS_TAKESHI_CLOSET, moves(walk_down))
+    waitmovement(0)
+    applymovement(LOCALID_CABINS_NATSUE, moves(face_right))
+    waitmovement(0)
+    delay(20)
+    return
+}
+
+// the debug evidence picker stands in for the accusation UI until it exists
+
+// accusation question 1
+
+script tarc3_Accusation_EventScript_Q1 {
+    setspeaker("{PLAYER}")
+    msgbox(format("First. Gozo."))
+    closemessage
+    delay(20)
+    setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
+    setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    goto(tarc3_Accusation_EventScript_Q1Loop)
+}
+
+script tarc3_Accusation_EventScript_Q1Loop {
+    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 3, tarc3_Accusation_EventScript_Q1Summary)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(DEBUG: what do I present?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Twin Refusal", EVD_TWIN_REFUSAL)
+    dynmultipush("Unrequited Love", EVD_UNREQUITED_LOVE)
+    dynmultipush("Withdrawn Funds", EVD_SPONSORSHIP_WITHDRAWAL)
+    dynmultipush("Artist at the Door", EVD_ARTIST_AT_THE_DOOR)
+    dynmultipush("Final Meeting", EVD_GOZOS_FINAL_MEETING)
+    dynmultipush("Takeshi's Revenge", EVD_TAKESHIS_REVENGE)
+    dynmultipush("Sketchbook", EVD_SKETCHBOOK)
+    dynmultipush("Refused Suitor", EVD_REFUSED_SUITOR)
+    dynmultipush("Tuition Funds", EVD_TUITION_FUNDS)
+    dynmultipush("Sponsorship", EVD_ICHIRO_SPONSORSHIP)
+    dynmultipush("Bread Eraser", EVD_BREAD_ERASER)
+    dynmultipush("Requested Meeting", EVD_TAKESHIS_MEETING)
+    dynmultipush("Takeshi's History", EVD_TAKESHIS_HISTORY)
+    dynmultipush("Family Picture", EVD_FAMILY_PICTURE)
+    dynmultipush("Overheard Row", EVD_OVERHEARD_ARGUMENT)
+    dynmultipush("None", TARC3_ACCUSE_NONE)
+    dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case EVD_TWIN_REFUSAL:
+            call(tarc3_Accusation_EventScript_Ev_TwinRefusal)
+        case EVD_UNREQUITED_LOVE:
+            call(tarc3_Accusation_EventScript_Ev_UnrequitedLove)
+        case EVD_SPONSORSHIP_WITHDRAWAL:
+            call(tarc3_Accusation_EventScript_Ev_SponsorshipWithdrawal)
+        case EVD_ARTIST_AT_THE_DOOR:
+            call(tarc3_Accusation_EventScript_Ev_ArtistAtTheDoor)
+        case EVD_GOZOS_FINAL_MEETING:
+            call(tarc3_Accusation_EventScript_Ev_GozosFinalMeeting)
+        case EVD_TAKESHIS_REVENGE:
+            call(tarc3_Accusation_EventScript_Ev_TakeshisRevenge)
+        case EVD_SKETCHBOOK:
+            call(tarc3_Accusation_EventScript_Ev_Sketchbook)
+        case EVD_REFUSED_SUITOR:
+            call(tarc3_Accusation_EventScript_Ev_RefusedSuitor)
+        case EVD_TUITION_FUNDS:
+            call(tarc3_Accusation_EventScript_Ev_TuitionFunds)
+        case EVD_ICHIRO_SPONSORSHIP:
+            call(tarc3_Accusation_EventScript_Ev_IchiroSponsorship)
+        case EVD_BREAD_ERASER:
+            call(tarc3_Accusation_EventScript_Ev_BreadEraser)
+        case EVD_TAKESHIS_MEETING:
+            call(tarc3_Accusation_EventScript_Ev_TakeshisMeeting)
+        case EVD_TAKESHIS_HISTORY:
+            call(tarc3_Accusation_EventScript_Ev_TakeshisHistory)
+        case EVD_FAMILY_PICTURE:
+            call(tarc3_Accusation_EventScript_Ev_FamilyPicture)
+        case EVD_OVERHEARD_ARGUMENT:
+            call(tarc3_Accusation_EventScript_Ev_OverheardArgument)
+        default:
+            goto(tarc3_Accusation_EventScript_Q1Summary)
+    }
+    addvar(VAR_TARC3_ACCUSE_SLOT, 1)
+    goto(tarc3_Accusation_EventScript_Q1Loop)
+}
+
+script tarc3_Accusation_EventScript_Q1Summary {
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 13, tarc3_Accusation_EventScript_Q1SummaryBest)
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 5, tarc3_Accusation_EventScript_Q1SummaryGood)
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 1, tarc3_Accusation_EventScript_Q1SummaryPoor)
+    goto_if_eq(VAR_TARC3_ACCUSE_SLOT, 0, tarc3_Accusation_EventScript_Q1SummarySkipped)
+    goto(tarc3_Accusation_EventScript_Q1SummaryNone)
+}
+
+script tarc3_Accusation_EventScript_Q1SummaryBest {
+    setspeaker("Mariko")
+    msgbox(format("...All night I have asked for one answer about my father that holds. That was it."))
+    setspeaker("Suzuki")
+    msgbox(format("Go on, {PLAYER}."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q2)
+}
+
+script tarc3_Accusation_EventScript_Q1SummaryGood {
+    setspeaker("Joji")
+    msgbox(format("...It holds together. I don't like it, but it holds."))
+    setspeaker("Mariko")
+    msgbox(format("Keep going."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q2)
+}
+
+script tarc3_Accusation_EventScript_Q1SummaryPoor {
+    setspeaker("Mariko")
+    msgbox(format("Loose facts, and no thread through any of them."))
+    setspeaker("Joji")
+    msgbox(format("You'll need better than that before this night is done."))
+    setspeaker("{RIVAL}")
+    msgbox(format("A collection of facts is not an argument, {PLAYER} Edgeworth.\pDo endeavour to connect them."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q2)
+}
+
+script tarc3_Accusation_EventScript_Q1SummaryNone {
+    setspeaker("Mariko")
+    msgbox(format("Nothing you have said touches the man you named."))
+    setspeaker("{RIVAL}")
+    msgbox(format("She is correct, and that is intolerable.\pCorrect it."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q2)
+}
+
+script tarc3_Accusation_EventScript_Q1SummarySkipped {
+    setspeaker("{PLAYER}")
+    msgbox(format("...I will return to that one."))
+    setspeaker("Mariko")
+    msgbox(format("You'll come back to it."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Postponement is not deduction."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q2)
+}
+
+// accusation question two
+
+script tarc3_Accusation_EventScript_Q2 {
+    setspeaker("{PLAYER}")
+    msgbox(format("Second. How Tatsuo died."))
+    closemessage
+    delay(20)
+    setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
+    setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    goto(tarc3_Accusation_EventScript_Q2Loop)
+}
+
+script tarc3_Accusation_EventScript_Q2Loop {
+    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 3, tarc3_Accusation_EventScript_Q2Summary)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(DEBUG: what do I present?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Silenced Witness", EVD_SILENCED_WITNESS)
+    dynmultipush("Accomplice Theory", EVD_THE_ACCOMPLICE_THEORY)
+    dynmultipush("Charcoal on Bolt", EVD_CHARCOAL_ON_BOLT)
+    dynmultipush("Long Absence", EVD_LONG_ABSENCE)
+    dynmultipush("An Accomplice", EVD_AN_ACCOMPLICE)
+    dynmultipush("Open Service Door", EVD_OPEN_SERVICE_DOOR)
+    dynmultipush("Blood on the Stair", EVD_BLOOD_ON_THE_STAIR)
+    dynmultipush("None", TARC3_ACCUSE_NONE)
+    dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case EVD_SILENCED_WITNESS:
+            call(tarc3_Accusation_EventScript_Ev_SilencedWitness)
+        case EVD_THE_ACCOMPLICE_THEORY:
+            call(tarc3_Accusation_EventScript_Ev_TheAccompliceTheory)
+        case EVD_CHARCOAL_ON_BOLT:
+            call(tarc3_Accusation_EventScript_Ev_CharcoalOnBolt)
+        case EVD_LONG_ABSENCE:
+            call(tarc3_Accusation_EventScript_Ev_LongAbsence)
+        case EVD_AN_ACCOMPLICE:
+            call(tarc3_Accusation_EventScript_Ev_AnAccomplice)
+        case EVD_OPEN_SERVICE_DOOR:
+            call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
+        case EVD_BLOOD_ON_THE_STAIR:
+            call(tarc3_Accusation_EventScript_Ev_BloodOnTheStair)
+        default:
+            goto(tarc3_Accusation_EventScript_Q2Summary)
+    }
+    addvar(VAR_TARC3_ACCUSE_SLOT, 1)
+    goto(tarc3_Accusation_EventScript_Q2Loop)
+}
+
+script tarc3_Accusation_EventScript_Q2Summary {
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 5, tarc3_Accusation_EventScript_Q2SummaryGood)
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 1, tarc3_Accusation_EventScript_Q2SummaryPoor)
+    goto_if_eq(VAR_TARC3_ACCUSE_SLOT, 0, tarc3_Accusation_EventScript_Q2SummarySkipped)
+    goto(tarc3_Accusation_EventScript_Q2SummaryNone)
+}
+
+script tarc3_Accusation_EventScript_Q2SummaryGood {
+    setspeaker("Akie")
+    msgbox(format("...So he only saw something he shouldn't have. That's all it ever was."))
+    setspeaker("Suzuki")
+    msgbox(format("Continue, {PLAYER}."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q3)
+}
+
+script tarc3_Accusation_EventScript_Q2SummaryPoor {
+    setspeaker("Mariko")
+    msgbox(format("An accomplice still explains more than anything you have offered."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Two questions, and not one decisive word from you.\pThis is mediocrity, {PLAYER} Edgeworth."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q3)
+}
+
+script tarc3_Accusation_EventScript_Q2SummaryNone {
+    setspeaker("Akie")
+    msgbox(format("None of that was about Tatsuo."))
+    setspeaker("{RIVAL}")
+    msgbox(format("A foolishly foolish detour, {PLAYER} Edgeworth.\pThe man is dead and you have said nothing of him. Keep to the question."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q3)
+}
+
+script tarc3_Accusation_EventScript_Q2SummarySkipped {
+    setspeaker("{PLAYER}")
+    msgbox(format("...I cannot answer this one."))
+    setspeaker("Akie")
+    msgbox(format("No."))
+    msgbox(format("No, you don't get to do that. That one was my husband."))
+    msgbox(format("Say something about Tatsuo or don't say anything else, at all."))
+    setspeaker("{RIVAL}")
+    msgbox(format("She is owed an answer, and I will not soften that.\pProvide one, or surrender the floor."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q3)
+}
+
+// accusation question three
+
+script tarc3_Accusation_EventScript_Q3 {
+    setspeaker("{PLAYER}")
+    msgbox(format("Third. The lights."))
+    closemessage
+    delay(20)
+    setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
+    setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    goto(tarc3_Accusation_EventScript_Q3Loop)
+}
+
+script tarc3_Accusation_EventScript_Q3Loop {
+    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 3, tarc3_Accusation_EventScript_Q3Summary)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(DEBUG: what do I present?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Sketched Discharge", EVD_SKETCHED_DISCHARGE)
+    dynmultipush("Copied Discharge", EVD_SMEARGLE_KNOWS_DISCHARGE)
+    dynmultipush("Panel Struck", EVD_PANEL_STRUCK)
+    dynmultipush("Nearest Hand", EVD_THE_NEAREST_HAND)
+    dynmultipush("Smeargle's Moves", EVD_SMEARGLE_REPERTOIRE)
+    dynmultipush("Sketched Move", EVD_SMEARGLES_MOVESET)
+    dynmultipush("Focused Burn", EVD_FOCUSED_BURN)
+    dynmultipush("Long Absence", EVD_LONG_ABSENCE)
+    dynmultipush("Adjoining Hold", EVD_THE_HOLD_ADJOINS)
+    dynmultipush("Open Service Door", EVD_OPEN_SERVICE_DOOR)
+    dynmultipush("None", TARC3_ACCUSE_NONE)
+    dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case EVD_SKETCHED_DISCHARGE:
+            call(tarc3_Accusation_EventScript_Ev_SketchedDischarge)
+        case EVD_SMEARGLE_KNOWS_DISCHARGE:
+            call(tarc3_Accusation_EventScript_Ev_SmeargleKnowsDischarge)
+        case EVD_PANEL_STRUCK:
+            call(tarc3_Accusation_EventScript_Ev_PanelStruck)
+        case EVD_THE_NEAREST_HAND:
+            call(tarc3_Accusation_EventScript_Ev_TheNearestHand)
+        case EVD_SMEARGLE_REPERTOIRE:
+            call(tarc3_Accusation_EventScript_Ev_SmeargleRepertoire)
+        case EVD_SMEARGLES_MOVESET:
+            call(tarc3_Accusation_EventScript_Ev_SmearglesMoveset)
+        case EVD_FOCUSED_BURN:
+            call(tarc3_Accusation_EventScript_Ev_FocusedBurn)
+        case EVD_LONG_ABSENCE:
+            call(tarc3_Accusation_EventScript_Ev_LongAbsence)
+        case EVD_THE_HOLD_ADJOINS:
+            call(tarc3_Accusation_EventScript_Ev_TheHoldAdjoins)
+        case EVD_OPEN_SERVICE_DOOR:
+            call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
+        default:
+            goto(tarc3_Accusation_EventScript_Q3Summary)
+    }
+    addvar(VAR_TARC3_ACCUSE_SLOT, 1)
+    goto(tarc3_Accusation_EventScript_Q3Loop)
+}
+
+script tarc3_Accusation_EventScript_Q3Summary {
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 13, tarc3_Accusation_EventScript_Q3SummaryBest)
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 5, tarc3_Accusation_EventScript_Q3SummaryGood)
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 1, tarc3_Accusation_EventScript_Q3SummaryPoor)
+    goto_if_eq(VAR_TARC3_ACCUSE_SLOT, 0, tarc3_Accusation_EventScript_Q3SummarySkipped)
+    goto(tarc3_Accusation_EventScript_Q3SummaryNone)
+}
+
+script tarc3_Accusation_EventScript_Q3SummaryBest {
+    setspeaker("Suzuki")
+    msgbox(format("...Then it was never the wiring. I will not suggest it again."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q4)
+}
+
+script tarc3_Accusation_EventScript_Q3SummaryGood {
+    setspeaker("Kitaro")
+    msgbox(format("...I want to dismiss it. I find that I can't."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q4)
+}
+
+script tarc3_Accusation_EventScript_Q3SummaryPoor {
+    setspeaker("Suzuki")
+    msgbox(format("This is an old ship, {PLAYER}. Old ships have old wiring."))
+    setspeaker("Mariko")
+    msgbox(format("So it was the man, or it was the weather. Wonderful."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Old wiring. That is what you have left this room with.\pMy father would have had them in hand an hour ago."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q4)
+}
+
+script tarc3_Accusation_EventScript_Q3SummaryNone {
+    setspeaker("Mariko")
+    msgbox(format("So the lights went out on their own, then."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Three questions. Three failures.\pI did not cross an ocean to watch this."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q4)
+}
+
+script tarc3_Accusation_EventScript_Q3SummarySkipped {
+    setspeaker("{PLAYER}")
+    msgbox(format("The lights... I cannot account for."))
+    setspeaker("Mariko")
+    msgbox(format("Then we are all still in the dark. How appropriate."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Cannot."))
+    msgbox(format("There is a word I never expected to hear in your mouth."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Q4)
+}
+
+// accusation question four
+
+script tarc3_Accusation_EventScript_Q4 {
+    setspeaker("{PLAYER}")
+    msgbox(format("And finally."))
+    closemessage
+    delay(30)
+    setspeaker("{PLAYER}")
+    msgbox(format("Who attacked Ichiro."))
+    closemessage
+    delay(20)
+    setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
+    setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    goto(tarc3_Accusation_EventScript_Q4Loop)
+}
+
+script tarc3_Accusation_EventScript_Q4Loop {
+    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 3, tarc3_Accusation_EventScript_Q4Summary)
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(DEBUG: what do I present?)", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Self-Inflicted", EVD_SELF_INFLICTED_WOUND)
+    dynmultipush("Impossible Aim", EVD_IMPOSSIBLE_PRECISION)
+    dynmultipush("Left Behind", EVD_INCONSISTENT_DISPOSAL)
+    dynmultipush("Accomplice Theory", EVD_THE_ACCOMPLICE_THEORY)
+    dynmultipush("No Defence", EVD_NO_DEFENSIVE_WOUNDS)
+    dynmultipush("The Second Story", EVD_THE_SECOND_STORY)
+    dynmultipush("An Accomplice", EVD_AN_ACCOMPLICE)
+    dynmultipush("Open Service Door", EVD_OPEN_SERVICE_DOOR)
+    dynmultipush("None", TARC3_ACCUSE_NONE)
+    dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case EVD_SELF_INFLICTED_WOUND:
+            call(tarc3_Accusation_EventScript_Ev_SelfInflictedWound)
+        case EVD_IMPOSSIBLE_PRECISION:
+            call(tarc3_Accusation_EventScript_Ev_ImpossiblePrecision)
+        case EVD_INCONSISTENT_DISPOSAL:
+            call(tarc3_Accusation_EventScript_Ev_InconsistentDisposal)
+        case EVD_THE_ACCOMPLICE_THEORY:
+            call(tarc3_Accusation_EventScript_Ev_TheAccompliceTheory)
+        case EVD_NO_DEFENSIVE_WOUNDS:
+            call(tarc3_Accusation_EventScript_Ev_NoDefensiveWounds)
+        case EVD_THE_SECOND_STORY:
+            call(tarc3_Accusation_EventScript_Ev_TheSecondStory)
+        case EVD_AN_ACCOMPLICE:
+            call(tarc3_Accusation_EventScript_Ev_AnAccomplice)
+        case EVD_OPEN_SERVICE_DOOR:
+            call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
+        default:
+            goto(tarc3_Accusation_EventScript_Q4Summary)
+    }
+    addvar(VAR_TARC3_ACCUSE_SLOT, 1)
+    goto(tarc3_Accusation_EventScript_Q4Loop)
+}
+
+script tarc3_Accusation_EventScript_Q4Summary {
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 13, tarc3_Accusation_EventScript_Q4SummaryBest)
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 5, tarc3_Accusation_EventScript_Q4SummaryGood)
+    goto_if_ge(VAR_TARC3_ACCUSE_QSCORE, 1, tarc3_Accusation_EventScript_Q4SummaryPoor)
+    goto_if_eq(VAR_TARC3_ACCUSE_SLOT, 0, tarc3_Accusation_EventScript_Q4SummarySkipped)
+    goto(tarc3_Accusation_EventScript_Q4SummaryNone)
+}
+
+script tarc3_Accusation_EventScript_Q4SummaryBest {
+    setspeaker(NULL)
+    msgbox(format("Everyone in the room is waiting on Ichiro's response."))
+    closemessage
+    delay(40)
+    goto(tarc3_Accusation_EventScript_Resolve)
+}
+
+script tarc3_Accusation_EventScript_Q4SummaryGood {
+    setspeaker("Joji")
+    msgbox(format("...In the bathroom I said a man couldn't do that to himself.\pI am no longer certain I believe me."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Resolve)
+}
+
+script tarc3_Accusation_EventScript_Q4SummaryPoor {
+    setspeaker("Natsue")
+    msgbox(format("You've proven nothing. Nothing at all."))
+    setspeaker("{RIVAL}")
+    msgbox(format("..."))
+    msgbox(format("For once, {PLAYER} Edgeworth, I have nothing to add to that."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Resolve)
+}
+
+script tarc3_Accusation_EventScript_Q4SummaryNone {
+    setspeaker("Mariko")
+    msgbox(format("And that was the last of your questions."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Four questions, and a foolish fool has answered none of them.\pYou have humiliated us both."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Resolve)
+}
+
+script tarc3_Accusation_EventScript_Q4SummarySkipped {
+    setspeaker("Mariko")
+    msgbox(format("That was the last one, wasn't it."))
+    msgbox(format("That was your last question, and you didn't even attempt to answer it?"))
+    setspeaker("{RIVAL}")
+    msgbox(format("Do not look to me. You built this."))
+    msgbox(format("Stand in it."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_Resolve)
+}
+
+// evaluation - score bands (magic numbers!)
+script tarc3_Accusation_EventScript_Resolve {
+    goto_if_eq(VAR_TARC3_ACCUSED, TARC3_ACCUSED_TAKESHI, tarc3_Accusation_EventScript_BandWorst)
+    if (var(VAR_TARC3_ACCUSE_SCORE) >= 43 && var(VAR_TARC3_ACCUSE_T3) == TARC3_T3_ALL) {
+        goto(tarc3_Accusation_EventScript_BandPerfect)
+    }
+    if (var(VAR_TARC3_ACCUSE_SCORE) >= 24 && var(VAR_TARC3_ACCUSE_HITS) >= 1) {
+        goto(tarc3_Accusation_EventScript_BandGood)
+    }
+    goto(tarc3_Accusation_EventScript_BandBad)
+}
+
+script tarc3_Accusation_EventScript_BandPerfect {
+    setvar(VAR_TARC3_ENDING, TARC3_ENDING_PERFECT)
+    goto(tarc3_Accusation_EventScript_PerfectAnswer)
+}
+
+script tarc3_Accusation_EventScript_BandGood {
+    setvar(VAR_TARC3_ENDING, TARC3_ENDING_GOOD)
+    goto(tarc3_Accusation_EventScript_GoodAnswer)
+}
+
+script tarc3_Accusation_EventScript_BandBad {
+    setvar(VAR_TARC3_ENDING, TARC3_ENDING_BAD)
+    goto(tarc3_Accusation_EventScript_BadAnswer)
+}
+
+script tarc3_Accusation_EventScript_BandWorst {
+    setvar(VAR_TARC3_ENDING, TARC3_ENDING_WORST)
+    goto_if_ge(VAR_TARC3_ACCUSE_SCORE, 24, tarc3_Accusation_EventScript_WorstAnswer)
+    setvar(VAR_TARC3_ENDING, TARC3_ENDING_WORST_REFUSED)
+    goto(tarc3_Accusation_EventScript_WorstRefusedAnswer)
+}
+
+// PERFECT - Ichiro, all three T3s presented
+
+script tarc3_Accusation_EventScript_PerfectAnswer {
+    closemessage
+    delay(50)
+    setspeaker("{PLAYER}")
+    msgbox(format("I have Ichiro's sketchbook, and I do not intend to open it."))
+    msgbox(format("There is no need.\pEveryone in this room will learn what it contains - and it will not be from me."))
+    closemessage
+    delay(20)
+    playse(SE_PIN)
+    applymovement(LOCALID_CABINS_ICHIRO, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(30)
+    applymovement(LOCALID_CABINS_ICHIRO, moves(face_down))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("It's drawings. Four years of them."))
+    msgbox(format("All the same person."))
+    msgbox(format("Natsue. Don't look at me. Please. Just... don't."))
+    msgbox(format("I asked him one year ago.\pI wrote it down beforehand so I wouldn't stumble over it."))
+    msgbox(format("He was polite. He waited until I'd said the whole thing."))
+    msgbox(format("'A local boy with borrowed tuition and a half-finished art career.'"))
+    msgbox(format("'Son, know your place.'"))
+    closemessage
+    delay(50)
+    setspeaker("Ichiro")
+    msgbox(format("I thanked him."))
+    msgbox(format("I thanked him, I left the room, and I never mentioned it again.\pNot to him. Not to anybody."))
+    msgbox(format("He announced her engagement to Takeshi the same week."))
+    setspeaker("Mariko")
+    msgbox(format("..."))
+    msgbox(format("...I remember seeing you that week."))
+    msgbox(format("I thought you were ill."))
+    setspeaker("Ichiro")
+    msgbox(format("You want to know what I am to this family? I can give you the figure."))
+    msgbox(format("I am not a close friend. I'm an expense.\pA plaything, one you might bring on a trip to Hoenn or Galar."))
+    msgbox(format("I was counting what I owed. $500,000 per year."))
+    msgbox(format("He got eleven years of a person for it."))
+    setspeaker(NULL)
+    closemessage
+    delay(60)
+    goto(tarc3_Accusation_EventScript_PerfectCloset)
+}
+
+script tarc3_Accusation_EventScript_PerfectCloset {
+    setspeaker("{PLAYER}")
+    msgbox(format("Akie. I must open your closet."))
+    setspeaker("Akie")
+    msgbox(format("...What?"))
+    setspeaker("{PLAYER}")
+    msgbox(format("You should have been told the moment I found him. You were not."))
+    setspeaker("Akie")
+    msgbox(format("You searched my cabin.\pYou opened that door, and you closed it again, and you said nothing to me."))
+    setspeaker("{PLAYER}")
+    msgbox(format("Yes."))
+    setspeaker("Akie")
+    msgbox(format("My husband is on the foredeck under a tablecloth, and you walked out of my room without a word."))
+    setspeaker("{PLAYER}")
+    msgbox(format("I did. This room had to hear the case before it heard him, and I do not retract that judgement."))
+    msgbox(format("That does not make it a small thing to have done to you."))
+    closemessage
+    delay(30)
+    call(tarc3_Accusation_EventScript_OpenCloset)
+    setspeaker("Natsue")
+    msgbox(format("Takeshi..."))
+    setspeaker("Mariko")
+    msgbox(format("He's been in this cabin the entire time."))
+    setspeaker("Kitaro")
+    msgbox(format("How long have you known?"))
+    setspeaker("{PLAYER}")
+    msgbox(format("Since I searched this deck. He hid himself there hours before that, and told no one."))
+    setspeaker("Suzuki")
+    msgbox(format("Let the boy speak."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_PerfectTakeshi)
+}
+
+script tarc3_Accusation_EventScript_PerfectTakeshi {
+    setspeaker("Natsue")
+    msgbox(format("Do you still want revenge?"))
+    setspeaker("Takeshi")
+    msgbox(format("...No."))
+    msgbox(format("But you should hear the whole story, and you should hear it from me."))
+    if (flag(FLAG_TARC3_ACCUSE_HISTORY)) {
+        msgbox(format("{PLAYER} showed you a piece of it tonight. This is the whole of it."))
+    }
+    msgbox(format("My father was Isao Zaiki."))
+    msgbox(format("As you know, Hatamoto Corp took his company. He killed himself the spring after. I was fifteen."))
+    msgbox(format("I joined the Corporation under a name that wasn't mine, and I did it to take something from your grandfather."))
+    msgbox(format("Then I worked beside you, Natsue.\pI fell hopelessly in love.\pI slowly lost interest in revenge."))
+    msgbox(format("Gozo called me into that cabin before dinner because he knew."))
+    setspeaker("Mariko")
+    msgbox(format("He knew?"))
+    setspeaker("Takeshi")
+    msgbox(format("For months. He had all of it. The name, my father, the year I joined."))
+    msgbox(format("He looked at me and he said, 'I see the man Natsue chose.'"))
+    msgbox(format("Then he told me to sit down and eat with his family."))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CABINS_TAKESHI_CLOSET, moves(face_right))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_CABINS_ICHIRO, moves(face_left))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("...So why you."))
+    msgbox(format("I did everything he asked of me. I never asked him twice.\pI said thank you, and I left the room."))
+    msgbox(format("Why you, and not me?\pIt isn't fair."))
+    setspeaker("Natsue")
+    msgbox(format("...No. It isn't."))
+    msgbox(format("You still didn't have to kill him."))
+    setspeaker("Ichiro")
+    msgbox(format("..."))
+    setspeaker("Mariko")
+    msgbox(format("Suzuki. Make arrangements with the police for when we arrive."))
+    setspeaker("Suzuki")
+    msgbox(format("..."))
+    msgbox(format("...Madam."))
+    setspeaker(NULL)
+    closemessage
+    delay(50)
+    goto(tarc3_Accusation_EventScript_End)
+}
+
+// GOOD - Ichiro, at least one deduction
+
+script tarc3_Accusation_EventScript_GoodAnswer {
+    closemessage
+    delay(40)
+    setspeaker("Mariko")
+    msgbox(format("Well?"))
+    setspeaker("Ichiro")
+    msgbox(format("...You're right."))
+    msgbox(format("About all of it."))
+    setspeaker("Joji")
+    msgbox(format("Ichiro..."))
+    setspeaker("Ichiro")
+    msgbox(format("I killed him.\pI killed Tatsuo as well - he saw me at the rail and he called out to me."))
+    msgbox(format("You can all stop looking at Takeshi."))
+    setspeaker("Kitaro")
+    msgbox(format("But why? In Arceus' name, why?"))
+    closemessage
+    applymovement(LOCALID_CABINS_ICHIRO, moves(face_up))
+    waitmovement(0)
+    delay(20)
+    switch (var(VAR_TARC3_ACCUSE_T3)) {
+        case TARC3_T3_REFUSAL_ONLY:
+            goto(tarc3_Accusation_EventScript_GoodMotiveDenied)
+        case TARC3_T3_REFUSAL_LIGHTS:
+            goto(tarc3_Accusation_EventScript_GoodMotiveDenied)
+        case TARC3_T3_REFUSAL_WOUND:
+            goto(tarc3_Accusation_EventScript_GoodMotiveDenied)
+        case TARC3_T3_ALL:
+            goto(tarc3_Accusation_EventScript_GoodMotiveDenied)
+        default:
+            goto(tarc3_Accusation_EventScript_GoodMotiveKept)
+    }
+}
+
+// the motive was never proven - Ichiro supplies one the family can live with
+
+script tarc3_Accusation_EventScript_GoodMotiveKept {
+    setspeaker("Ichiro")
+    msgbox(format("...It was the money."))
+    msgbox(format("Eleven years he paid for me, and he never let a month go past without reminding me of it."))
+    msgbox(format("On the deck he told you he was finished.\pHe said it where I could hear him because he wanted me to hear him."))
+    msgbox(format("Two terms left and nothing behind me. I'd have gone home with nothing."))
+    setspeaker("Mariko")
+    msgbox(format("..."))
+    msgbox(format("You killed my father over school fees."))
+    setspeaker("Ichiro")
+    msgbox(format("Yes."))
+    setspeaker("Mariko")
+    msgbox(format("Arceus help us."))
+    msgbox(format("Suzuki. Make arrangements with the police for when we arrive."))
+    setspeaker("Suzuki")
+    msgbox(format("..."))
+    msgbox(format("...Madam."))
+    closemessage
+    delay(40)
+    setspeaker(NULL)
+    msgbox(format("{FONT_NARROW}(That is not it.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(That was never it - but the evidence I presented did not tell the full story.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(20)
+    setspeaker("{PLAYER}")
+    msgbox(format("That is not the whole reason."))
+    setspeaker("Ichiro")
+    msgbox(format("It's why."))
+    closemessage
+    delay(20)
+    goto(tarc3_Accusation_EventScript_GoodAnswerEnough)
+}
+
+// TWIN_REFUSAL was presented - the room heard the motive, so he denies it
+
+script tarc3_Accusation_EventScript_GoodMotiveDenied {
+    setspeaker("Ichiro")
+    msgbox(format("...Money."))
+    setspeaker("Mariko")
+    msgbox(format("Money."))
+    msgbox(format("We all heard what it was, Ichiro. Every one of us, standing in this room."))
+    setspeaker("Ichiro")
+    msgbox(format("You heard about some drawings."))
+    msgbox(format("Boys draw.\pIt was money."))
+    setspeaker("Natsue")
+    msgbox(format("..."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    msgbox(format("{FONT_NARROW}(He will deny her to the last.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(20)
+    goto(tarc3_Accusation_EventScript_GoodAnswerEnough)
+}
+
+script tarc3_Accusation_EventScript_GoodAnswerEnough {
+    applymovement(LOCALID_CABINS_ICHIRO, moves(face_down))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("...Isn't it enough? You've got what you came for."))
+    setspeaker("Joji")
+    msgbox(format("Let it be enough, {PLAYER}."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    goto(tarc3_Accusation_EventScript_GoodCloset)
+}
+
+script tarc3_Accusation_EventScript_GoodCloset {
+    setspeaker("{PLAYER}")
+    msgbox(format("One further matter. Akie - your closet.\pI found Takeshi in it before I called you all in here. You should have been told then."))
+    setspeaker("Akie")
+    msgbox(format("...Do what you like. It hardly matters now."))
+    closemessage
+    delay(20)
+    call(tarc3_Accusation_EventScript_OpenCloset)
+    setspeaker("Mariko")
+    msgbox(format("...Of course he was."))
+    setspeaker(NULL)
+    msgbox(format("Nobody asks Takeshi anything. They have their killer, and they have stopped listening."))
+    setspeaker("Natsue")
+    msgbox(format("Takeshi."))
+    setspeaker("Takeshi")
+    msgbox(format("...Not here."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    goto(tarc3_Accusation_EventScript_GoodStern)
+}
+
+script tarc3_Accusation_EventScript_GoodStern {
+    closemessage
+    fadescreen(FADE_TO_BLACK)
+    removeobject(LOCALID_CABINS_ICHIRO)
+    removeobject(LOCALID_CABINS_SUZUKI)
+    removeobject(LOCALID_CABINS_AKIE)
+    removeobject(LOCALID_CABINS_KITARO)
+    removeobject(LOCALID_CABINS_JOJI)
+    removeobject(LOCALID_CABINS_MARIKO)
+    delay(30)
+    fadescreen(FADE_FROM_BLACK)
+    delay(30)
+    setspeaker(NULL)
+    msgbox(format("Later, at the stern rail. Only the four of them. The family stayed below."))
+    setspeaker("Natsue")
+    msgbox(format("Do you still want revenge?"))
+    setspeaker("Takeshi")
+    msgbox(format("...No. Not since the first month I worked beside you."))
+    msgbox(format("My father was Isao Zaiki.\pHatamoto Corp took his company and he killed himself the spring after."))
+    msgbox(format("I joined under a name that wasn't mine because I meant to take something from your grandfather."))
+    setspeaker("Natsue")
+    msgbox(format("..."))
+    setspeaker("Takeshi")
+    msgbox(format("He knew before dinner. He'd known for months."))
+    setspeaker("Natsue")
+    msgbox(format("And he said nothing?"))
+    setspeaker("Takeshi")
+    msgbox(format("He said, 'I see the man Natsue chose.' Then he told me to go and eat."))
+    setspeaker("Natsue")
+    msgbox(format("..."))
+    msgbox(format("That's the kindest thing he ever did."))
+    msgbox(format("And he did it where nobody could see it."))
+    setspeaker(NULL)
+    msgbox(format("Comfey lifts from her shoulder and winds a garland around both their wrists."))
+    closemessage
+    delay(40)
+    goto(tarc3_Accusation_EventScript_End)
+}
+
+// BAD 1 - Ichiro accused, no deduction made
+
+script tarc3_Accusation_EventScript_BadAnswer {
+    closemessage
+    delay(30)
+    setspeaker("Ichiro")
+    msgbox(format("May I?"))
+    setspeaker("{PLAYER}")
+    msgbox(format("..."))
+    goto_if_unset(FLAG_TARC3_ACCUSE_CRUMBS, tarc3_Accusation_EventScript_BadAnswerGeneric)
+    setspeaker("Ichiro")
+    msgbox(format("The crumbs. In the blood, by the door. That's the one you keep coming back to."))
+    msgbox(format("I've sketched on the salon deck every day since Florio. In the same chair."))
+    msgbox(format("Suzuki. Is that chair cleared each evening?"))
+    setspeaker("Suzuki")
+    msgbox(format("...It is."))
+    setspeaker("Ichiro")
+    msgbox(format("Then it's anyone's shoe. Any one of you. Including me, walking to dinner."))
+    msgbox(format("You should also know the bread I use goes hard inside a day."))
+    msgbox(format("If the crumb you found was dry, it didn't come off my cuff tonight."))
+    setspeaker("{PLAYER}")
+    msgbox(format("..."))
+    setspeaker("Ichiro")
+    msgbox(format("I'm trying to help you."))
+    msgbox(format("I want the man who did this as much as anyone in this room does."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    goto(tarc3_Accusation_EventScript_BadNearMiss)
+}
+
+// no crumb evidence was presented - Ichiro dismantles the case in general
+
+script tarc3_Accusation_EventScript_BadAnswerGeneric {
+    setspeaker("Ichiro")
+    msgbox(format("Whatever you found, ask where else it could have come from. That's all I'd say."))
+    msgbox(format("Nine people have walked every corridor on this ship tonight.\pEight of them are standing in this room."))
+    msgbox(format("Suzuki. When are the decks swept?"))
+    setspeaker("Suzuki")
+    msgbox(format("...Each evening."))
+    setspeaker("Ichiro")
+    msgbox(format("I sketch on the salon deck every day, in the same chair.\pAnything I've touched could ride to a doorway on somebody's shoe."))
+    setspeaker("{PLAYER}")
+    msgbox(format("..."))
+    setspeaker("Ichiro")
+    msgbox(format("I'm trying to help you."))
+    msgbox(format("I want the man who did this as much as anyone in this room does."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    goto(tarc3_Accusation_EventScript_BadNearMiss)
+}
+
+// the near-miss refers to the sketchbook chain
+
+script tarc3_Accusation_EventScript_BadNearMiss {
+    checkevidence(EVD_SKETCHBOOK)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_Accusation_EventScript_BadNearMissBook)
+    checkevidence(EVD_UNREQUITED_LOVE)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_Accusation_EventScript_BadNearMissBook)
+    checkevidence(EVD_TWIN_REFUSAL)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_Accusation_EventScript_BadNearMissBook)
+    goto(tarc3_Accusation_EventScript_BadWall)
+}
+
+script tarc3_Accusation_EventScript_BadNearMissBook {
+    setspeaker("{PLAYER}")
+    msgbox(format("Then let us discuss the sketchbook I took from your cabin."))
+    closemessage
+    delay(40)
+    playse(SE_PIN)
+    applymovement(LOCALID_CABINS_ICHIRO, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(30)
+    applymovement(LOCALID_CABINS_ICHIRO, moves(face_up))
+    waitmovement(0)
+    delay(30)
+    setspeaker("Joji")
+    msgbox(format("That's enough."))
+    closemessage
+    delay(20)
+    applymovement(LOCALID_CABINS_ICHIRO, moves(face_down))
+    waitmovement(0)
+    delay(20)
+    setspeaker("Ichiro")
+    msgbox(format("...That's my sketchbook, yes."))
+    msgbox(format("I draw people. I'm an art student."))
+    closemessage
+    delay(30)
+    goto(tarc3_Accusation_EventScript_BadWall)
+}
+
+script tarc3_Accusation_EventScript_BadWall {
+    setspeaker("Joji")
+    msgbox(format("He's had enough from this family for one voyage. Leave him be."))
+    closemessage
+    delay(20)
+    setspeaker(NULL)
+    msgbox(format("{FONT_NARROW}(He said that to me two hours ago, in the dining room.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(30)
+    setspeaker("Mariko")
+    msgbox(format("My father is dead. Tatsuo is dead."))
+    msgbox(format("And I have spent six hours of my life waiting on you."))
+    msgbox(format("Whatever you are where you come from, you are nothing here.\pYou are a passenger my niece took pity on at a dock."))
+    msgbox(format("Whoever told you that you were clever lied to you."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    goto(tarc3_Accusation_EventScript_BadCloset)
+}
+
+script tarc3_Accusation_EventScript_BadCloset {
+    setspeaker("{PLAYER}")
+    msgbox(format("There is one more thing, and you had better hear it from me."))
+    msgbox(format("Takeshi is in this room. He is behind that closet door."))
+    closemessage
+    delay(50)
+    setspeaker("Akie")
+    msgbox(format("...In my closet."))
+    msgbox(format("He has been standing in my closet while we all stood here."))
+    setspeaker("{PLAYER}")
+    msgbox(format("I found him when I searched these cabins, shortly before I asked you all to gather."))
+    setspeaker("Mariko")
+    msgbox(format("You found him."))
+    msgbox(format("You found him, and you said nothing."))
+    setspeaker("{PLAYER}")
+    msgbox(format("He was in fear of his life. He asked me to prove it before I called anyone, and I judged..."))
+    setspeaker("Kitaro")
+    msgbox(format("You knew where he was, and you let us stand here.\pYou pointed at every one of us with the man behind that door."))
+    closemessage
+    delay(30)
+    call(tarc3_Accusation_EventScript_OpenCloset)
+    setspeaker("Takeshi")
+    msgbox(format("Don't. He was helping me."))
+    setspeaker("Mariko")
+    msgbox(format("Yes. I'm sure he was."))
+    msgbox(format("There's your accomplice, Suzuki."))
+    msgbox(format("He kept him for exactly as long as it suited him, and produced him the moment it did not."))
+    closemessage
+    delay(40)
+    setspeaker("Suzuki")
+    msgbox(format("..."))
+    msgbox(format("I asked you to find him, {PLAYER}."))
+    msgbox(format("You found him, and you did not tell me."))
+    msgbox(format("...I think you had better go up on deck."))
+    setspeaker(NULL)
+    closemessage
+    delay(50)
+    goto(tarc3_Accusation_EventScript_End)
+}
+
+// BAD 2 - the wrong suspect was named
+
+script tarc3_Accusation_EventScript_WorstAnswer {
+    closemessage
+    delay(40)
+    setspeaker("Mariko")
+    msgbox(format("Well? Say something. Anything at all."))
+    setspeaker("Takeshi")
+    msgbox(format("...There is a part of this you don't have.\pYou should hear it from me, and not read it somewhere in a year."))
+    if (flag(FLAG_TARC3_ACCUSE_HISTORY)) {
+        msgbox(format("You heard tonight what Gozo did to my father. This is the rest of it."))
+    }
+    msgbox(format("You know my father was Isao Zaiki.\pHatamoto Corp took his company and he killed himself the spring after."))
+    msgbox(format("I was fifteen."))
+    msgbox(format("I joined the Corporation under a name that wasn't mine, to take something from your grandfather."))
+    setspeaker("Kitaro")
+    msgbox(format("...Arceus help us."))
+    setspeaker("Joji")
+    msgbox(format("Takeshi..."))
+    setspeaker("Takeshi")
+    msgbox(format("Gozo called me into his cabin before dinner and told me he had known for months."))
+    setspeaker("Mariko")
+    msgbox(format("He knew. And an hour later he was dead."))
+    msgbox(format("Do you hear yourself?"))
+    setspeaker("Takeshi")
+    msgbox(format("Yes."))
+    msgbox(format("I hear myself."))
+    setspeaker(NULL)
+    closemessage
+    delay(50)
+    goto(tarc3_Accusation_EventScript_WorstRoom)
+}
+
+script tarc3_Accusation_EventScript_WorstRoom {
+    setspeaker("Joji")
+    msgbox(format("...I'm sorry. I can't. I can't stand here and say it isn't true."))
+    setspeaker("Akie")
+    msgbox(format("I don't care."))
+    msgbox(format("My husband is on the deck under a tablecloth. Somebody put him there.\pIf it's him, it's him."))
+    setspeaker("Mariko")
+    msgbox(format("Suzuki. Make arrangements with the police for when we arrive."))
+    setspeaker("Suzuki")
+    msgbox(format("..."))
+    msgbox(format("...Madam."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_CABINS_SUZUKI, moves(walk_right, walk_right, walk_down, walk_down, walk_down, walk_left))
+    waitmovement(0)
+    playse(SE_EXIT)
+    removeobject(LOCALID_CABINS_SUZUKI)
+    delay(40)
+    goto(tarc3_Accusation_EventScript_WorstIchiro)
+}
+
+script tarc3_Accusation_EventScript_WorstIchiro {
+    setspeaker("Ichiro")
+    msgbox(format("Natsue."))
+    msgbox(format("Let me walk you back to your cabin."))
+    msgbox(format("You shouldn't have to watch this part."))
+    setspeaker("Natsue")
+    msgbox(format("..."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    applymovement(LOCALID_CABINS_ICHIRO, moves(walk_down, walk_down, walk_down, walk_down, walk_left))
+    waitmovement(0)
+    playse(SE_EXIT)
+    removeobject(LOCALID_CABINS_ICHIRO)
+    delay(20)
+    applymovement(LOCALID_CABINS_NATSUE, moves(walk_down, walk_right, walk_right, walk_down, walk_down, walk_down, walk_left))
+    waitmovement(0)
+    playse(SE_EXIT)
+    removeobject(LOCALID_CABINS_NATSUE)
+    delay(50)
+    goto(tarc3_Accusation_EventScript_End)
+}
+
+// BAD 2, refused - the wrong suspect was named and the case did not hold
+
+script tarc3_Accusation_EventScript_WorstRefusedAnswer {
+    closemessage
+    delay(40)
+    setspeaker("Mariko")
+    msgbox(format("Well. There it is."))
+    setspeaker("Suzuki")
+    msgbox(format("There what is, madam?"))
+    setspeaker("Mariko")
+    msgbox(format("You heard the case."))
+    setspeaker("Suzuki")
+    msgbox(format("I heard a flower and a grudge."))
+    msgbox(format("I bolted a man into a storeroom once tonight on the strength of that flower.\pI will not do it twice."))
+    setspeaker("Kitaro")
+    msgbox(format("...He's right, Mariko. There is nothing here a court would touch."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    goto(tarc3_Accusation_EventScript_WorstRefusedTakeshi)
+}
+
+script tarc3_Accusation_EventScript_WorstRefusedTakeshi {
+    setspeaker("Takeshi")
+    msgbox(format("You should still hear the rest of it. All of you."))
+    if (flag(FLAG_TARC3_ACCUSE_HISTORY)) {
+        msgbox(format("You heard tonight what Gozo did to my father. Here is the rest."))
+    }
+    msgbox(format("You know my father was Isao Zaiki."))
+    msgbox(format("Gozo ruined him, and I joined this company under a false name to take something back."))
+    setspeaker("Mariko")
+    msgbox(format("There! Out of his own mouth!"))
+    setspeaker("Suzuki")
+    msgbox(format("A name is not a knife, madam."))
+    setspeaker("Natsue")
+    msgbox(format("Do you still want revenge?"))
+    setspeaker("Takeshi")
+    msgbox(format("...No."))
+    setspeaker("Akie")
+    msgbox(format("I don't care what he wanted."))
+    msgbox(format("My husband is under a tablecloth on that deck, and not one of you can tell me who put him there."))
+    setspeaker("Mariko")
+    msgbox(format("Suzuki. Make arrangements with the police for when we arrive."))
+    setspeaker("Suzuki")
+    msgbox(format("..."))
+    msgbox(format("...Madam."))
+    setspeaker(NULL)
+    closemessage
+    delay(50)
+    goto(tarc3_Accusation_EventScript_End)
+}
+
+script tarc3_Accusation_EventScript_End {
+    closemessage
+    delay(30)
+    applymovement(LOCALID_CAMERA, moves(walk_down))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    fadescreen(FADE_TO_BLACK)
+    removeobject(LOCALID_CABINS_TAKESHI_CLOSET)
+    removeobject(LOCALID_CABINS_NATSUE)
+    removeobject(LOCALID_CABINS_ICHIRO)
+    removeobject(LOCALID_CABINS_SUZUKI)
+    removeobject(LOCALID_CABINS_AKIE)
+    removeobject(LOCALID_CABINS_KITARO)
+    removeobject(LOCALID_CABINS_JOJI)
+    removeobject(LOCALID_CABINS_MARIKO)
+    delay(30)
+    fadescreen(FADE_FROM_BLACK)
+    delay(40)
+    goto(tarc3_Accusation_EventScript_Depart)
+}
+
+script tarc3_Accusation_EventScript_Depart {
+    applymovement(LOCALID_CABINS_RAN, moves(walk_left))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+    delay(20)
+    setspeaker("{RIVAL}")
+    msgbox(format("Well. The room is empty, and there is nobody left to perform for."))
+    msgbox(format("You may stop standing like that."))
+    setspeaker("{PLAYER}")
+    msgbox(format("..."))
+    setspeaker(NULL)
+    closemessage
+    delay(40)
+    playse(SE_RG_SS_ANNE_HORN)
+    delay(80)
+    setspeaker("{RIVAL}")
+    msgbox(format("...There. The harbour."))
+    msgbox(format("Gather yourself, {PLAYER} Edgeworth.\pIt is time to depart."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("(debug: one final scene to come)"))
+    closemessage
+    setvar(VAR_TARC3_ACT3, TARC3_ACT3_COMPLETE)
+    releaseall
+    end
+}

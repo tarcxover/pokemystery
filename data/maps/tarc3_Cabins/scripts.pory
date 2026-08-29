@@ -7,10 +7,15 @@ mapscripts tarc3_Cabins_MapScripts {
 
 script tarc3_Cabins_OnLoad {
     setflag(FLAG_HIDE_TARC3_CABIN_TAKESHI)
-    if (var(VAR_TARC3_ACT3) >= TARC3_ACT3_GATHERING) {
+    if (var(VAR_TARC3_ACT3) >= TARC3_ACT3_COMPLETE) {
+        setflag(FLAG_HIDE_TARC3_CABIN_CAST)
+        setflag(FLAG_HIDE_TARC3_CABIN_RAN)
+    } elif (var(VAR_TARC3_ACT3) >= TARC3_ACT3_GATHERING) {
         clearflag(FLAG_HIDE_TARC3_CABIN_CAST)
+        clearflag(FLAG_HIDE_TARC3_CABIN_RAN)
     } else {
         setflag(FLAG_HIDE_TARC3_CABIN_CAST)
+        setflag(FLAG_HIDE_TARC3_CABIN_RAN)
     }
     end
 }
@@ -421,7 +426,7 @@ script tarc3_Cabins_EventScript_Assembly {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(I have documented all of the evidence. It's time to lay it out.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(I should talk to {RIVAL} when I'm ready to begin.)", "1_latin_rse_narrow"))
     closemessage
     delay(20)
     applymovement(LOCALID_CAMERA, moves(walk_down))
@@ -444,10 +449,19 @@ script tarc3_Cabins_EventScript_GatherRan {
     lock
     faceplayer
     setspeaker("{RIVAL}")
-    msgbox(format("{FONT_NARROW}(PLACEHOLDER: CS11 - the deduction runs from here.)", "1_latin_rse_narrow"))
+    msgbox(format("They're all here, and every one of them is listening."))
+    msgbox(format("Once you start, you don't get to stop and go and check something."), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Then go back over it. I'll keep them standing."))
+        setspeaker(NULL)
+        release
+        end
+    }
+    msgbox(format("In that case, let's begin."))
     setspeaker(NULL)
+    closemessage
     release
-    end
+    goto(tarc3_Accusation_EventScript_Begin)
 }
 
 script tarc3_Cabins_EventScript_GatherMariko {

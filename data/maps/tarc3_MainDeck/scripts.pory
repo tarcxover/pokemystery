@@ -1548,6 +1548,7 @@ script tarc3_MainDeck_EventScript_DiningRanAct3 {
     msgbox(format("Akie's room? Fitting.\pAfter Tatsuo's death, she hasn't had much reason to be in there."))
     closemessage
     delay(20)
+    setspeaker("{RIVAL}")
     msgbox(format("Are you ready to put this in front of all of them?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
         msgbox(format("Then go back over it.\pOnce I bring them down there, you don't get a second run at it."))
@@ -1555,6 +1556,7 @@ script tarc3_MainDeck_EventScript_DiningRanAct3 {
         release
         end
     }
+    setspeaker("{RIVAL}")
     msgbox(format("I'll collect everyone."))
     setspeaker(NULL)
     closemessage
@@ -1569,6 +1571,7 @@ script tarc3_MainDeck_EventScript_DiningRanAct3 {
     setflag(FLAG_HIDE_TARC3_DINING_JOJI)
     setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     clearflag(FLAG_HIDE_TARC3_CABIN_CAST)
+    clearflag(FLAG_HIDE_TARC3_CABIN_RAN)
     fadescreenspeed(FADE_TO_BLACK, 6)
     warp(MAP_TARC3_CABINS, 19, 6)
     waitstate
