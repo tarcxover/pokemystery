@@ -58,6 +58,10 @@
 #define INCGFX_COMP INCGFX
 #endif // IDE support
 
+#if __STDC_VERSION__ <= 202311L
+#define auto __auto_type
+#endif
+
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
 
 // GameFreak used a macro called "NELEMS", as evidenced by
