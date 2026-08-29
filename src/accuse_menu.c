@@ -37,6 +37,7 @@
 #include "gba/macro.h"
 #include "menu_helpers.h"
 #include "menu.h"
+#include "m4a.h"
 #include "scanline_effect.h"
 #include "sprite.h"
 #include "constants/rgb.h"
@@ -405,7 +406,7 @@ void ScrCmd_openaccusemenu(struct ScriptContext* ctx)
 void CB2_InitAccuseMenu(void)
 {
     FadeScreen(FADE_TO_BLACK, 0);
-    sAccuseMenuInit.cb = CB2_ReturnToField;
+    sAccuseMenuInit.cb = CB2_ReturnToFieldContinueScriptPlayMapMusic;
     CreateTask(Task_OpenAccuseMenu, 1);
 }
 
@@ -474,6 +475,7 @@ static void AccuseMenu_SetupCB(void)
     switch (gMain.state)
     {
     case 0:
+        FadeOutMapMusic(2);
         AccuseMenu_ResetGpuRegsAndBgs();
         SetVBlankHBlankCallbacksToNull();
         ClearScheduledBgCopiesToVram();
@@ -511,6 +513,7 @@ static void AccuseMenu_SetupCB(void)
         break;
     case 5:
         Accuse_CreateProgBar();
+        PlayBGM(MUS_LOGIC);
         CreateTask(Task_AccuseMenuWaitFadeIn, 0);
         gMain.state++;
         break;
@@ -878,6 +881,7 @@ static void AccuseMenuList_PrintFunc(const struct ListMenu *list, u32 index, u8 
 
 static void Task_AccuseMenuWaitFadeAndExit(u8 taskId)
 {
+    FadeOutBGM(2);
     if (!gPaletteFade.active)
     {
         SetMainCallback2(sAccuseMenuState->savedCallback);
