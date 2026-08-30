@@ -116,6 +116,7 @@ script tarc3_Hold_EventScript_JailTakeshi {
     setspeaker(NULL)
     closemessage
     delay(20)
+    playse(SE_PIN)
     applymovement(LOCALID_HOLD_MARIKO_LOCKUP, moves(emote_exclamation_mark))
     applymovement(LOCALID_HOLD_AKIE_LOCKUP, moves(emote_exclamation_mark))
     applymovement(LOCALID_HOLD_TATSUO_LOCKUP, moves(emote_exclamation_mark))

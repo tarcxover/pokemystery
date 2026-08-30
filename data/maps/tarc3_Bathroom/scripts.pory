@@ -58,6 +58,7 @@ script tarc3_Bathroom_EventScript_BlackoutCut {
     animateflash(6)
     setflashlevel(6)
     delay(30)
+    playse(SE_PIN)
     applymovement(LOCALID_BATHROOM_ICHIRO_UP, moves(emote_exclamation_mark))
     waitmovement(0)
     setspeaker("Ichiro")
