@@ -9410,7 +9410,7 @@
       "width": 20,
       "height": 20,
       "primary_tileset": "gTileset_Tarc3_InsideShip",
-      "secondary_tileset": "gTileset_InsideShip",
+      "secondary_tileset": "gTileset_Tarc3_Cabins",
       "border_filepath": "data/layouts/tarc3_GozoRoom/border.bin",
       "blockdata_filepath": "data/layouts/tarc3_GozoRoom/map.bin"
     },
