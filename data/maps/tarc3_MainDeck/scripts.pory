@@ -94,7 +94,6 @@ script tarc3_MainDeck_EventScript_ShowRoom {
     setflag(FLAG_HIDE_TARC3_MAINDECK_RAN)
     removeobject(LOCALID_MAINDECK_RAN_1)
     delay(30)
-    setflag(FLAG_TARC3_EVIDENCE_MENU)
     setvar(VAR_TARC3_FLORIO_INTRO, 7)
     releaseall
     end
