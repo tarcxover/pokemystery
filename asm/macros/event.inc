@@ -3083,3 +3083,13 @@
   .macro dynmultipushheldevidence
 	callnative ScrCmd_dynmultipushheldevidence, requests_effects=1
   .endm
+
+.macro overridetodblend hours:req, minutes=0
+	callnative ScrCmd_overridetodblend
+	.byte \hours
+	.byte \minutes
+.endm
+
+.macro restoretodblend
+	callnative ScrCmd_restoretodblend
+.endm
