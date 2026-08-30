@@ -1,6 +1,10 @@
 gText_ObtainedTheItem::
 	.string "Obtained the {STR_VAR_2}!$"
 
+gText_DocumentedEvidence::
+	.string "{PLAYER} documented {STR_VAR_2}\n"
+	.string "in their notes.$"
+
 gText_TheBagIsFull::
 	.string "The BAG is full…$"
 

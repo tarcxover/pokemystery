@@ -38,7 +38,6 @@ EventScript_BufferKeyItemsPocket::
 
 EventScript_BufferEvidencePocket::
 	bufferstdstring STR_VAR_3, STDSTRING_EVIDENCE
-	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
 	return
 
 EventScript_BufferPokeballsPocket::
@@ -57,6 +56,8 @@ EventScript_BufferBerriesPocket::
 	return
 
 EventScript_ObtainedItem::
+	checkitemtype VAR_0x8006
+	goto_if_eq VAR_RESULT, POCKET_EVIDENCE, EventScript_DocumentedEvidence
 	compare VAR_0x8001, TRUE
 	goto_if_eq EventScript_ObtainedItemMessage
 	buffernumberstring 0, VAR_0x8001
@@ -69,6 +70,19 @@ EventScript_ContinueObtainedItem:
 	showitemdescription
 	waitfanfare
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
+	hideitemdescription
+	setvar VAR_RESULT, TRUE
+	return
+
+EventScript_DocumentedEvidence::
+	message gText_DocumentedEvidence
+	delay 10
+	showitemdescription
+	delay 30
+	playfanfare SE_M_MIST
+	waitfanfare
+	waitmessage
+	waitbuttonpress
 	hideitemdescription
 	setvar VAR_RESULT, TRUE
 	return
