@@ -187,7 +187,7 @@ script tarc3_Bathroom_EventScript_Discovery {
     addobject(LOCALID_BATHROOM_AKIE)
     addobject(LOCALID_BATHROOM_JOJI)
     delay(20)
-    // todo: reset DNS so it returns to usual tint
+    restoretodblend
     playse(SE_M_THUNDERBOLT2)
     animateflash(0)
     setflashlevel(0)

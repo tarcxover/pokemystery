@@ -487,6 +487,16 @@
 // "None" entry in the accusation evidence menus; EVD_* ids are 0-46
 #define TARC3_ACCUSE_NONE          999
 
+// define time of day for DNS system to show (only used for DNS tinting, player can't view the clock themselves)
+// the story sets the clock at fixed points and freezes it in between
+#define TARC3_TOD_AFTERNOON_HOUR   19 // act one, before the body is found
+#define TARC3_TOD_AFTERNOON_MINUTE 30 // the warm ramp runs 19:00-20:00 only
+#define TARC3_TOD_EVENING_HOUR     21 // from Gozo's death onwards
+#define TARC3_TOD_EVENING_MINUTE   30
+
+// passed to overridetodblend, which forces a blend onto maps with no natural light
+#define TARC3_TOD_BLACKOUT         23 // full night tint while the lights are out
+
 #if TESTING
 #define TESTING_VARS_START                  0x9000
 #define TESTING_VAR_DIFFICULTY              (TESTING_VARS_START + 0x0)

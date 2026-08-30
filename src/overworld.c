@@ -77,6 +77,7 @@
 #include "vs_seeker.h"
 #include "frontier_util.h"
 #include "constants/abilities.h"
+#include "constants/vars.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/layouts.h"
@@ -1969,14 +1970,16 @@ void CB2_NewGame(void)
     UnlockPlayerFieldControls();
     gFieldCallback = FieldCB_WarpExitFadeFromBlack;
     gFieldCallback2 = NULL;
+#if OW_USE_FAKE_RTC
+    // Must precede DoMapLoadLoop: NewGameInitData clears SaveBlock3, resetting
+    // the fake RTC to the epoch, and the map load blends the palettes off it.
+    RtcCalcLocalTimeOffset(0, TARC3_TOD_AFTERNOON_HOUR, TARC3_TOD_AFTERNOON_MINUTE, 0);
+    FlagSet(OW_FLAG_PAUSE_TIME);
+#endif
     DoMapLoadLoop(&gMain.state);
     SetFieldVBlankCallback();
     SetMainCallback1(CB1_Overworld);
     SetMainCallback2(CB2_Overworld);
-#if OW_USE_FAKE_RTC
-    // Wall clock now track local time so we set it to 10AM to match initial wall clock time
-    RtcCalcLocalTimeOffset(0, 10, 0, 0);
-#endif
 }
 
 void CB2_WhiteOut(void)

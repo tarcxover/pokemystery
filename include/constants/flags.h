@@ -1764,7 +1764,7 @@
 #define FLAG_HIDE_TARC3_CABIN_RAN                   (TARC3_RESERVED_FLAGS_START + 0x79)
 #define FLAG_TARC3_ACCUSE_CRUMBS                    (TARC3_RESERVED_FLAGS_START + 0x7A) // crumb evidence was presented in the accusation
 #define FLAG_TARC3_ACCUSE_HISTORY                   (TARC3_RESERVED_FLAGS_START + 0x7B) // Takeshi's History was presented in the accusation
-#define FLAG_UNUSED_0x9DC                           (TARC3_RESERVED_FLAGS_START + 0x7C) // Unused Flag
+#define FLAG_TARC3_TIME_FROZEN                      (TARC3_RESERVED_FLAGS_START + 0x7C) // OW_FLAG_PAUSE_TIME; the story sets the clock, it never runs
 #define FLAG_UNUSED_0x9DD                           (TARC3_RESERVED_FLAGS_START + 0x7D) // Unused Flag
 #define FLAG_UNUSED_0x9DE                           (TARC3_RESERVED_FLAGS_START + 0x7E) // Unused Flag
 #define FLAG_UNUSED_0x9DF                           (TARC3_RESERVED_FLAGS_START + 0x7F) // Unused Flag
