@@ -36,6 +36,8 @@
 #include <stdint.h>
 #include <string.h>
 
+#define SCROLLING_MULTICHOICE_INPUT_DELAY 45
+
 struct DynamicListMenuEventArgs
 {
     struct ListMenuTemplate *list;
@@ -525,6 +527,7 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
 
     taskId = CreateTask(Task_HandleScrollingMultichoiceInput, 80);
     gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+    gTasks[taskId].data[8] = SCROLLING_MULTICHOICE_INPUT_DELAY;
     gTasks[taskId].data[1] = ignoreBPress;
     gTasks[taskId].data[2] = windowId;
     gTasks[taskId].data[5] = argc;
@@ -633,6 +636,12 @@ static void InitMultichoiceCheckWrap(bool8 ignoreBPress, u8 count, u8 windowId, 
 
 static void Task_HandleScrollingMultichoiceInput(u8 taskId)
 {
+    if (gTasks[taskId].data[8])
+    {
+        gTasks[taskId].data[8]--;
+        return;
+    }
+
     bool32 done = FALSE;
     u8 listTaskId = gTasks[taskId].data[0];
     struct ListMenu* list = (void*) gTasks[listTaskId].data;
