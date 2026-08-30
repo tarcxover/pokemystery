@@ -783,6 +783,7 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     delay(80)
     playse(SE_BANG)
     delay(80)
+    playse(SE_PIN)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark))
     waitmovement(0)
     delay(20)
