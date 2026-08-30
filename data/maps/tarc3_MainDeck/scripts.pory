@@ -846,6 +846,8 @@ script tarc3_MainDeck_EventScript_TheScream {
     clearflag(FLAG_HIDE_TARC3_HALL_TATSUO)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_THE_BODY)
     fadescreenspeed(FADE_TO_BLACK, 6)
+    fwdtime(TARC3_TOD_EVENING_HOUR, TARC3_TOD_EVENING_MINUTE)
+    pausefakertc
     warp(MAP_TARC3_GOZO_ROOM, 10, 11)
     waitstate
     end
@@ -1267,7 +1269,6 @@ script tarc3_MainDeck_EventScript_Blackout {
     setspeaker(NULL)
     closemessage
     delay(30)
-    // todo: trigger miri's DNS so it goes dark
     fadescreenswapbuffers(FADE_TO_BLACK)
     playse(SE_M_THUNDERBOLT2)
     waitse
@@ -1277,6 +1278,7 @@ script tarc3_MainDeck_EventScript_Blackout {
     fadescreenswapbuffers(FADE_TO_BLACK)
     fadescreenswapbuffers(FADE_FROM_BLACK)
     fadescreen(FADE_TO_BLACK)
+    overridetodblend(TARC3_TOD_BLACKOUT)
     call(tarc3_MainDeck_EventScript_BlackoutRestoreCamera)
     delay(30)
     setvar(VAR_TARC3_ACT2, TARC3_ACT2_BLACKOUT)
