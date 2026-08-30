@@ -566,16 +566,11 @@ script tarc3_GozoRoom_EventScript_SuzukiReflect3 {
     dynmultipush("Garland was there first", 0)
     dynmultipush("He should have knocked", 1)
     dynmultipush("Nobody heard a sound", 2)
-    dynmultipush("Cancel", 3)
-    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
     closemessage
     switch (var(VAR_RESULT)) {
         case 0:
             goto(tarc3_GozoRoom_EventScript_SuzukiReflect3Flower)
-        case 3:
-            goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
-        case MULTI_B_PRESSED:
-            goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
         default:
             goto(tarc3_GozoRoom_EventScript_SuzukiReflect3Irrelevant)
     }
