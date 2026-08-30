@@ -186,6 +186,7 @@ script tarc3_Foredeck_EventScript_Departure {
     closemessage
     delay(20)
     fadescreen(FADE_TO_BLACK)
+    setflag(FLAG_TARC3_EVIDENCE_MENU)
     setflag(FLAG_HIDE_TARC3_FOREDECK_RAN)
     setflag(FLAG_HIDE_TARC3_FOREDECK_NATSUE)
     setflag(FLAG_HIDE_TARC3_FOREDECK_COMFEY)
