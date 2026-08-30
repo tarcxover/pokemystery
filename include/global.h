@@ -276,6 +276,14 @@ struct NPCFollower
     u8 battlePartner; // If you have more than 255 total battle partners defined, change this to a u16
 };
 
+typedef struct BlendOverride 
+{
+    s8 hours;
+    s8 minutes;
+    bool8 enabled;
+    u8 padding;
+} BlendOverride;
+
 #include "constants/items.h"
 #define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
 
@@ -297,6 +305,7 @@ struct SaveBlock3
 #if APRICORN_TREE_COUNT > 0
     u8 apricornTrees[NUM_APRICORN_TREE_BYTES];
 #endif
+    BlendOverride blendOverride;
 }; /* max size 1624 bytes */
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;
