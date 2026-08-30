@@ -120,16 +120,6 @@ script tarc3_Hold_EventScript_JailTakeshi {
     applymovement(LOCALID_HOLD_AKIE_LOCKUP, moves(emote_exclamation_mark))
     applymovement(LOCALID_HOLD_TATSUO_LOCKUP, moves(emote_exclamation_mark))
     waitmovement(0)
-    delay(60)
-    applymovement(LOCALID_HOLD_MARIKO_LOCKUP, moves(face_up))
-    waitmovement(0)
-    setspeaker("Mariko")
-    msgbox(format("You can spend whatever you like on your art school now, Ichiro."))
-    applymovement(LOCALID_HOLD_ICHIRO_LOCKUP, moves(face_down))
-    setspeaker("Ichiro")
-    msgbox(format("I... don't really want that."))
-    setspeaker(NULL)
-    closemessage
     delay(20)
     applymovement(LOCALID_HOLD_AKIE_LOCKUP, moves(walk_down, face_left))
     waitmovement(0)
@@ -205,25 +195,21 @@ script tarc3_Hold_EventScript_RecapCS5 {
     setspeaker(NULL)
     message(format("{FONT_NARROW}(Mariko put all of it in the open upstairs. What was worth keeping?)", "1_latin_rse_narrow"))
     waitmessage
-    dynmultipush("Takeshi is a Zaiki", 0)
+    dynmultipush("Takeshi's family name is Zaiki", 0)
     dynmultipush("Mariko heard them argue", 1)
     dynmultipush("Natsue walked out", 2)
-    dynmultipush("Cancel", 3)
-    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
     closemessage
     switch (var(VAR_RESULT)) {
         case 0:
             goto(tarc3_Hold_EventScript_RecapHistory)
         case 1:
             goto(tarc3_Hold_EventScript_RecapArgument)
-        case 3:
-            goto(tarc3_Hold_EventScript_RecapEnd)
-        case MULTI_B_PRESSED:
-            goto(tarc3_Hold_EventScript_RecapEnd)
         default:
             goto(tarc3_Hold_EventScript_RecapCS5Irrelevant)
     }
 }
+
 
 script tarc3_Hold_EventScript_RecapHistory {
     msgbox(format("{FONT_NARROW}(Gozo took his father's company and the man killed himself over it.)\pTakeshi married into the family that did it.", "1_latin_rse_narrow"))

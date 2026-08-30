@@ -176,16 +176,11 @@ script tarc3_MainDeck_EventScript_SuzukiReflect {
     dynmultipush("Ichiro is a gifted artist", 0)
     dynmultipush("Suzuki is very observant", 1)
     dynmultipush("Gozo sponsored Ichiro's education", 2)
-    dynmultipush("Cancel", 3)
-    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
     closemessage
     switch (var(VAR_RESULT)) {
         case 2:
             goto(tarc3_MainDeck_EventScript_SuzukiReflectSponsorship)
-        case 3:
-            goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
-        case MULTI_B_PRESSED:
-            goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
         default:
             goto(tarc3_MainDeck_EventScript_SuzukiReflectIrrelevant)
     }
@@ -1142,16 +1137,11 @@ script tarc3_MainDeck_EventScript_GatherNatsueReflect {
     dynmultipush("Natsue trusts him", 0)
     dynmultipush("Mariko says he had help", 1)
     dynmultipush("Nobody forced the bolt", 2)
-    dynmultipush("Cancel", 3)
-    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
     closemessage
     switch (var(VAR_RESULT)) {
         case 1:
             goto(tarc3_MainDeck_EventScript_GatherNatsueReflectAccomplice)
-        case 3:
-            goto(tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
-        case MULTI_B_PRESSED:
-            goto(tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
         default:
             goto(tarc3_MainDeck_EventScript_GatherNatsueReflectIrrelevant)
     }
