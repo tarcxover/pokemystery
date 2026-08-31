@@ -1765,8 +1765,8 @@
 #define FLAG_TARC3_TIME_FROZEN                      (TARC3_RESERVED_FLAGS_START + 0x7C) // OW_FLAG_PAUSE_TIME (fake RTC for DNS tinting, the clock never runs)
 #define FLAG_TARC3_KITARO_SMEARGLE                  (TARC3_RESERVED_FLAGS_START + 0x7D)
 #define FLAG_TARC3_GATHER_KITARO_TATSUO             (TARC3_RESERVED_FLAGS_START + 0x7E)
-#define FLAG_UNUSED_0x9DF                           (TARC3_RESERVED_FLAGS_START + 0x7F) // Unused Flag
-#define FLAG_UNUSED_0x9E0                           (TARC3_RESERVED_FLAGS_START + 0x80) // Unused Flag
+#define FLAG_HIDE_TARC3_DECK2_CRAMORANT             (TARC3_RESERVED_FLAGS_START + 0x7F)
+#define FLAG_TARC3_DECK2_FOUND_CLOTH                (TARC3_RESERVED_FLAGS_START + 0x80)
 #define FLAG_UNUSED_0x9E1                           (TARC3_RESERVED_FLAGS_START + 0x81) // Unused Flag
 #define FLAG_UNUSED_0x9E2                           (TARC3_RESERVED_FLAGS_START + 0x82) // Unused Flag
 #define FLAG_UNUSED_0x9E3                           (TARC3_RESERVED_FLAGS_START + 0x83) // Unused Flag

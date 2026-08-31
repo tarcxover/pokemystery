@@ -10,6 +10,10 @@ script tarc3_Foredeck_OnLoad {
     setflag(FLAG_HIDE_TARC3_COMFEY)
     setflag(FLAG_HIDE_TARC3_DECK2_CAST)
     setflag(FLAG_HIDE_TARC3_DECK2_FOLLOWERS)
+    setflag(FLAG_HIDE_TARC3_DECK2_CRAMORANT)
+    if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BODY_ON_DECK) {
+        call(tarc3_Foredeck_EventScript_BloodiedDeck)
+    }
     if (var(VAR_TARC3_ACT2) < TARC3_ACT2_BODY_ON_DECK) {
         setflag(FLAG_HIDE_TARC3_DECK2_BODY)
         setflag(FLAG_HIDE_TARC3_DECK2_RAN)
@@ -21,6 +25,15 @@ script tarc3_Foredeck_OnLoad {
         setflag(FLAG_HIDE_TARC3_DECK2_RAN)
     }
     end
+}
+
+script tarc3_Foredeck_EventScript_BloodiedDeck {
+    setmetatile(17, 15, 0x0F4, TRUE)
+    if (!flag(FLAG_TARC3_DECK2_FOUND_CLOTH)) {
+        setmetatile(22, 17, 0x0F3, TRUE)
+        setmetatile(22, 18, 0x0FB, TRUE)
+    }
+    return
 }
 
 script tarc3_Foredeck_EventScript_Departure {
@@ -185,7 +198,7 @@ script tarc3_Foredeck_EventScript_Departure {
     setspeaker(NULL)
     closemessage
     delay(20)
-    fadescreen(FADE_TO_BLACK)
+    fadescreenswapbuffers(FADE_TO_BLACK)
     setflag(FLAG_TARC3_EVIDENCE_MENU)
     setflag(FLAG_HIDE_TARC3_FOREDECK_RAN)
     setflag(FLAG_HIDE_TARC3_FOREDECK_NATSUE)
@@ -197,7 +210,7 @@ script tarc3_Foredeck_EventScript_Departure {
     applymovement(LOCALID_FOREDECK_KITARO, moves(face_right))
     waitmovement(0)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_DEPARTED)
-    fadescreen(FADE_FROM_BLACK)
+    fadescreenswapbuffers(FADE_FROM_BLACK)
     delay(20)
     msgbox(format("{FONT_NARROW}(Hmm.\pThis family is at each other's throats.)", "1_latin_rse_narrow"))
     closemessage
@@ -448,7 +461,7 @@ script tarc3_Foredeck_EventScript_TatsuoBody {
     setspeaker(NULL)
     closemessage
     delay(30)
-    fadescreen(FADE_TO_BLACK)
+    fadescreenswapbuffers(FADE_TO_BLACK)
     special(SpawnCameraObject)
     applymovement(LOCALID_CAMERA, moves(walk_left * 2))
     waitmovement(0)
@@ -466,7 +479,7 @@ script tarc3_Foredeck_EventScript_TatsuoBody {
     applymovement(LOCALID_FOREDECK_RAN_2, moves(face_left))
     applymovement(LOCALID_FOREDECK_NATSUE_2, moves(face_left))
     waitmovement(0)
-    fadescreen(FADE_FROM_BLACK)
+    fadescreenswapbuffers(FADE_FROM_BLACK)
     delay(40)
     applymovement(LOCALID_FOREDECK_SUZUKI_2, moves(walk_in_place_fast_down))
     waitmovement(0)
@@ -608,11 +621,56 @@ script tarc3_Foredeck_EventScript_EvdPipeSeen {
     end
 }
 
-// placeholder - BLOODY_CLOTH is intended for a pokemon evidence interaction
-
 script tarc3_Foredeck_EventScript_EvdCloth {
     lockall
-    msgbox(format("Something pale is caught down in the scupper, well out of reach."))
+    goto_if_set(FLAG_TARC3_DECK2_FOUND_CLOTH, tarc3_Foredeck_EventScript_EvdClothSeen)
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_BODY_ON_DECK) {
+        msgbox(format("The railing continues along the ship."))
+        releaseall
+        end
+    }
+    msgbox(format("A cloth is snagged on the rail.\pIt is dark along one edge."))
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(There's something out there, but I can't reach it.)", "1_latin_rse_narrow"))
+    closemessage
+    setvar(VAR_0x8004, SPECIES_CRAMORANT)
+    specialvar(VAR_RESULT, DoesPlayerPartyContainSpecies)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_EvdClothCramorant)
+    releaseall
+    end
+}
+
+script tarc3_Foredeck_EventScript_EvdClothCramorant {
+    delay(20)
+    playmoncry(SPECIES_CRAMORANT, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    clearflag(FLAG_HIDE_TARC3_DECK2_CRAMORANT)
+    addobject(LOCALID_FOREDECK_CRAMORANT_2)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_CRAMORANT_2, moves(walk_fast_right * 6, face_down, walk_in_place_fast_down))
+    waitmovement(0)
+    delay(20)
+    setmetatile(22, 17, 0x094, TRUE)
+    setmetatile(22, 18, 0x09C, TRUE)
+    special(DrawWholeMapView)
+    delay(20)
+    applymovement(LOCALID_FOREDECK_CRAMORANT_2, moves(face_left, walk_fast_left * 6, face_right))
+    waitmovement(0)
+    delay(20)
+    setflag(FLAG_HIDE_TARC3_DECK2_CRAMORANT)
+    removeobject(LOCALID_FOREDECK_CRAMORANT_2)
+    delay(20)
+    msgbox(format("Cramorant drops a bloody scrap of cloth at {PLAYER}'s feet."))
+    giveevidence(EVD_BLOODY_CLOTH)
+    closemessage
+    setflag(FLAG_TARC3_DECK2_FOUND_CLOTH)
+    releaseall
+    end
+}
+
+script tarc3_Foredeck_EventScript_EvdClothSeen {
+    msgbox(format("The rail is bare. The bloodied cloth is in {PLAYER}'s bag."))
     releaseall
     end
 }
