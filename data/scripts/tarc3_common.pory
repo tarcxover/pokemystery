@@ -21,7 +21,6 @@ script tarc3_EventScript_Act1Setup {
     setflag(FLAG_HIDE_TARC3_HALL_ICHIRO)
     setflag(FLAG_HIDE_TARC3_GOZO_SUZUKI)
     setflag(FLAG_HIDE_TARC3_GOZO_BODY)
-    setflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_BOARDED)
     return
 }
@@ -38,6 +37,8 @@ script tarc3_EventScript_FollowerHook {
     switch (var(VAR_0x8008)) {
         case SPECIES_MAGNEZONE:
             goto(tarc3_EventScript_FollowerMagnezone)
+        case SPECIES_STOUTLAND:
+            goto(tarc3_EventScript_FollowerStoutland)
         default:
             goto(tarc3_EventScript_FollowerHookEnd)
     }
@@ -48,6 +49,11 @@ script tarc3_EventScript_FollowerMagnezone {
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_LEAVING_DINING && var(VAR_TARC3_ACT2) <= TARC3_ACT2_TO_BATHROOM) {
         goto(tarc3_EventScript_FollowerMagnezoneFlash)
     }
+    goto(tarc3_EventScript_FollowerHookEnd)
+}
+
+script tarc3_EventScript_FollowerStoutland {
+    goto_if_eq(VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1, tarc3_GozoRoom_EventScript_FollowerStoutlandSniff)
     goto(tarc3_EventScript_FollowerHookEnd)
 }
 
