@@ -2,12 +2,14 @@
 #include "assertf.h"
 #include "decompress.h"
 #include "even_sprite.h"
+#include "evidence.h"
 #include "gba/defines.h"
 #include "gba/io_reg.h"
 #include "gba/isagbprint.h"
 #include "graphics.h"
 #include "main.h"
 #include "progress_bar.h"
+#include "script.h"
 #include "sprite.h"
 #include "task.h"
 #include "util.h"
@@ -21,6 +23,8 @@ static struct SubspriteTable ProgBar_SubspriteTableDynamic;
 static const u16 ProgBar_DefaultPal[] = INCGFX_U16("graphics/progress_bar/progbar.png", ".gbapal");
 static const u32 ProgBar_DefaultGfx[] = INCGFX_U32("graphics/progress_bar/progbar.png", ".4bpp");
 
+static EWRAM_INIT u8 sActiveProgTaskId = TASK_NONE;
+
 static const ProgBar_Template ProgBar_DefaultTemplate = 
 {
     .totalBarPixels = 100,
@@ -31,6 +35,13 @@ static const ProgBar_Template ProgBar_DefaultTemplate =
     .palTag = PROG_BAR_TAG,
     .pal = ProgBar_DefaultPal,
     .barGfx = (const Tile4BPP*)ProgBar_DefaultGfx,
+};
+
+const struct ProgressBar gProgressBars[] = {
+    [PROG_BAR_OW_ACCUSE] = {
+        &ProgBar_DefaultTemplate,
+        &gAccuseMenuProgTracker
+    }
 };
 
 static EWRAM_INIT ProgBar_Tracker ProgBar_DefaultTracker = {0, 0, 0};
@@ -307,6 +318,23 @@ static void Task_ProgressBarHandleInput(u8 taskId)
         u32 filledPixels = ProgBar_CalcFilledPixels(&ProgBar_DefaultTracker, ProgBar_DefaultTemplate.totalBarPixels);
         ProgBar_Update(&ProgBar_DefaultTemplate, &ProgBar_DefaultTracker, filledPixels, state->barSpriteId);
     }
+}
+
+bool32 ScrCmd_createprogressbar(struct ScriptContext* ctx)
+{
+    enum ProgressBarId id = ScriptReadByte(ctx);
+    const ProgBar_Template *templ = gProgressBars[id].template;
+    ProgBar_Tracker *tracker = gProgressBars[id].tracker;
+    sActiveProgTaskId = ProgBar_CreateBar(templ,tracker);
+    return FALSE;
+}
+
+bool32 ScrCmd_destroyprogressbar(struct ScriptContext* ctx)
+{
+    ProgBar_State* state = (void*)gTasks[sActiveProgTaskId].data;
+    ProgBar_Destroy(state->template, state->barSpriteId);
+    sActiveProgTaskId = TASK_NONE;
+    return FALSE;
 }
 
 void TestProgBar()

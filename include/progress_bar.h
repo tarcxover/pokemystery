@@ -1,6 +1,8 @@
 #pragma once
 
 #include "task.h"
+#include "constants/progress_bar.h"
+
 #define PROG_BAR_TAG 0x2001
 
 typedef struct ProgBar_Template
@@ -38,6 +40,12 @@ enum ProgBar_Threshold {
     PROG_THRESHOLD_HIGH = 100,
 };
 
+struct ProgressBar {
+    const ProgBar_Template* template;
+    ProgBar_Tracker* tracker;
+};
+
+extern const struct ProgressBar gProgressBars[];
 
 STATIC_ASSERT(sizeof(ProgBar_State) <= sizeof(((struct Task *)NULL)->data), ProgBarStateTooLargeForTaskData);
 

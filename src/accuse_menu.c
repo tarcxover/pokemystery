@@ -276,7 +276,8 @@ static const ProgBar_Template sAccuseProgBarTemplate =
     .barGfx = (const Tile4BPP*)sAccuseMenuProgBarGfx,
 };
 
-static EWRAM_INIT ProgBar_Tracker sAccuseMenuProgTracker = {0, 0, 0};
+EWRAM_DATA u32 gAccuseScore;
+EWRAM_DATA ProgBar_Tracker gAccuseMenuProgTracker;
 
 enum FontColor
 {
@@ -1108,9 +1109,8 @@ static void PrintDescription(enum Item id)
 
 static void PrintAccuseMenuHints(u32 color)
 {
-    return;
-    const u8 fontId = FONT_SMALL;
-    const u8* text = COMPOUND_STRING("{START_BUTTON} Deduce!");
+    const u8 fontId = FONT_SMALL_NARROWER;
+    const u8* text = COMPOUND_STRING("{START_BUTTON} Accuse! {COLOR WHITE}{SHADOW DARK_GRAY}{SELECT_BUTTON} Info{COLOR WHITE}{SHADOW DARK_GRAY}");
     s16 x = GetStringCenterAlignXOffset(fontId, text, GetWindowAttribute(WIN_ACCUSE_HINTS, WINDOW_WIDTH) * 8);
     FillWindowPixelBuffer(WIN_ACCUSE_HINTS, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
 

@@ -76,6 +76,7 @@
 #include "constants/weather.h"
 #include "constants/speaker_names.h"
 #include "constants/evidence.h"
+#include "constants/progress_bar.h"
 
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"

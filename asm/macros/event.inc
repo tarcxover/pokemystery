@@ -3104,3 +3104,12 @@
 	.byte \question
 	.byte \suspect
   .endm
+
+  .macro createprogressbar id:req
+	callnative ScrCmd_createprogressbar
+	.byte \id
+  .endm
+
+  .macro destroyprogressbar
+	callnative ScrCmd_destroyprogressbar
+  .endm
