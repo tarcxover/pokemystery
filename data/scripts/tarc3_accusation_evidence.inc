@@ -866,17 +866,17 @@ tarc3_Accusation_EventScript_Ev_SmeargleRepertoire::
 	return
 
 
-tarc3_Accusation_EventScript_Ev_SmearglesMoveset::
+tarc3_Accusation_EventScript_Ev_TheOddBattle::
 # 494 "data/scripts/tarc3_accusation_evidence.pory"
 	call tarc3_Accusation_EventScript_ScoreIchiroT1
 # 495 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker tarc3_Accusation_EventScript_Ev_Sketchbook_Text_0
 # 496 "data/scripts/tarc3_accusation_evidence.pory"
-	msgbox tarc3_Accusation_EventScript_Ev_SmearglesMoveset_Text_0
+	msgbox tarc3_Accusation_EventScript_Ev_TheOddBattle_Text_0
 # 497 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker tarc3_Accusation_EventScript_Ev_TuitionFunds_Text_1
 # 498 "data/scripts/tarc3_accusation_evidence.pory"
-	msgbox tarc3_Accusation_EventScript_Ev_SmearglesMoveset_Text_1
+	msgbox tarc3_Accusation_EventScript_Ev_TheOddBattle_Text_1
 # 499 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker NULL
 # 500 "data/scripts/tarc3_accusation_evidence.pory"
@@ -1263,6 +1263,62 @@ tarc3_Accusation_EventScript_Ev_SelfInflictedWound_7:
 # 696 "data/scripts/tarc3_accusation_evidence.pory"
 	msgbox tarc3_Accusation_EventScript_Ev_SelfInflictedWound_Text_6
 	goto tarc3_Accusation_EventScript_Ev_SelfInflictedWound_6
+
+
+tarc3_Accusation_EventScript_Ev_HiddenPipe::
+# 708 "data/scripts/tarc3_accusation_evidence.pory"
+	call tarc3_Accusation_EventScript_ScoreIchiroT1
+# 709 "data/scripts/tarc3_accusation_evidence.pory"
+	setspeaker tarc3_Accusation_EventScript_Ev_Sketchbook_Text_0
+# 710 "data/scripts/tarc3_accusation_evidence.pory"
+	msgbox tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_0
+# 711 "data/scripts/tarc3_accusation_evidence.pory"
+	msgbox tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_1
+# 712 "data/scripts/tarc3_accusation_evidence.pory"
+	setspeaker tarc3_Accusation_EventScript_Ev_SilencedWitness_Text_5
+# 713 "data/scripts/tarc3_accusation_evidence.pory"
+	msgbox tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_2
+# 714 "data/scripts/tarc3_accusation_evidence.pory"
+	setspeaker tarc3_Accusation_EventScript_Ev_Sketchbook_Text_0
+# 715 "data/scripts/tarc3_accusation_evidence.pory"
+	msgbox tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_3
+# 716 "data/scripts/tarc3_accusation_evidence.pory"
+	msgbox tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_4
+# 717 "data/scripts/tarc3_accusation_evidence.pory"
+	setspeaker NULL
+# 718 "data/scripts/tarc3_accusation_evidence.pory"
+	closemessage
+# 719 "data/scripts/tarc3_accusation_evidence.pory"
+	delay 20
+# 720 "data/scripts/tarc3_accusation_evidence.pory"
+	call tarc3_Accusation_EventScript_Fz_OffTargetIchiroT1
+	return
+
+
+tarc3_Accusation_EventScript_Ev_KnivesCounted::
+# 725 "data/scripts/tarc3_accusation_evidence.pory"
+	call tarc3_Accusation_EventScript_ScoreIchiroT1
+# 726 "data/scripts/tarc3_accusation_evidence.pory"
+	setspeaker tarc3_Accusation_EventScript_Ev_Sketchbook_Text_0
+# 727 "data/scripts/tarc3_accusation_evidence.pory"
+	msgbox tarc3_Accusation_EventScript_Ev_KnivesCounted_Text_0
+# 728 "data/scripts/tarc3_accusation_evidence.pory"
+	setspeaker tarc3_Accusation_EventScript_Ev_Sketchbook_Text_4
+# 729 "data/scripts/tarc3_accusation_evidence.pory"
+	msgbox tarc3_Accusation_EventScript_Ev_KnivesCounted_Text_1
+# 730 "data/scripts/tarc3_accusation_evidence.pory"
+	setspeaker tarc3_Accusation_EventScript_Ev_Sketchbook_Text_0
+# 731 "data/scripts/tarc3_accusation_evidence.pory"
+	msgbox tarc3_Accusation_EventScript_Ev_KnivesCounted_Text_2
+# 732 "data/scripts/tarc3_accusation_evidence.pory"
+	setspeaker NULL
+# 733 "data/scripts/tarc3_accusation_evidence.pory"
+	closemessage
+# 734 "data/scripts/tarc3_accusation_evidence.pory"
+	delay 20
+# 735 "data/scripts/tarc3_accusation_evidence.pory"
+	call tarc3_Accusation_EventScript_Fz_OffTargetIchiroT1
+	return
 
 
 # 180 "data/scripts/tarc3_accusation_evidence.pory"
@@ -1798,16 +1854,17 @@ tarc3_Accusation_EventScript_Ev_SmeargleRepertoire_Text_1:
 	.string "It's an artist, like its trainer. It never\n"
 	.string "needed one.$"
 
-tarc3_Accusation_EventScript_Ev_SmearglesMoveset_Text_0:
+tarc3_Accusation_EventScript_Ev_TheOddBattle_Text_0:
 # 496 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "That Smeargle knows Discharge tonight.\n"
-	.string "Earlier this afternoon, it did not.$"
+	.string "Ichiro asked you for a battle, but\n"
+	.string "barely attacked.\p"
+	.string "His Smeargle stood and studied your\n"
+	.string "moves.$"
 
-tarc3_Accusation_EventScript_Ev_SmearglesMoveset_Text_1:
+tarc3_Accusation_EventScript_Ev_TheOddBattle_Text_1:
 # 498 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "My Pawmot used Discharge when I\n"
-	.string "battled Ichiro... But I didn't think\l"
-	.string "anything of it.$"
+	.string "My Pawmot used Discharge in front of\n"
+	.string "it... But I didn't think anything of it.$"
 
 tarc3_Accusation_EventScript_Ev_FocusedBurn_Text_0:
 # 509 "data/scripts/tarc3_accusation_evidence.pory"
@@ -2053,3 +2110,58 @@ tarc3_Accusation_EventScript_Ev_SelfInflictedWound_Text_8:
 # 700 "data/scripts/tarc3_accusation_evidence.pory"
 	.string "And you named Takeshi.\p"
 	.string "I have no words for you.$"
+
+tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_0:
+# 710 "data/scripts/tarc3_accusation_evidence.pory"
+	.string "There is a gap in the pipe rack on the\n"
+	.string "foredeck.\p"
+	.string "I expect every one of you has read it\n"
+	.string "the way I was intended to. That the\l"
+	.string "killer took a pipe from the row.$"
+
+tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_1:
+# 711 "data/scripts/tarc3_accusation_evidence.pory"
+	.string "He did not. Tatsuo broke that pipe off\n"
+	.string "himself this afternoon and hid it under\l"
+	.string "the sacking so nobody would bill him for\l"
+	.string "it.\p"
+	.string "He told me so, laughing.$"
+
+tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_2:
+# 713 "data/scripts/tarc3_accusation_evidence.pory"
+	.string "...That is exactly the sort of thing he\n"
+	.string "would do.$"
+
+tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_3:
+# 715 "data/scripts/tarc3_accusation_evidence.pory"
+	.string "The sacking is empty now.\p"
+	.string "The weapon that killed him had been\n"
+	.string "lying concealed a step from where he\l"
+	.string "stood, and not one person aboard knew\l"
+	.string "it was there.$"
+
+tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_4:
+# 716 "data/scripts/tarc3_accusation_evidence.pory"
+	.string "Nothing was carried out onto that deck.\n"
+	.string "Whoever went out to be rid of the knife\l"
+	.string "took up the first heavy thing he\l"
+	.string "stumbled over - because he had not\l"
+	.string "gone out there to kill anybody.$"
+
+tarc3_Accusation_EventScript_Ev_KnivesCounted_Text_0:
+# 727 "data/scripts/tarc3_accusation_evidence.pory"
+	.string "Before dinner Joji told me he had used\n"
+	.string "his knives when preparing dinner.$"
+
+tarc3_Accusation_EventScript_Ev_KnivesCounted_Text_1:
+# 729 "data/scripts/tarc3_accusation_evidence.pory"
+	.string "I had all eight. I would swear to it.\p"
+	.string "I count them the way you'd count your\n"
+	.string "fingers.$"
+
+tarc3_Accusation_EventScript_Ev_KnivesCounted_Text_2:
+# 731 "data/scripts/tarc3_accusation_evidence.pory"
+	.string "Then both of the missing knives left\n"
+	.string "that roll tonight.\p"
+	.string "Nothing came aboard for this.\n"
+	.string "Everything used was found here.$"

@@ -57,23 +57,23 @@ script tarc3_FlorioIsland_EventScript_OpeningCutscene {
     end
 }
 
-script tarc3_FlorioIsland_EventScript_CatchDachsbun {
+script tarc3_FlorioIsland_EventScript_CatchStoutland {
     lock
     faceplayer
-    playmoncry(SPECIES_DACHSBUN, CRY_MODE_ENCOUNTER)
+    playmoncry(SPECIES_STOUTLAND, CRY_MODE_ENCOUNTER)
     waitmoncry
-    msgbox(format("This Dachsbun doesn't seem afraid at all.\pAdd Dachsbun to the party?"), MSGBOX_YESNO)
+    msgbox(format("A Stoutland lifts its head and works the air, then pads straight over.\pIt found {PLAYER} before {PLAYER} found it.\pAdd Stoutland to the party?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
-        msgbox(format("The Dachsbun looks disappointed."))
+        msgbox(format("The Stoutland settles back onto the grass."))
         release
         end
     }
-    givemon(SPECIES_DACHSBUN, 50)
+    givemon(SPECIES_STOUTLAND, 50)
     playfanfare(MUS_CAUGHT)
-    msgbox(format("{PLAYER} added Dachsbun to the party!"))
+    msgbox(format("{PLAYER} added Stoutland to the party!"))
     waitfanfare
-    setflag(FLAG_HIDE_TARC3_FLORIO_DACHSBUN)
-    removeobject(LOCALID_FLORIO_DACHSBUN)
+    setflag(FLAG_HIDE_TARC3_FLORIO_STOUTLAND)
+    removeobject(LOCALID_FLORIO_STOUTLAND)
     goto(tarc3_FlorioIsland_EventScript_AfterCatch)
 }
 
@@ -139,66 +139,23 @@ script tarc3_FlorioIsland_EventScript_CatchCramorant {
     goto(tarc3_FlorioIsland_EventScript_AfterCatch)
 }
 
-script tarc3_FlorioIsland_EventScript_CatchToxicroak {
-    lock
-    faceplayer
-    playmoncry(SPECIES_TOXICROAK, CRY_MODE_ENCOUNTER)
-    waitmoncry
-    msgbox(format("A Toxicroak croaks, its throat pouch swelling.\pAdd Toxicroak to the party?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == NO) {
-        msgbox(format("The Toxicroak turns away."))
-        applymovement(LOCALID_FLORIO_TOXICROAK, Common_Movement_FaceAwayPlayer)
-        release
-        end
-    }
-    givemon(SPECIES_TOXICROAK, 50)
-    playfanfare(MUS_CAUGHT)
-    msgbox(format("{PLAYER} added Toxicroak to the party!"))
-    waitfanfare
-    setflag(FLAG_HIDE_TARC3_FLORIO_TOXICROAK)
-    removeobject(LOCALID_FLORIO_TOXICROAK)
-    goto(tarc3_FlorioIsland_EventScript_AfterCatch)
-}
 
-script tarc3_FlorioIsland_EventScript_CatchPincurchin {
-    lock
-    faceplayer
-    playmoncry(SPECIES_PINCURCHIN, CRY_MODE_ENCOUNTER)
-    waitmoncry
-    msgbox(format("A Pincurchin clings to a tide pool rock.\pIts spines crackle faintly with static as {PLAYER} approaches.\pAdd Pincurchin to the party?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == NO) {
-        msgbox(format("The Pincurchin stays fixed to its rock."))
-        release
-        end
-    }
-    givemon(SPECIES_PINCURCHIN, 50)
-    playfanfare(MUS_CAUGHT)
-    msgbox(format("{PLAYER} added Pincurchin to the party!"))
-    waitfanfare
-    setflag(FLAG_HIDE_TARC3_FLORIO_PINCURCHIN)
-    removeobject(LOCALID_FLORIO_PINCURCHIN)
-    goto(tarc3_FlorioIsland_EventScript_AfterCatch)
-}
 
 script tarc3_FlorioIsland_EventScript_AfterCatch {
-    if (getpartysize() < 3) {
+    if (getpartysize() < 2) {
         release
         end
     }
-    msgbox(format("{FONT_NARROW}(That's three of them.\p{RIVAL}'s had long enough to work her magic. Time to head back to the dock.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}(That's two of them.\p{RIVAL}'s had long enough to work her magic. Time to head back to the dock.)", "1_latin_rse_narrow"))
     closemessage
-    setflag(FLAG_HIDE_TARC3_FLORIO_DACHSBUN)
+    setflag(FLAG_HIDE_TARC3_FLORIO_STOUTLAND)
     setflag(FLAG_HIDE_TARC3_FLORIO_TANGROWTH)
     setflag(FLAG_HIDE_TARC3_FLORIO_MAGNEZONE)
     setflag(FLAG_HIDE_TARC3_FLORIO_CRAMORANT)
-    setflag(FLAG_HIDE_TARC3_FLORIO_TOXICROAK)
-    setflag(FLAG_HIDE_TARC3_FLORIO_PINCURCHIN)
-    removeobject(LOCALID_FLORIO_DACHSBUN)
+    removeobject(LOCALID_FLORIO_STOUTLAND)
     removeobject(LOCALID_FLORIO_TANGROWTH)
     removeobject(LOCALID_FLORIO_MAGNEZONE)
     removeobject(LOCALID_FLORIO_CRAMORANT)
-    removeobject(LOCALID_FLORIO_TOXICROAK)
-    removeobject(LOCALID_FLORIO_PINCURCHIN)
     setobjectxyperm(LOCALID_FLORIO_RAN_1, 17, 34)
     setobjectmovementtype(LOCALID_FLORIO_RAN_1, MOVEMENT_TYPE_FACE_LEFT)
     setobjectmovementtype(LOCALID_FLORIO_NATSUE, MOVEMENT_TYPE_FACE_RIGHT)

@@ -490,12 +490,12 @@ script tarc3_Accusation_EventScript_Ev_SmeargleRepertoire {
     return
 }
 
-script tarc3_Accusation_EventScript_Ev_SmearglesMoveset {
+script tarc3_Accusation_EventScript_Ev_TheOddBattle {
     call(tarc3_Accusation_EventScript_ScoreIchiroT1)
     setspeaker("{PLAYER}")
-    msgbox(format("That Smeargle knows Discharge tonight. Earlier this afternoon, it did not."))
+    msgbox(format("Ichiro asked you for a battle, but barely attacked.\pHis Smeargle stood and studied your moves."))
     setspeaker("Kitaro")
-    msgbox(format("My Pawmot used Discharge when I battled Ichiro... But I didn't think anything of it."))
+    msgbox(format("My Pawmot used Discharge in front of it... But I didn't think anything of it."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -701,5 +701,37 @@ script tarc3_Accusation_EventScript_Ev_SelfInflictedWound {
     }
     setspeaker(NULL)
     closemessage
+    return
+}
+
+script tarc3_Accusation_EventScript_Ev_HiddenPipe {
+    call(tarc3_Accusation_EventScript_ScoreIchiroT1)
+    setspeaker("{PLAYER}")
+    msgbox(format("There is a gap in the pipe rack on the foredeck.\pI expect every one of you has read it the way I was intended to. That the killer took a pipe from the row."))
+    msgbox(format("He did not. Tatsuo broke that pipe off himself this afternoon and hid it under the sacking so nobody would bill him for it.\pHe told me so, laughing."))
+    setspeaker("Akie")
+    msgbox(format("...That is exactly the sort of thing he would do."))
+    setspeaker("{PLAYER}")
+    msgbox(format("The sacking is empty now.\pThe weapon that killed him had been lying concealed a step from where he stood, and not one person aboard knew it was there."))
+    msgbox(format("Nothing was carried out onto that deck. Whoever went out to be rid of the knife took up the first heavy thing he stumbled over - because he had not gone out there to kill anybody."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    call(tarc3_Accusation_EventScript_Fz_OffTargetIchiroT1)
+    return
+}
+
+script tarc3_Accusation_EventScript_Ev_KnivesCounted {
+    call(tarc3_Accusation_EventScript_ScoreIchiroT1)
+    setspeaker("{PLAYER}")
+    msgbox(format("Before dinner Joji told me he had used his knives when preparing dinner."))
+    setspeaker("Joji")
+    msgbox(format("I had all eight. I would swear to it.\pI count them the way you'd count your fingers."))
+    setspeaker("{PLAYER}")
+    msgbox(format("Then both of the missing knives left that roll tonight.\pNothing came aboard for this. Everything used was found here."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    call(tarc3_Accusation_EventScript_Fz_OffTargetIchiroT1)
     return
 }

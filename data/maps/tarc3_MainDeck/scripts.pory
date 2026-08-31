@@ -118,8 +118,57 @@ script tarc3_MainDeck_EventScript_Mariko {
     msgbox(format("He decides who belongs to this family. He always has."))
     setspeaker(NULL)
     closemessage
+    if (!defeated(TRAINER_TARC3_MARIKO)) {
+        goto(tarc3_MainDeck_EventScript_MarikoBattle)
+    }
     release
     end
+}
+
+script tarc3_MainDeck_EventScript_MarikoBattle {
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("You've been listening very carefully for a guest.\pI don't answer questions from strangers."))
+    msgbox(format("But I'll tell you what I will do.\pShow me you're worth the minutes."))
+    setspeaker(NULL)
+    closemessage
+    trainerbattle_earlyrival(TRAINER_TARC3_MARIKO, RIVAL_BATTLE_HEAL_AFTER, tarc3_MainDeck_Text_MarikoDefeat, tarc3_MainDeck_Text_MarikoVictory)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_MainDeck_EventScript_MarikoBattleLost)
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("...Very well. The minutes are yours."))
+    msgbox(format("I stood outside my father's door before dinner. I heard him shouting.\pHe was shouting Takeshi's name."))
+    msgbox(format("I don't need to say more than that to you."))
+    setspeaker(NULL)
+    closemessage
+    msgbox(format("{FONT_NARROW}(She was at that door. And she has decided, already, what the shouting meant.)", "1_latin_rse_narrow"))
+    giveevidence(EVD_OVERHEARD_ARGUMENT)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_MarikoBattleEnd)
+}
+
+script tarc3_MainDeck_EventScript_MarikoBattleLost {
+    delay(20)
+    setspeaker("Mariko")
+    msgbox(format("As I thought.\pGo and enjoy dinner."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_MarikoBattleEnd)
+}
+
+script tarc3_MainDeck_EventScript_MarikoBattleEnd {
+    special(HealPlayerParty)
+    delay(20)
+    release
+    end
+}
+
+text tarc3_MainDeck_Text_MarikoDefeat {
+    format("Then you were worth the minutes.")
+}
+
+text tarc3_MainDeck_Text_MarikoVictory {
+    format("I handle this family for a reason.")
 }
 
 script tarc3_MainDeck_EventScript_Akie {
@@ -224,7 +273,55 @@ script tarc3_MainDeck_EventScript_Joji {
     msgbox(format("Fetch your friend from your cabin and come through together.\pI'm not sending Suzuki round twice."))
     setspeaker(NULL)
     closemessage
+    if (!defeated(TRAINER_TARC3_JOJI)) {
+        goto(tarc3_MainDeck_EventScript_JojiBattle)
+    }
     goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_JojiBattle {
+    delay(20)
+    setspeaker("Joji")
+    msgbox(format("Before you go. You battle, don't you?"))
+    msgbox(format("A kitchen is timing and nothing else, and so is this.\pIndulge me while the soup rests."))
+    setspeaker(NULL)
+    closemessage
+    trainerbattle_earlyrival(TRAINER_TARC3_JOJI, RIVAL_BATTLE_HEAL_AFTER, tarc3_MainDeck_Text_JojiDefeat, tarc3_MainDeck_Text_JojiVictory)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_MainDeck_EventScript_JojiBattleLost)
+    delay(20)
+    setspeaker("Joji")
+    msgbox(format("Beautifully done!"))
+    msgbox(format("Father wouldn't lend me the money for my restaurant. He bought me a set of knives instead.\pThe cheapest he could find with a name on it."))
+    msgbox(format("I even used them when cooking dinner tonight. Spite sharpens beautifully."))
+    setspeaker(NULL)
+    closemessage
+    msgbox(format("{FONT_NARROW}(.)", "1_latin_rse_narrow"))
+    giveevidence(EVD_KNIVES_COUNTED)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_JojiBattleEnd)
+}
+
+script tarc3_MainDeck_EventScript_JojiBattleLost {
+    delay(20)
+    setspeaker("Joji")
+    msgbox(format("Timing! I told you.\pSit them down, I'll have them right in a moment."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_MainDeck_EventScript_JojiBattleEnd)
+}
+
+script tarc3_MainDeck_EventScript_JojiBattleEnd {
+    special(HealPlayerParty)
+    delay(20)
+    goto(tarc3_MainDeck_EventScript_JojiReflectEnd)
+}
+
+text tarc3_MainDeck_Text_JojiDefeat {
+    format("Ah! Off the heat, off the heat.")
+}
+
+text tarc3_MainDeck_Text_JojiVictory {
+    format("Timing. It is always timing.")
 }
 
 script tarc3_MainDeck_EventScript_JojiReflectEnd {
@@ -569,6 +666,10 @@ script tarc3_MainDeck_EventScript_DiningKitaro {
         msgbox(format("I shouldn't have said that to Joji.\pIn front of everyone, like that."))
         msgbox(format("But somebody in this room did it.\pThat's the part I can't put down."))
         setspeaker(NULL)
+        closemessage
+        if (defeated(TRAINER_TARC3_KITARO) && !flag(FLAG_TARC3_KITARO_SMEARGLE)) {
+            goto(tarc3_MainDeck_EventScript_DiningKitaroSmeargle)
+        }
         release
         end
     }
@@ -972,13 +1073,58 @@ script tarc3_MainDeck_EventScript_GatherMarikoReflectEnd {
 }
 
 script tarc3_MainDeck_EventScript_GatherKitaro {
-    setspeaker("Kitaro")
-    if (flag(FLAG_TARC3_GATHER_KITARO)) {
-        msgbox(format("Not one of us can account for the others.\pThat's the whole of it."))
-        setspeaker(NULL)
-        release
-        end
+    setvar(VAR_TEMP_4, 0)
+    if (!flag(FLAG_TARC3_GATHER_KITARO)) {
+        addvar(VAR_TEMP_4, 1)
     }
+    if (!flag(FLAG_TARC3_GATHER_KITARO_TATSUO)) {
+        addvar(VAR_TEMP_4, 1)
+    }
+    if (defeated(TRAINER_TARC3_KITARO) && !flag(FLAG_TARC3_KITARO_SMEARGLE)) {
+        addvar(VAR_TEMP_4, 1)
+    }
+    if (var(VAR_TEMP_4) == 0) {
+        goto(tarc3_MainDeck_EventScript_GatherKitaroExhausted)
+    }
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}(What do I need from him?)", "1_latin_rse_narrow"))
+    waitmessage
+    if (!flag(FLAG_TARC3_GATHER_KITARO)) {
+        dynmultipush("Where everyone was", 0)
+    }
+    if (!flag(FLAG_TARC3_GATHER_KITARO_TATSUO)) {
+        dynmultipush("Tatsuo", 1)
+    }
+    if (defeated(TRAINER_TARC3_KITARO) && !flag(FLAG_TARC3_KITARO_SMEARGLE)) {
+        dynmultipush("How he spent the day", 2)
+    }
+    dynmultipush("Nothing", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroCabins)
+        case 1:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroTatsuo)
+        case 2:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroSmeargle)
+        case MULTI_B_PRESSED:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroExhausted)
+        default:
+            goto(tarc3_MainDeck_EventScript_GatherKitaroExhausted)
+    }
+}
+
+script tarc3_MainDeck_EventScript_GatherKitaroExhausted {
+    setspeaker("Kitaro")
+    msgbox(format("Not one of us can account for the others.\pThat's the whole of it."))
+    setspeaker(NULL)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_GatherKitaroCabins {
+    setspeaker("Kitaro")
     msgbox(format("After they found Father, we all went to our own cabins. Every one of us."))
     msgbox(format("That's where we were when Tatsuo... when it happened.\pNobody can vouch for anybody."))
     setspeaker(NULL)
@@ -1012,9 +1158,51 @@ script tarc3_MainDeck_EventScript_GatherKitaro {
     goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
 }
 
+script tarc3_MainDeck_EventScript_GatherKitaroTatsuo {
+    setspeaker("Kitaro")
+    msgbox(format("Tatsuo and I were the same thing to this family.\pMarried in, and never once let to forget it."))
+    msgbox(format("He decided early that if they were going to call him a parasite, he would be a very comfortable one."))
+    msgbox(format("I decided the opposite. Twenty-two years of it."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(Two men married into the same family. One stopped trying. One never did.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_GATHER_KITARO_TATSUO)
+    goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_GatherKitaroSmeargle {
+    call(tarc3_MainDeck_EventScript_KitaroSmeargleBody)
+    goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
+}
+
+script tarc3_MainDeck_EventScript_DiningKitaroSmeargle {
+    call(tarc3_MainDeck_EventScript_KitaroSmeargleBody)
+    release
+    end
+}
+
+script tarc3_MainDeck_EventScript_KitaroSmeargleBody {
+    setspeaker("Kitaro")
+    msgbox(format("Ichiro asked me for a battle, right as they were calling us in. He never asks."))
+    msgbox(format("Odd sort of battle. He didn't attack once.\pHis Smeargle just kept dodging, until I hit it with a well-aimed Discharged."))
+    msgbox(format("Then he thanked me and put his sketchbook back under his arm."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    msgbox(format("{FONT_NARROW}(Ichiro does not ask anyone for anything. And then he did not throw a single move.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_KITARO_SMEARGLE)
+    giveevidence(EVD_THE_ODD_BATTLE)
+    closemessage
+    return
+}
+
 script tarc3_MainDeck_EventScript_GatherKitaroReflectEnd {
     goto(tarc3_MainDeck_EventScript_GatherTalkDone)
 }
+
 
 script tarc3_MainDeck_EventScript_GatherJoji {
     setspeaker("Joji")

@@ -343,6 +343,19 @@ evidence:
     details: |
       tba
 
+  - id: HIDDEN_PIPE
+    name: Hidden Pipe
+    icon: Testimony
+    # question: [tatsuo]
+    # implicates: []
+    recipes: NULL
+    description: |
+      Tatsuo snapped a pipe
+      off the rack and hid
+      it rather than own up.
+    details: |
+      tba
+
   - id: SILENCED_WITNESS
     name: Silenced Witness
     icon: BloodyKnife
@@ -350,6 +363,7 @@ evidence:
     # implicates: [ICHIRO]
     recipes:
       - [TWO_SOUNDS, BLOODY_CLOTH]
+      - [TWO_SOUNDS, HIDDEN_PIPE]
     description: |
       Tatsuo died because
       he saw the weapon
@@ -397,16 +411,16 @@ evidence:
     details: |
       tba
 
-  - id: SMEARGLES_MOVESET
-    name: Sketched Move
+  - id: THE_ODD_BATTLE
+    name: Odd Battle
     icon: Testimony
     # question: [lights]
     # implicates: [ICHIRO]
     recipes: NULL
     description: |
-      Smeargle knows
-      Discharge now. It
-      did not before.
+      Ichiro battled Kitaro
+      but never attacked.
+      Smeargle only watched.
     details: |
       tba
 
@@ -442,11 +456,11 @@ evidence:
     # question: [lights]
     # implicates: [ICHIRO]
     recipes:
-      - [SMEARGLE_REPERTOIRE, SMEARGLES_MOVESET]
+      - [SMEARGLE_REPERTOIRE, THE_ODD_BATTLE]
     description: |
-      Smeargle learned an
-      electric move during
-      this voyage.
+      Smeargle sat and
+      watched an Electric
+      move it did not know.
     details: |
       tba
 
@@ -526,6 +540,19 @@ evidence:
     description: |
       Joji's knife, on the
       floor beside him.
+    details: |
+      tba
+
+  - id: KNIVES_COUNTED
+    name: Knives Counted
+    icon: KitchenKnife
+    # question: [ichiro]
+    # implicates: []
+    recipes: NULL
+    description: |
+      All knives counted
+      into the roll and
+      stowed before dinner.
     details: |
       tba
 

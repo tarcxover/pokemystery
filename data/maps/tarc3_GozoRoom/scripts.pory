@@ -176,21 +176,14 @@ script tarc3_GozoRoom_EventScript_TheBody {
     setspeaker(NULL)
     closemessage
     delay(30)
-    call(tarc3_GozoRoom_EventScript_ShowEvidence)
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1)
     releaseall
     end
 }
 
-script tarc3_GozoRoom_EventScript_ShowEvidence {
-    clearflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
-    addobject(LOCALID_GOZOROOM_EVD_GARLAND)
-    return
-}
-
 script tarc3_GozoRoom_EventScript_ClearEvidence {
-    setflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
-    removeobject(LOCALID_GOZOROOM_EVD_GARLAND)
+    setflag(FLAG_TARC3_GOZO_FOUND_GARLAND)
+    setmetatile(8, 11, 0x071, FALSE)
     return
 }
 
@@ -467,6 +460,26 @@ script tarc3_GozoRoom_EventScript_FollowerMagnezoneSearch {
     goto(tarc3_EventScript_FollowerHandled)
 }
 
+script tarc3_GozoRoom_EventScript_FollowerStoutlandSniff {
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_CRUMBS, tarc3_EventScript_FollowerHookEnd)
+    applymovement(OBJ_EVENT_ID_FOLLOWER, moves(walk_in_place_fast_up, walk_in_place_fast_left, walk_in_place_fast_down, walk_in_place_fast_right))
+    waitmovement(0)
+    getobjectxy(OBJ_EVENT_ID_FOLLOWER, CURRENT_POSITION, VAR_0x8004, VAR_0x8005)
+    if (var(VAR_0x8004) < 9) {
+        turnobject(OBJ_EVENT_ID_FOLLOWER, DIR_EAST)
+    } elif (var(VAR_0x8004) > 9) {
+        turnobject(OBJ_EVENT_ID_FOLLOWER, DIR_WEST)
+    } elif (var(VAR_0x8005) > 11) {
+        turnobject(OBJ_EVENT_ID_FOLLOWER, DIR_NORTH)
+    } else {
+        turnobject(OBJ_EVENT_ID_FOLLOWER, DIR_SOUTH)
+    }
+    delay(20)
+    msgbox(format("Stoutland puts its nose to the carpet and stops dead, facing the doorway.\pIt can sniff out a clue!"))
+    closemessage
+    goto(tarc3_EventScript_FollowerHandled)
+}
+
 script tarc3_GozoRoom_EventScript_EvdCrumbs {
     lockall
     goto_if_set(FLAG_TARC3_GOZO_FOUND_CRUMBS, tarc3_GozoRoom_EventScript_EvdCrumbsSeen)
@@ -522,14 +535,15 @@ script tarc3_GozoRoom_EventScript_Suzuki {
 }
 
 script tarc3_GozoRoom_EventScript_EvdGarland {
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_GARLAND, tarc3_GozoRoom_EventScript_EvdCarpet)
     lockall
     msgbox(format("A garland is lying in the corridor a step from the door."))
     msgbox(format("{FONT_NARROW}(Not a mark on it. A man bled here, and this came away clean.)", "1_latin_rse_narrow"))
     closemessage
     // EVD_UNSTAINED_GARLAND cut
     closemessage
-    setflag(FLAG_HIDE_TARC3_GOZO_EVD_GARLAND)
-    removeobject(LOCALID_GOZOROOM_EVD_GARLAND)
+    call(tarc3_GozoRoom_EventScript_ClearEvidence)
+    special(DrawWholeMapView)
     releaseall
     end
 }
@@ -700,6 +714,9 @@ script tarc3_GozoRoom_OnLoad {
     if (var(VAR_TARC3_ACT1) == TARC3_ACT1_THE_BODY) {
         call(tarc3_GozoRoom_EventScript_HideRoom)
     }
+    if (flag(FLAG_TARC3_GOZO_FOUND_GARLAND) == TRUE) {
+        setmetatile(8, 11, 0x071, FALSE)
+    }
     end
 }
 
@@ -760,18 +777,18 @@ script tarc3_GozoRoom_EventScript_RevealRoom {
     setmetatile(6, 3, 0x08E, TRUE)
     setmetatile(7, 3, 0x017, TRUE)
     setmetatile(8, 3, 0x017, TRUE)
-    setmetatile(9, 3, 0x017, TRUE)
+    setmetatile(9, 3, 0x10B, TRUE)
     setmetatile(10, 3, 0x017, TRUE)
-    setmetatile(11, 3, 0x017, TRUE)
+    setmetatile(11, 3, 0x10B, TRUE)
     setmetatile(12, 3, 0x0BB, TRUE)
     setmetatile(13, 3, 0x017, TRUE)
     setmetatile(14, 3, 0x08F, TRUE)
     setmetatile(6, 4, 0x096, TRUE)
     setmetatile(7, 4, 0x090, TRUE)
     setmetatile(8, 4, 0x0C4, TRUE)
-    setmetatile(9, 4, 0x01F, TRUE)
+    setmetatile(9, 4, 0x113, TRUE)
     setmetatile(10, 4, 0x01F, TRUE)
-    setmetatile(11, 4, 0x01F, TRUE)
+    setmetatile(11, 4, 0x113, TRUE)
     setmetatile(12, 4, 0x0C3, TRUE)
     setmetatile(13, 4, 0x01F, TRUE)
     setmetatile(14, 4, 0x097, TRUE)
@@ -797,7 +814,7 @@ script tarc3_GozoRoom_EventScript_RevealRoom {
     setmetatile(7, 7, 0x082, FALSE)
     setmetatile(8, 7, 0x083, FALSE)
     setmetatile(9, 7, 0x084, FALSE)
-    setmetatile(10, 7, 0x0A2, TRUE)
+    setmetatile(10, 7, 0x470, TRUE)
     setmetatile(11, 7, 0x0A3, TRUE)
     setmetatile(12, 7, 0x080, FALSE)
     setmetatile(13, 7, 0x0F1, FALSE)
@@ -821,9 +838,9 @@ script tarc3_GozoRoom_EventScript_RevealRoom {
     setmetatile(13, 9, 0x101, TRUE)
     setmetatile(14, 9, 0x097, TRUE)
     setmetatile(7, 10, 0x0F5, FALSE)
-    setmetatile(8, 10, 0x105, FALSE)
-    setmetatile(9, 10, 0x106, FALSE)
-    setmetatile(10, 10, 0x107, FALSE)
+    setmetatile(8, 10, 0x115, FALSE)
+    setmetatile(9, 10, 0x116, FALSE)
+    setmetatile(10, 10, 0x117, FALSE)
     setmetatile(11, 10, 0x0F6, FALSE)
     setmetatile(12, 10, 0x0F6, FALSE)
     setmetatile(13, 10, 0x0F6, FALSE)
