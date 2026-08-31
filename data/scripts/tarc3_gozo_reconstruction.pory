@@ -1,0 +1,444 @@
+// act 1 - the reconstruction of Gozo's murder
+// begins via tarc3_GozoRoom_EventScript_Ran 
+
+script tarc3_Recon_EventScript_Begin {
+    setvar(VAR_TEMP_8, 0)
+    setspeaker("{PLAYER}")
+    msgbox(format("I will not tell you who did this. I cannot yet, and I will not guess in front of a family."))
+    msgbox(format("I will tell you what happened in that doorway. That much the room has already said."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q1)
+}
+
+// Q1 - was the cabin ever open to anyone?
+
+script tarc3_Recon_EventScript_Q1 {
+    setvar(VAR_TEMP_7, 0)
+    setspeaker("{PLAYER}")
+    msgbox(format("First. This cabin."))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    setspeaker("Mariko")
+    msgbox(format("The cabin was locked. Suzuki opened it in front of all of us."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q1Ask)
+}
+
+script tarc3_Recon_EventScript_Q1Ask {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}How did anybody get into that room, or out of it?", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Through the window", 0)
+    dynmultipush("Using the spare key", 1)
+    dynmultipush("Nobody did, either way", 2)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_Recon_EventScript_Q1WrongWindow)
+        case 1:
+            goto(tarc3_Recon_EventScript_Q1WrongKey)
+        default:
+            goto(tarc3_Recon_EventScript_Q1Right)
+    }
+}
+
+script tarc3_Recon_EventScript_Q1WrongWindow {
+    setspeaker("{RIVAL}")
+    msgbox(format("You put your hands on that window yourself. It has not opened in years."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Recon_EventScript_Q1Miss)
+}
+
+script tarc3_Recon_EventScript_Q1WrongKey {
+    setspeaker("{RIVAL}")
+    msgbox(format("There is one spare, it is in Suzuki's pocket, and nine of you watched him take it out of there."))
+    msgbox(format("If you intend to accuse the butler, do it in a sentence and not in a shrug."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Recon_EventScript_Q1Miss)
+}
+
+script tarc3_Recon_EventScript_Q1Miss {
+    addvar(VAR_TEMP_7, 1)
+    goto_if_ge(VAR_TEMP_7, 2, tarc3_Recon_EventScript_Q1Give)
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q1Ask)
+}
+
+script tarc3_Recon_EventScript_Q1Right {
+    if (var(VAR_TEMP_7) == 0) {
+        addvar(VAR_TEMP_8, 1)
+    }
+    setspeaker("{PLAYER}")
+    msgbox(format("Nobody. One door, and one window that has not opened in years."))
+    msgbox(format("The door takes a key from the corridor and a latch from the inside. When Suzuki reached it, it was shut."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    playse(SE_PIN)
+    applymovement(LOCALID_GOZOROOM_AKIE, moves(emote_exclamation_mark))
+    waitmovement(0)
+    setspeaker("Akie")
+    msgbox(format("Thank you. That is precisely what I have been saying."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q2)
+}
+
+script tarc3_Recon_EventScript_Q1Give {
+    setspeaker("{RIVAL}")
+    msgbox(format("Nobody came through that window and nobody borrowed that key. The room was shut."))
+    msgbox(format("You walked past both of those facts to arrive at neither of them."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q2)
+}
+
+// Q2 - then it was suicide?
+
+script tarc3_Recon_EventScript_Q2 {
+    setvar(VAR_TEMP_7, 0)
+    setspeaker("Akie")
+    msgbox(format("Then he shut himself in and did it to himself. As I have said from the beginning."))
+    setspeaker("{PLAYER}")
+    msgbox(format("No. And this room can prove it cannot have been that."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q2Ask)
+}
+
+script tarc3_Recon_EventScript_Q2Ask {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}What is wrong with a man doing this to himself in a sealed room?", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("He had no reason to", 0)
+    dynmultipush("There is no blade in here", 1)
+    dynmultipush("He was too frail to manage it", 2)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_Recon_EventScript_Q2WrongMotive)
+        case 2:
+            goto(tarc3_Recon_EventScript_Q2WrongFrail)
+        default:
+            goto(tarc3_Recon_EventScript_Q2Right)
+    }
+}
+
+script tarc3_Recon_EventScript_Q2WrongMotive {
+    setspeaker("Mariko")
+    msgbox(format("You met my father this afternoon. Do not tell this family what he did and did not have reason to do."))
+    setspeaker("{RIVAL}")
+    msgbox(format("She is right. A reason is not a proof."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Recon_EventScript_Q2Miss)
+}
+
+script tarc3_Recon_EventScript_Q2WrongFrail {
+    setspeaker("{RIVAL}")
+    msgbox(format("A cabinet of medicine bottles tells you he was ill. It does not tell you what his arms could do."))
+    msgbox(format("Argue from what is in this room, not from what is missing from the man."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Recon_EventScript_Q2Miss)
+}
+
+script tarc3_Recon_EventScript_Q2Miss {
+    addvar(VAR_TEMP_7, 1)
+    goto_if_ge(VAR_TEMP_7, 2, tarc3_Recon_EventScript_Q2Give)
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q2Ask)
+}
+
+script tarc3_Recon_EventScript_Q2Right {
+    if (var(VAR_TEMP_7) == 0) {
+        addvar(VAR_TEMP_8, 1)
+    }
+    setspeaker("{PLAYER}")
+    msgbox(format("There is no knife in this cabin. Not under the bed, not behind the couch, not in the bin."))
+    msgbox(format("He was struck again and again. Whoever did it was not being efficient, they were being furious."))
+    msgbox(format("And a dead man does not put the blade somewhere else and then lock the door on himself."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    playse(SE_PIN)
+    applymovement(LOCALID_GOZOROOM_JOJI, moves(emote_exclamation_mark))
+    waitmovement(0)
+    setspeaker("Joji")
+    msgbox(format("That is the question I asked earlier, and not one of you would look at me."))
+    setspeaker("Akie")
+    msgbox(format("..."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q3)
+}
+
+script tarc3_Recon_EventScript_Q2Give {
+    setspeaker("{RIVAL}")
+    msgbox(format("The knife, {PLAYER} Edgeworth. There is no knife."))
+    msgbox(format("A man may do that to himself. Not one of them has ever tidied the blade away afterwards."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q3)
+}
+
+// Q3 - where was he standing when he was cut?
+
+script tarc3_Recon_EventScript_Q3 {
+    setvar(VAR_TEMP_7, 0)
+    setspeaker("Mariko")
+    msgbox(format("Then somebody was in that room with him, and the room was locked. You are talking in circles."))
+    setspeaker("{PLAYER}")
+    msgbox(format("Only because every one of you is looking at the wrong side of that door."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q3Ask)
+}
+
+script tarc3_Recon_EventScript_Q3Ask {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}Where was Gozo standing when the first blow landed?", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("Where he fell", 0)
+    dynmultipush("Out in the corridor", 1)
+    dynmultipush("In the open doorway", 2)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_Recon_EventScript_Q3WrongWall)
+        case 1:
+            goto(tarc3_Recon_EventScript_Q3WrongCorridor)
+        default:
+            goto(tarc3_Recon_EventScript_Q3Right)
+    }
+}
+
+script tarc3_Recon_EventScript_Q3WrongWall {
+    setspeaker("{RIVAL}")
+    msgbox(format("Then his attacker was inside a room that was locked from within, and left it without unlocking anything."))
+    msgbox(format("You have just made this worse. Look at the frame of the door."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Recon_EventScript_Q3Miss)
+}
+
+script tarc3_Recon_EventScript_Q3WrongCorridor {
+    setspeaker("{RIVAL}")
+    msgbox(format("Close, and therefore useless. In the corridor he is nowhere near that frame."))
+    msgbox(format("The blood is on the frame itself, {PLAYER} Edgeworth. Be exact."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Recon_EventScript_Q3Miss)
+}
+
+script tarc3_Recon_EventScript_Q3Miss {
+    addvar(VAR_TEMP_7, 1)
+    goto_if_ge(VAR_TEMP_7, 2, tarc3_Recon_EventScript_Q3Give)
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q3Ask)
+}
+
+script tarc3_Recon_EventScript_Q3Right {
+    if (var(VAR_TEMP_7) == 0) {
+        addvar(VAR_TEMP_8, 1)
+    }
+    setspeaker("{PLAYER}")
+    msgbox(format("In the doorway. Look at the frame."))
+    msgbox(format("Blood is thrown across the jamb at chest height. That can only happen while the door stands open."))
+    msgbox(format("It was shut and locked when Suzuki reached it. So the wound came first. The door came after."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    playse(SE_PIN)
+    applymovement(LOCALID_GOZOROOM_SUZUKI, moves(emote_exclamation_mark))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("...I walked past that frame. I looked straight at it, and all I saw was a flower."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q4)
+}
+
+script tarc3_Recon_EventScript_Q3Give {
+    setspeaker("{RIVAL}")
+    msgbox(format("The doorway. He was cut standing in the open doorway."))
+    msgbox(format("Blood on the frame, with the door found shut."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q4)
+}
+
+// Q4 - then who turned the lock?
+
+script tarc3_Recon_EventScript_Q4 {
+    setvar(VAR_TEMP_7, 0)
+    setspeaker("Kitaro")
+    msgbox(format("Cut in the doorway. Found behind a locked door. Then who turned the lock?"))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q4Ask)
+}
+
+script tarc3_Recon_EventScript_Q4Ask {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}Then who turned that lock?", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("The killer, with a key", 0)
+    dynmultipush("Gozo turned it himself", 1)
+    dynmultipush("It was never locked", 2)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_Recon_EventScript_Q4WrongKey)
+        case 2:
+            goto(tarc3_Recon_EventScript_Q4WrongOpen)
+        default:
+            goto(tarc3_Recon_EventScript_Q4Right)
+    }
+}
+
+script tarc3_Recon_EventScript_Q4WrongKey {
+    setspeaker("{RIVAL}")
+    msgbox(format("We have been over the key. It did not leave Suzuki's pocket, and you have offered this room no reason to think it did."))
+    msgbox(format("Stop reaching outside that doorway. There is somebody standing in it."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Recon_EventScript_Q4Miss)
+}
+
+script tarc3_Recon_EventScript_Q4WrongOpen {
+    setspeaker("Suzuki")
+    msgbox(format("Forgive me, but it was locked. I put the key to it myself, in front of everyone here."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Contradicted by the only witness who touched it. Try again."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Recon_EventScript_Q4Miss)
+}
+
+script tarc3_Recon_EventScript_Q4Miss {
+    addvar(VAR_TEMP_7, 1)
+    goto_if_ge(VAR_TEMP_7, 2, tarc3_Recon_EventScript_Q4Give)
+    delay(20)
+    goto(tarc3_Recon_EventScript_Q4Ask)
+}
+
+script tarc3_Recon_EventScript_Q4Right {
+    if (var(VAR_TEMP_7) == 0) {
+        addvar(VAR_TEMP_8, 1)
+    }
+    setspeaker("{PLAYER}")
+    msgbox(format("Gozo did."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    setspeaker("{PLAYER}")
+    msgbox(format("He was cut in his own doorway by a man he had opened the door to. He got that door shut, and he turned the latch against him."))
+    setspeaker(NULL)
+    closemessage
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_TRAIL, tarc3_Recon_EventScript_Q4Trail)
+    goto(tarc3_Recon_EventScript_Closing)
+}
+
+// the floor says it outright, if the player went and looked at it
+
+script tarc3_Recon_EventScript_Q4Trail {
+    setspeaker("{PLAYER}")
+    msgbox(format("And the floor of that cabin says so. The smear runs inward from the threshold, even the whole way, with nothing pooled at the door."))
+    msgbox(format("He did not fall there and he was not dragged. He walked, bleeding, and he did not reach the far wall."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Closing)
+}
+
+script tarc3_Recon_EventScript_Q4Give {
+    setspeaker("{RIVAL}")
+    msgbox(format("Gozo turned it. Obviously Gozo turned it."))
+    msgbox(format("He was cut in the doorway, he shut the door on the man who cut him, and he locked it. The sealed room is the victim's own work."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_Recon_EventScript_Closing)
+}
+
+// the reconstruction
+
+script tarc3_Recon_EventScript_Closing {
+    setspeaker("{PLAYER}")
+    msgbox(format("So. Gozo Hatamoto opened that door to somebody he was willing to open it to."))
+    msgbox(format("He was struck in the doorway, more than once, and left standing. His attacker walked away with the blade."))
+    msgbox(format("Gozo shut the door and locked it. Not to keep us out. To keep that man out."))
+    msgbox(format("Nobody sealed this room in order to kill him. He sealed it trying to live."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    goto_if_ge(VAR_TEMP_8, 4, tarc3_Recon_EventScript_ClosingBest)
+    goto_if_ge(VAR_TEMP_8, 2, tarc3_Recon_EventScript_ClosingFair)
+    goto(tarc3_Recon_EventScript_ClosingPoor)
+}
+
+script tarc3_Recon_EventScript_ClosingBest {
+    fadeoutbgm(4)
+    delay(60)
+    setspeaker(NULL)
+    msgbox(format("Nobody in the corridor says anything at all."))
+    closemessage
+    delay(40)
+    setspeaker("Suzuki")
+    msgbox(format("...He was thirty-one years my employer, and I never once heard that man ask anybody for help."))
+    msgbox(format("He would have shut that door. He would have shut it exactly like that."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Adequate, {PLAYER} Edgeworth."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_TARC3_GOZO_RECONSTRUCTED)
+    return
+}
+
+script tarc3_Recon_EventScript_ClosingFair {
+    setspeaker("Joji")
+    msgbox(format("...It holds. I do not enjoy it, but it holds."))
+    setspeaker("Mariko")
+    msgbox(format("It holds and it tells us nothing. You have described a door to us."))
+    setspeaker("{RIVAL}")
+    msgbox(format("He has described a murder to you, and every one of you was calling it a suicide four minutes ago."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_TARC3_GOZO_RECONSTRUCTED)
+    return
+}
+
+script tarc3_Recon_EventScript_ClosingPoor {
+    setspeaker("Mariko")
+    msgbox(format("Most of that came out of her mouth and not yours."))
+    setspeaker("Tatsuo")
+    msgbox(format("It rather did, didn't it."))
+    setspeaker("{RIVAL}")
+    msgbox(format("The conclusion is sound and it is his. Whether he arrived at it with any grace is a matter between him and me."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_TARC3_GOZO_RECONSTRUCTED)
+    return
+}
