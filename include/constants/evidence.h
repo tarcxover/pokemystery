@@ -21,6 +21,7 @@ enum Suspects : u16 {
 
 
 enum Questions : u16 {
+    QUESTION_NONE,
     FOREACH_QUESTION(_QUESTION_HELPER)
     QUESTION_COUNT
 };
