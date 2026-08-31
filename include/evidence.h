@@ -5,6 +5,7 @@
 #include "constants/evidence.h"
 #include "constants/items.h"
 #include "metaprogram.h"
+#include "progress_bar.h"
 
 #define EVD(e) CAT(EVD_, e)
 #define EVD_ITEM(e) CAT(ITEM_, e)
@@ -34,8 +35,8 @@ struct DeductionInfo
 extern const struct EvidenceInfo gEvidence[EVD_COUNT];
 extern const struct DeductionInfo gDeductions[DEDUCTION_COUNT];
 
-
 extern enum Evidence gAccuseEvidence[4];
+extern EWRAM_DATA ProgBar_Tracker gAccuseMenuProgTracker;
 
 enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2);
 const u8* GetQuestionText(enum Questions q);
