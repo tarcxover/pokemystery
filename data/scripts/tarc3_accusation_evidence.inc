@@ -1464,7 +1464,7 @@ tarc3_Accusation_EventScript_Ev_BreadEraser_Text_1:
 
 tarc3_Accusation_EventScript_Ev_BreadEraser_Text_2:
 # 164 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "Don't be daft, Joji.$"
+	.string "Absurd, Joji.$"
 
 tarc3_Accusation_EventScript_Ev_BreadEraser_Text_3:
 # 166 "data/scripts/tarc3_accusation_evidence.pory"

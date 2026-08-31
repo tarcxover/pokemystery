@@ -172,7 +172,7 @@ script tarc3_Foredeck_EventScript_Departure {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("I thought the grandfather of the bride would be in a more cheerful mood."))
+    msgbox(format("The grandfather of the bride.\pI have seen men climbing Mount Coronet display more warmth than that."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -185,6 +185,11 @@ script tarc3_Foredeck_EventScript_Departure {
     setspeaker(NULL)
     closemessage
     delay(20)
+    setspeaker("{RIVAL}")
+    msgbox(format("You have your notebook, {PLAYER} Edgeworth. Use it."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
     giveevidence(EVD_TUITION_FUNDS)
     giveevidence(EVD_TAKESHIS_MEETING)
     closemessage
@@ -192,9 +197,8 @@ script tarc3_Foredeck_EventScript_Departure {
     applymovement(LOCALID_FOREDECK_RAN, moves(face_up))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("You still have your notebook, right {PLAYER}? Might be useful to jot your thoughts down."))
-    msgbox(format("You never know which scrap turns out to matter."))
-    msgbox(format("Let's meet back at the cabin later.\pTake your time looking around."))
+    msgbox(format("A detail you fail to record is a detail you have thrown away."))
+    msgbox(format("We will meet at the cabin later.\pLook around for as long as you care to."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -250,7 +254,7 @@ script tarc3_Foredeck_EventScript_IchiroBattle {
     msgbox(format("I'll heal your team."))
     setspeaker(NULL)
     closemessage
-    msgbox(format("{FONT_NARROW}(I think it had Slash, Doodle and Sketch?)\p(Worth remembering what a Pokémon can do, I suppose.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}His strategy was perplexing.\pPerhaps it is something I should study further.", "1_latin_rse_narrow"))
     giveevidence(EVD_SMEARGLE_REPERTOIRE)
     closemessage
     goto(tarc3_Foredeck_EventScript_IchiroBattleEnd)
@@ -398,7 +402,7 @@ script tarc3_Foredeck_EventScript_KitaroBattle {
     msgbox(format("Well fought.\pIt has been a while since anybody made us work for it. Thank you for that."))
     setspeaker(NULL)
     closemessage
-    msgbox(format("{FONT_NARROW}(He enjoyed that. I do not think he expected to.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}He enjoyed that. I do not think he expected to.", "1_latin_rse_narrow"))
     closemessage
     goto(tarc3_Foredeck_EventScript_KitaroBattleEnd)
 }
@@ -538,10 +542,10 @@ script tarc3_Foredeck_EventScript_Phase2ARan {
     lock
     faceplayer
     setspeaker("{RIVAL}")
-    msgbox(format("There you are.\pNow that we have a moment, you should inspect the crime scene."))
-    msgbox(format("Have you seen everything you need out here?"), MSGBOX_YESNO)
+    msgbox(format("There you are.\pWe have a moment. Work the scene properly."))
+    msgbox(format("Have you seen everything you require out here?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
-        msgbox(format("Then take your time.\pTatsuo, the deck, the rails. All of it."))
+        msgbox(format("Then take it.\pTatsuo, the deck, the rails. All of it."))
         setspeaker(NULL)
         release
         end
@@ -550,8 +554,8 @@ script tarc3_Foredeck_EventScript_Phase2ARan {
     closemessage
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("I agree, we can finish up with this scene for now."))
-    msgbox(format("We should meet the others in the dining room.\pWe need to know who opened that hold."))
+    msgbox(format("Very well. This scene has given up what it has."))
+    msgbox(format("We go to the others, in the dining room.\pI want to know who opened that hold."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -562,7 +566,7 @@ script tarc3_Foredeck_EventScript_Phase2ANoExit {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left))
     waitmovement(0)
-    msgbox(format("{FONT_NARROW}(Hmm. I should talk to {RIVAL} before leaving.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}I should speak to {RIVAL} before leaving.", "1_latin_rse_narrow"))
     releaseall
     end
 }
@@ -573,7 +577,7 @@ script tarc3_Foredeck_EventScript_EvdBody {
     lockall
     goto_if_set(FLAG_TARC3_DECK2_FOUND_BODY, tarc3_Foredeck_EventScript_EvdBodySeen)
     msgbox(format("The back of Tatsuo's skull is caved in. One blow, from something blunt and heavy."))
-    msgbox(format("{FONT_NARROW}(Nothing in his hands. Nothing torn. He never saw it coming.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Nothing in his hands. Nothing torn. He never saw it coming.", "1_latin_rse_narrow"))
     closemessage
     // EVD_BLUNT_WOUND cut
     closemessage
@@ -591,10 +595,10 @@ script tarc3_Foredeck_EventScript_EvdBodySeen {
 script tarc3_Foredeck_EventScript_EvdPipe {
     lockall
     goto_if_set(FLAG_TARC3_DECK2_FOUND_PIPE, tarc3_Foredeck_EventScript_EvdPipeSeen)
-    msgbox(format("A rack of spare pipes, lashed down along the bulwark. The row is even, except for one gap."))
+    msgbox(format("A sack of ship equipment. It appears that some pipes have been hastily stashed away."))
     checkevidence(EVD_HIDDEN_PIPE)
     goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_EvdPipeSacking)
-    msgbox(format("{FONT_NARROW}(Something blunt and heavy, lying out here where anybody could pick it up.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Something blunt and heavy, lying out here where anybody could pick it up.", "1_latin_rse_narrow"))
     closemessage
     // EVD_DISPLACED_PIPE cut
     closemessage
@@ -604,11 +608,7 @@ script tarc3_Foredeck_EventScript_EvdPipe {
 }
 
 script tarc3_Foredeck_EventScript_EvdPipeSacking {
-    msgbox(format("{FONT_NARROW}(That gap is Tatsuo's own doing. He told me so himself, and he was pleased about it.)\p(Which means the pipe he broke off is still under the sacking.)", "1_latin_rse_narrow"))
-    closemessage
-    delay(20)
-    msgbox(format("{PLAYER} turns back the sacking at the end of the rack.\pBeneath it, a clean strip of deck and nothing at all."))
-    msgbox(format("{FONT_NARROW}(Gone. The one heavy thing out here that nobody aboard was supposed to know about.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Tatsuo hid the broken pipes here. He told me so himself, and he was pleased about it.)\pWhich means the pipe he broke off is still under the sacking.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_DECK2_FOUND_PIPE)
     releaseall
@@ -616,7 +616,7 @@ script tarc3_Foredeck_EventScript_EvdPipeSacking {
 }
 
 script tarc3_Foredeck_EventScript_EvdPipeSeen {
-    msgbox(format("One pipe missing from the rack, the lashing left loose, and bare deck under the sacking."))
+    msgbox(format("One pipe missing from the rack."))
     releaseall
     end
 }
@@ -632,7 +632,7 @@ script tarc3_Foredeck_EventScript_EvdCloth {
     msgbox(format("A cloth is snagged on the rail.\pIt is dark along one edge."))
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(There's something out there, but I can't reach it.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}There's something out there, but I can't reach it.", "1_latin_rse_narrow"))
     closemessage
     setvar(VAR_0x8004, SPECIES_CRAMORANT)
     specialvar(VAR_RESULT, DoesPlayerPartyContainSpecies)
@@ -661,7 +661,7 @@ script tarc3_Foredeck_EventScript_EvdClothCramorant {
     setflag(FLAG_HIDE_TARC3_DECK2_CRAMORANT)
     removeobject(LOCALID_FOREDECK_CRAMORANT_2)
     delay(20)
-    msgbox(format("Cramorant drops a bloody scrap of cloth at {PLAYER}'s feet."))
+    msgbox(format("Cramorant drops a scrap of cloth at {PLAYER}'s feet."))
     giveevidence(EVD_BLOODY_CLOTH)
     closemessage
     setflag(FLAG_TARC3_DECK2_FOUND_CLOTH)

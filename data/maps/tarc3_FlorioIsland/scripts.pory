@@ -19,7 +19,7 @@ script tarc3_FlorioIsland_EventScript_OpeningCutscene {
     delay(30)
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("{PLAYER}! Tell me that isn't our ferry leaving!"))
+    msgbox(format("{PLAYER} Edgeworth. Tell me that is not our ferry."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -38,14 +38,14 @@ script tarc3_FlorioIsland_EventScript_OpeningCutscene {
     special(RemoveCameraObject)
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("It's gone...\pAnd that was the last one until tomorrow!"))
+    msgbox(format("Gone.\pAnd not another until tomorrow. An entire day, surrendered to a timetable."))
     setspeaker(NULL)
-    msgbox(format("{FONT_NARROW}(We've lost our ride home. There has to be another way off this island...)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}No passage home, then.\pThere will be another way off this island. There always is.", "1_latin_rse_narrow"))
     setspeaker("{RIVAL}")
-    msgbox(format("You've talked about nothing but this island's Pokémon all morning.\pGo and look at them. We're not going anywhere."))
-    msgbox(format("I'll ask around the pier and find us a way home.\pCome and find me down at the dock when you're done."))
+    msgbox(format("You have spoken of nothing but this island's Pokémon since dawn.\pGo. Look at them. We are plainly going nowhere."))
+    msgbox(format("I will secure us passage myself. It is hardly a difficult problem.\pPresent yourself at the dock when you have finished amusing yourself."))
     setspeaker(NULL)
-    msgbox(format("{FONT_NARROW}({RIVAL}'s on the case, then. And I still haven't caught a single Pokémon...)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}{RIVAL} has taken charge of the ferry, as she takes charge of everything.\pAnd I have yet to catch a single Pokémon.", "1_latin_rse_narrow"))
     closemessage
     applymovement(LOCALID_FLORIO_RAN_1, moves(walk_down * 7))
     waitmovement(0)
@@ -146,7 +146,7 @@ script tarc3_FlorioIsland_EventScript_AfterCatch {
         release
         end
     }
-    msgbox(format("{FONT_NARROW}(That's two of them.\p{RIVAL}'s had long enough to work her magic. Time to head back to the dock.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Two of them.\p{RIVAL} has had ample time. She will not thank me for keeping her waiting at the dock.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_HIDE_TARC3_FLORIO_STOUTLAND)
     setflag(FLAG_HIDE_TARC3_FLORIO_TANGROWTH)
@@ -168,7 +168,7 @@ script tarc3_FlorioIsland_EventScript_AfterCatch {
 script tarc3_FlorioIsland_EventScript_DockBlock {
     lockall
     if (var(VAR_TARC3_FLORIO_INTRO) == 1) {
-        msgbox(format("{FONT_NARROW}({RIVAL}'s still asking around for a way home. I should take a proper look at the island while she does.)", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}{RIVAL} is still negotiating our passage.\pI may as well make a proper survey of the island while she does.", "1_latin_rse_narrow"))
         closemessage
         applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
         waitmovement(0)
@@ -190,21 +190,21 @@ script tarc3_FlorioIsland_EventScript_NatsueInvitation {
     applymovement(LOCALID_FLORIO_NATSUE, moves(walk_up))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("There you are.\pI was about to send the dockhand up the hill after you."))
-    msgbox(format("Natsue's spent the last hour listening to me complain about our ferry.\pAnd she's made us an offer. I could hardly believe it."))
+    msgbox(format("There you are.\pI was one minute from sending that dockhand up the hill to retrieve you."))
+    msgbox(format("This is Natsue.\pShe has made us an offer with regards to our passage home."))
     setspeaker("Natsue")
     msgbox(format("Please, travel with us.\pThat's our ship at the end of the pier. The SS Hana."))
     msgbox(format("She's a private charter.\pThere's more room aboard than we know what to do with. It's no trouble at all."))
     applymovement(LOCALID_FLORIO_RAN_1, moves(face_left))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("Are you certain? We couldn't possibly impose on you like that..."))
+    msgbox(format("You understand that you are offering passage to two complete strangers."))
     applymovement(LOCALID_FLORIO_NATSUE, moves(face_right))
     waitmovement(0)
     setspeaker("Natsue")
     msgbox(format("I'd feel far worse leaving you on an empty pier.\pPlease."))
     setspeaker("{RIVAL}")
-    msgbox(format("Then... thank you. Truly. We're in your debt."))
+    msgbox(format("...Then we accept.\pI do not care to be in anyone's debt, Natsue. Consider it one I intend to settle."))
     setspeaker("Natsue")
     msgbox(format("I'll have you both added to the ship's manifest. Come and find me inside when you're ready to depart."))
     closemessage
@@ -218,7 +218,7 @@ script tarc3_FlorioIsland_EventScript_NatsueInvitation {
     applymovement(LOCALID_FLORIO_RAN_1, moves(face_up))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("Well. That's one problem solved.\pDon't keep her waiting, {PLAYER}. I'll go on ahead and see to our things."))
+    msgbox(format("One problem, solved.\pDo not keep her waiting, {PLAYER} Edgeworth. I will see to our belongings."))
     setspeaker(NULL)
     closemessage
     applymovement(LOCALID_FLORIO_RAN_1, moves(walk_down * 3))
@@ -261,7 +261,7 @@ script tarc3_FlorioIsland_EventScript_Dockhand {
     lock
     faceplayer
     msgbox(format("Her? That one at the end of the pier?\pShe's the SS Hana. A Hatamoto Corp private charter."))
-    msgbox(format("Their whole family is aboard. They came all the way here for Natsue's wedding."))
+    msgbox(format("Their whole family is aboard. They came all the way here for the daughter's wedding."))
     release
     end
 }

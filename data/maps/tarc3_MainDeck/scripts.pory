@@ -83,7 +83,7 @@ script tarc3_MainDeck_EventScript_ShowRoom {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("I'll check out the bedroom. You should introduce yourself to the family."))
+    msgbox(format("I will look over the cabin. Go and present yourself to the family."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -346,7 +346,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     waitmovement(0)
     delay(30)
     setspeaker("{RIVAL}")
-    msgbox(format("Hmm...\pIt's been a very quiet dinner so far."))
+    msgbox(format("A remarkably silent dinner.\pTwelve people across three tables, and not one of them will speak first."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -389,8 +389,8 @@ script tarc3_MainDeck_EventScript_Dinner {
     applymovement(LOCALID_MAINDECK_TAKESHI_DINING, moves(face_right))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("My father seems to misplace his possessions constantly."))
-    msgbox(format("For a private detective, you would think he would be tidier."))
+    msgbox(format("He does not know when it came off."))
+    msgbox(format("On the day of his own wedding.\pOne doesn't need to be a detective to have their curiousity piqued."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -406,7 +406,7 @@ script tarc3_MainDeck_EventScript_Dinner {
     waitmovement(0)
     delay(20)
     setspeaker("Mariko")
-    msgbox(format("A detective..?"))
+    msgbox(format("You say you're a detective..?\pI did have suspicions."))
     msgbox(format("Don't repeat that in front of my father.\pPeople who pry into other people's affairs are contemptible, in his words."))
     closemessage
     applymovement(LOCALID_MAINDECK_KITARO_DINING, moves(face_up))
@@ -444,7 +444,7 @@ script tarc3_MainDeck_EventScript_EvdPlate {
     lockall
     goto_if_set(FLAG_TARC3_DINING_FOUND_PLATE, tarc3_MainDeck_EventScript_EvdPlateSeen)
     msgbox(format("The setting at the head of the table has not been touched. The bread beside it is whole."))
-    msgbox(format("{FONT_NARROW}(Gozo won't eat Kalosian food. And he certainly hasn't touched his bread.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Gozo won't eat Kalosian food. And he certainly hasn't touched his bread.", "1_latin_rse_narrow"))
     closemessage
     // EVD_UNTOUCHED_PLATE cut
     closemessage
@@ -473,7 +473,7 @@ script tarc3_MainDeck_EventScript_DinnerNoExit {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
     waitmovement(0)
-    msgbox(format("{FONT_NARROW}(Everyone is waiting on Gozo.\pI should talk to the family members to pass the time.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Everyone is waiting on Gozo.\pI should talk to the family members to pass the time.", "1_latin_rse_narrow"))
     releaseall
     end
 }
@@ -509,30 +509,30 @@ script tarc3_MainDeck_EventScript_DiningRan {
     }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_TO_ELECTRICAL) {
         setspeaker("{RIVAL}")
-        msgbox(format("His leg is bound. Natsue hasn't left his side."))
-        msgbox(format("Go on, {PLAYER}. Suzuki is waiting on you to find Takeshi."))
-        msgbox(format("I'll stay with Ichiro and keep this room together.\pJust don't take any risks out there."))
+        msgbox(format("His leg is bound. Natsue has not left his side."))
+        msgbox(format("Go, {PLAYER} Edgeworth. The steward is waiting on you to find Takeshi."))
+        msgbox(format("I will stay with Ichiro and hold this room together.\pDo not do anything foolish out there."))
         setspeaker(NULL)
         release
         end
     }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_BLACKOUT) {
         setspeaker("{RIVAL}")
-        msgbox(format("Stay where I can hear you, {PLAYER}.\pThe corridor is pitch black."))
+        msgbox(format("Stay where I can hear you, {PLAYER} Edgeworth.\pThat corridor is entirely dark."))
         setspeaker(NULL)
         release
         end
     }
     if (var(VAR_TARC3_ACT2) >= TARC3_ACT2_ROOM_SETTLES) {
         setspeaker("{RIVAL}")
-        msgbox(format("So much to keep track of. Everyone in this room has their own agenda."))
+        msgbox(format("Every person in this room is pursuing something of their own.\pNot one of them will say what it is."))
         setspeaker(NULL)
         release
         end
     }
     setspeaker("{RIVAL}")
-    msgbox(format("Hmm...\pEveryone keeps starting conversations, and then trailing off."))
-    msgbox(format("I can't believe how much animosity there is in this room. Money warps relationships."))
+    msgbox(format("They begin sentences and then abandon them.\pIt is maddening."))
+    msgbox(format("There is a great deal of ill will in this room. Money does that to a family."))
     setspeaker(NULL)
     closemessage
     if (!flag(FLAG_TARC3_DINNER_TALK_RAN)) {
@@ -857,9 +857,9 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     delay(20)
     applymovement(LOCALID_MAINDECK_RAN_DECK, moves(face_up))
     setspeaker("{RIVAL}")
-    msgbox(format("Nobody in that room proved anything. They decided first, and went looking for reasons after."))
-    msgbox(format("That garland was lying flat in the corridor and it wasn't damaged at all.\pAnybody walking past was going to see it."))
-    msgbox(format("I don't know what that means yet.\pBut it's a question which none of them asked."))
+    msgbox(format("Not one person in that room proved anything.\pThey decided first, and went hunting for reasons afterwards."))
+    msgbox(format("That garland was lying flat in the corridor, undamaged.\pAnyone walking past was certain to see it."))
+    msgbox(format("What that means, I have not yet settled.\pBut it is the question not one of them thought to ask."))
     closemessage
     delay(20)
     playse(SE_PIN)
@@ -867,7 +867,7 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     waitmovement(0)
     delay(20)
     setspeaker("Natsue")
-    msgbox(format("Then whoever did it... Is still on this ship with us!"))
+    msgbox(format("Nonetheless, whoever did it... Is still on this ship with us."))
     setspeaker("{RIVAL}")
     delay(40)
     msgbox(format("Yes.\pThey are."))
@@ -888,19 +888,19 @@ script tarc3_MainDeck_EventScript_DeckDoorScene {
     waitmovement(0)
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("What was that!?"))
+    msgbox(format("...What was that."))
     setspeaker("Natsue")
     msgbox(format("There were two sounds.\pA splash... and a thud."))
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(A splash on its own could be any water Pokémon outside.\pBut a loud thud on the deck afterwards..?)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}A splash on its own could be any water Pokémon outside.\pBut a loud thud on the deck afterwards..?", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_TWO_SOUNDS)
     closemessage
     delay(30)
     setspeaker("{RIVAL}")
-    msgbox(format("They came from outside.\pGo and look, we'll be right behind you."))
+    msgbox(format("Outside.\pGo and look. We are behind you."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -971,7 +971,7 @@ script tarc3_MainDeck_EventScript_RoomSettles {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(I should use this time to talk to members of the family.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}I should use this time to talk to members of the family.", "1_latin_rse_narrow"))
     closemessage
     setvar(VAR_TARC3_ACT2, TARC3_ACT2_GATHER)
     applymovement(LOCALID_CAMERA, moves(walk_down * 2))
@@ -1087,7 +1087,7 @@ script tarc3_MainDeck_EventScript_GatherKitaro {
         goto(tarc3_MainDeck_EventScript_GatherKitaroExhausted)
     }
     setspeaker(NULL)
-    message(format("{FONT_NARROW}(What do I need from him?)", "1_latin_rse_narrow"))
+    message(format("{FONT_NARROW}What do I need from him?", "1_latin_rse_narrow"))
     waitmessage
     if (!flag(FLAG_TARC3_GATHER_KITARO)) {
         dynmultipush("Where everyone was", 0)
@@ -1166,7 +1166,7 @@ script tarc3_MainDeck_EventScript_GatherKitaroTatsuo {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(Two men married into the same family. One stopped trying. One never did.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Two men married into the same family. One stopped trying. One never did.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_GATHER_KITARO_TATSUO)
     goto(tarc3_MainDeck_EventScript_GatherKitaroReflectEnd)
@@ -1322,7 +1322,7 @@ script tarc3_MainDeck_EventScript_GatherNatsuePanDown {
 script tarc3_MainDeck_EventScript_GatherNatsueReflect {
     goto_if_set(FLAG_TARC3_REFLECT_GATHER_NATSUE, tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
     setspeaker(NULL)
-    message(format("{FONT_NARROW}(Two different perspectives on Takeshi. What makes sense?)", "1_latin_rse_narrow"))
+    message(format("{FONT_NARROW}Two different perspectives on Takeshi. What makes sense?", "1_latin_rse_narrow"))
     waitmessage
     dynmultipush("Natsue trusts him", 0)
     dynmultipush("Mariko says he had help", 1)
@@ -1338,8 +1338,8 @@ script tarc3_MainDeck_EventScript_GatherNatsueReflect {
 }
 
 script tarc3_MainDeck_EventScript_GatherNatsueReflectAccomplice {
-    msgbox(format("{FONT_NARROW}(Mariko is convinced of Takeshi's involvement. Is she suggesting he has an accomplice?)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(Could she be right?)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Mariko is convinced of Takeshi's involvement. Is she suggesting he has an accomplice?", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Could she be right?", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GATHER_NATSUE)
     giveevidence(EVD_AN_ACCOMPLICE)
@@ -1348,7 +1348,7 @@ script tarc3_MainDeck_EventScript_GatherNatsueReflectAccomplice {
 }
 
 script tarc3_MainDeck_EventScript_GatherNatsueReflectIrrelevant {
-    msgbox(format("{FONT_NARROW}(I already know that much. It's not what I need from her.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}I already know that much. It's not what I need from her.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GATHER_NATSUE)
     goto(tarc3_MainDeck_EventScript_GatherNatsueReflectEnd)
@@ -1445,7 +1445,7 @@ script tarc3_MainDeck_EventScript_Blackout {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(He's been out of this room a lot longer than a wash takes.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}He's been out of this room a lot longer than a wash takes.", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_LONG_ABSENCE)
     closemessage
@@ -1461,7 +1461,7 @@ script tarc3_MainDeck_EventScript_Blackout {
     playse(SE_M_THUNDERBOLT2)
     waitse
     fadescreenswapbuffers(FADE_FROM_BLACK)
-    msgbox(format("{FONT_NARROW}(The lights...)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}The lights!", "1_latin_rse_narrow"))
     closemessage
     fadescreenswapbuffers(FADE_TO_BLACK)
     fadescreenswapbuffers(FADE_FROM_BLACK)
@@ -1481,14 +1481,14 @@ script tarc3_MainDeck_EventScript_BlackoutReturn {
     waitmovement(0)
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("{PLAYER}, come with me. We'll check on him."))
+    msgbox(format("{PLAYER} Edgeworth. With me.\pWe will see to him."))
     setspeaker(NULL)
     closemessage
     delay(20)
     applymovement(LOCALID_MAINDECK_SUZUKI_DINING, moves(face_up))
     waitmovement(0)
     setspeaker("Suzuki")
-    msgbox(format("I'll see to the power breaker downstairs."))
+    msgbox(format("I'll inspect the power breaker downstairs."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -1496,7 +1496,7 @@ script tarc3_MainDeck_EventScript_BlackoutReturn {
     waitmovement(0)
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("The bathrooms are at the far end of the corridor.\pWe must stay close."))
+    msgbox(format("The bathrooms are at the far end of the corridor.\pStay close to me."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -1516,8 +1516,8 @@ script tarc3_MainDeck_EventScript_SuzukiLeaves {
     removeobject(LOCALID_MAINDECK_SUZUKI_DINING)
     delay(30)
     setspeaker("{RIVAL}")
-    msgbox(format("He'll be a few minutes."))
-    msgbox(format("Come on, {PLAYER}. It's this way."))
+    msgbox(format("He will be some minutes."))
+    msgbox(format("This way, {PLAYER} Edgeworth."))
     setspeaker(NULL)
     closemessage
     applymovement(LOCALID_MAINDECK_RAN_DINING, moves(walk_left * 5))
@@ -1531,7 +1531,7 @@ script tarc3_MainDeck_EventScript_Scream {
     lockall
     playse(SE_M_CUT)
     delay(60)
-    msgbox(format("{FONT_NARROW}(That came from the bathrooms!)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}That came from the bathrooms!", "1_latin_rse_narrow"))
     closemessage
     setspeaker("{RIVAL}")
     msgbox(format("Ichiro!"))
@@ -1551,7 +1551,7 @@ script tarc3_MainDeck_EventScript_ScreamNoExitDeck {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
     waitmovement(0)
-    msgbox(format("{FONT_NARROW}(That came from the bathrooms. I need to get there right away.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}That came from the bathrooms. I need to get there right away.", "1_latin_rse_narrow"))
     releaseall
     end
 }
@@ -1560,7 +1560,7 @@ script tarc3_MainDeck_EventScript_ScreamNoExitStairs {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
     waitmovement(0)
-    msgbox(format("{FONT_NARROW}(That came from the bathrooms. I need to get there right away.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}That came from the bathrooms. I need to get there right away.", "1_latin_rse_narrow"))
     releaseall
     end
 }
@@ -1569,8 +1569,8 @@ script tarc3_MainDeck_EventScript_CorridorRan {
     lock
     faceplayer
     setspeaker("{RIVAL}")
-    msgbox(format("I'll wait here for the others."))
-    msgbox(format("You go in, {PLAYER}. I'll bring the others."))
+    msgbox(format("Go in, {PLAYER} Edgeworth."))
+    msgbox(format("I will hold this corridor and bring the others to you."))
     setspeaker(NULL)
     release
     end
@@ -1580,7 +1580,7 @@ script tarc3_MainDeck_EventScript_GatherNoExit {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
     waitmovement(0)
-    msgbox(format("{FONT_NARROW}(Nobody is leaving this room while they're still going at each other.\pI should hear the rest of it.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Nobody is leaving this room while they're still going at each other.\pI should hear the rest of it.", "1_latin_rse_narrow"))
     releaseall
     end
 }
@@ -1626,7 +1626,7 @@ script tarc3_MainDeck_EventScript_SuzukiSearchTopics {
         }
     }
     setspeaker(NULL)
-    message(format("{FONT_NARROW}(What do I need from him?)", "1_latin_rse_narrow"))
+    message(format("{FONT_NARROW}What do I need from him?", "1_latin_rse_narrow"))
     waitmessage
     if (var(VAR_TEMP_4) == 0) {
         dynmultipush("Where Takeshi is", 0)
@@ -1718,26 +1718,26 @@ script tarc3_MainDeck_EventScript_SuzukiSearchEnd {
 script tarc3_MainDeck_EventScript_DiningRanAct3 {
     setspeaker("{RIVAL}")
     if (!flag(FLAG_TARC3_CABIN_FOUND_TAKESHI)) {
-        msgbox(format("Suzuki unlocked every cabin door.\pTakeshi must be behind one of them."))
-        msgbox(format("Find him, {PLAYER}.\pOne way or another, we can get to the bottom of this nightmare if we find him."))
+        msgbox(format("The steward has unlocked every cabin door.\pTakeshi is behind one of them. There is nowhere else on this ship he can be."))
+        msgbox(format("Find him, {PLAYER} Edgeworth.\pWhatever that man has or has not done, this ends the moment we have him."))
         setspeaker(NULL)
         release
         end
     }
-    msgbox(format("You found him. I can see it in your eyes."))
-    msgbox(format("Akie's room? Fitting.\pAfter Tatsuo's death, she hasn't had much reason to be in there."))
+    msgbox(format("You have found him. It is written all over you."))
+    msgbox(format("Akie's cabin. Of course.\pSince Tatsuo died she has had no reason whatsoever to go in there."))
     closemessage
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("Are you ready to put this in front of all of them?"), MSGBOX_YESNO)
+    msgbox(format("Are you prepared to put this in front of all of them?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
-        msgbox(format("Then go back over it.\pOnce I bring them down there, you don't get a second run at it."))
+        msgbox(format("Then go back over it.\pOnce I have them assembled, there is no second attempt."))
         setspeaker(NULL)
         release
         end
     }
     setspeaker("{RIVAL}")
-    msgbox(format("I'll collect everyone."))
+    msgbox(format("I will collect them."))
     setspeaker(NULL)
     closemessage
     delay(30)

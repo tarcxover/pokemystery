@@ -28,8 +28,8 @@ script tarc3_FlorioDock_EventScript_Ran {
     lock
     faceplayer
     setspeaker("{RIVAL}")
-    msgbox(format("It's all arranged. Just tell Natsue when you're ready."))
-    msgbox(format("A whole family on a private charter...\pAnd they made room for two strangers. We got lucky."))
+    msgbox(format("It is arranged. Inform Natsue when you are ready to depart."))
+    msgbox(format("An entire family, on a private charter.\pAnd room aboard for two strangers. Generosity on that scale usually has a reason behind it."))
     setspeaker(NULL)
     release
     end

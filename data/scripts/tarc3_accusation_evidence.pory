@@ -161,7 +161,7 @@ script tarc3_Accusation_EventScript_Ev_BreadEraser {
     setspeaker("Joji")
     msgbox(format("There's bread in my cabin too.\pI'm a chef, {PLAYER} - I made bread for the entire wedding party.\pAre you accusing me, too?"))
     setspeaker("{PLAYER}")
-    msgbox(format("Don't be daft, Joji."))
+    msgbox(format("Absurd, Joji."))
     setspeaker("{RIVAL}")
     msgbox(format("Bread. You have brought this room bread."))
     msgbox(format("Do continue, {PLAYER} Edgeworth. It is riveting."))

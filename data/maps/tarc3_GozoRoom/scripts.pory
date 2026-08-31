@@ -78,14 +78,14 @@ script tarc3_GozoRoom_EventScript_TheBody {
     setspeaker(NULL)
     closemessage
     delay(30)
-    msgbox(format("{FONT_NARROW}(Blood on the doorframe, but the door was shut and locked.)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(That only happens one way. He was cut before the door closed, not after.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Blood on the doorframe, but the door was shut and locked.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}That only happens one way. He was cut before the door closed, not after.", "1_latin_rse_narrow"))
     closemessage
     // EVD_BLOODY_DOORFRAME cut
     closemessage
     delay(30)
-    msgbox(format("{FONT_NARROW}(The blood has gone dark at the edges.\pIt happened about forty minutes ago.)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(Which puts it at seven o'clock.)\p(Suzuki walked this corridor minutes later and saw nothing suspect.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}The blood has gone dark at the edges.\pIt happened about forty minutes ago.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Which puts it at seven o'clock.\pSuzuki walked this corridor minutes later and saw nothing suspect.", "1_latin_rse_narrow"))
     closemessage
     delay(20)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
@@ -159,8 +159,8 @@ script tarc3_GozoRoom_EventScript_TheBody {
     setspeaker(NULL)
     closemessage
     delay(30)
-    msgbox(format("{FONT_NARROW}(If he is right, the blade has to be somewhere in this room.)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(And that flower was lying in the corridor before anybody knew he was dead.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}If he is right, the blade has to be somewhere in this room.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}And that flower was lying in the corridor before anybody knew he was dead.", "1_latin_rse_narrow"))
     closemessage
     delay(20)
     applymovement(LOCALID_GOZOROOM_MARIKO, moves(walk_in_place_slow_up))
@@ -172,7 +172,7 @@ script tarc3_GozoRoom_EventScript_TheBody {
     applymovement(LOCALID_GOZOROOM_RAN, moves(walk_up,face_right))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("Please. We... we want to help."))
+    msgbox(format("Because not one of you has the first idea what you are looking at."))
     setspeaker(NULL)
     closemessage
     delay(30)
@@ -194,16 +194,16 @@ script tarc3_GozoRoom_EventScript_Ran {
     faceplayer
     if (var(VAR_TARC3_ACT1) > TARC3_ACT1_INVESTIGATE_1) {
         setspeaker("{RIVAL}")
-        msgbox(format("Go on. They're listening now."))
+        msgbox(format("Go on. They are listening."))
         setspeaker(NULL)
         release
         end
     }
     setspeaker("{RIVAL}")
-    msgbox(format("They're all still standing out there waiting on somebody to say something."))
-    msgbox(format("Have you seen everything you need to in here?"), MSGBOX_YESNO)
+    msgbox(format("They are all still standing out there, waiting for somebody to say something of substance."))
+    msgbox(format("Have you seen everything you require in here?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
-        msgbox(format("Then take your time.\pI'll keep them out of your way as long as I can."))
+        msgbox(format("Then take the time you need.\pI will keep them out of your way."))
         setspeaker(NULL)
         release
         end
@@ -214,12 +214,12 @@ script tarc3_GozoRoom_EventScript_Ran {
     closemessage
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("...You're certain? All of it?"))
+    msgbox(format("...You are certain. All of it?"))
     setspeaker(NULL)
     closemessage
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_JAIL_TAKESHI)
     setspeaker("{RIVAL}")
-    msgbox(format("Everyone. Just listen to him for a minute."))
+    msgbox(format("Silence, all of you.\pYou will listen to him."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -341,8 +341,7 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
 script tarc3_GozoRoom_EventScript_GozoBody {
     lockall
     goto_if_set(FLAG_TARC3_GOZO_FOUND_BODY, tarc3_GozoRoom_EventScript_GozoBodySeen)
-    msgbox(format("Wounds across the chest, and not one of them alone would have been enough."))
-    msgbox(format("{FONT_NARROW}(Whoever did this went on doing it long after he stopped fighting back.)", "1_latin_rse_narrow"))
+    msgbox(format("Multiple wounds across the chest. Far more than necessary."))
     closemessage
     // EVD_VICIOUS_ATTACK cut
     closemessage
@@ -352,7 +351,7 @@ script tarc3_GozoRoom_EventScript_GozoBody {
 }
 
 script tarc3_GozoRoom_EventScript_GozoBodySeen {
-    msgbox(format("Gozo Hatamoto. Struck again and again, and not once on the hands or arms."))
+    msgbox(format("Gozo Hatamoto. Struck again and again."))
     releaseall
     end
 }
@@ -360,8 +359,8 @@ script tarc3_GozoRoom_EventScript_GozoBodySeen {
 script tarc3_GozoRoom_EventScript_Window {
     lockall
     goto_if_set(FLAG_TARC3_GOZO_FOUND_WINDOW, tarc3_GozoRoom_EventScript_WindowSeen)
-    msgbox(format("The cabin window is painted into its frame. The catch has not been turned in years."))
-    msgbox(format("{FONT_NARROW}(Nobody came in this way, and nobody left by it either.)", "1_latin_rse_narrow"))
+    msgbox(format("The cabin windows are firmly shut. They must not have been opened in years."))
+    msgbox(format("{FONT_NARROW}Nobody came in this way, and nobody left by it either.", "1_latin_rse_narrow"))
     closemessage
     // EVD_SEALED_WINDOW cut
     closemessage
@@ -371,7 +370,7 @@ script tarc3_GozoRoom_EventScript_Window {
 }
 
 script tarc3_GozoRoom_EventScript_WindowSeen {
-    msgbox(format("Painted shut. The one door was the only way in or out of this room."))
+    msgbox(format("Firmly shut. The one door was the only way in or out of this room."))
     releaseall
     end
 }
@@ -413,7 +412,7 @@ script tarc3_GozoRoom_EventScript_SearchBin {
     goto_if_set(FLAG_TARC3_GOZO_SEARCH_BIN, tarc3_GozoRoom_EventScript_SearchBinSeen)
     setflag(FLAG_TARC3_GOZO_SEARCH_BIN)
     msgbox(format("There are discarded bottles of medicine in here, but no blade."))
-    msgbox(format("{FONT_NARROW}(Somebody didn't want the others knowing about the medication.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Somebody didn't want the others knowing about the medication.", "1_latin_rse_narrow"))
     closemessage
     // EVD_MEDICATION cut
     closemessage
@@ -433,8 +432,8 @@ script tarc3_GozoRoom_EventScript_SearchCheck {
     goto_if_unset(FLAG_TARC3_GOZO_SEARCH_COUCH, tarc3_GozoRoom_EventScript_SearchEnd)
     goto_if_unset(FLAG_TARC3_GOZO_SEARCH_BIN, tarc3_GozoRoom_EventScript_SearchEnd)
     delay(20)
-    msgbox(format("{FONT_NARROW}(The bed, the couch and the bin. That is everywhere a blade could be in this room.)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(There is no weapon in here. He could not have done this to himself and then hidden it.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}The bed, the couch and the bin. That is everywhere a blade could be in this room.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}There is no weapon in here. He could not have done this to himself and then hidden it.", "1_latin_rse_narrow"))
     closemessage
     // EVD_NO_WEAPON cut
     closemessage
@@ -484,7 +483,7 @@ script tarc3_GozoRoom_EventScript_EvdCrumbs {
     lockall
     goto_if_set(FLAG_TARC3_GOZO_FOUND_CRUMBS, tarc3_GozoRoom_EventScript_EvdCrumbsSeen)
     msgbox(format("Crumbs of bread, pressed into the blood by the door."))
-    msgbox(format("{FONT_NARROW}(Somebody stood here with bread in their hand. Gozo never touched the stuff.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Somebody stood here with bread in their hand. Gozo never touched the stuff.", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_BREADCRUMBS)
     closemessage
@@ -503,8 +502,8 @@ script tarc3_GozoRoom_EventScript_EvdCarpet {
     lockall
     goto_if_set(FLAG_TARC3_GOZO_FOUND_CARPET, tarc3_GozoRoom_EventScript_EvdCarpetSeen)
     msgbox(format("The carpet where the garland was lying is bare. Around it the blood is thin and streaked."))
-    msgbox(format("{FONT_NARROW}(Wiped. And a step through that doorway it hasn't been touched at all.)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(Somebody cleaned this side of the door, and only this side.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Wiped. And a step through that doorway it hasn't been touched at all.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Somebody cleaned this side of the door, and only this side.", "1_latin_rse_narrow"))
     closemessage
     // EVD_CLEAN_CARPET cut
     closemessage
@@ -538,7 +537,7 @@ script tarc3_GozoRoom_EventScript_EvdGarland {
     goto_if_set(FLAG_TARC3_GOZO_FOUND_GARLAND, tarc3_GozoRoom_EventScript_EvdCarpet)
     lockall
     msgbox(format("A garland is lying in the corridor a step from the door."))
-    msgbox(format("{FONT_NARROW}(Not a mark on it. A man bled here, and this came away clean.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Not a mark on it. Amongst the blood spilled here, this came away clean.", "1_latin_rse_narrow"))
     closemessage
     // EVD_UNSTAINED_GARLAND cut
     closemessage
@@ -576,7 +575,7 @@ script tarc3_GozoRoom_EventScript_SuzukiBeat3 {
 
 script tarc3_GozoRoom_EventScript_SuzukiReflect3 {
     setspeaker(NULL)
-    message(format("{FONT_NARROW}(He walked past all of it. What was he actually looking at?)", "1_latin_rse_narrow"))
+    message(format("{FONT_NARROW}He walked past all of it. What was he actually looking at?", "1_latin_rse_narrow"))
     waitmessage
     dynmultipush("Garland was there first", 0)
     dynmultipush("He should have knocked", 1)
@@ -592,7 +591,7 @@ script tarc3_GozoRoom_EventScript_SuzukiReflect3 {
 }
 
 script tarc3_GozoRoom_EventScript_SuzukiReflect3Flower {
-    msgbox(format("{FONT_NARROW}(Lying there half an hour before anyone knew he was dead.)\pTakeshi's garland, on the floor, waiting to be found.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Lying there half an hour before anyone knew he was dead.\pTakeshi's garland, on the floor, waiting to be found.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_3)
     giveevidence(EVD_DROPPED_FLOWER)
@@ -601,7 +600,7 @@ script tarc3_GozoRoom_EventScript_SuzukiReflect3Flower {
 }
 
 script tarc3_GozoRoom_EventScript_SuzukiReflect3Irrelevant {
-    msgbox(format("{FONT_NARROW}(True. It isn't evidence, though.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}True. It isn't evidence, though.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_3)
     goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
@@ -705,7 +704,7 @@ script tarc3_GozoRoom_EventScript_Ichiro {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(He hasn't looked at the body once. He's watching the doorway.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}He hasn't looked at the body once. He's watching the doorway.", "1_latin_rse_narrow"))
     release
     end
 }
