@@ -27,7 +27,7 @@ static EWRAM_INIT u8 sActiveProgTaskId = TASK_NONE;
 
 static const ProgBar_Template ProgBar_DefaultTemplate = 
 {
-    .totalBarPixels = 100,
+    .totalBarPixels = 216,
     .numStartTiles = 1,
     .numEndTiles = 1,
     .xOffset = -3,
@@ -224,11 +224,17 @@ static struct SubspriteTable ProgBar_BuildSubspriteTable(const ProgBar_Template*
 {
     u32 tilesForBar = MathUtil_RoundUp(t->totalBarPixels, 8) / 8;
     u32 totalTiles = tilesForBar + t->numEndTiles + t->numStartTiles;
+
+    if (!(t->totalBarPixels % 8))
+        totalTiles--;
+
+    DebugPrintf("tilesForBar: %d, numEndTiles: %d, numStartTiles: %d", tilesForBar, t->numEndTiles, t->numStartTiles);
     u32 numSubspriteTiles = MathUtil_RoundUp(totalTiles, 4);
 
     struct Subsprite* subspritePtrStart = subspritePtr;
 
     u32 numSubsprites = numSubspriteTiles / 4;
+    DebugPrintf("numSubsprites: %d", numSubsprites);
     u32 totalBarLength = numSubsprites * 32;
 
     s32 startX = 0;
