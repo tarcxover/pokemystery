@@ -1626,6 +1626,42 @@
       "y": 4,
       "width": 1,
       "height": 1
+    },
+    {
+      "id": "MAPSEC_TARC3_FLORIO_ISLAND",
+      "name": "Florio Island"
+    },
+    {
+      "id": "MAPSEC_TARC3_FLORIO_DOCK",
+      "name": "Ferry Dock"
+    },
+    {
+      "id": "MAPSEC_TARC3_FOREDECK",
+      "name": "Outer Deck"
+    },
+    {
+      "id": "MAPSEC_TARC3_MAIN_DECK",
+      "name": "Main Deck"
+    },
+    {
+      "id": "MAPSEC_TARC3_CABINS",
+      "name": "Guest Cabins"
+    },
+    {
+      "id": "MAPSEC_TARC3_GOZO_ROOM",
+      "name": "Gozo's Cabin"
+    },
+    {
+      "id": "MAPSEC_TARC3_HOLD",
+      "name": "The Hold"
+    },
+    {
+      "id": "MAPSEC_TARC3_ELECTRICAL_ROOM",
+      "name": "Electrical Room"
+    },
+    {
+      "id": "MAPSEC_TARC3_BATHROOM",
+      "name": "Washroom"
     }
   ]
 }

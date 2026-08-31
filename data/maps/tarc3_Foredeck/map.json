@@ -3,7 +3,7 @@
   "name": "tarc3_Foredeck",
   "layout": "LAYOUT_TARC3_FOREDECK",
   "music": "MUS_SAILING",
-  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "region_map_section": "MAPSEC_TARC3_FOREDECK",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_ROUTE",
@@ -11,7 +11,7 @@
   "allow_escaping": false,
   "allow_running": true,
   "show_map_name": true,
-  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "battle_scene": "MAP_BATTLE_SCENE_BUILDING",
   "connections": null,
   "object_events": [
     {
