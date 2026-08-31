@@ -25,31 +25,31 @@ script tarc3_Cabins_EventScript_BedroomRan {
     faceplayer
     setspeaker("{RIVAL}")
     if (var(VAR_TARC3_ACT1) < TARC3_ACT1_DEPARTED) {
-        msgbox(format("Two beds, a window and a wardrobe. It's nicer than anywhere we stayed on Florio."))
-        msgbox(format("Go up on deck and say hello properly. They've been kind to us."))
-        msgbox(format("I'll follow you up once I've got our things put away."))
+        msgbox(format("Two beds, a window, a wardrobe. Adequate.\pIt is a considerable improvement on Florio."))
+        msgbox(format("Go up on deck and present yourself properly.\pThese people have been generous, and you will not repay it with silence."))
+        msgbox(format("I will follow once our things are put away."))
         setspeaker(NULL)
         release
         end
     }
     if (!flag(FLAG_TARC3_RAN_CABIN_TALK)) {
         setflag(FLAG_TARC3_RAN_CABIN_TALK)
-        msgbox(format("There you are! Suzuki came past while you were out."))
-        msgbox(format("Dinner is at seven in the dining room, and he was very clear that we're expected."))
-        msgbox(format("I'd rather not be the ones who turn up late.\pIt'll probably be the best meal we've had in years, too."))
+        msgbox(format("There you are. The steward came past while you were wandering."))
+        msgbox(format("Dinner is at seven, in the dining room. He was quite clear that we are expected."))
+        msgbox(format("We will not be the ones who arrive late.\pI have no intention of beginning this voyage as an inconvenience."))
         call(tarc3_Cabins_EventScript_FamilyTree)
     } else {
-        msgbox(format("Dinner is at seven, remember.\pI'd rather not be the ones who turn up late."))
+        msgbox(format("Dinner. Seven o'clock.\pI will not repeat it a third time."))
     }
     setspeaker("{RIVAL}")
-    msgbox(format("Shall we move to the dining room?"), MSGBOX_YESNO)
+    msgbox(format("Are you ready to go down to the dining room?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
-        msgbox(format("Fair enough. I'm not in a hurry either.\pTell me when you're ready."))
+        msgbox(format("Then continue with whatever it is you are doing.\pTell me when you are ready."))
         setspeaker(NULL)
         release
         end
     }
-    msgbox(format("Then let's not keep them waiting."))
+    msgbox(format("Good. We will not keep them waiting."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -76,13 +76,13 @@ script tarc3_Cabins_EventScript_BedroomRan {
 
 script tarc3_Cabins_EventScript_FamilyTree {
     setspeaker("{RIVAL}")
-    msgbox(format("Let me get this family straight before we sit down with them."))
-    msgbox(format("Gozo Hatamoto is the head of it.\pEveryone else is one of his children, one of his grandchildren, or married in."))
-    msgbox(format("Natsue and Akie are his granddaughters.\pTheir father Shoichi was Gozo's eldest son. He and their mother died last year."))
-    msgbox(format("Mariko is Gozo's eldest daughter, and Kitaro is her husband.\pHe runs one of the family companies. Joji is the second son, the chef."))
-    msgbox(format("Then the two who married in.\pTakeshi to Natsue this morning, and Tatsuo to Akie."))
-    msgbox(format("And Ichiro, who I can't place at all.\pHe came for the wedding, but he isn't a Hatamoto."))
-    msgbox(format("That's nine in the wedding party, Suzuki, and the two of us.\pTwelve people, and the crew never come aft of the bridge."))
+    msgbox(format("Before we sit at their table, I will have this family straight."))
+    msgbox(format("Gozo Hatamoto is the head of it.\pEvery other person aboard is a child of his, a grandchild, or married in."))
+    msgbox(format("Natsue and Akie are the granddaughters.\pTheir father Shoichi was the eldest son. He and their mother died last year."))
+    msgbox(format("Mariko is the eldest daughter. Kitaro is her husband, and runs one of the family companies.\pJoji is the second son. The chef."))
+    msgbox(format("Then the two who married in.\pTakeshi to Natsue this morning. Tatsuo to Akie."))
+    msgbox(format("And Ichiro, who fits nowhere in it.\pHe came for the wedding and he is not a Hatamoto. A loose end."))
+    msgbox(format("Nine in the wedding party, the steward, and the two of us.\pTwelve. And the crew stay in their own quarters."))
     setspeaker(NULL)
     closemessage
     return
@@ -98,12 +98,12 @@ script tarc3_Cabins_EventScript_EvdKnifeRoll {
     msgbox(format("Two of them are empty."))
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(One turned up beside Ichiro. So where is the other one?)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}One turned up beside Ichiro. So where is the other one?", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_MISSING_KNIVES)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(There's a dark smear on the inside of the flap.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}There's a dark smear on the inside of the flap.", "1_latin_rse_narrow"))
     closemessage
     // EVD_RESIDUE_ON_CASE cut
     closemessage
@@ -151,7 +151,7 @@ script tarc3_Cabins_EventScript_EvdSketchbook {
     delay(20)
     playse(SE_PIN)
     delay(20)
-    msgbox(format("{FONT_NARROW}(There's a section of the book dedicated to the same girl.)\p(Natsue.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}There's a section of the book dedicated to the same girl.\pNatsue.", "1_latin_rse_narrow"))
     closemessage
     delay(20)
     msgbox(format("The last page is dated today.\pNatsue on the island, in her wedding dress, drawn from a distance."))
@@ -175,12 +175,12 @@ script tarc3_Cabins_EventScript_EvdSupplies {
     msgbox(format("A bag of art supplies. Sticks of charcoal, a sharpener, and a can of fixative."))
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(These must be Ichiro's sketching supplies.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}These must be Ichiro's sketching supplies.", "1_latin_rse_narrow"))
     closemessage
     // EVD_CHARCOAL_SUPPLIES cut
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(There's also a torn end of bread with dark smudges. Is this being used as an eraser?)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}There's also a torn end of bread with dark smudges. Is this being used as an eraser?", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_BREAD_ERASER)
     closemessage
@@ -199,7 +199,7 @@ script tarc3_Cabins_EventScript_EvdEnvelope {
     lockall
     goto_if_set(FLAG_TARC3_CABIN_FOUND_ENVELOPE, tarc3_Cabins_EventScript_EvdEnvelopeSeen)
     msgbox(format("A torn envelope on the desk, Corporation letterhead.\pThe untorn half reads 'FINAL WISHES O...'."))
-    msgbox(format("{FONT_NARROW}(She knew there was a will before Suzuki opened his mouth downstairs.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}She knew there was a will before Suzuki opened his mouth downstairs.", "1_latin_rse_narrow"))
     closemessage
     // EVD_WILL_CORRESPONDENCE cut
     closemessage
@@ -218,7 +218,7 @@ script tarc3_Cabins_EventScript_EvdPicture {
     lockall
     goto_if_set(FLAG_TARC3_CABIN_FOUND_PICTURE, tarc3_Cabins_EventScript_EvdPictureSeen)
     msgbox(format("A framed photograph hung on the wall.\pIt features a proud man and a younger boy, standing in front of a building."))
-    msgbox(format("{FONT_NARROW}(Zaiki Research Institute is on a sign outside the building.)\p(This must be Takeshi and his father.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Zaiki Research Institute is on a sign outside the building.\pThis must be Takeshi and his father.", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_FAMILY_PICTURE)
     closemessage
@@ -239,7 +239,7 @@ script tarc3_Cabins_EventScript_EvdCloset {
     msgbox(format("A tall closet against the back wall. The door is slightly ajar."))
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(...Something in there is breathing.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}...Something in there is breathing.", "1_latin_rse_narrow"))
     closemessage
     delay(30)
     playse(SE_DOOR)
@@ -260,7 +260,7 @@ script tarc3_Cabins_EventScript_EvdCloset {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(He didn't open it. Somebody let him out without a word.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}He didn't open it. Somebody let him out without a word.", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_UNLOCKED_CELL)
     closemessage
@@ -310,7 +310,7 @@ script tarc3_Cabins_EventScript_EvdClosetEscape {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(Straight into the nearest open cabin. He never had time to plan a thing.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Straight into the first open cabin. He never had time to plan a thing.", "1_latin_rse_narrow"))
     closemessage
     delay(20)
     goto(tarc3_Cabins_EventScript_EvdClosetTopics)
@@ -325,7 +325,7 @@ script tarc3_Cabins_EventScript_EvdClosetGarland {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(The last person to put a hand near that flower, and then it turns up outside a dead man's door.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}The last person to put a hand near that flower, and then it turns up outside a dead man's door.", "1_latin_rse_narrow"))
     closemessage
     // EVD_GARLAND_PROVENANCE cut
     closemessage
@@ -342,7 +342,7 @@ script tarc3_Cabins_EventScript_EvdClosetGozo {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(Mariko stood outside that door and heard all of it. But she repeated only the first half to the room.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Mariko stood outside that door and heard all of it. But she repeated only the first half to the room.", "1_latin_rse_narrow"))
     closemessage
     // EVD_WITHHELD_HALF cut
     closemessage
@@ -368,8 +368,8 @@ script tarc3_Cabins_EventScript_EvdClosetTopicsEnd {
     removeobject(LOCALID_CABINS_TAKESHI_CLOSET)
     delay(30)
     setflag(FLAG_TARC3_CABIN_FOUND_TAKESHI)
-    msgbox(format("{FONT_NARROW}(Now that I know where Takeshi is, I should prepare to make my accusation.)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(I'll tell {RIVAL} when I'm ready. Everyone needs to be in the same room.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Now that I know where Takeshi is, I should prepare to make my accusation.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}I will tell {RIVAL} when I am ready. Every one of them must be in the same room.", "1_latin_rse_narrow"))
     closemessage
     releaseall
     end
@@ -396,7 +396,7 @@ script tarc3_Cabins_EventScript_Assembly {
     applymovement(LOCALID_CABINS_RAN, moves(face_left))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("That's everyone. Nobody should be left by themselves."))
+    msgbox(format("That is all of them. Nobody is to be left alone."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -422,11 +422,11 @@ script tarc3_Cabins_EventScript_Assembly {
     closemessage
     delay(30)
     setspeaker("{RIVAL}")
-    msgbox(format("{PLAYER} needed all of us to be gathered here together."))
+    msgbox(format("{PLAYER} Edgeworth required every one of you in a single room.\pYou will stand there, and you will listen."))
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(I should talk to {RIVAL} when I'm ready to begin.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}I should talk to {RIVAL} when I'm ready to begin.", "1_latin_rse_narrow"))
     closemessage
     delay(20)
     applymovement(LOCALID_CAMERA, moves(walk_down))
@@ -449,15 +449,15 @@ script tarc3_Cabins_EventScript_GatherRan {
     lock
     faceplayer
     setspeaker("{RIVAL}")
-    msgbox(format("They're all here, and every one of them is listening."))
-    msgbox(format("Once you start, you don't get to stop and go and check something."), MSGBOX_YESNO)
+    msgbox(format("Every one of them is here, and every one of them is listening."))
+    msgbox(format("Once you begin, you do not stop to go and verify something.\pAre you ready?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
-        msgbox(format("Then go back over it. I'll keep them standing."))
+        msgbox(format("Then go back over it. I will keep them standing."))
         setspeaker(NULL)
         release
         end
     }
-    msgbox(format("In that case, let's begin."))
+    msgbox(format("Then begin."))
     setspeaker(NULL)
     closemessage
     release

@@ -164,15 +164,15 @@ script tarc3_Hold_EventScript_JailTakeshi {
     delay(30)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     setspeaker("{RIVAL}")
-    msgbox(format("They've locked a man in a storage room on the strength of one flower."))
-    msgbox(format("Before we go up. Everything that just got said in here, while it's still straight in your head."))
+    msgbox(format("They have locked a man in a storage room on the strength of a single flower.\pThat is not evidence. That is a mob grown tired of thinking."))
+    msgbox(format("Before we go up. Everything that was said in this room, while it is still ordered in your head."))
     setspeaker(NULL)
     closemessage
     call(tarc3_Hold_EventScript_RecapCS5)
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("I'm going to find Natsue.\pSomebody should be with her, and it isn't going to be any of them."))
-    msgbox(format("We'll be up by the door out to the deck. Come and find us."))
+    msgbox(format("I am going to find Natsue.\pSomebody ought to be with her, and plainly, it will not be any of them."))
+    msgbox(format("We will be at the door out to the deck. Come and find us."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -194,7 +194,7 @@ script tarc3_Hold_EventScript_JailTakeshi {
 script tarc3_Hold_EventScript_RecapCS5 {
     goto_if_set(FLAG_TARC3_REFLECT_HOLD_CS5, tarc3_Hold_EventScript_RecapEnd)
     setspeaker(NULL)
-    message(format("{FONT_NARROW}(Mariko put all of it in the open upstairs. What was worth keeping?)", "1_latin_rse_narrow"))
+    message(format("{FONT_NARROW}Mariko put all of it in the open upstairs. What was worth keeping?", "1_latin_rse_narrow"))
     waitmessage
     dynmultipush("Takeshi's family name is Zaiki", 0)
     dynmultipush("Mariko heard them argue", 1)
@@ -213,7 +213,7 @@ script tarc3_Hold_EventScript_RecapCS5 {
 
 
 script tarc3_Hold_EventScript_RecapHistory {
-    msgbox(format("{FONT_NARROW}(Gozo took his father's company and the man killed himself over it.)\pTakeshi married into the family that did it.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Gozo took his father's company and the man killed himself over it.\pTakeshi married into the family that did it.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
     giveevidence(EVD_TAKESHIS_HISTORY)
@@ -222,7 +222,7 @@ script tarc3_Hold_EventScript_RecapHistory {
 }
 
 script tarc3_Hold_EventScript_RecapArgument {
-    msgbox(format("{FONT_NARROW}(She stood at that door before dinner and heard her father shouting Takeshi's name.)\pSo she says.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}She stood at that door before dinner and heard her father shouting Takeshi's name.\pSo she says.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
     giveevidence(EVD_OVERHEARD_ARGUMENT)
@@ -231,7 +231,7 @@ script tarc3_Hold_EventScript_RecapArgument {
 }
 
 script tarc3_Hold_EventScript_RecapCS5Irrelevant {
-    msgbox(format("{FONT_NARROW}(I'd have walked out too. It doesn't tell me anything.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}I'd have walked out too. It doesn't tell me anything.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_HOLD_CS5)
     goto(tarc3_Hold_EventScript_RecapEnd)
@@ -250,7 +250,7 @@ script tarc3_Hold_EventScript_EvdManifest {
     }
     goto_if_set(FLAG_TARC3_HOLD_FOUND_MANIFEST, tarc3_Hold_EventScript_EvdManifestSeen)
     msgbox(format("The passenger manifest, hung by the stairs in Kitaro's handwriting."))
-    msgbox(format("{FONT_NARROW}(Family, one steward, one cook. The crew are berthed forward and none of them came aft.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Family, one steward, one cook. The crew are berthed forward.", "1_latin_rse_narrow"))
     closemessage
     // EVD_PASSENGER_MANIFEST cut
     closemessage
@@ -375,8 +375,8 @@ script tarc3_Hold_EventScript_TakeshiGone {
     fadescreen(FADE_FROM_BLACK)
     delay(30)
     setspeaker("{RIVAL}")
-    msgbox(format("They're going to argue about this for an hour."))
-    msgbox(format("I'm going back up to the deck.\pCome and find me there, and we'll look at it properly.")) // placeholder line - Ran & Conan probably want to inspect it immediately?
+    msgbox(format("They will argue about this for an hour, and arrive nowhere."))
+    msgbox(format("I am going back up to the deck.\pFollow when you can, and we will examine it properly."))
     setspeaker(NULL)
     closemessage
     delay(30)
@@ -395,7 +395,7 @@ script tarc3_Hold_EventScript_Ran {
     lock
     faceplayer
     setspeaker("{RIVAL}")
-    msgbox(format("The stairs are just over there. Everyone's waiting upstairs, {PLAYER}."))
+    msgbox(format("The stairs are there, {PLAYER} Edgeworth. They are all waiting above."))
     setspeaker(NULL)
     release
     end

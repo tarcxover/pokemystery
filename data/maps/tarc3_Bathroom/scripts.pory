@@ -89,7 +89,7 @@ script tarc3_Bathroom_EventScript_IchiroDown {
     setspeaker(NULL)
     closemessage
     if (!flag(FLAG_TARC3_ICHIRO_FOUND_LIE)) {
-        msgbox(format("{FONT_NARROW}(The lights were already out when whoever it was came in. He never saw a thing.)", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}The lights were already out when whoever it was came in. He never saw a thing.", "1_latin_rse_narrow"))
         closemessage
         giveevidence(EVD_BATHROOM_BLACKOUT)
         closemessage
@@ -97,8 +97,8 @@ script tarc3_Bathroom_EventScript_IchiroDown {
     }
     if (!flag(FLAG_TARC3_ICHIRO_FOUND_LEG)) {
         msgbox(format("The cut is on the outside of his thigh. It is still bleeding into his trouser leg."))
-        msgbox(format("{FONT_NARROW}(His hands are clean. No cuts on the palms, nothing on the forearms.)", "1_latin_rse_narrow"))
-        msgbox(format("{FONT_NARROW}(He was stabbed in the dark and he never once put a hand up.)", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}His hands are clean. No cuts on the palms, nothing on the forearms.", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}He was stabbed in the dark and he never once put a hand up.", "1_latin_rse_narrow"))
         closemessage
         giveevidence(EVD_INJURED_LEG)
         giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
@@ -113,8 +113,8 @@ script tarc3_Bathroom_EventScript_EvdKnife {
     lockall
     goto_if_set(FLAG_TARC3_BATH_FOUND_KNIFE, tarc3_Bathroom_EventScript_EvdKnifeSeen)
     msgbox(format("A cook's knife on the tiles, off to Ichiro's right. The blade points away from him."))
-    msgbox(format("{FONT_NARROW}(Handle nearest his own hand, and barely a stride from where he's sitting.)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(An attacker running for the door doesn't set it down at his victim's fingertips.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Handle nearest his own hand, and barely a stride from where he's sitting.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}An attacker running for the door doesn't set it down at his victim's fingertips.", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_BATHROOM_KNIFE)
     closemessage
@@ -154,16 +154,16 @@ script tarc3_Bathroom_EventScript_Ran {
     faceplayer
     if (var(VAR_TARC3_ACT2) > TARC3_ACT2_ICHIRO_FOUND) {
         setspeaker("{RIVAL}")
-        msgbox(format("Go on down with them, {PLAYER}. We've got him."))
+        msgbox(format("Go down with them, {PLAYER} Edgeworth. Ichiro is in hand."))
         setspeaker(NULL)
         release
         end
     }
     setspeaker("{RIVAL}")
-    msgbox(format("Nobody has moved anything. Look at all of it while you can."))
-    msgbox(format("Have you seen everything you need in here?"), MSGBOX_YESNO)
+    msgbox(format("Nothing in this room has been moved.\pSee to all of it now, while that remains true."))
+    msgbox(format("Have you seen everything you require in here?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
-        msgbox(format("Then take your time. I'll keep them by the door."))
+        msgbox(format("Then take the time. I will keep them at the door."))
         setspeaker(NULL)
         release
         end
@@ -191,10 +191,10 @@ script tarc3_Bathroom_EventScript_Discovery {
     playse(SE_M_THUNDERBOLT2)
     animateflash(0)
     setflashlevel(0)
-    msgbox(format("{FONT_NARROW}(The lights came back. Suzuki found the breaker.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}The lights came back. Suzuki found the breaker.", "1_latin_rse_narrow"))
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(Ichiro is on the floor. He's bleeding from his thigh.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Ichiro is on the floor. He's bleeding from his thigh.", "1_latin_rse_narrow"))
     setspeaker("Natsue")
     msgbox(format("Ichiro! Are you ok?\pWhat happened!?"))
     closemessage
@@ -247,11 +247,8 @@ script tarc3_Bathroom_EventScript_Discovery {
     closemessage
     delay(20)
     setspeaker("{RIVAL}")
-    msgbox(format("Nobody touch anything. Not until {PLAYER} has looked."))
+    msgbox(format("Nobody touches anything.\pNot one of you moves until {PLAYER} Edgeworth has looked."))
     setspeaker(NULL)
-    closemessage
-    delay(20)
-    msgbox(format("{FONT_NARROW}(Ichiro, the knife, the floor. Then I'll tell {RIVAL} I'm done.)", "1_latin_rse_narrow"))
     closemessage
     applymovement(LOCALID_CAMERA, moves(walk_down * 2))
     waitmovement(0)
@@ -264,7 +261,7 @@ script tarc3_Bathroom_EventScript_NoExit {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
     waitmovement(0)
-    msgbox(format("{FONT_NARROW}(I'm not leaving this room until I've looked at all of it.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}I am not leaving this room until I have conferred with Franziska.", "1_latin_rse_narrow"))
     releaseall
     end
 }
@@ -302,7 +299,7 @@ script tarc3_Bathroom_EventScript_DiscoverySuzuki {
     applymovement(LOCALID_BATHROOM_RAN, moves(face_player))
     waitmovement(0)
     setspeaker("{RIVAL}")
-    msgbox(format("Go with them, {PLAYER}. We'll stay with Ichiro."))
+    msgbox(format("Go with them, {PLAYER} Edgeworth. Natsue and I will stay with Ichiro."))
     setspeaker(NULL)
     closemessage
     delay(20)
