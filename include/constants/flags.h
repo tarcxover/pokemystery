@@ -1641,12 +1641,10 @@
 
 // TARC3
 #define TARC3_RESERVED_FLAGS_START                        (DAILY_FLAGS_END + 1)
-#define FLAG_HIDE_TARC3_FLORIO_DACHSBUN             (TARC3_RESERVED_FLAGS_START + 0x0)
+#define FLAG_HIDE_TARC3_FLORIO_STOUTLAND            (TARC3_RESERVED_FLAGS_START + 0x0)
 #define FLAG_HIDE_TARC3_FLORIO_TANGROWTH            (TARC3_RESERVED_FLAGS_START + 0x1)
 #define FLAG_HIDE_TARC3_FLORIO_MAGNEZONE            (TARC3_RESERVED_FLAGS_START + 0x2)
 #define FLAG_HIDE_TARC3_FLORIO_CRAMORANT            (TARC3_RESERVED_FLAGS_START + 0x3)
-#define FLAG_HIDE_TARC3_FLORIO_TOXICROAK            (TARC3_RESERVED_FLAGS_START + 0x4)
-#define FLAG_HIDE_TARC3_FLORIO_PINCURCHIN           (TARC3_RESERVED_FLAGS_START + 0x5)
 #define FLAG_HIDE_TARC3_FLORIO_SSHANA               (TARC3_RESERVED_FLAGS_START + 0x6)
 #define FLAG_HIDE_TARC3_FLORIO_NATSUE               (TARC3_RESERVED_FLAGS_START + 0x7)
 #define FLAG_HIDE_TARC3_FLORIO_RAN                  (TARC3_RESERVED_FLAGS_START + 0x8)
@@ -1762,11 +1760,11 @@
 #define FLAG_TARC3_SUZUKI_SEARCH_TALKED             (TARC3_RESERVED_FLAGS_START + 0x77)
 #define FLAG_TARC3_EVIDENCE_MENU                    (TARC3_RESERVED_FLAGS_START + 0x78) // Unlocks the EVIDENCE start menu entry
 #define FLAG_HIDE_TARC3_CABIN_RAN                   (TARC3_RESERVED_FLAGS_START + 0x79)
-#define FLAG_TARC3_ACCUSE_CRUMBS                    (TARC3_RESERVED_FLAGS_START + 0x7A) // crumb evidence was presented in the accusation
-#define FLAG_TARC3_ACCUSE_HISTORY                   (TARC3_RESERVED_FLAGS_START + 0x7B) // Takeshi's History was presented in the accusation
-#define FLAG_TARC3_TIME_FROZEN                      (TARC3_RESERVED_FLAGS_START + 0x7C) // OW_FLAG_PAUSE_TIME; the story sets the clock, it never runs
-#define FLAG_UNUSED_0x9DD                           (TARC3_RESERVED_FLAGS_START + 0x7D) // Unused Flag
-#define FLAG_UNUSED_0x9DE                           (TARC3_RESERVED_FLAGS_START + 0x7E) // Unused Flag
+#define FLAG_TARC3_ACCUSE_CRUMBS                    (TARC3_RESERVED_FLAGS_START + 0x7A)
+#define FLAG_TARC3_ACCUSE_HISTORY                   (TARC3_RESERVED_FLAGS_START + 0x7B)
+#define FLAG_TARC3_TIME_FROZEN                      (TARC3_RESERVED_FLAGS_START + 0x7C) // OW_FLAG_PAUSE_TIME (fake RTC for DNS tinting, the clock never runs)
+#define FLAG_TARC3_KITARO_SMEARGLE                  (TARC3_RESERVED_FLAGS_START + 0x7D)
+#define FLAG_TARC3_GATHER_KITARO_TATSUO             (TARC3_RESERVED_FLAGS_START + 0x7E)
 #define FLAG_UNUSED_0x9DF                           (TARC3_RESERVED_FLAGS_START + 0x7F) // Unused Flag
 #define FLAG_UNUSED_0x9E0                           (TARC3_RESERVED_FLAGS_START + 0x80) // Unused Flag
 #define FLAG_UNUSED_0x9E1                           (TARC3_RESERVED_FLAGS_START + 0x81) // Unused Flag

@@ -416,6 +416,10 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     [TRAINER_CLASS_PAINTER_FRLG] =         { _("PAINTER"), 4 },
 
     [TRAINER_CLASS_TARC3_ARTIST] =         { _("Artist"), 4 },
+    [TRAINER_CLASS_TARC3_EXECUTIVE] =      { _("Executive"), 25 },
+    [TRAINER_CLASS_TARC3_MATRIARCH] =      { _("Matriarch"), 20 },
+    [TRAINER_CLASS_TARC3_CHEF] =           { _("Chef"), 10 },
+    [TRAINER_CLASS_TARC3_SON_IN_LAW] =     { _("Son-in-Law"), 5 },
 };
 
 static void (*const sTurnActionsFuncsTable[])(void) =

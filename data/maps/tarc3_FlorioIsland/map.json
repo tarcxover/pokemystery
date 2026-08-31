@@ -43,8 +43,8 @@
       "flag": "FLAG_HIDE_TARC3_FLORIO_RAN"
     },
     {
-      "local_id": "LOCALID_FLORIO_DACHSBUN",
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(DACHSBUN)",
+      "local_id": "LOCALID_FLORIO_STOUTLAND",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(STOUTLAND)",
       "x": 31,
       "y": 26,
       "elevation": 0,
@@ -53,8 +53,8 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "tarc3_FlorioIsland_EventScript_CatchDachsbun",
-      "flag": "FLAG_HIDE_TARC3_FLORIO_DACHSBUN"
+      "script": "tarc3_FlorioIsland_EventScript_CatchStoutland",
+      "flag": "FLAG_HIDE_TARC3_FLORIO_STOUTLAND"
     },
     {
       "local_id": "LOCALID_FLORIO_TANGROWTH",
@@ -97,34 +97,6 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "tarc3_FlorioIsland_EventScript_CatchCramorant",
       "flag": "FLAG_HIDE_TARC3_FLORIO_CRAMORANT"
-    },
-    {
-      "local_id": "LOCALID_FLORIO_TOXICROAK",
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(TOXICROAK)",
-      "x": 30,
-      "y": 13,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_DOWN",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "tarc3_FlorioIsland_EventScript_CatchToxicroak",
-      "flag": "FLAG_HIDE_TARC3_FLORIO_TOXICROAK"
-    },
-    {
-      "local_id": "LOCALID_FLORIO_PINCURCHIN",
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(PINCURCHIN)",
-      "x": 33,
-      "y": 34,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_DOWN",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "tarc3_FlorioIsland_EventScript_CatchPincurchin",
-      "flag": "FLAG_HIDE_TARC3_FLORIO_PINCURCHIN"
     },
     {
       "local_id": "LOCALID_FLORIO_DOCKHAND",

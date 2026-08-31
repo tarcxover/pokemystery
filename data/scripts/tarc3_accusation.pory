@@ -317,6 +317,7 @@ script tarc3_Accusation_EventScript_Q2Loop {
     dynmultipush("An Accomplice", EVD_AN_ACCOMPLICE)
     dynmultipush("Open Service Door", EVD_OPEN_SERVICE_DOOR)
     dynmultipush("Blood on the Stair", EVD_BLOOD_ON_THE_STAIR)
+    dynmultipush("Hidden Pipe", EVD_HIDDEN_PIPE)
     dynmultipush("None", TARC3_ACCUSE_NONE)
     dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
     closemessage
@@ -335,6 +336,8 @@ script tarc3_Accusation_EventScript_Q2Loop {
             call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
         case EVD_BLOOD_ON_THE_STAIR:
             call(tarc3_Accusation_EventScript_Ev_BloodOnTheStair)
+        case EVD_HIDDEN_PIPE:
+            call(tarc3_Accusation_EventScript_Ev_HiddenPipe)
         default:
             goto(tarc3_Accusation_EventScript_Q2Summary)
     }
@@ -419,7 +422,7 @@ script tarc3_Accusation_EventScript_Q3Loop {
     dynmultipush("Panel Struck", EVD_PANEL_STRUCK)
     dynmultipush("Nearest Hand", EVD_THE_NEAREST_HAND)
     dynmultipush("Smeargle's Moves", EVD_SMEARGLE_REPERTOIRE)
-    dynmultipush("Sketched Move", EVD_SMEARGLES_MOVESET)
+    dynmultipush("Odd Battle", EVD_THE_ODD_BATTLE)
     dynmultipush("Focused Burn", EVD_FOCUSED_BURN)
     dynmultipush("Long Absence", EVD_LONG_ABSENCE)
     dynmultipush("Adjoining Hold", EVD_THE_HOLD_ADJOINS)
@@ -438,8 +441,8 @@ script tarc3_Accusation_EventScript_Q3Loop {
             call(tarc3_Accusation_EventScript_Ev_TheNearestHand)
         case EVD_SMEARGLE_REPERTOIRE:
             call(tarc3_Accusation_EventScript_Ev_SmeargleRepertoire)
-        case EVD_SMEARGLES_MOVESET:
-            call(tarc3_Accusation_EventScript_Ev_SmearglesMoveset)
+        case EVD_THE_ODD_BATTLE:
+            call(tarc3_Accusation_EventScript_Ev_TheOddBattle)
         case EVD_FOCUSED_BURN:
             call(tarc3_Accusation_EventScript_Ev_FocusedBurn)
         case EVD_LONG_ABSENCE:
@@ -548,6 +551,7 @@ script tarc3_Accusation_EventScript_Q4Loop {
     dynmultipush("The Second Story", EVD_THE_SECOND_STORY)
     dynmultipush("An Accomplice", EVD_AN_ACCOMPLICE)
     dynmultipush("Open Service Door", EVD_OPEN_SERVICE_DOOR)
+    dynmultipush("Knives Counted", EVD_KNIVES_COUNTED)
     dynmultipush("None", TARC3_ACCUSE_NONE)
     dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
     closemessage
@@ -568,6 +572,8 @@ script tarc3_Accusation_EventScript_Q4Loop {
             call(tarc3_Accusation_EventScript_Ev_AnAccomplice)
         case EVD_OPEN_SERVICE_DOOR:
             call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
+        case EVD_KNIVES_COUNTED:
+            call(tarc3_Accusation_EventScript_Ev_KnivesCounted)
         default:
             goto(tarc3_Accusation_EventScript_Q4Summary)
     }

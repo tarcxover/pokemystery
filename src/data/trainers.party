@@ -16884,11 +16884,121 @@ Class: Tarc3 Artist
 Pic: Guitarist
 Gender: Male
 Music: Male
-Double Battle: No
+Double Battle: Yes
 AI: Check Bad Move / Try To Faint
 
 Smeargle
 Level: 50
+Ability: Moody
 - Slash
 - Doodle
 - Sketch
+- Protect
+
+Grafaiai @ Charcoal
+Level: 50
+Ability: Prankster
+- Poison Jab
+- Doodle
+- Copycat
+- Fling
+
+=== TRAINER_TARC3_KITARO ===
+Name: Kitaro
+Class: Tarc3 Executive
+Pic: Gentleman
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint
+
+Pawmot
+Level: 50
+Ability: Volt Absorb
+- Discharge
+- Charm
+- Helping Hand
+- Mach Punch
+
+Donphan
+Level: 50
+Ability: Sturdy
+- Ice Shard
+- Stomping Tantrum
+- Protect
+- Superpower
+
+=== TRAINER_TARC3_MARIKO ===
+Name: Mariko
+Class: Tarc3 Matriarch
+Pic: Lady
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint
+
+Persian-Alola
+Ability: Fur Coat
+Level: 50
+- Pay Day
+- Dark Pulse
+- Burning Jealousy
+- Power Gem
+
+Bruxish
+Ability: Strong Jaw
+Level: 50
+- Wave Crash
+- Psychic Fangs
+- Aqua Jet
+- Crunch
+
+=== TRAINER_TARC3_JOJI ===
+Name: Joji
+Class: Tarc3 Chef
+Pic: Pokefan M
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint
+
+Slurpuff
+Ability: Sweet Veil
+Level: 50
+- Play Rough
+- Drain Punch
+- Yawn
+- Charm
+
+Alcremie
+Ability: Aroma Veil
+Level: 50
+- Calm Mind
+- Recover
+- Mystical Fire
+- Dazzling Gleam
+
+=== TRAINER_TARC3_TATSUO ===
+Name: Tatsuo
+Class: Tarc3 Son In Law
+Pic: Rich Boy
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint
+
+Toxtricity
+Level: 50
+Ability: Punk Rock
+- Overdrive
+- Sludge Bomb
+- Round
+- Shift Gear
+
+Skeledirge
+Level: 50
+Ability: Unaware
+- Round
+- Slack Off
+- Flamethrower
+- Shadow Ball

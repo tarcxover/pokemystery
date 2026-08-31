@@ -297,8 +297,63 @@ script tarc3_Foredeck_EventScript_Tatsuo {
     msgbox(format("You know what this family is worth? Neither do I.\pThe old man won't tell us."))
     msgbox(format("I just spend my time out here on the deck.\pAkie locks me out of the cabin when she's angry, and she's always angry."))
     setspeaker(NULL)
+    closemessage
+    if (var(VAR_TARC3_ACT1) >= TARC3_ACT1_DEPARTED && !defeated(TRAINER_TARC3_TATSUO)) {
+        goto(tarc3_Foredeck_EventScript_TatsuoBattle)
+    }
     release
     end
+}
+
+script tarc3_Foredeck_EventScript_TatsuoBattle {
+    delay(20)
+    setspeaker("Tatsuo")
+    msgbox(format("Hold on. You're a trainer?"))
+    msgbox(format("Then make yourself useful. Let's kill some time."))
+    setspeaker(NULL)
+    closemessage
+    trainerbattle_earlyrival(TRAINER_TARC3_TATSUO, RIVAL_BATTLE_HEAL_AFTER, tarc3_Foredeck_Text_TatsuoDefeat, tarc3_Foredeck_Text_TatsuoVictory)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_TatsuoBattleLost)
+    delay(20)
+    setspeaker("Tatsuo")
+    msgbox(format("Fine. Fine!\pYou've had more practice than you let on."))
+    msgbox(format("Here - wanna hear a secret?"))
+    msgbox(format("I was leaning on that rack of spare pipes earlier and they came loose."))
+    applymovement(LOCALID_FOREDECK_TATSUO, moves(face_right))
+    waitmovement(0)
+    msgbox(format("So I shoved them under the sack and said nothing.\pLet them think it was always like that."))
+    faceplayer
+    msgbox(format("Don't tell the old man. He'd find a way to bill me for it."))
+    setspeaker(NULL)
+    closemessage
+    msgbox(format("{FONT_NARROW}(So the gap in that rack is Tatsuo's doing, and there is a loose length of pipe lying under the sacking.)\p(Neither of which anybody put there on purpose.)", "1_latin_rse_narrow"))
+    giveevidence(EVD_HIDDEN_PIPE)
+    closemessage
+    goto(tarc3_Foredeck_EventScript_TatsuoBattleEnd)
+}
+
+script tarc3_Foredeck_EventScript_TatsuoBattleLost {
+    delay(20)
+    setspeaker("Tatsuo")
+    msgbox(format("Ha! And they call me the freeloader."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Foredeck_EventScript_TatsuoBattleEnd)
+}
+
+script tarc3_Foredeck_EventScript_TatsuoBattleEnd {
+    special(HealPlayerParty)
+    delay(20)
+    release
+    end
+}
+
+text tarc3_Foredeck_Text_TatsuoDefeat {
+    format("Of course. Of course!")
+}
+
+text tarc3_Foredeck_Text_TatsuoVictory {
+    format("Something in this family I'm good at.")
 }
 
 script tarc3_Foredeck_EventScript_Kitaro {
@@ -309,8 +364,54 @@ script tarc3_Foredeck_EventScript_Kitaro {
     msgbox(format("Twenty-two years I've run that division for him.\pHe still introduces me as the man Mariko married."))
     msgbox(format("...Forget I said any of that. You're a guest here."))
     setspeaker(NULL)
+    closemessage
+    if (var(VAR_TARC3_ACT1) >= TARC3_ACT1_DEPARTED && !defeated(TRAINER_TARC3_KITARO)) {
+        goto(tarc3_Foredeck_EventScript_KitaroBattle)
+    }
     release
     end
+}
+
+script tarc3_Foredeck_EventScript_KitaroBattle {
+    delay(20)
+    setspeaker("Kitaro")
+    msgbox(format("Would you humour me instead?\pOne battle. It would quell some nerves."))
+    setspeaker(NULL)
+    closemessage
+    trainerbattle_earlyrival(TRAINER_TARC3_KITARO, RIVAL_BATTLE_HEAL_AFTER, tarc3_Foredeck_Text_KitaroDefeat, tarc3_Foredeck_Text_KitaroVictory)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_KitaroBattleLost)
+    delay(20)
+    setspeaker("Kitaro")
+    msgbox(format("Well fought.\pIt has been a while since anybody made us work for it. Thank you for that."))
+    setspeaker(NULL)
+    closemessage
+    msgbox(format("{FONT_NARROW}(He enjoyed that. I do not think he expected to.)", "1_latin_rse_narrow"))
+    closemessage
+    goto(tarc3_Foredeck_EventScript_KitaroBattleEnd)
+}
+
+script tarc3_Foredeck_EventScript_KitaroBattleLost {
+    delay(20)
+    setspeaker("Kitaro")
+    msgbox(format("Thank you.\pLet me see to your team. It's the least I can do."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_Foredeck_EventScript_KitaroBattleEnd)
+}
+
+script tarc3_Foredeck_EventScript_KitaroBattleEnd {
+    special(HealPlayerParty)
+    delay(20)
+    release
+    end
+}
+
+text tarc3_Foredeck_Text_KitaroDefeat {
+    format("You certainly have some aptitude as a trainer.")
+}
+
+text tarc3_Foredeck_Text_KitaroVictory {
+    format("Twenty-two years of practice.")
 }
 
 // CS8
@@ -478,6 +579,8 @@ script tarc3_Foredeck_EventScript_EvdPipe {
     lockall
     goto_if_set(FLAG_TARC3_DECK2_FOUND_PIPE, tarc3_Foredeck_EventScript_EvdPipeSeen)
     msgbox(format("A rack of spare pipes, lashed down along the bulwark. The row is even, except for one gap."))
+    checkevidence(EVD_HIDDEN_PIPE)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_EvdPipeSacking)
     msgbox(format("{FONT_NARROW}(Something blunt and heavy, lying out here where anybody could pick it up.)", "1_latin_rse_narrow"))
     closemessage
     // EVD_DISPLACED_PIPE cut
@@ -487,8 +590,20 @@ script tarc3_Foredeck_EventScript_EvdPipe {
     end
 }
 
+script tarc3_Foredeck_EventScript_EvdPipeSacking {
+    msgbox(format("{FONT_NARROW}(That gap is Tatsuo's own doing. He told me so himself, and he was pleased about it.)\p(Which means the pipe he broke off is still under the sacking.)", "1_latin_rse_narrow"))
+    closemessage
+    delay(20)
+    msgbox(format("{PLAYER} turns back the sacking at the end of the rack.\pBeneath it, a clean strip of deck and nothing at all."))
+    msgbox(format("{FONT_NARROW}(Gone. The one heavy thing out here that nobody aboard was supposed to know about.)", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_DECK2_FOUND_PIPE)
+    releaseall
+    end
+}
+
 script tarc3_Foredeck_EventScript_EvdPipeSeen {
-    msgbox(format("One pipe missing from the rack, and the lashing left loose."))
+    msgbox(format("One pipe missing from the rack, the lashing left loose, and bare deck under the sacking."))
     releaseall
     end
 }
