@@ -508,7 +508,7 @@ evidence:
 
   - id: INJURED_LEG
     name: Injured Leg
-    icon: BloodyDoorframe
+    icon: InjuredLeg
     question: [ichiro]
     suspects: []
     recipes: NULL
@@ -520,7 +520,7 @@ evidence:
 
   - id: BATHROOM_BLACKOUT
     name: Total Darkness
-    icon: Testimony
+    icon: TotalDarkness
     question: [ichiro]
     suspects: []
     recipes: NULL
@@ -571,7 +571,7 @@ evidence:
 
   - id: NO_DEFENSIVE_WOUNDS
     name: No Defence
-    icon: BloodyDoorframe
+    icon: NoDefensiveWounds
     question: [ichiro]
     suspects: [Ichiro]
     recipes: NULL
