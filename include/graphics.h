@@ -3440,33 +3440,8 @@ extern const u32 gGhostFrontPic[];
 extern const u16 gGhostPalette[];
 
 
-// Evidence
-extern const u32 gItemIcon_LockedDoor[];
-extern const u16 gItemIconPalette_LockedDoor[];
+#define _EVD_GFX_HEADER
+#include "generated/evidence_gfx.h"
+#undef _EVD_GFX_HEADER
 
-
-extern const u32 gItemIcon_BloodyBreadCrust[];
-extern const u16 gItemIconPalette_BloodyBreadCrust[];
-
-extern const u32 gItemIcon_LapelFlower[];
-extern const u16 gItemIconPalette_LapelFlower[] ;
-
-
-extern const u32 gItemIcon_BloodyKnife[];
-extern const u16 gItemIconPalette_BloodyKnife[];
-
-extern const u32 gItemIcon_BloodyDoorframe[];
-extern const u16 gItemIconPalette_BloodyDoorframe[];
-
-extern const u32 gItemIcon_PlantedFlower[];
-extern const u16 gItemIconPalette_PlantedFlower[];
-
-extern const u32 gItemIcon_CharcoalDust[];
-extern const u16 gItemIconPalette_CharcoalDust[];
-
-extern const u32 gItemIcon_KitchenKnife[];
-extern const u16 gItemIconPalette_KitchenKnife[];
-
-extern const u32 gItemIcon_Testimony[];
-extern const u16 gItemIconPalette_Testimony[];
 #endif //GUARD_GRAPHICS_H

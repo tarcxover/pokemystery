@@ -2134,30 +2134,5 @@ const u16 gBattleIcons_Pal2[] = INCGFX_U16("graphics/types/battle_icons2.pal", "
 const u16 gGhostPalette[] = INCGFX_U16("graphics/pokemon/ghost/front.png", ".gbapal");
 const u32 gGhostFrontPic[] = INCGFX_U32("graphics/pokemon/ghost/front.png", ".4bpp.smol");
 
-const u32 gItemIcon_LockedDoor[] = INCGFX_U32("graphics/evidence/icons/locked_door.png", ".4bpp.smol");
-const u16 gItemIconPalette_LockedDoor[] = INCGFX_U16("graphics/evidence/icons/locked_door.png", ".gbapal");
-
-const u32 gItemIcon_BloodyBreadCrust[] = INCGFX_U32("graphics/evidence/icons/bloody_bread_crust.png", ".4bpp.smol");
-const u16 gItemIconPalette_BloodyBreadCrust[] = INCGFX_U16("graphics/evidence/icons/bloody_bread_crust.png", ".gbapal");
-
-const u32 gItemIcon_LapelFlower[] = INCGFX_U32("graphics/evidence/icons/lapel_flower.png", ".4bpp.smol");
-const u16 gItemIconPalette_LapelFlower[] = INCGFX_U16("graphics/evidence/icons/lapel_flower.png", ".gbapal");
-
-const u32 gItemIcon_BloodyKnife[] = INCGFX_U32("graphics/evidence/icons/bloody_knife.png", ".4bpp.smol");
-const u16 gItemIconPalette_BloodyKnife[] = INCGFX_U16("graphics/evidence/icons/bloody_knife.png", ".gbapal");
-
-const u32 gItemIcon_BloodyDoorframe[] = INCGFX_U32("graphics/evidence/icons/bloody_doorframe.png", ".4bpp.smol");
-const u16 gItemIconPalette_BloodyDoorframe[] = INCGFX_U16("graphics/evidence/icons/bloody_doorframe.png", ".gbapal");
-
-const u32 gItemIcon_PlantedFlower[] = INCGFX_U32("graphics/evidence/icons/planted_flower.png", ".4bpp.smol");
-const u16 gItemIconPalette_PlantedFlower[] = INCGFX_U16("graphics/evidence/icons/planted_flower.png", ".gbapal");
-
-const u32 gItemIcon_CharcoalDust[] = INCGFX_U32("graphics/evidence/icons/charcoal_dust.png", ".4bpp.smol");
-const u16 gItemIconPalette_CharcoalDust[] = INCGFX_U16("graphics/evidence/icons/charcoal_dust.png", ".gbapal");
-
-const u32 gItemIcon_KitchenKnife[] = INCGFX_U32("graphics/evidence/icons/kitchen_knife.png", ".4bpp.smol");
-const u16 gItemIconPalette_KitchenKnife[] = INCGFX_U16("graphics/evidence/icons/kitchen_knife.png", ".gbapal");
-
-const u32 gItemIcon_Testimony[] = INCGFX_U32("graphics/evidence/icons/testimony.png", ".4bpp.smol");
-const u16 gItemIconPalette_Testimony[] = INCGFX_U16("graphics/evidence/icons/testimony.png", ".gbapal");
-
+// Evidence
+#include "generated/evidence_gfx.h"
