@@ -40,7 +40,7 @@ evidence:
 
   - id: SKETCHBOOK
     name: Sketchbook
-    icon: Testimony
+    icon: Sketchbook
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -242,7 +242,7 @@ evidence:
 
   - id: TWO_SOUNDS
     name: Two Sounds
-    icon: Testimony
+    icon: TwoSounds
     question: [tatsuo]
     suspects: []
     recipes: NULL
@@ -294,7 +294,7 @@ evidence:
 
   - id: LONG_ABSENCE
     name: Long Absence
-    icon: Testimony
+    icon: IchirosAbsence
     question: [tatsuo, lights]
     suspects: [Ichiro]
     recipes: NULL
@@ -307,7 +307,7 @@ evidence:
 
   - id: AN_ACCOMPLICE
     name: An Accomplice
-    icon: Testimony
+    icon: Accomplice
     question: [tatsuo, ichiro]
     suspects: [Takeshi]
     recipes: NULL
@@ -373,7 +373,7 @@ evidence:
 
   - id: THE_ACCOMPLICE_THEORY
     name: Accomplice Theory
-    icon: LockedDoor
+    icon: AccompliceTheory
     question: [tatsuo, ichiro]
     suspects: [Takeshi]
     recipes:
@@ -387,7 +387,7 @@ evidence:
 
   - id: SCORCHED_PANEL
     name: Scorched Panel
-    icon: CharcoalDust
+    icon: ScorchedPanel
     question: [lights]
     suspects: []
     recipes: NULL
@@ -400,7 +400,7 @@ evidence:
 
   - id: SMEARGLE_REPERTOIRE
     name: Smeargle's Moves
-    icon: Testimony
+    icon: SmeargleRepertoire
     question: [lights]
     suspects: [Ichiro]
     recipes: NULL
@@ -413,7 +413,7 @@ evidence:
 
   - id: THE_ODD_BATTLE
     name: Odd Battle
-    icon: Testimony
+    icon: OddBattle
     question: [lights]
     suspects: [Ichiro]
     recipes: NULL
@@ -466,7 +466,7 @@ evidence:
 
   - id: PANEL_STRUCK
     name: Panel Struck
-    icon: CharcoalDust
+    icon: PanelStruck
     question: [lights]
     suspects: [Ichiro]
     recipes:
