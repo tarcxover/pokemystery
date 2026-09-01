@@ -3439,7 +3439,6 @@ extern const u16 gBattleIcons_Pal2[];
 extern const u32 gGhostFrontPic[];
 extern const u16 gGhostPalette[];
 
-
 #define _EVD_GFX_HEADER
 #include "generated/evidence_gfx.h"
 #undef _EVD_GFX_HEADER
