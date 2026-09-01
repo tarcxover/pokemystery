@@ -53,7 +53,7 @@ evidence:
 
   - id: REFUSED_SUITOR
     name: Refused Suitor
-    icon: Testimony
+    icon: RefusedSuitor
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -79,7 +79,7 @@ evidence:
 
   - id: ICHIRO_SPONSORSHIP
     name: Sponsorship
-    icon: Testimony
+    icon: Sponsorship
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -131,7 +131,7 @@ evidence:
 
   - id: FAMILY_PICTURE
     name: Family Picture
-    icon: PlantedFlower
+    icon: FamilyPicture
     question: [gozo]
     suspects: [Takeshi]
     recipes: NULL
@@ -157,7 +157,7 @@ evidence:
 
   - id: UNREQUITED_LOVE
     name: Unrequited Love
-    icon: Testimony
+    icon: UnrequitedLove
     question: [gozo]
     suspects: [Ichiro]
     recipes:
@@ -171,7 +171,7 @@ evidence:
 
   - id: SPONSORSHIP_WITHDRAWAL
     name: Withdrawn Funds
-    icon: Testimony
+    icon: SponsorshipWithdrawal
     question: [gozo]
     suspects: [Ichiro]
     recipes:
@@ -185,7 +185,7 @@ evidence:
 
   - id: ARTIST_AT_THE_DOOR
     name: Artist at the Door
-    icon: BloodyBreadCrust
+    icon: ArtistAtTheDoor
     question: [gozo]
     suspects: [Ichiro]
     recipes:
@@ -228,7 +228,7 @@ evidence:
 
   - id: TWIN_REFUSAL
     name: Twin Refusal
-    icon: Testimony
+    icon: TwinRefusal
     question: [gozo]
     suspects: [Ichiro]
     recipes:
@@ -255,7 +255,7 @@ evidence:
 
   - id: BLOODY_CLOTH
     name: Bloody Cloth
-    icon: BloodyKnife
+    icon: BloodyCloth
     question: [tatsuo]
     suspects: []
     recipes: NULL
