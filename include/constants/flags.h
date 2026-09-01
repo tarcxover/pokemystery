@@ -1733,7 +1733,7 @@
 #define FLAG_TARC3_GOZO_FOUND_GARLAND         (TARC3_RESERVED_FLAGS_START + 0x5B)
 #define FLAG_TARC3_GOZO_FOUND_CARPET          (TARC3_RESERVED_FLAGS_START + 0x5C)
 #define FLAG_TARC3_DECK2_FOUND_BODY                 (TARC3_RESERVED_FLAGS_START + 0x5D)
-#define FLAG_TARC3_DECK2_FOUND_PIPE                 (TARC3_RESERVED_FLAGS_START + 0x5E)
+#define FLAG_UNUSED_0x9BE                           (TARC3_RESERVED_FLAGS_START + 0x5E) // Unused Flag
 #define FLAG_TARC3_HOLD_FOUND_DOOR                  (TARC3_RESERVED_FLAGS_START + 0x5F)
 #define FLAG_TARC3_ELEC_FOUND_PANEL                 (TARC3_RESERVED_FLAGS_START + 0x60)
 #define FLAG_TARC3_BATH_FOUND_KNIFE                 (TARC3_RESERVED_FLAGS_START + 0x61)
@@ -1769,9 +1769,9 @@
 #define FLAG_TARC3_DECK2_FOUND_CLOTH                (TARC3_RESERVED_FLAGS_START + 0x80)
 #define FLAG_UNUSED_0x9E1                           (TARC3_RESERVED_FLAGS_START + 0x81) // Unused Flag
 #define FLAG_UNUSED_0x9E2                           (TARC3_RESERVED_FLAGS_START + 0x82) // Unused Flag
-#define FLAG_UNUSED_0x9E3                           (TARC3_RESERVED_FLAGS_START + 0x83) // Unused Flag
-#define FLAG_UNUSED_0x9E4                           (TARC3_RESERVED_FLAGS_START + 0x84) // Unused Flag
-#define FLAG_UNUSED_0x9E5                           (TARC3_RESERVED_FLAGS_START + 0x85) // Unused Flag
+#define FLAG_TARC3_DECK2_FOUND_WEAPON               (TARC3_RESERVED_FLAGS_START + 0x83)
+#define FLAG_TARC3_DECK2_PIPE_SCENT                 (TARC3_RESERVED_FLAGS_START + 0x84)
+#define FLAG_TARC3_TATSUO_RECONSTRUCTED             (TARC3_RESERVED_FLAGS_START + 0x85)
 #define FLAG_UNUSED_0x9E6                           (TARC3_RESERVED_FLAGS_START + 0x86) // Unused Flag
 #define FLAG_UNUSED_0x9E7                           (TARC3_RESERVED_FLAGS_START + 0x87) // Unused Flag
 #define FLAG_UNUSED_0x9E8                           (TARC3_RESERVED_FLAGS_START + 0x88) // Unused Flag

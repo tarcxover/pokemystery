@@ -2113,18 +2113,17 @@ tarc3_Accusation_EventScript_Ev_SelfInflictedWound_Text_8:
 
 tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_0:
 # 710 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "There is a gap in the pipe rack on the\n"
-	.string "foredeck.\p"
-	.string "I expect every one of you has read it\n"
-	.string "the way I was intended to. That the\l"
-	.string "killer took a pipe from the row.$"
+	.string "There is a sack of maintenance\n"
+	.string "equipment on the foredeck, with two\l"
+	.string "lengths of pipe jutting out of the top\l"
+	.string "of it.\p"
+	.string "Every one of you has walked past it all\n"
+	.string "evening and taken it for ship's stores.$"
 
 tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_1:
 # 711 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "He did not. Tatsuo broke that pipe off\n"
-	.string "himself this afternoon and hid it under\l"
-	.string "the sacking so nobody would bill him for\l"
-	.string "it.\p"
+	.string "Tatsuo broke those fittings himself\n"
+	.string "this afternoon and hid them in there.\p"
 	.string "He told me so, laughing.$"
 
 tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_2:
@@ -2134,11 +2133,10 @@ tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_2:
 
 tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_3:
 # 715 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "The sacking is empty now.\p"
-	.string "The weapon that killed him had been\n"
-	.string "lying concealed a step from where he\l"
-	.string "stood, and not one person aboard knew\l"
-	.string "it was there.$"
+	.string "One of those two pipes has his blood on\n"
+	.string "it, and it is still in that sack.\p"
+	.string "The weapon that killed him was lying a\n"
+	.string "step from where he stood.$"
 
 tarc3_Accusation_EventScript_Ev_HiddenPipe_Text_4:
 # 716 "data/scripts/tarc3_accusation_evidence.pory"

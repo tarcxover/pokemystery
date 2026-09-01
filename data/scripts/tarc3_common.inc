@@ -101,40 +101,70 @@ tarc3_EventScript_FollowerStoutland::
 # 56 "data/scripts/tarc3_common.pory"
 	goto_if_eq VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1, tarc3_GozoRoom_EventScript_FollowerStoutlandSniff
 # 57 "data/scripts/tarc3_common.pory"
+	goto_if_eq VAR_TARC3_ACT2, TARC3_ACT2_DECK_INVESTIGATE, tarc3_Foredeck_EventScript_FollowerStoutlandSack
+# 58 "data/scripts/tarc3_common.pory"
 	goto tarc3_EventScript_FollowerHookEnd
 	return
 
 
 tarc3_EventScript_FollowerMagnezoneFlash::
-# 64 "data/scripts/tarc3_common.pory"
-	goto_if_set FLAG_TARC3_MAGNEZONE_FLASH, tarc3_EventScript_FollowerHookEnd
 # 65 "data/scripts/tarc3_common.pory"
-	msgbox tarc3_EventScript_FollowerMagnezoneFlash_Text_0
+	goto_if_set FLAG_TARC3_MAGNEZONE_FLASH, tarc3_EventScript_FollowerHookEnd
 # 66 "data/scripts/tarc3_common.pory"
-	closemessage
+	msgbox tarc3_EventScript_FollowerMagnezoneFlash_Text_0
 # 67 "data/scripts/tarc3_common.pory"
-	animateflash 4
+	closemessage
 # 68 "data/scripts/tarc3_common.pory"
-	setflashlevel 4
+	animateflash 4
 # 69 "data/scripts/tarc3_common.pory"
-	setflag FLAG_TARC3_MAGNEZONE_FLASH
+	setflashlevel 4
 # 70 "data/scripts/tarc3_common.pory"
+	setflag FLAG_TARC3_MAGNEZONE_FLASH
+# 71 "data/scripts/tarc3_common.pory"
 	goto tarc3_EventScript_FollowerHandled
 	return
 
 
 tarc3_EventScript_FollowerHandled::
-# 74 "data/scripts/tarc3_common.pory"
+# 75 "data/scripts/tarc3_common.pory"
 	setvar VAR_RESULT, TRUE
 	return
 
 
 tarc3_EventScript_FollowerHookEnd::
-# 79 "data/scripts/tarc3_common.pory"
+# 80 "data/scripts/tarc3_common.pory"
 	setvar VAR_RESULT, FALSE
 	return
 
 
+tarc3_EventScript_ToDiningRoom::
+# 88 "data/scripts/tarc3_common.pory"
+	setflag FLAG_HIDE_TARC3_DECK2_RAN
+# 89 "data/scripts/tarc3_common.pory"
+	clearflag FLAG_HIDE_TARC3_DINING_RAN
+# 90 "data/scripts/tarc3_common.pory"
+	clearflag FLAG_HIDE_TARC3_DINING_NATSUE
+# 91 "data/scripts/tarc3_common.pory"
+	clearflag FLAG_HIDE_TARC3_DINING_JOJI
+# 92 "data/scripts/tarc3_common.pory"
+	clearflag FLAG_HIDE_TARC3_DINING_MARIKO
+# 93 "data/scripts/tarc3_common.pory"
+	clearflag FLAG_HIDE_TARC3_DINING_KITARO
+# 94 "data/scripts/tarc3_common.pory"
+	clearflag FLAG_HIDE_TARC3_DINING_AKIE
+# 95 "data/scripts/tarc3_common.pory"
+	clearflag FLAG_HIDE_TARC3_DINING_ICHIRO
+# 96 "data/scripts/tarc3_common.pory"
+	clearflag FLAG_HIDE_TARC3_DINING_SUZUKI
+# 97 "data/scripts/tarc3_common.pory"
+	setvar VAR_TARC3_ACT2, TARC3_ACT2_ROOM_SETTLES
+# 98 "data/scripts/tarc3_common.pory"
+	warp MAP_TARC3_MAIN_DECK, 41, 12
+# 99 "data/scripts/tarc3_common.pory"
+	waitstate
+	end
+
+
 tarc3_EventScript_FollowerMagnezoneFlash_Text_0:
-# 65 "data/scripts/tarc3_common.pory"
+# 66 "data/scripts/tarc3_common.pory"
 	.string "Magnezone lit up the room!$"

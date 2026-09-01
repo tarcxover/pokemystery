@@ -707,12 +707,12 @@ script tarc3_Accusation_EventScript_Ev_SelfInflictedWound {
 script tarc3_Accusation_EventScript_Ev_HiddenPipe {
     call(tarc3_Accusation_EventScript_ScoreIchiroT1)
     setspeaker("{PLAYER}")
-    msgbox(format("There is a gap in the pipe rack on the foredeck.\pI expect every one of you has read it the way I was intended to. That the killer took a pipe from the row."))
-    msgbox(format("He did not. Tatsuo broke that pipe off himself this afternoon and hid it under the sacking so nobody would bill him for it.\pHe told me so, laughing."))
+    msgbox(format("There is a sack of maintenance equipment on the foredeck, with two lengths of pipe jutting out of the top of it.\pEvery one of you has walked past it all evening and taken it for ship's stores."))
+    msgbox(format("Tatsuo broke those fittings himself this afternoon and hid them in there.\pHe told me so, laughing."))
     setspeaker("Akie")
     msgbox(format("...That is exactly the sort of thing he would do."))
     setspeaker("{PLAYER}")
-    msgbox(format("The sacking is empty now.\pThe weapon that killed him had been lying concealed a step from where he stood, and not one person aboard knew it was there."))
+    msgbox(format("One of those two pipes has his blood on it, and it is still in that sack.\pThe weapon that killed him was lying a step from where he stood."))
     msgbox(format("Nothing was carried out onto that deck. Whoever went out to be rid of the knife took up the first heavy thing he stumbled over - because he had not gone out there to kill anybody."))
     setspeaker(NULL)
     closemessage

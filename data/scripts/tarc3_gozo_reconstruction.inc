@@ -847,8 +847,8 @@ tarc3_Recon_EventScript_Q1_Text_2:
 
 tarc3_Recon_EventScript_Q1Ask_Text_0:
 # 32 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "{FONT_NARROW}(How did anybody get into that room, or out of\n"
-	.string "it?)$"
+	.string "{FONT_NARROW}How did anybody get into that room, or out of\n"
+	.string "it?$"
 
 tarc3_Recon_EventScript_Q1Ask_Text_1:
 # 34 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -869,8 +869,7 @@ tarc3_Recon_EventScript_Q1WrongWindow_Text_0:
 tarc3_Recon_EventScript_Q1WrongWindow_Text_1:
 # 51 "data/scripts/tarc3_gozo_reconstruction.pory"
 	.string "You put your hands on that window\n"
-	.string "yourself. It has not opened since\l"
-	.string "before Natsue was born.$"
+	.string "yourself. It has not opened in years.$"
 
 tarc3_Recon_EventScript_Q1WrongKey_Text_0:
 # 59 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -901,7 +900,7 @@ tarc3_Recon_EventScript_Q1Right_Text_2:
 tarc3_Recon_EventScript_Q1Right_Text_3:
 # 87 "data/scripts/tarc3_gozo_reconstruction.pory"
 	.string "Thank you. That is precisely what I\n"
-	.string "have been saying all evening.$"
+	.string "have been saying.$"
 
 tarc3_Recon_EventScript_Q1Give_Text_0:
 # 96 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -927,8 +926,8 @@ tarc3_Recon_EventScript_Q2_Text_1:
 
 tarc3_Recon_EventScript_Q2Ask_Text_0:
 # 120 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "{FONT_NARROW}(What is wrong with a man doing this to\n"
-	.string "himself in a sealed room?)$"
+	.string "{FONT_NARROW}What is wrong with a man doing this to himself\n"
+	.string "in a sealed room?$"
 
 tarc3_Recon_EventScript_Q2Ask_Text_1:
 # 122 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -950,8 +949,7 @@ tarc3_Recon_EventScript_Q2WrongMotive_Text_0:
 
 tarc3_Recon_EventScript_Q2WrongMotive_Text_1:
 # 141 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "She is right, and you have handed her\n"
-	.string "the floor. A reason is not a proof.$"
+	.string "She is right. A reason is not a proof.$"
 
 tarc3_Recon_EventScript_Q2WrongFrail_Text_0:
 # 149 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -1019,8 +1017,8 @@ tarc3_Recon_EventScript_Q3_Text_1:
 
 tarc3_Recon_EventScript_Q3Ask_Text_0:
 # 213 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "{FONT_NARROW}(Where was Gozo standing when the first blow\n"
-	.string "landed?)$"
+	.string "{FONT_NARROW}Where was Gozo standing when the first blow\n"
+	.string "landed?$"
 
 tarc3_Recon_EventScript_Q3Ask_Text_1:
 # 215 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -1102,7 +1100,7 @@ tarc3_Recon_EventScript_Q4_Text_1:
 
 tarc3_Recon_EventScript_Q4Ask_Text_0:
 # 301 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "{FONT_NARROW}(Then who turned that lock?)$"
+	.string "{FONT_NARROW}Then who turned that lock?$"
 
 tarc3_Recon_EventScript_Q4Ask_Text_1:
 # 303 "data/scripts/tarc3_gozo_reconstruction.pory"

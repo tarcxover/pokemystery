@@ -376,19 +376,15 @@ script tarc3_Hold_EventScript_TakeshiGone {
     delay(30)
     setspeaker("{RIVAL}")
     msgbox(format("They will argue about this for an hour, and arrive nowhere."))
-    msgbox(format("I am going back up to the deck.\pFollow when you can, and we will examine it properly."))
+    msgbox(format("You have already told them how Tatsuo died. They are not ready to hear who drew that bolt."))
+    msgbox(format("Upstairs, then. All of them, in one room, where I can watch their faces while I ask it."))
     setspeaker(NULL)
     closemessage
     delay(30)
     fadescreen(FADE_TO_BLACK)
     setflag(FLAG_HIDE_TARC3_HOLD2_CAST)
     removeobject(LOCALID_HOLD_RAN_SEARCH)
-    clearflag(FLAG_HIDE_TARC3_DECK2_RAN)
-    setvar(VAR_TARC3_ACT2, TARC3_ACT2_INVESTIGATE_2A)
-    fadescreen(FADE_FROM_BLACK)
-    delay(20)
-    releaseall
-    end
+    goto(tarc3_EventScript_ToDiningRoom)
 }
 
 script tarc3_Hold_EventScript_Ran {

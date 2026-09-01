@@ -1048,7 +1048,7 @@ script tarc3_MainDeck_EventScript_GatherMariko {
     setspeaker("Mariko")
     if (var(VAR_TARC3_GATHER_MARIKO) == 0) {
         msgbox(format("Natsue had the most to gain and not one of them will say it out loud."))
-        msgbox(format("All of it goes to her.\pEvery share, every property, every last yen."))
+        msgbox(format("All of it goes to her.\pEvery share, every property, every last dollar."))
         setvar(VAR_TARC3_GATHER_MARIKO, 1)
         setspeaker(NULL)
         closemessage
