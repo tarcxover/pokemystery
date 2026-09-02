@@ -127,10 +127,10 @@ static const struct WindowTemplate sLogicMenuWindowTemplates[] = {
     [WIN_LOGIC_LIST] =
         {
             .bg = 0,
-            .tilemapLeft = 18,
+            .tilemapLeft = 2,
             .tilemapTop = 1,
             .width = 11,
-            .height = 16,
+            .height = 15,
             .paletteNum = 15,
             .baseBlock = 1,
         },
@@ -148,8 +148,8 @@ static const struct WindowTemplate sLogicMenuWindowTemplates[] = {
     [WIN_LOGIC_DESC] =
         {
             .bg = 0,
-            .tilemapLeft = 2,
-            .tilemapTop = 11,
+            .tilemapLeft = 16,
+            .tilemapTop = 13,
             .width = 9,
             .height = 7,
             .paletteNum = 15,
@@ -168,9 +168,9 @@ static const struct WindowTemplate sLogicMenuWindowTemplates[] = {
     [WIN_LOGIC_HINTS] =
         {
             .bg = 0,
-            .tilemapLeft = 16,
+            .tilemapLeft = 3,
             .tilemapTop = 16,
-            .width = 14,
+            .width = 9,
             .height = 2,
             .paletteNum = 15,
             .baseBlock = 1,
@@ -178,9 +178,9 @@ static const struct WindowTemplate sLogicMenuWindowTemplates[] = {
     DUMMY_WIN_TEMPLATE,
 };
 
-static const u32 sLogicMenuTiles[] = INCBIN_U32("graphics/evidence_menu/tiles.4bpp.smol");
-static const u32 sLogicMenuTilemap[] = INCBIN_U32("graphics/evidence_menu/map.bin.smolTM");
-static const u16 sLogicMenuPalette[] = INCBIN_U16("graphics/evidence_menu/00.gbapal");
+static const u32 sLogicMenuTiles[] = INCBIN_U32("graphics/evidence_menu/wizbook/tiles.4bpp.smol");
+static const u32 sLogicMenuTilemap[] = INCBIN_U32("graphics/evidence_menu/wizbook/map.bin.smolTM");
+static const u16 sLogicMenuPalette[] = INCBIN_U16("graphics/evidence_menu/wizbook/palette_01.gbapal", "graphics/evidence_menu/wizbook/palette_02.gbapal");
 
 enum FontColor
 {
@@ -200,7 +200,7 @@ static const struct ListMenuTemplate sLogicMenuListTemplate =
     .cursorShadowPal = TEXT_COLOR_LIGHT_GRAY,
     .lettersSpacing = 0,
     .scrollMultiple = LIST_NO_MULTIPLE_SCROLL,
-    .itemVerticalPadding = 4,
+    .itemVerticalPadding = 1,
     .fontId = FONT_SMALL,
     .maxShowed = 6,
 };
@@ -239,9 +239,9 @@ enum {
 };
 
 static const struct Coords16 sLogicMenuIconPos[3] = {
-    [EVD_POS_LEFT] = {38, 32},
-    [EVD_POS_RIGHT] = {80, 38},
-    [EVD_POS_RESULT] = {56, 72},
+    [EVD_POS_LEFT] = {153, 44},
+    [EVD_POS_RIGHT] = {187, 44},
+    [EVD_POS_RESULT] = {169, 76},
 };
 
 static const u8 sText_DeductionSuccess[] = _("Deduction Successful. Recieved new evidence:\n{STR_VAR_1}");
@@ -564,6 +564,7 @@ static void Task_LogicMenuWaitFadeIn(u8 taskId)
     if (!gPaletteFade.active)
     {
         ClearTaskData(taskId);
+        PlayNewMapMusic(MUS_LOGIC);
         gTasks[taskId].func = Task_LogicMenuInitList;
     }
 }
@@ -598,11 +599,11 @@ static void LogicMenu_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMen
 static const struct ScrollArrowsTemplate sEvidenceMenuScrollArrowTemplate =
 {
     .firstArrowType = SCROLL_ARROW_UP,
-    .firstX = 180,
-    .firstY = 8,
+    .firstX = 64,
+    .firstY = 16,
     .secondArrowType = SCROLL_ARROW_DOWN,
-    .secondX = 180,
-    .secondY = 152,
+    .secondX = 64,
+    .secondY = 126,
     .fullyUpThreshold = 0,
     .fullyDownThreshold = 0,
     .tileTag = LOGIC_TAG_SCROLL_ARROW,
@@ -817,8 +818,8 @@ static bool8 LogicMenu_LoadGraphics(void)
         break;
     case 2:
         LoadBgTiles(2, GetWindowFrameTilesPal(gSaveBlock2Ptr->optionsWindowFrameType)->tiles, 0x120, LOGIC_MENU_BORDER_TILE);
-        LoadPalette(GetWindowFrameTilesPal(gSaveBlock2Ptr->optionsWindowFrameType)->pal, BG_PLTT_ID(2), PLTT_SIZE_4BPP);
-        LoadPalette(sLogicMenuPalette, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
+        LoadPalette(GetWindowFrameTilesPal(gSaveBlock2Ptr->optionsWindowFrameType)->pal, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
+        LoadPalette(sLogicMenuPalette, BG_PLTT_ID(1), PLTT_SIZE_4BPP * 2);
         LoadPalette(gMessageBox_Pal, BG_PLTT_ID(15), PLTT_SIZE_4BPP);
         sLogicMenuState->loadState++;
     default:
@@ -928,8 +929,8 @@ static void PrintDescription(enum Item id)
     struct LogicMenuPrint p = {
         .font = FONT_SMALL_NARROWER,
         .window = WIN_LOGIC_DESC,
-        .x = 4,
-        .y = 4,
+        .x = 0,
+        .y = 0,
         .text = gStringVar4,
         .color = {{
             TEXT_COLOR_TRANSPARENT,
@@ -940,7 +941,7 @@ static void PrintDescription(enum Item id)
     StringCopy(gStringVar4, GetItemDescription(id));
     StripLineBreaks(gStringVar4);
     u32 w = GetWindowAttribute(p.window, WINDOW_WIDTH)*8;
-    BreakStringAutomatic(gStringVar4, w, 6, p.font, HIDE_SCROLL_PROMPT);
+    BreakStringAutomatic(gStringVar4, w, 8, p.font, HIDE_SCROLL_PROMPT);
     LogicMenuPrintMsg(&p);
 }
 
@@ -955,7 +956,7 @@ static void PrintLogicMenuHints(u32 color)
         .font = fontId,
         .window = WIN_LOGIC_HINTS,
         .x = x,
-        .y = 1,
+        .y = 3,
         .text = text,
         .color.asU32 = color,
     };
