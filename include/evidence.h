@@ -42,4 +42,7 @@ enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2);
 const u8* GetQuestionText(enum Questions q);
 const u8* GetSuspectText(enum Suspects s);
 
+
+u32 GetHeldEvidenceCount(void);
+
 #endif /* end of include guard: EVIDENCE_H */
