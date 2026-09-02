@@ -11,16 +11,16 @@
 
 #include "constants/evidence_macros.h"
 
-enum Evidence : u16 {
+enum Evidence {
     FOREACH_EVIDENCE(UNPACK_TO_EVD_ID) EVD_COUNT = COUNT_OF_EVIDENCE,
 };
 
-enum Suspects : u16 {
+enum Suspects {
     FOREACH_SUSPECT(_SUSPECT_HELPER)
 };
 
 
-enum Questions : u16 {
+enum Questions {
     QUESTION_NONE,
     FOREACH_QUESTION(_QUESTION_HELPER)
     QUESTION_COUNT
