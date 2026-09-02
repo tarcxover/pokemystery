@@ -227,6 +227,9 @@ Debug_EventScript_Script_3::
 	end
 
 Debug_EventScript_Script_4::
+	giveevidence EVD_DROPPED_FLOWER
+	giveevidence EVD_TAKESHIS_MEETING
+	callnative CB2_InitLogicMenu
 	release
 	end
 
