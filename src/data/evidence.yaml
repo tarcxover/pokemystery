@@ -66,7 +66,7 @@ evidence:
 
   - id: TUITION_FUNDS
     name: Tuition Funds
-    icon: Testimony
+    icon: TuitionFunds
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -281,7 +281,7 @@ evidence:
 
   - id: CHARCOAL_ON_BOLT
     name: Charcoal on Bolt
-    icon: CharcoalDust
+    icon: CharcoalOnBolt
     question: [tatsuo]
     suspects: [Ichiro]
     recipes: NULL
@@ -332,7 +332,7 @@ evidence:
 
   - id: BLOOD_ON_THE_STAIR
     name: Blood on the Stair
-    icon: BloodyDoorframe
+    icon: BloodOnTheStair
     question: [tatsuo]
     suspects: [ICHIRO]
     recipes: NULL
@@ -426,7 +426,7 @@ evidence:
 
   - id: FOCUSED_BURN
     name: Focused Burn
-    icon: CharcoalDust
+    icon: FocusedBurn
     question: [lights]
     suspects: [Ichiro]
     recipes: NULL
@@ -452,7 +452,7 @@ evidence:
 
   - id: SMEARGLE_KNOWS_DISCHARGE
     name: Copied Discharge
-    icon: Testimony
+    icon: CopiedDischarge
     question: [lights]
     suspects: [Ichiro]
     recipes:
@@ -494,7 +494,7 @@ evidence:
 
   - id: SKETCHED_DISCHARGE
     name: Sketched Discharge
-    icon: CharcoalDust
+    icon: SketchedDischarge
     question: [lights]
     suspects: [Ichiro]
     recipes:
