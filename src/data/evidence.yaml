@@ -40,7 +40,7 @@ evidence:
 
   - id: SKETCHBOOK
     name: Sketchbook
-    icon: Testimony
+    icon: Sketchbook
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -53,7 +53,7 @@ evidence:
 
   - id: REFUSED_SUITOR
     name: Refused Suitor
-    icon: Testimony
+    icon: RefusedSuitor
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -66,7 +66,7 @@ evidence:
 
   - id: TUITION_FUNDS
     name: Tuition Funds
-    icon: Testimony
+    icon: TuitionFunds
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -79,7 +79,7 @@ evidence:
 
   - id: ICHIRO_SPONSORSHIP
     name: Sponsorship
-    icon: Testimony
+    icon: Sponsorship
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -92,7 +92,7 @@ evidence:
 
   - id: BREAD_ERASER
     name: Bread Eraser
-    icon: BloodyBreadCrust
+    icon: BreadEraser
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -105,7 +105,7 @@ evidence:
 
   - id: TAKESHIS_MEETING
     name: Requested Meeting
-    icon: LapelFlower
+    icon: RequestedMeeting
     question: [gozo]
     suspects: [Takeshi]
     recipes: NULL
@@ -131,7 +131,7 @@ evidence:
 
   - id: FAMILY_PICTURE
     name: Family Picture
-    icon: PlantedFlower
+    icon: FamilyPicture
     question: [gozo]
     suspects: [Takeshi]
     recipes: NULL
@@ -144,7 +144,7 @@ evidence:
 
   - id: OVERHEARD_ARGUMENT
     name: Overheard Row
-    icon: Testimony
+    icon: OverheardArgument
     question: [gozo]
     suspects: [Takeshi]
     recipes: NULL
@@ -157,7 +157,7 @@ evidence:
 
   - id: UNREQUITED_LOVE
     name: Unrequited Love
-    icon: Testimony
+    icon: UnrequitedLove
     question: [gozo]
     suspects: [Ichiro]
     recipes:
@@ -171,7 +171,7 @@ evidence:
 
   - id: SPONSORSHIP_WITHDRAWAL
     name: Withdrawn Funds
-    icon: Testimony
+    icon: SponsorshipWithdrawal
     question: [gozo]
     suspects: [Ichiro]
     recipes:
@@ -185,7 +185,7 @@ evidence:
 
   - id: ARTIST_AT_THE_DOOR
     name: Artist at the Door
-    icon: BloodyBreadCrust
+    icon: ArtistAtTheDoor
     question: [gozo]
     suspects: [Ichiro]
     recipes:
@@ -214,7 +214,7 @@ evidence:
 
   - id: TAKESHIS_REVENGE
     name: Takeshi's Revenge
-    icon: PlantedFlower
+    icon: TakeshisRevenge
     question: [gozo]
     suspects: [Takeshi]
     recipes:
@@ -228,7 +228,7 @@ evidence:
 
   - id: TWIN_REFUSAL
     name: Twin Refusal
-    icon: Testimony
+    icon: TwinRefusal
     question: [gozo]
     suspects: [Ichiro]
     recipes:
@@ -242,7 +242,7 @@ evidence:
 
   - id: TWO_SOUNDS
     name: Two Sounds
-    icon: Testimony
+    icon: TwoSounds
     question: [tatsuo]
     suspects: []
     recipes: NULL
@@ -255,7 +255,7 @@ evidence:
 
   - id: BLOODY_CLOTH
     name: Bloody Cloth
-    icon: BloodyKnife
+    icon: BloodyCloth
     question: [tatsuo]
     suspects: []
     recipes: NULL
@@ -268,7 +268,7 @@ evidence:
 
   - id: UNLOCKED_CELL
     name: Unlocked Cell
-    icon: LockedDoor
+    icon: UnlockedCell
     question: [tatsuo]
     suspects: []
     recipes: NULL
@@ -281,7 +281,7 @@ evidence:
 
   - id: CHARCOAL_ON_BOLT
     name: Charcoal on Bolt
-    icon: CharcoalDust
+    icon: CharcoalOnBolt
     question: [tatsuo]
     suspects: [Ichiro]
     recipes: NULL
@@ -294,7 +294,7 @@ evidence:
 
   - id: LONG_ABSENCE
     name: Long Absence
-    icon: Testimony
+    icon: IchirosAbsence
     question: [tatsuo, lights]
     suspects: [Ichiro]
     recipes: NULL
@@ -307,7 +307,7 @@ evidence:
 
   - id: AN_ACCOMPLICE
     name: An Accomplice
-    icon: Testimony
+    icon: Accomplice
     question: [tatsuo, ichiro]
     suspects: [Takeshi]
     recipes: NULL
@@ -320,7 +320,7 @@ evidence:
 
   - id: OPEN_SERVICE_DOOR
     name: Open Service Door
-    icon: LockedDoor
+    icon: OpenServiceDoor
     question: [tatsuo, lights, ichiro]
     suspects: [Takeshi]
     recipes: NULL
@@ -332,7 +332,7 @@ evidence:
 
   - id: BLOOD_ON_THE_STAIR
     name: Blood on the Stair
-    icon: BloodyDoorframe
+    icon: BloodOnTheStair
     question: [tatsuo]
     suspects: [ICHIRO]
     recipes: NULL
@@ -345,7 +345,7 @@ evidence:
 
   - id: HIDDEN_PIPE
     name: Hidden Pipe
-    icon: Testimony
+    icon: HiddenPipe
     # question: [tatsuo]
     # implicates: []
     recipes: NULL
@@ -373,7 +373,7 @@ evidence:
 
   - id: THE_ACCOMPLICE_THEORY
     name: Accomplice Theory
-    icon: LockedDoor
+    icon: AccompliceTheory
     question: [tatsuo, ichiro]
     suspects: [Takeshi]
     recipes:
@@ -387,7 +387,7 @@ evidence:
 
   - id: SCORCHED_PANEL
     name: Scorched Panel
-    icon: CharcoalDust
+    icon: ScorchedPanel
     question: [lights]
     suspects: []
     recipes: NULL
@@ -400,7 +400,7 @@ evidence:
 
   - id: SMEARGLE_REPERTOIRE
     name: Smeargle's Moves
-    icon: Testimony
+    icon: SmeargleRepertoire
     question: [lights]
     suspects: [Ichiro]
     recipes: NULL
@@ -413,7 +413,7 @@ evidence:
 
   - id: THE_ODD_BATTLE
     name: Odd Battle
-    icon: Testimony
+    icon: OddBattle
     question: [lights]
     suspects: [Ichiro]
     recipes: NULL
@@ -426,7 +426,7 @@ evidence:
 
   - id: FOCUSED_BURN
     name: Focused Burn
-    icon: CharcoalDust
+    icon: FocusedBurn
     question: [lights]
     suspects: [Ichiro]
     recipes: NULL
@@ -439,7 +439,7 @@ evidence:
 
   - id: THE_HOLD_ADJOINS
     name: Adjoining Hold
-    icon: LockedDoor
+    icon: AdjoiningHold
     question: [lights]
     suspects: [Takeshi]
     recipes: NULL
@@ -452,7 +452,7 @@ evidence:
 
   - id: SMEARGLE_KNOWS_DISCHARGE
     name: Copied Discharge
-    icon: Testimony
+    icon: CopiedDischarge
     question: [lights]
     suspects: [Ichiro]
     recipes:
@@ -466,7 +466,7 @@ evidence:
 
   - id: PANEL_STRUCK
     name: Panel Struck
-    icon: CharcoalDust
+    icon: PanelStruck
     question: [lights]
     suspects: [Ichiro]
     recipes:
@@ -494,7 +494,7 @@ evidence:
 
   - id: SKETCHED_DISCHARGE
     name: Sketched Discharge
-    icon: CharcoalDust
+    icon: SketchedDischarge
     question: [lights]
     suspects: [Ichiro]
     recipes:
@@ -508,7 +508,7 @@ evidence:
 
   - id: INJURED_LEG
     name: Injured Leg
-    icon: BloodyDoorframe
+    icon: InjuredLeg
     question: [ichiro]
     suspects: []
     recipes: NULL
@@ -520,7 +520,7 @@ evidence:
 
   - id: BATHROOM_BLACKOUT
     name: Total Darkness
-    icon: Testimony
+    icon: TotalDarkness
     question: [ichiro]
     suspects: []
     recipes: NULL
@@ -545,7 +545,7 @@ evidence:
 
   - id: KNIVES_COUNTED
     name: Knives Counted
-    icon: KitchenKnife
+    icon: KnivesCounted
     # question: [ichiro]
     # implicates: []
     recipes: NULL
@@ -558,7 +558,7 @@ evidence:
 
   - id: MISSING_KNIVES
     name: Missing Knives
-    icon: KitchenKnife
+    icon: MissingKnives
     question: [ichiro]
     suspects: []
     recipes: NULL
@@ -571,7 +571,7 @@ evidence:
 
   - id: NO_DEFENSIVE_WOUNDS
     name: No Defence
-    icon: BloodyDoorframe
+    icon: NoDefensiveWounds
     question: [ichiro]
     suspects: [Ichiro]
     recipes: NULL
@@ -583,7 +583,7 @@ evidence:
 
   - id: THE_SECOND_STORY
     name: The Second Story
-    icon: Testimony
+    icon: SecondStory
     question: [ichiro]
     suspects: [Ichiro]
     recipes: NULL
@@ -596,7 +596,7 @@ evidence:
 
   - id: IMPOSSIBLE_PRECISION
     name: Impossible Aim
-    icon: BloodyKnife
+    icon: ImpossiblePrecision
     question: [ichiro]
     suspects: [Ichiro]
     recipes:
@@ -624,7 +624,7 @@ evidence:
 
   - id: SELF_INFLICTED_WOUND
     name: Self-Inflicted
-    icon: BloodyKnife
+    icon: SelfInflicted
     question: [ichiro]
     suspects: [Ichiro]
     recipes:
