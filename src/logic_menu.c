@@ -564,6 +564,7 @@ static void Task_LogicMenuWaitFadeIn(u8 taskId)
     if (!gPaletteFade.active)
     {
         ClearTaskData(taskId);
+        PlayNewMapMusic(MUS_LOGIC);
         gTasks[taskId].func = Task_LogicMenuInitList;
     }
 }
