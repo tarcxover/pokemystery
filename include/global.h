@@ -26,6 +26,7 @@
 #include "constants/trainer_tower.h"
 #include "constants/items.h"
 #include "constants/moves.h"
+#include "constants/unbound_start_menu.h"
 #include "config/save.h"
 
 // Prevent cross-jump optimization.
@@ -287,6 +288,11 @@ typedef struct BlendOverride
 #include "constants/items.h"
 #define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
 
+struct PACKED Usm_SavedItems {
+    u8 items[USM_ICO_COUNT];
+    u8 count;
+};
+
 struct SaveBlock3
 {
 #if OW_USE_FAKE_RTC
@@ -306,6 +312,7 @@ struct SaveBlock3
     u8 apricornTrees[NUM_APRICORN_TREE_BYTES];
 #endif
     BlendOverride blendOverride;
+    struct Usm_SavedItems usmSaved;
 }; /* max size 1624 bytes */
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;
