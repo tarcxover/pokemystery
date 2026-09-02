@@ -56,6 +56,7 @@
 #include "random.h"
 
 #define MAX_SELECTIONS 4
+#define LIST_HEADER_COUNT 2
 
 #define TASK_DATA(...) struct { s16 __VA_ARGS__; } *tData = (void *)gTasks[taskId].data
 #define TASK_DATA_N(n,...) struct { s16 __VA_ARGS__; } *tData = (void *)&gTasks[taskId].data[n]
@@ -287,11 +288,13 @@ enum FontColor
     FONT_BLUE,
     FONT_GREEN,
     FONT_RED,
+    FONT_GRAY,
 };
 
 static const struct ListMenuTemplate sAccuseMenuListTemplate =
 {
     .item_X = 12,
+    .header_X = 2,
     .cursor_X = 4,
     .upText_Y = 10,
     .cursorPal = TEXT_COLOR_DARK_GRAY,
@@ -334,6 +337,12 @@ static union TextColor sAccuseMenuWindowFontColors[] = {
             .background = TEXT_COLOR_TRANSPARENT,
             .foreground = TEXT_COLOR_GREEN,
             .shadow     = TEXT_COLOR_LIGHT_GREEN,
+        },
+    [FONT_GRAY] =
+        {
+            .background = TEXT_COLOR_TRANSPARENT,
+            .foreground = TEXT_COLOR_LIGHT_GRAY,
+            .shadow     = TEXT_COLOR_DARK_GRAY,
         },
 };
 
@@ -380,6 +389,7 @@ static void PrintAccuseMenuHints(u32 color);
 static void PrintAccuseMenuItemName(enum Item item);
 static void PrintAccuseMenuSuspect(enum Suspects suspect);
 static void PrintAccuseMenuQuestion();
+static u32 FillEvdGroup(struct ListMenuItem *items, u32 count, const u8 *header, bool32 deductions);
 static u32 FillEvdList(struct ListMenuItem *items);
 static u32 AddAccuseMenuScrollArrows(struct ListMenu *list);
 static u32 CalculateScore(u32* evidence, u32 count);
@@ -718,6 +728,9 @@ static void Task_AccuseMenuInitList(u8 taskId)
 
 static void AccuseMenu_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu *list)
 {
+    if (itemIndex == LIST_HEADER)
+        return;
+
     if (onInit != TRUE)
         PlaySE(SE_SELECT);
 
@@ -746,7 +759,7 @@ static const struct ScrollArrowsTemplate sEvidenceMenuScrollArrowTemplate =
 static u32 CreateEvidenceListMenu(struct ListMenuTemplate* template)
 {
 
-    sAccuseMenuState->evidence = AllocZeroed(sizeof(struct ListMenuItem) * gBagPockets[POCKET_EVIDENCE].capacity);
+    sAccuseMenuState->evidence = AllocZeroed(sizeof(struct ListMenuItem) * (gBagPockets[POCKET_EVIDENCE].capacity + LIST_HEADER_COUNT));
 
     if (sAccuseMenuState->evidence == NULL) {
         AccuseMenu_FadeAndBail(); 
@@ -765,7 +778,8 @@ static u32 CreateEvidenceListMenu(struct ListMenuTemplate* template)
     t->moveCursorFunc = AccuseMenu_MoveCursorFunc;
     t->itemPrintFunc  = AccuseMenuList_PrintFunc;
 
-    u32 listTaskId = ListMenuInit(template, 0, 0);
+    u32 initialRow = (evdCount != 0 && items[0].id == LIST_HEADER);
+    u32 listTaskId = ListMenuInit(template, 0, initialRow);
     struct ListMenu* list = (void*)gTasks[listTaskId].data;
 
     sAccuseMenuState->scrollIndicatorTask = AddAccuseMenuScrollArrows(list);
@@ -784,11 +798,44 @@ static u32 AddAccuseMenuScrollArrows(struct ListMenu *list)
         &gTempScrollArrowTemplate, &list->scrollOffset);
 }
 
+static u32 FillEvdGroup(struct ListMenuItem *items, u32 count, const u8 *header, bool32 deductions)
+{
+    u32 slots = BagPocket_CountUsedItemSlots(&gBagPockets[POCKET_EVIDENCE]);
+    enum Questions question = sAccuseMenuState->question;
+    u32 headerPos = count++;
+
+    for (u32 i = 0; i < slots; i++)
+    {
+        enum Evidence e = GetBagItemId(POCKET_EVIDENCE, i) - ITEM_EVIDENCE_START;
+
+        bool32 isDeduction = gEvidence[e].score > EVD_SCORE_CLUE;
+
+        if (question != QUESTION_NONE && !EvidenceAnswersQuestion(e, question))
+            continue;
+        if (isDeduction != deductions)
+            continue;
+
+        items[count++] = (struct ListMenuItem){gEvidence[e].name, gEvidence[e].itemId};
+    }
+
+    if (count == headerPos + 1)
+        return headerPos;
+
+    items[headerPos] = (struct ListMenuItem){header, LIST_HEADER};
+    return count;
+}
+
 static u32 FillEvdList(struct ListMenuItem *items)
 {
-    u32 evdCount = BagPocket_CountUsedItemSlots(&gBagPockets[POCKET_EVIDENCE]);
+    u32 count = FillEvdGroup(items, 0, COMPOUND_STRING("Deductions"), TRUE);
+    count = FillEvdGroup(items, count, COMPOUND_STRING("Clues"), FALSE);
 
-    for (int i = 0; i < evdCount; i++)
+    if (count != 0)
+        return count;
+
+    u32 slots = BagPocket_CountUsedItemSlots(&gBagPockets[POCKET_EVIDENCE]);
+
+    for (u32 i = 0; i < slots; i++)
     {
         struct EvidenceInfo e =
             gEvidence[GetBagItemId(POCKET_EVIDENCE, i) - ITEM_EVIDENCE_START];
@@ -796,7 +843,7 @@ static u32 FillEvdList(struct ListMenuItem *items)
         items[i] = (struct ListMenuItem){e.name, e.itemId};
     }
 
-    return evdCount;
+    return slots;
 }
 
 static u32 CreateEvidenceIcon(u32 pos, u32 itemId)
@@ -858,8 +905,13 @@ static void AccuseMenuList_PrintFunc(const struct ListMenu *list, u32 index, u8 
 
     bool32 selected = lsearch(&id, sAccuseMenuState->selected, sAccuseMenuState->maxSelections) != UINT32_MAX;
 
-    const u32 color = selected ? sAccuseMenuWindowFontColors[FONT_BLUE].asU32
-                               : sAccuseMenuWindowFontColors[FONT_WHITE].asU32;
+    u32 colorId = FONT_WHITE;
+    if (id == LIST_HEADER)
+        colorId = FONT_GRAY;
+    else if (selected)
+        colorId = FONT_BLUE;
+
+    const u32 color = sAccuseMenuWindowFontColors[colorId].asU32;
 
     const u8 *name = item->name;
 

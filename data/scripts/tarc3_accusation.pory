@@ -16,7 +16,7 @@ script tarc3_Accusation_EventScript_Begin {
     playbgm(MUS_LOGIC, TRUE)
     call(tarc3_Accusation_EventScript_TakeTheFloor)
     delay(20)
-    setspeaker(NULL)
+    setspeaker("{RIVAL}")
     msgbox(format("Begin, {PLAYER} Edgeworth.\pThey have wasted quite enough of my evening already."))
     setspeaker(NULL)
     closemessage

@@ -30,9 +30,9 @@ tarc3_Accusation_EventScript_Begin::
 # 18 "data/scripts/tarc3_accusation.pory"
 	delay 20
 # 19 "data/scripts/tarc3_accusation.pory"
-	setspeaker NULL
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 20 "data/scripts/tarc3_accusation.pory"
-	msgbox tarc3_Accusation_EventScript_Begin_Text_0
+	msgbox tarc3_Accusation_EventScript_Begin_Text_1
 # 21 "data/scripts/tarc3_accusation.pory"
 	setspeaker NULL
 # 22 "data/scripts/tarc3_accusation.pory"
@@ -551,9 +551,9 @@ tarc3_Accusation_EventScript_Q1SummaryPoor::
 # 268 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q1SummaryPoor_Text_1
 # 269 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 270 "data/scripts/tarc3_accusation.pory"
-	msgbox tarc3_Accusation_EventScript_Q1SummaryPoor_Text_3
+	msgbox tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
 # 271 "data/scripts/tarc3_accusation.pory"
 	setspeaker NULL
 # 272 "data/scripts/tarc3_accusation.pory"
@@ -571,7 +571,7 @@ tarc3_Accusation_EventScript_Q1SummaryNone::
 # 279 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q1SummaryNone_Text_0
 # 280 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 281 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q1SummaryNone_Text_1
 # 282 "data/scripts/tarc3_accusation.pory"
@@ -595,7 +595,7 @@ tarc3_Accusation_EventScript_Q1SummarySkipped::
 # 292 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q1SummarySkipped_Text_1
 # 293 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 294 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q1SummarySkipped_Text_2
 # 295 "data/scripts/tarc3_accusation.pory"
@@ -774,7 +774,7 @@ tarc3_Accusation_EventScript_Q2SummaryPoor::
 # 373 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q2SummaryPoor_Text_0
 # 374 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 375 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q2SummaryPoor_Text_1
 # 376 "data/scripts/tarc3_accusation.pory"
@@ -794,7 +794,7 @@ tarc3_Accusation_EventScript_Q2SummaryNone::
 # 384 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q2SummaryNone_Text_0
 # 385 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 386 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q2SummaryNone_Text_1
 # 387 "data/scripts/tarc3_accusation.pory"
@@ -822,7 +822,7 @@ tarc3_Accusation_EventScript_Q2SummarySkipped::
 # 399 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q2SummarySkipped_Text_3
 # 400 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 401 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q2SummarySkipped_Text_4
 # 402 "data/scripts/tarc3_accusation.pory"
@@ -1019,7 +1019,7 @@ tarc3_Accusation_EventScript_Q3SummaryPoor::
 # 490 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q3SummaryPoor_Text_1
 # 491 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 492 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q3SummaryPoor_Text_2
 # 493 "data/scripts/tarc3_accusation.pory"
@@ -1039,7 +1039,7 @@ tarc3_Accusation_EventScript_Q3SummaryNone::
 # 501 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q3SummaryNone_Text_0
 # 502 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 503 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q3SummaryNone_Text_1
 # 504 "data/scripts/tarc3_accusation.pory"
@@ -1063,7 +1063,7 @@ tarc3_Accusation_EventScript_Q3SummarySkipped::
 # 514 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q3SummarySkipped_Text_1
 # 515 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 516 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q3SummarySkipped_Text_2
 # 517 "data/scripts/tarc3_accusation.pory"
@@ -1278,7 +1278,7 @@ tarc3_Accusation_EventScript_Q4SummaryPoor::
 # 611 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q4SummaryPoor_Text_0
 # 612 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 613 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_NameIchiro_Text_7
 # 614 "data/scripts/tarc3_accusation.pory"
@@ -1300,7 +1300,7 @@ tarc3_Accusation_EventScript_Q4SummaryNone::
 # 623 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q4SummaryNone_Text_0
 # 624 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 625 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q4SummaryNone_Text_1
 # 626 "data/scripts/tarc3_accusation.pory"
@@ -1322,7 +1322,7 @@ tarc3_Accusation_EventScript_Q4SummarySkipped::
 # 635 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q4SummarySkipped_Text_1
 # 636 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 637 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Q4SummarySkipped_Text_2
 # 638 "data/scripts/tarc3_accusation.pory"
@@ -2556,7 +2556,7 @@ tarc3_Accusation_EventScript_Depart::
 # 1282 "data/scripts/tarc3_accusation.pory"
 	delay 20
 # 1283 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 1284 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Depart_Text_0
 # 1285 "data/scripts/tarc3_accusation.pory"
@@ -2576,7 +2576,7 @@ tarc3_Accusation_EventScript_Depart::
 # 1292 "data/scripts/tarc3_accusation.pory"
 	delay 80
 # 1293 "data/scripts/tarc3_accusation.pory"
-	setspeaker tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2
+	setspeaker tarc3_Accusation_EventScript_Begin_Text_0
 # 1294 "data/scripts/tarc3_accusation.pory"
 	msgbox tarc3_Accusation_EventScript_Depart_Text_2
 # 1295 "data/scripts/tarc3_accusation.pory"
@@ -2713,6 +2713,10 @@ tarc3_Accusation_EventScript_Depart_Movement_0:
 	step_end
 
 tarc3_Accusation_EventScript_Begin_Text_0:
+# 19 "data/scripts/tarc3_accusation.pory"
+	.string "{RIVAL}$"
+
+tarc3_Accusation_EventScript_Begin_Text_1:
 # 20 "data/scripts/tarc3_accusation.pory"
 	.string "Begin, {PLAYER} Edgeworth.\p"
 	.string "They have wasted quite enough of my\n"
@@ -2890,10 +2894,6 @@ tarc3_Accusation_EventScript_Q1SummaryPoor_Text_1:
 	.string "this night is done.$"
 
 tarc3_Accusation_EventScript_Q1SummaryPoor_Text_2:
-# 269 "data/scripts/tarc3_accusation.pory"
-	.string "{RIVAL}$"
-
-tarc3_Accusation_EventScript_Q1SummaryPoor_Text_3:
 # 270 "data/scripts/tarc3_accusation.pory"
 	.string "A collection of facts is not an\n"
 	.string "argument, {PLAYER} Edgeworth.\p"
@@ -2996,8 +2996,7 @@ tarc3_Accusation_EventScript_Q3SummaryBest_Text_0:
 
 tarc3_Accusation_EventScript_Q3SummaryGood_Text_0:
 # 479 "data/scripts/tarc3_accusation.pory"
-	.string "...I want to dismiss it. I find that I\n"
-	.string "can't.$"
+	.string "...I take your point.$"
 
 tarc3_Accusation_EventScript_Q3SummaryPoor_Text_0:
 # 488 "data/scripts/tarc3_accusation.pory"
