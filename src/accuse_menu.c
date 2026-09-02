@@ -519,7 +519,7 @@ static void AccuseMenu_SetupCB(void)
         break;
     case 6:
         PrintAccuseMenuQuestion();
-        PrintAccuseMenuSuspect(SUSPECT_ICHIRO);
+        PrintAccuseMenuSuspect(sAccuseMenuInit.suspect);
         gMain.state++;
         break;
     case 7:
