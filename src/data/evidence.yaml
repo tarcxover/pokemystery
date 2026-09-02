@@ -92,7 +92,7 @@ evidence:
 
   - id: BREAD_ERASER
     name: Bread Eraser
-    icon: BloodyBreadCrust
+    icon: BreadEraser
     question: [gozo]
     suspects: [Ichiro]
     recipes: NULL
@@ -105,7 +105,7 @@ evidence:
 
   - id: TAKESHIS_MEETING
     name: Requested Meeting
-    icon: LapelFlower
+    icon: RequestedMeeting
     question: [gozo]
     suspects: [Takeshi]
     recipes: NULL
@@ -144,7 +144,7 @@ evidence:
 
   - id: OVERHEARD_ARGUMENT
     name: Overheard Row
-    icon: Testimony
+    icon: OverheardArgument
     question: [gozo]
     suspects: [Takeshi]
     recipes: NULL
@@ -214,7 +214,7 @@ evidence:
 
   - id: TAKESHIS_REVENGE
     name: Takeshi's Revenge
-    icon: PlantedFlower
+    icon: TakeshisRevenge
     question: [gozo]
     suspects: [Takeshi]
     recipes:
@@ -268,7 +268,7 @@ evidence:
 
   - id: UNLOCKED_CELL
     name: Unlocked Cell
-    icon: LockedDoor
+    icon: UnlockedCell
     question: [tatsuo]
     suspects: []
     recipes: NULL
@@ -320,7 +320,7 @@ evidence:
 
   - id: OPEN_SERVICE_DOOR
     name: Open Service Door
-    icon: LockedDoor
+    icon: OpenServiceDoor
     question: [tatsuo, lights, ichiro]
     suspects: [Takeshi]
     recipes: NULL
@@ -345,7 +345,7 @@ evidence:
 
   - id: HIDDEN_PIPE
     name: Hidden Pipe
-    icon: Testimony
+    icon: HiddenPipe
     # question: [tatsuo]
     # implicates: []
     recipes: NULL
@@ -439,7 +439,7 @@ evidence:
 
   - id: THE_HOLD_ADJOINS
     name: Adjoining Hold
-    icon: LockedDoor
+    icon: AdjoiningHold
     question: [lights]
     suspects: [Takeshi]
     recipes: NULL
@@ -545,7 +545,7 @@ evidence:
 
   - id: KNIVES_COUNTED
     name: Knives Counted
-    icon: KitchenKnife
+    icon: KnivesCounted
     # question: [ichiro]
     # implicates: []
     recipes: NULL
@@ -558,7 +558,7 @@ evidence:
 
   - id: MISSING_KNIVES
     name: Missing Knives
-    icon: KitchenKnife
+    icon: MissingKnives
     question: [ichiro]
     suspects: []
     recipes: NULL
@@ -583,7 +583,7 @@ evidence:
 
   - id: THE_SECOND_STORY
     name: The Second Story
-    icon: Testimony
+    icon: SecondStory
     question: [ichiro]
     suspects: [Ichiro]
     recipes: NULL
@@ -596,7 +596,7 @@ evidence:
 
   - id: IMPOSSIBLE_PRECISION
     name: Impossible Aim
-    icon: BloodyKnife
+    icon: ImpossiblePrecision
     question: [ichiro]
     suspects: [Ichiro]
     recipes:
@@ -624,7 +624,7 @@ evidence:
 
   - id: SELF_INFLICTED_WOUND
     name: Self-Inflicted
-    icon: BloodyKnife
+    icon: SelfInflicted
     question: [ichiro]
     suspects: [Ichiro]
     recipes:
