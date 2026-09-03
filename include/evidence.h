@@ -13,6 +13,8 @@
 
 extern const enum Item EvidenceToItem[EVD_COUNT];
 
+#define EVD_SCORE_CLUE 2
+
 struct EvidenceInfo
 {
     const u8 *name;
@@ -39,6 +41,7 @@ extern enum Evidence gAccuseEvidence[4];
 extern EWRAM_DATA ProgBar_Tracker gAccuseMenuProgTracker;
 
 enum Evidence GetDeduction(enum Evidence p1, enum Evidence p2);
+bool32 EvidenceAnswersQuestion(enum Evidence e, enum Questions q);
 const u8* GetQuestionText(enum Questions q);
 const u8* GetSuspectText(enum Suspects s);
 

@@ -13,12 +13,10 @@ script tarc3_Accusation_EventScript_Begin {
     setvar(VAR_TARC3_ACCUSE_SLOT, 0)
     clearflag(FLAG_TARC3_ACCUSE_CRUMBS)
     clearflag(FLAG_TARC3_ACCUSE_HISTORY)
+    playbgm(MUS_LOGIC, TRUE)
     call(tarc3_Accusation_EventScript_TakeTheFloor)
-    special(SpawnCameraObject)
-    applymovement(LOCALID_CAMERA, moves(walk_up))
-    waitmovement(0)
     delay(20)
-    setspeaker(NULL)
+    setspeaker("{RIVAL}")
     msgbox(format("Begin, {PLAYER} Edgeworth.\pThey have wasted quite enough of my evening already."))
     setspeaker(NULL)
     closemessage
@@ -151,7 +149,21 @@ script tarc3_Accusation_EventScript_OpenCloset {
     return
 }
 
-// the debug evidence picker stands in for the accusation UI until it exists
+// reads gAccuseEvidence[VAR_TARC3_ACCUSE_SLOT] into VAR_RESULT
+
+script tarc3_Accusation_EventScript_ReadSlot {
+    switch (var(VAR_TARC3_ACCUSE_SLOT)) {
+        case 0:
+            getaccuseevidence(0)
+        case 1:
+            getaccuseevidence(1)
+        case 2:
+            getaccuseevidence(2)
+        case 3:
+            getaccuseevidence(3)
+    }
+    return
+}
 
 // accusation question 1
 
@@ -162,32 +174,18 @@ script tarc3_Accusation_EventScript_Q1 {
     delay(20)
     setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
     setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    if (var(VAR_TARC3_ACCUSED) == TARC3_ACCUSED_TAKESHI) {
+        openaccusemenu(QUESTION_GOZO, SUSPECT_TAKESHI)
+    } else {
+        openaccusemenu(QUESTION_GOZO, SUSPECT_ICHIRO)
+    }
+    waitstate
     goto(tarc3_Accusation_EventScript_Q1Loop)
 }
 
 script tarc3_Accusation_EventScript_Q1Loop {
-    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 3, tarc3_Accusation_EventScript_Q1Summary)
-    setspeaker(NULL)
-    message(format("{FONT_NARROW}(DEBUG: what do I present?)", "1_latin_rse_narrow"))
-    waitmessage
-    dynmultipush("Twin Refusal", EVD_TWIN_REFUSAL)
-    dynmultipush("Unrequited Love", EVD_UNREQUITED_LOVE)
-    dynmultipush("Withdrawn Funds", EVD_SPONSORSHIP_WITHDRAWAL)
-    dynmultipush("Artist at the Door", EVD_ARTIST_AT_THE_DOOR)
-    dynmultipush("Final Meeting", EVD_GOZOS_FINAL_MEETING)
-    dynmultipush("Takeshi's Revenge", EVD_TAKESHIS_REVENGE)
-    dynmultipush("Sketchbook", EVD_SKETCHBOOK)
-    dynmultipush("Refused Suitor", EVD_REFUSED_SUITOR)
-    dynmultipush("Tuition Funds", EVD_TUITION_FUNDS)
-    dynmultipush("Sponsorship", EVD_ICHIRO_SPONSORSHIP)
-    dynmultipush("Bread Eraser", EVD_BREAD_ERASER)
-    dynmultipush("Requested Meeting", EVD_TAKESHIS_MEETING)
-    dynmultipush("Takeshi's History", EVD_TAKESHIS_HISTORY)
-    dynmultipush("Family Picture", EVD_FAMILY_PICTURE)
-    dynmultipush("Overheard Row", EVD_OVERHEARD_ARGUMENT)
-    dynmultipush("None", TARC3_ACCUSE_NONE)
-    dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
-    closemessage
+    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 4, tarc3_Accusation_EventScript_Q1Summary)
+    call(tarc3_Accusation_EventScript_ReadSlot)
     switch (var(VAR_RESULT)) {
         case EVD_TWIN_REFUSAL:
             call(tarc3_Accusation_EventScript_Ev_TwinRefusal)
@@ -219,8 +217,15 @@ script tarc3_Accusation_EventScript_Q1Loop {
             call(tarc3_Accusation_EventScript_Ev_FamilyPicture)
         case EVD_OVERHEARD_ARGUMENT:
             call(tarc3_Accusation_EventScript_Ev_OverheardArgument)
+        case EVD_BREADCRUMBS:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
+        case EVD_DARK_RESIDUE:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
+        case EVD_DROPPED_FLOWER:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
         default:
-            goto(tarc3_Accusation_EventScript_Q1Summary)
+            goto_if_ge(VAR_RESULT, EVD_COUNT, tarc3_Accusation_EventScript_Q1Summary)
+            call(tarc3_Accusation_EventScript_Fz_OffQuestion)
     }
     addvar(VAR_TARC3_ACCUSE_SLOT, 1)
     goto(tarc3_Accusation_EventScript_Q1Loop)
@@ -302,25 +307,18 @@ script tarc3_Accusation_EventScript_Q2 {
     delay(20)
     setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
     setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    if (var(VAR_TARC3_ACCUSED) == TARC3_ACCUSED_TAKESHI) {
+        openaccusemenu(QUESTION_TATSUO, SUSPECT_TAKESHI)
+    } else {
+        openaccusemenu(QUESTION_TATSUO, SUSPECT_ICHIRO)
+    }
+    waitstate
     goto(tarc3_Accusation_EventScript_Q2Loop)
 }
 
 script tarc3_Accusation_EventScript_Q2Loop {
-    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 3, tarc3_Accusation_EventScript_Q2Summary)
-    setspeaker(NULL)
-    message(format("{FONT_NARROW}(DEBUG: what do I present?)", "1_latin_rse_narrow"))
-    waitmessage
-    dynmultipush("Silenced Witness", EVD_SILENCED_WITNESS)
-    dynmultipush("Accomplice Theory", EVD_THE_ACCOMPLICE_THEORY)
-    dynmultipush("Charcoal on Bolt", EVD_CHARCOAL_ON_BOLT)
-    dynmultipush("Long Absence", EVD_LONG_ABSENCE)
-    dynmultipush("An Accomplice", EVD_AN_ACCOMPLICE)
-    dynmultipush("Open Service Door", EVD_OPEN_SERVICE_DOOR)
-    dynmultipush("Blood on the Stair", EVD_BLOOD_ON_THE_STAIR)
-    dynmultipush("Hidden Pipe", EVD_HIDDEN_PIPE)
-    dynmultipush("None", TARC3_ACCUSE_NONE)
-    dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
-    closemessage
+    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 4, tarc3_Accusation_EventScript_Q2Summary)
+    call(tarc3_Accusation_EventScript_ReadSlot)
     switch (var(VAR_RESULT)) {
         case EVD_SILENCED_WITNESS:
             call(tarc3_Accusation_EventScript_Ev_SilencedWitness)
@@ -338,8 +336,15 @@ script tarc3_Accusation_EventScript_Q2Loop {
             call(tarc3_Accusation_EventScript_Ev_BloodOnTheStair)
         case EVD_HIDDEN_PIPE:
             call(tarc3_Accusation_EventScript_Ev_HiddenPipe)
+        case EVD_TWO_SOUNDS:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
+        case EVD_BLOODY_CLOTH:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
+        case EVD_UNLOCKED_CELL:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
         default:
-            goto(tarc3_Accusation_EventScript_Q2Summary)
+            goto_if_ge(VAR_RESULT, EVD_COUNT, tarc3_Accusation_EventScript_Q2Summary)
+            call(tarc3_Accusation_EventScript_Fz_OffQuestion)
     }
     addvar(VAR_TARC3_ACCUSE_SLOT, 1)
     goto(tarc3_Accusation_EventScript_Q2Loop)
@@ -409,27 +414,18 @@ script tarc3_Accusation_EventScript_Q3 {
     delay(20)
     setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
     setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    if (var(VAR_TARC3_ACCUSED) == TARC3_ACCUSED_TAKESHI) {
+        openaccusemenu(QUESTION_LIGHTS, SUSPECT_TAKESHI)
+    } else {
+        openaccusemenu(QUESTION_LIGHTS, SUSPECT_ICHIRO)
+    }
+    waitstate
     goto(tarc3_Accusation_EventScript_Q3Loop)
 }
 
 script tarc3_Accusation_EventScript_Q3Loop {
-    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 3, tarc3_Accusation_EventScript_Q3Summary)
-    setspeaker(NULL)
-    message(format("{FONT_NARROW}(DEBUG: what do I present?)", "1_latin_rse_narrow"))
-    waitmessage
-    dynmultipush("Sketched Discharge", EVD_SKETCHED_DISCHARGE)
-    dynmultipush("Copied Discharge", EVD_SMEARGLE_KNOWS_DISCHARGE)
-    dynmultipush("Panel Struck", EVD_PANEL_STRUCK)
-    dynmultipush("Nearest Hand", EVD_THE_NEAREST_HAND)
-    dynmultipush("Smeargle's Moves", EVD_SMEARGLE_REPERTOIRE)
-    dynmultipush("Odd Battle", EVD_THE_ODD_BATTLE)
-    dynmultipush("Focused Burn", EVD_FOCUSED_BURN)
-    dynmultipush("Long Absence", EVD_LONG_ABSENCE)
-    dynmultipush("Adjoining Hold", EVD_THE_HOLD_ADJOINS)
-    dynmultipush("Open Service Door", EVD_OPEN_SERVICE_DOOR)
-    dynmultipush("None", TARC3_ACCUSE_NONE)
-    dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
-    closemessage
+    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 4, tarc3_Accusation_EventScript_Q3Summary)
+    call(tarc3_Accusation_EventScript_ReadSlot)
     switch (var(VAR_RESULT)) {
         case EVD_SKETCHED_DISCHARGE:
             call(tarc3_Accusation_EventScript_Ev_SketchedDischarge)
@@ -451,8 +447,11 @@ script tarc3_Accusation_EventScript_Q3Loop {
             call(tarc3_Accusation_EventScript_Ev_TheHoldAdjoins)
         case EVD_OPEN_SERVICE_DOOR:
             call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
+        case EVD_SCORCHED_PANEL:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
         default:
-            goto(tarc3_Accusation_EventScript_Q3Summary)
+            goto_if_ge(VAR_RESULT, EVD_COUNT, tarc3_Accusation_EventScript_Q3Summary)
+            call(tarc3_Accusation_EventScript_Fz_OffQuestion)
     }
     addvar(VAR_TARC3_ACCUSE_SLOT, 1)
     goto(tarc3_Accusation_EventScript_Q3Loop)
@@ -477,7 +476,7 @@ script tarc3_Accusation_EventScript_Q3SummaryBest {
 
 script tarc3_Accusation_EventScript_Q3SummaryGood {
     setspeaker("Kitaro")
-    msgbox(format("...I want to dismiss it. I find that I can't."))
+    msgbox(format("...I take your point."))
     setspeaker(NULL)
     closemessage
     delay(30)
@@ -535,26 +534,18 @@ script tarc3_Accusation_EventScript_Q4 {
     delay(20)
     setvar(VAR_TARC3_ACCUSE_QSCORE, 0)
     setvar(VAR_TARC3_ACCUSE_SLOT, 0)
+    if (var(VAR_TARC3_ACCUSED) == TARC3_ACCUSED_TAKESHI) {
+        openaccusemenu(QUESTION_ICHIRO, SUSPECT_TAKESHI)
+    } else {
+        openaccusemenu(QUESTION_ICHIRO, SUSPECT_ICHIRO)
+    }
+    waitstate
     goto(tarc3_Accusation_EventScript_Q4Loop)
 }
 
 script tarc3_Accusation_EventScript_Q4Loop {
-    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 3, tarc3_Accusation_EventScript_Q4Summary)
-    setspeaker(NULL)
-    message(format("{FONT_NARROW}(DEBUG: what do I present?)", "1_latin_rse_narrow"))
-    waitmessage
-    dynmultipush("Self-Inflicted", EVD_SELF_INFLICTED_WOUND)
-    dynmultipush("Impossible Aim", EVD_IMPOSSIBLE_PRECISION)
-    dynmultipush("Left Behind", EVD_INCONSISTENT_DISPOSAL)
-    dynmultipush("Accomplice Theory", EVD_THE_ACCOMPLICE_THEORY)
-    dynmultipush("No Defence", EVD_NO_DEFENSIVE_WOUNDS)
-    dynmultipush("The Second Story", EVD_THE_SECOND_STORY)
-    dynmultipush("An Accomplice", EVD_AN_ACCOMPLICE)
-    dynmultipush("Open Service Door", EVD_OPEN_SERVICE_DOOR)
-    dynmultipush("Knives Counted", EVD_KNIVES_COUNTED)
-    dynmultipush("None", TARC3_ACCUSE_NONE)
-    dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
-    closemessage
+    goto_if_ge(VAR_TARC3_ACCUSE_SLOT, 4, tarc3_Accusation_EventScript_Q4Summary)
+    call(tarc3_Accusation_EventScript_ReadSlot)
     switch (var(VAR_RESULT)) {
         case EVD_SELF_INFLICTED_WOUND:
             call(tarc3_Accusation_EventScript_Ev_SelfInflictedWound)
@@ -574,8 +565,17 @@ script tarc3_Accusation_EventScript_Q4Loop {
             call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
         case EVD_KNIVES_COUNTED:
             call(tarc3_Accusation_EventScript_Ev_KnivesCounted)
+        case EVD_INJURED_LEG:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
+        case EVD_BATHROOM_BLACKOUT:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
+        case EVD_BATHROOM_KNIFE:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
+        case EVD_MISSING_KNIVES:
+            call(tarc3_Accusation_EventScript_Ev_RawClue)
         default:
-            goto(tarc3_Accusation_EventScript_Q4Summary)
+            goto_if_ge(VAR_RESULT, EVD_COUNT, tarc3_Accusation_EventScript_Q4Summary)
+            call(tarc3_Accusation_EventScript_Fz_OffQuestion)
     }
     addvar(VAR_TARC3_ACCUSE_SLOT, 1)
     goto(tarc3_Accusation_EventScript_Q4Loop)
@@ -648,7 +648,7 @@ script tarc3_Accusation_EventScript_Resolve {
     if (var(VAR_TARC3_ACCUSE_SCORE) >= 43 && var(VAR_TARC3_ACCUSE_T3) == TARC3_T3_ALL) {
         goto(tarc3_Accusation_EventScript_BandPerfect)
     }
-    if (var(VAR_TARC3_ACCUSE_SCORE) >= 24 && var(VAR_TARC3_ACCUSE_HITS) >= 1) {
+    if (var(VAR_TARC3_ACCUSE_SCORE) >= 27 && var(VAR_TARC3_ACCUSE_HITS) >= 1) {
         goto(tarc3_Accusation_EventScript_BandGood)
     }
     goto(tarc3_Accusation_EventScript_BandBad)
@@ -1259,9 +1259,6 @@ script tarc3_Accusation_EventScript_WorstRefusedTakeshi {
 script tarc3_Accusation_EventScript_End {
     closemessage
     delay(30)
-    applymovement(LOCALID_CAMERA, moves(walk_down))
-    waitmovement(0)
-    special(RemoveCameraObject)
     fadescreen(FADE_TO_BLACK)
     removeobject(LOCALID_CABINS_TAKESHI_CLOSET)
     removeobject(LOCALID_CABINS_NATSUE)
@@ -1301,6 +1298,8 @@ script tarc3_Accusation_EventScript_Depart {
     delay(20)
     msgbox(format("(debug: one final scene to come)"))
     closemessage
+    savebgm(MUS_DUMMY)
+    fadedefaultbgm()
     setvar(VAR_TARC3_ACT3, TARC3_ACT3_COMPLETE)
     releaseall
     end

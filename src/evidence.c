@@ -31,7 +31,7 @@
 
 #define R_QUESTION_LIST(...) R_FOR_EACH(_QUESTION_HELPER, __VA_ARGS__)
 #define QUESTION_ARRAY_HELPER(_id, _name, _description, _details, _icon, _suspect, _question,...) \
-    const enum Questions CAT(M_GET_LAST(__VA_ARGS__), QuestionArr[]) = {RECURSIVELY(R_QUESTION_LIST(UNPACK_B(_question)))};
+    const enum Questions CAT(M_GET_LAST(__VA_ARGS__), QuestionArr[]) = {RECURSIVELY(R_QUESTION_LIST(UNPACK_B(_question))) QUESTION_COUNT};
 
 #define _QUESTION_TEXT_HELPER(id, text) case QUESTION_##id: return text;
 
@@ -125,6 +125,16 @@ void PushEvidenceToDynMultiStack()
         struct ListMenuItem res = {nameBuffer, itemId};
         MultichoiceDynamic_PushElement(res);
     }
+}
+
+bool32 EvidenceAnswersQuestion(enum Evidence e, enum Questions q)
+{
+    for (const enum Questions *questions = gEvidence[e].questions; *questions != QUESTION_COUNT; questions++)
+    {
+        if (*questions == q)
+            return TRUE;
+    }
+    return FALSE;
 }
 
 const u8* GetQuestionText(enum Questions q)
