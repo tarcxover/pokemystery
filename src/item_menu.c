@@ -54,6 +54,8 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 
+#if !SWSH_ITEM_MENU
+
 #define TAG_POCKET_SCROLL_ARROW 110
 #define TAG_BAG_SCROLL_ARROW    111
 
@@ -3057,3 +3059,5 @@ static s32 CompareItemsByIndex(enum Pocket pocketId, struct ItemSlot item1, stru
 
     return 0; // Cannot have multiple stacks of indexed items
 }
+
+#endif // !SWSH_ITEM_MENU
