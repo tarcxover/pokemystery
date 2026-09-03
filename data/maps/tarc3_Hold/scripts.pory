@@ -12,9 +12,6 @@ script tarc3_Hold_OnLoad {
     if (var(VAR_TARC3_ACT2) != TARC3_ACT2_HOLD_SEARCH) {
         setflag(FLAG_HIDE_TARC3_HOLD2_CAST)
     }
-    if (var(VAR_TARC3_ACT1) >= TARC3_ACT1_COMPLETE) {
-        setmetatile(17, 20, 0x07A, TRUE)
-    }
     end
 }
 
@@ -292,6 +289,13 @@ script tarc3_Hold_EventScript_EvdStorageDoorShut {
 
 script tarc3_Hold_EventScript_EvdStorageDoorSeen {
     msgbox(format("The bolt slid back clean. Nobody broke this door open."))
+    releaseall
+    end
+}
+
+script tarc3_Hold_EventScript_StorageDoor {
+    lockall
+    msgbox(format("The storage door is locked."))
     releaseall
     end
 }
