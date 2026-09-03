@@ -1113,7 +1113,7 @@ static inline u32 GetEggCycleLength(void)
     }
 }
 
-static u32 GetEggCyclesToSubtract(void)
+u32 GetEggCyclesToSubtract(void)
 {
     u32 result = 1;
     if (DoesPartyHaveIncubatorMon())
