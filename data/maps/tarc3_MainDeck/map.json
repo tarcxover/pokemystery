@@ -777,6 +777,69 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_MainDeck_EventScript_EvdPlate",
       "notes": "Gozo's untouched place setting"
+    },
+    {
+      "type": "sign",
+      "x": 13,
+      "y": 14,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_MainDeck_EventScript_CabinDoor",
+      "notes": "joji cabin door - read from the doorway tile above"
+    },
+    {
+      "type": "sign",
+      "x": 18,
+      "y": 14,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_MainDeck_EventScript_CabinDoor",
+      "notes": "mariko cabin door - read from the doorway tile above"
+    },
+    {
+      "type": "sign",
+      "x": 23,
+      "y": 14,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_MainDeck_EventScript_CabinDoor",
+      "notes": "kitaro cabin door - read from the doorway tile above"
+    },
+    {
+      "type": "sign",
+      "x": 13,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_MainDeck_EventScript_CabinDoor",
+      "notes": "gozo cabin door"
+    },
+    {
+      "type": "sign",
+      "x": 18,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_MainDeck_EventScript_CabinDoor",
+      "notes": "akie & tatsuo cabin door"
+    },
+    {
+      "type": "sign",
+      "x": 23,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_MainDeck_EventScript_CabinDoor",
+      "notes": "natsue & takeshi cabin door"
+    },
+    {
+      "type": "sign",
+      "x": 28,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_MainDeck_EventScript_CabinDoor",
+      "notes": "ichiro cabin door"
     }
   ]
 }

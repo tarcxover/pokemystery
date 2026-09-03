@@ -48,6 +48,15 @@ script tarc3_MainDeck_OnLoad {
         clearflag(FLAG_HIDE_TARC3_DINING_JOJI)
         clearflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     }
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_SEARCH_TAKESHI) {
+        setmetatile(13, 8, 0x024, TRUE)
+        setmetatile(18, 8, 0x024, TRUE)
+        setmetatile(23, 8, 0x024, TRUE)
+        setmetatile(28, 8, 0x024, TRUE)
+        setmetatile(13, 13, 0x0E8, FALSE)
+        setmetatile(18, 13, 0x0E8, FALSE)
+        setmetatile(23, 13, 0x0E8, FALSE)
+    }
     // act three moves the whole room down to Akie's cabin
     if (var(VAR_TARC3_ACT3) >= TARC3_ACT3_GATHERING) {
         setflag(FLAG_HIDE_TARC3_DINING_ICHIRO_HURT)
@@ -59,6 +68,18 @@ script tarc3_MainDeck_OnLoad {
         setflag(FLAG_HIDE_TARC3_DINING_JOJI)
         setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     }
+    end
+}
+
+script tarc3_MainDeck_EventScript_CabinDoor {
+    goto_if_ge(VAR_TARC3_ACT2, TARC3_ACT2_SEARCH_TAKESHI, tarc3_MainDeck_EventScript_CabinDoorOpen)
+    lockall
+    msgbox(format("The cabin door is locked."))
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_CabinDoorOpen {
     end
 }
 
