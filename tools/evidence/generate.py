@@ -11,12 +11,14 @@ from pathlib import Path
 from textwrap import dedent
 
 import yaml
+import re
 
 type Macro = list[str]
 type Deductions = defaultdict[str, list[list[str]]]
+type Suspects = dict[str, list[str]]
 
 
-@dataclass(frozen=True)
+@dataclass
 class Evidence:
     id: str
     icon: str
@@ -24,6 +26,14 @@ class Evidence:
     recipes: list[list[str]]
     description: str
     details: str
+    score: int
+    suspects: list[str]
+    question: list[str]
+
+@dataclass(frozen=True)
+class Question:
+    id: str
+    text: str
 
 
 def find_project_root(start: Path) -> Path:
@@ -109,16 +119,75 @@ def emit_deduction_table(evidence: list[Evidence]) -> None:
     emit_macro(lines)
 
 
+# Source - https://stackoverflow.com/a/952952
+# Posted by Alex Martelli, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-08-20, License - CC BY-SA 4.0
+def flatten(xss):
+    return [x for xs in xss for x in xs]
+
+def collect_suspects(evidence: list[Evidence]) -> Suspects:
+    suspects = {}
+    for e in evidence:
+        if not e.suspects:
+            continue
+        suspects[e.id] = [s.upper() for s in sorted(e.suspects)]
+    return suspects
+
+def emit_suspect_table(evidence: list[Evidence]) -> None:
+
+    def build_suspect_lines(out: list[str], suspects: Suspects) -> None:
+        for e, s in suspects.items():
+            line = ", ".join([e, *s])
+            out.append(f"F({line})")
+
+    suspects = collect_suspects(evidence)
+    lines = ["#define FOREACH_EVIDENCE_SUSPECT(F)"]
+    build_suspect_lines(lines, suspects)
+    emit_macro(lines)
+
+def emit_suspect_list(evidence: list[Evidence]) -> None:
+    suspects = collect_suspects(evidence)
+    suspect_list = flatten(suspects.values())
+    suspect_list = sorted(list(set(suspect_list)), key=lambda s: (s.lower() == "count", s))
+
+    lines = ["#define FOREACH_SUSPECT(F)"]
+    for s in suspect_list:
+        lines.append(f"F({s.upper()})")
+
+    emit_macro(lines)
+
+
+
 def close_header_guard() -> None:
     print(dedent("\n#endif // CONSTANTS_EVIDENCE_MACROS_H"))
 
+def get_evd_tag(evd: Evidence) -> str:
+    name: str = evd.name
+    tag: str = ''.join(name.split())
+    sanitized_tag: str =  re.sub(r'[^a-zA-Z0-9]', '', tag)
+    return sanitized_tag
 
 def emit_evidence(out: Macro, evd: Evidence) -> None:
     out.append(f"F({evd.id},")
     emit_compound_string(out, evd.name, suffix=",")
     emit_compound_string(out, evd.description, suffix=",")
     emit_compound_string(out, evd.details, suffix=",")
-    out.append(f"{evd.icon})")
+    out.append(f"{evd.icon},")
+
+    suspects = [s.upper() for s in evd.suspects]
+    out.append(f"({",".join(suspects)}),")
+
+    question = [q.upper() for q in evd.question]
+    out.append(f"({",".join(question)}),")
+
+    out.append(f"({evd.score}),")
+
+    tag = get_evd_tag(evd)
+    out.append(f"{tag})")
+
+def emit_question_text(out: Macro, ques: Question) -> None:
+    out.append(f"F({ques.id},")
+    emit_compound_string(out, ques.text, suffix=")")
 
 
 def build_evidence_list(data) -> list[Evidence]:
@@ -130,11 +199,35 @@ def build_evidence_list(data) -> list[Evidence]:
             description=item["description"],
             details=item["details"],
             recipes=item.get("recipes") or [],
+            score=item.get("score") or 0,
+            suspects=item.get("suspects") or ["Count"],
+            question=item.get("question") or ["None"],
         )
         for item in data["evidence"]
     ]
     return res
 
+def build_question_map(data) -> list[Question]:
+    res: list[Question] = [
+        Question(
+            id=item["id"],
+            text=item["text"]
+        )
+        for item in data["questions"]
+    ]
+    return res
+
+def calculate_score(evd: list[Evidence]):
+    def get_score_from_recipes(count: int):
+        if count > 1:
+            return 13
+        elif count > 0:
+            return 5
+        else:
+            return 2
+
+    for i, e in enumerate(evd):
+        evd[i].score = get_score_from_recipes(len(evd[i].recipes))
 
 def main() -> None:
     script_dir = Path(__file__).resolve().parent
@@ -146,17 +239,32 @@ def main() -> None:
         data = yaml.safe_load(f)
 
     evidence = build_evidence_list(data)
+    questions = build_question_map(data)
 
     open_header_guard()
     emit_generated_warning(rel)
 
+    calculate_score(evidence)
+
     lines = ["#define FOREACH_EVIDENCE(F)"]
     for e in evidence:
         emit_evidence(lines, e)
+
     emit_macro(lines)
 
     print()
     emit_deduction_table(evidence)
+    print()
+    emit_suspect_table(evidence)
+    print()
+    emit_suspect_list(evidence)
+    print()
+
+    ques_lines = ["#define FOREACH_QUESTION(F)"]
+    for q in questions:
+        emit_question_text(ques_lines, q)
+    emit_macro(ques_lines)
+
 
     close_header_guard()
 

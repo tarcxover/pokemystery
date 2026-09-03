@@ -11,6 +11,9 @@
 #include "main.h"
 #include "bg.h"
 #include "main_menu.h"
+#include "custom_main_menu.h"
+#include "rtc.h"
+#include "save.h"
 #include "text_window.h"
 #include "trig.h"
 #include "window.h"
@@ -134,8 +137,20 @@ static void SpriteCB_HandleShipBob(struct Sprite *sprite);
 
 static void CB2_GoToMainMenu(void)
 {
+    MainCallback cb;
+
+    bool8 isBatteryOk = !(RtcGetErrorStatus() & RTC_ERR_FLAG_MASK);
+
+    if ((gSaveFileStatus == SAVE_STATUS_OK ||
+         gSaveFileStatus == SAVE_STATUS_EMPTY) &&
+        isBatteryOk) {
+        cb = CB2_InitCustomMainMenu;
+    }
+    else {
+        cb = CB2_InitPrecheckScreen;
+    }
     if (!UpdatePaletteFade())
-        SetMainCallback2(CB2_InitMainMenu);
+        SetMainCallback2(cb);
 }
 
 void CB2_InitCustomTitleScreen(void)

@@ -97,6 +97,35 @@ script tarc3_Accusation_EventScript_Fz_OffTargetTakeshiT2 {
     return
 }
 
+// the item has no bearing on the question being answered
+
+script tarc3_Accusation_EventScript_Fz_OffQuestion {
+    evidencetoitem(VAR_RESULT)
+    bufferitemname(STR_VAR_1, VAR_RESULT)
+    setspeaker("{RIVAL}")
+    msgbox(format("The {STR_VAR_1}?\lThat feels hardly relevant."))
+    msgbox(format("Address what is before this room, {PLAYER} Edgeworth."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    return
+}
+
+// a premise presented on its own - true, on-question, but not yet an argument
+
+script tarc3_Accusation_EventScript_Ev_RawClue {
+    evidencetoitem(VAR_RESULT)
+    bufferitemname(STR_VAR_1, VAR_RESULT)
+    setspeaker("{PLAYER}")
+    msgbox(format("The {STR_VAR_1}."))
+    setspeaker("{RIVAL}")
+    msgbox(format("A fact, and a true one. It is not yet an argument.\pFind what it means, {PLAYER} Edgeworth, and bring me that instead."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    return
+}
+
 // question one - Gozo
 
 script tarc3_Accusation_EventScript_Ev_Sketchbook {

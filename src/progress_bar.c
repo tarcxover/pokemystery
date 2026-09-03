@@ -2,12 +2,14 @@
 #include "assertf.h"
 #include "decompress.h"
 #include "even_sprite.h"
+#include "evidence.h"
 #include "gba/defines.h"
 #include "gba/io_reg.h"
 #include "gba/isagbprint.h"
 #include "graphics.h"
 #include "main.h"
 #include "progress_bar.h"
+#include "script.h"
 #include "sprite.h"
 #include "task.h"
 #include "util.h"
@@ -21,9 +23,11 @@ static struct SubspriteTable ProgBar_SubspriteTableDynamic;
 static const u16 ProgBar_DefaultPal[] = INCGFX_U16("graphics/progress_bar/progbar.png", ".gbapal");
 static const u32 ProgBar_DefaultGfx[] = INCGFX_U32("graphics/progress_bar/progbar.png", ".4bpp");
 
+static EWRAM_INIT u8 sActiveProgTaskId = TASK_NONE;
+
 static const ProgBar_Template ProgBar_DefaultTemplate = 
 {
-    .totalBarPixels = 100,
+    .totalBarPixels = 216,
     .numStartTiles = 1,
     .numEndTiles = 1,
     .xOffset = -3,
@@ -31,6 +35,13 @@ static const ProgBar_Template ProgBar_DefaultTemplate =
     .palTag = PROG_BAR_TAG,
     .pal = ProgBar_DefaultPal,
     .barGfx = (const Tile4BPP*)ProgBar_DefaultGfx,
+};
+
+const struct ProgressBar gProgressBars[] = {
+    [PROG_BAR_OW_ACCUSE] = {
+        &ProgBar_DefaultTemplate,
+        &gAccuseMenuProgTracker
+    }
 };
 
 static EWRAM_INIT ProgBar_Tracker ProgBar_DefaultTracker = {0, 0, 0};
@@ -44,13 +55,24 @@ enum ProgBar_Threshold ProgBar_GetThreshold(u32 filledPixels, u32 totalPixels);
 static void ProgBar_MaskTileColumns(Tile4BPP* tile, u32 n);
 static Tile4BPP ProgBar_GetMergedEndTile(Tile4BPP destTile, Tile4BPP srcTile, u32 n);
 
+
+static void Task_ProgBarMain(u8 taskId);
+
 u32 ProgBar_CreateBar(const ProgBar_Template* t, ProgBar_Tracker* tracker)
 {
+    u32 taskId = CreateTask(Task_ProgBarMain, 0);
+    ProgBar_State* state  = (void*)gTasks[taskId].data;
     u32 barId = ProgBar_DrawBar(t);
+
+    state->tracker = tracker;
+    state->barSpriteId = barId;
+    state->template = t;
+    state->taskId = taskId;
+
     ProgBar_FillWithEmpty(t, tracker, barId);
     u32 filledPixels = ProgBar_CalcFilledPixels(tracker, t->totalBarPixels);
     ProgBar_Update(t, tracker, filledPixels, barId);
-    return barId;
+    return taskId;
 }
 
 void ProgBar_Update(const ProgBar_Template* t, ProgBar_Tracker* tracker, u32 filledPixels, u32 barId)
@@ -105,7 +127,6 @@ static u32 ProgBar_DrawBar(const ProgBar_Template* t)
     ProgBar_SubspriteTableDynamic = ProgBar_BuildSubspriteTable(t, ProgBar_DynamicSubsprites);
     u32 id = _ProgBar_CreateSprite(t, 0, t->yPos);
     struct Sprite* sprite = &gSprites[id];
-    SetSubspriteTables(sprite, &ProgBar_SubspriteTableDynamic);
     s32 offsetX = CalcSpriteDisplayCenterOffset(sprite);
     sprite->x += offsetX;
     sprite->x += t->xOffset;
@@ -129,6 +150,7 @@ static u32 _ProgBar_CreateSprite(const ProgBar_Template* t, s32 x, s32 y)
     cs.posX = x;
     cs.posY = y;
     cs.subpriority = 0;
+    cs.subspriteTable = &ProgBar_SubspriteTableDynamic;
     return Even_CreateSprite(&cs);
 }
 
@@ -200,11 +222,19 @@ u32 ProgBar_CalcFilledPixels(ProgBar_Tracker* tracker, u32 totalBarPixels)
 
 static struct SubspriteTable ProgBar_BuildSubspriteTable(const ProgBar_Template* t, struct Subsprite* subspritePtr)
 {
-    u32 numTiles = t->totalBarPixels / 8 + t->numStartTiles + t->numEndTiles;
-    numTiles = MathUtil_RoundUp(numTiles, 4);
+    u32 tilesForBar = MathUtil_RoundUp(t->totalBarPixels, 8) / 8;
+    u32 totalTiles = tilesForBar + t->numEndTiles + t->numStartTiles;
+
+    if (!(t->totalBarPixels % 8))
+        totalTiles--;
+
+    DebugPrintf("tilesForBar: %d, numEndTiles: %d, numStartTiles: %d", tilesForBar, t->numEndTiles, t->numStartTiles);
+    u32 numSubspriteTiles = MathUtil_RoundUp(totalTiles, 4);
+
     struct Subsprite* subspritePtrStart = subspritePtr;
 
-    u32 numSubsprites = numTiles / 4;
+    u32 numSubsprites = numSubspriteTiles / 4;
+    DebugPrintf("numSubsprites: %d", numSubsprites);
     u32 totalBarLength = numSubsprites * 32;
 
     s32 startX = 0;
@@ -225,7 +255,7 @@ static struct SubspriteTable ProgBar_BuildSubspriteTable(const ProgBar_Template*
     return table;
 }
 
-static u32 ProgBar_GfxSize(const ProgBar_Template* t)
+static UNUSED u32 ProgBar_GfxSize(const ProgBar_Template* t)
 {
     u32 tilesForBar = MathUtil_RoundUp(t->totalBarPixels, 8) / 8;
     u32 totalTiles = tilesForBar + t->numEndTiles + t->numStartTiles;
@@ -233,16 +263,54 @@ static u32 ProgBar_GfxSize(const ProgBar_Template* t)
     return TILE_SIZE_4BPP * numSpriteTiles;
 }
 
+static void Task_ProgBarMain(u8 taskId)
+{
+    u32 step = 1;
+    ProgBar_State* state = (void*)gTasks[taskId].data;
+    ProgBar_Tracker* tracker = state->tracker;
+
+    if (tracker->target == tracker->curr)
+    {
+        state->animating = FALSE;
+        return;
+    }
+
+    state->animating = TRUE;
+    if (tracker->target < tracker->curr)
+        step *= -1;
+
+    tracker->curr = AddClamped(0, tracker->max, tracker->curr, step);
+
+    ProgBar_FillWithEmpty(state->template, state->tracker, state->barSpriteId);
+    u32 filledPixels = ProgBar_CalcFilledPixels(state->tracker, state->template->totalBarPixels);
+    ProgBar_Update(state->template, state->tracker, filledPixels, state->barSpriteId);
+}
+
 // For Testing
 static void Task_ProgressBarHandleInput(u8 taskId)
 {
-    TASK_DATA(barId);
+    TASK_DATA(progTaskId);
     const u32 step = 1;
 
+    ProgBar_State* state = (void*)gTasks[tData->progTaskId].data;
+
     if (JOY_NEW(L_BUTTON) && JOY_NEW(R_BUTTON)) {
-        ProgBar_Destroy(&ProgBar_DefaultTemplate, tData->barId);
+        ProgBar_Destroy(&ProgBar_DefaultTemplate, state->barSpriteId);
         DestroyTask(taskId);
         return;
+    }
+
+    if (JOY_NEW(SELECT_BUTTON))
+    {
+        if (state->animating)
+            return;
+
+        state->animating = TRUE;
+
+        if (state->tracker->target == 20)
+            state->tracker->target = 80;
+        else
+            state->tracker->target = 20;
     }
 
     if (JOY_HELD(R_BUTTON))
@@ -252,18 +320,35 @@ static void Task_ProgressBarHandleInput(u8 taskId)
 
     if (JOY_HELD(L_BUTTON | R_BUTTON))
     {
-        ProgBar_FillWithEmpty(&ProgBar_DefaultTemplate, &ProgBar_DefaultTracker, tData->barId);
+        ProgBar_FillWithEmpty(&ProgBar_DefaultTemplate, &ProgBar_DefaultTracker, state->barSpriteId);
         u32 filledPixels = ProgBar_CalcFilledPixels(&ProgBar_DefaultTracker, ProgBar_DefaultTemplate.totalBarPixels);
-        ProgBar_Update(&ProgBar_DefaultTemplate, &ProgBar_DefaultTracker, filledPixels, tData->barId);
+        ProgBar_Update(&ProgBar_DefaultTemplate, &ProgBar_DefaultTracker, filledPixels, state->barSpriteId);
     }
+}
+
+bool32 ScrCmd_createprogressbar(struct ScriptContext* ctx)
+{
+    enum ProgressBarId id = ScriptReadByte(ctx);
+    const ProgBar_Template *templ = gProgressBars[id].template;
+    ProgBar_Tracker *tracker = gProgressBars[id].tracker;
+    sActiveProgTaskId = ProgBar_CreateBar(templ,tracker);
+    return FALSE;
+}
+
+bool32 ScrCmd_destroyprogressbar(struct ScriptContext* ctx)
+{
+    ProgBar_State* state = (void*)gTasks[sActiveProgTaskId].data;
+    ProgBar_Destroy(state->template, state->barSpriteId);
+    sActiveProgTaskId = TASK_NONE;
+    return FALSE;
 }
 
 void TestProgBar()
 {
     ProgBar_DefaultTracker.max = 100;
     ProgBar_DefaultTracker.curr = 100;
-    u32 barId = ProgBar_CreateBar(&ProgBar_DefaultTemplate,&ProgBar_DefaultTracker);
+    u32 progTaskId = ProgBar_CreateBar(&ProgBar_DefaultTemplate,&ProgBar_DefaultTracker);
     u32 taskId = CreateTask(Task_ProgressBarHandleInput, 0);
-    TASK_DATA(barId);
-    tData->barId = barId;
+    TASK_DATA(progTaskId);
+    tData->progTaskId = progTaskId;
 }

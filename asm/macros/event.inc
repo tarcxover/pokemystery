@@ -3084,12 +3084,32 @@
 	callnative ScrCmd_dynmultipushheldevidence, requests_effects=1
   .endm
 
-.macro overridetodblend hours:req, minutes=0
+  .macro overridetodblend hours:req, minutes=0
 	callnative ScrCmd_overridetodblend
 	.byte \hours
 	.byte \minutes
-.endm
+  .endm
 
-.macro restoretodblend
+  .macro restoretodblend
 	callnative ScrCmd_restoretodblend
-.endm
+  .endm
+
+  .macro getaccuseevidence slot:req
+	callnative ScrCmd_getaccuseevidence
+	.byte \slot
+  .endm
+
+  .macro openaccusemenu question:req, suspect:req
+	callnative ScrCmd_openaccusemenu
+	.byte \question
+	.byte \suspect
+  .endm
+
+  .macro createprogressbar id:req
+	callnative ScrCmd_createprogressbar
+	.byte \id
+  .endm
+
+  .macro destroyprogressbar
+	callnative ScrCmd_destroyprogressbar
+  .endm

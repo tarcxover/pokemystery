@@ -217,4 +217,34 @@ Input must be of the form (upper << lower) where upper can be up to 7, lower up 
  * outside macros. */
 #define if_comptime(cond) if (__builtin_constant_p((cond) ? 0 : *(int *)0))
 
+
+// Source - https://stackoverflow.com/a/24010059
+// Posted by Alex Celeste, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-08-26, License - CC BY-SA 3.0
+// count arguments
+#define M_NARGS(...) M_NARGS_(__VA_ARGS__, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+#define M_NARGS_(_16, _15, _14, _13, _12, _11, _10, _9, _8, _7, _6, _5, _4, _3, _2, _1, N, ...) N
+
+#define M_GET_ELEM(N, ...) CAT(M_GET_ELEM_, N)(__VA_ARGS__)
+#define M_GET_ELEM_0( _0,  ...) _0
+#define M_GET_ELEM_1( _0, _1, ...) _1
+#define M_GET_ELEM_2( _0, _1, _2, ...) _2
+#define M_GET_ELEM_3( _0, _1, _2, _3, ...) _3
+#define M_GET_ELEM_4( _0, _1, _2, _3, _4, ...) _4
+#define M_GET_ELEM_5( _0, _1, _2, _3, _4, _5, ...) _5
+#define M_GET_ELEM_6( _0, _1, _2, _3, _4, _5, _6, ...) _6
+#define M_GET_ELEM_7( _0, _1, _2, _3, _4, _5, _6, _7, ...) _7
+#define M_GET_ELEM_8( _0, _1, _2, _3, _4, _5, _6, _7, _8, ...) _8
+#define M_GET_ELEM_9( _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, ...) _9
+#define M_GET_ELEM_10(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, ...) _10
+#define M_GET_ELEM_11(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, ...) _11
+#define M_GET_ELEM_12(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12 ...) _12
+#define M_GET_ELEM_13(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13 ...) _13
+#define M_GET_ELEM_14(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14 ...) _14
+#define M_GET_ELEM_15(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15 ...) _15
+#define M_GET_ELEM_16(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16 ...) _16
+
+// Get last argument - placeholder decrements by one
+#define M_GET_LAST(...) M_GET_ELEM(M_NARGS(__VA_ARGS__), _placeholder, __VA_ARGS__)
+
 #endif

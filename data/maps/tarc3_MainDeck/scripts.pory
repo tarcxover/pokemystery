@@ -48,6 +48,15 @@ script tarc3_MainDeck_OnLoad {
         clearflag(FLAG_HIDE_TARC3_DINING_JOJI)
         clearflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     }
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_SEARCH_TAKESHI) {
+        setmetatile(13, 8, 0x024, TRUE)
+        setmetatile(18, 8, 0x024, TRUE)
+        setmetatile(23, 8, 0x024, TRUE)
+        setmetatile(28, 8, 0x024, TRUE)
+        setmetatile(13, 13, 0x0E8, FALSE)
+        setmetatile(18, 13, 0x0E8, FALSE)
+        setmetatile(23, 13, 0x0E8, FALSE)
+    }
     // act three moves the whole room down to Akie's cabin
     if (var(VAR_TARC3_ACT3) >= TARC3_ACT3_GATHERING) {
         setflag(FLAG_HIDE_TARC3_DINING_ICHIRO_HURT)
@@ -59,6 +68,18 @@ script tarc3_MainDeck_OnLoad {
         setflag(FLAG_HIDE_TARC3_DINING_JOJI)
         setflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
     }
+    end
+}
+
+script tarc3_MainDeck_EventScript_CabinDoor {
+    goto_if_ge(VAR_TARC3_ACT2, TARC3_ACT2_SEARCH_TAKESHI, tarc3_MainDeck_EventScript_CabinDoorOpen)
+    lockall
+    msgbox(format("The cabin door is locked."))
+    releaseall
+    end
+}
+
+script tarc3_MainDeck_EventScript_CabinDoorOpen {
     end
 }
 
@@ -292,10 +313,10 @@ script tarc3_MainDeck_EventScript_JojiBattle {
     setspeaker("Joji")
     msgbox(format("Beautifully done!"))
     msgbox(format("Father wouldn't lend me the money for my restaurant. He bought me a set of knives instead.\pThe cheapest he could find with a name on it."))
-    msgbox(format("I even used them when cooking dinner tonight. Spite sharpens beautifully."))
+    msgbox(format("I even used them when preparing dinner tonight. Spite sharpens beautifully."))
     setspeaker(NULL)
     closemessage
-    msgbox(format("{FONT_NARROW}(.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Hmm. A set of chef's knives, stashed in Joji's luggage.", "1_latin_rse_narrow"))
     giveevidence(EVD_KNIVES_COUNTED)
     closemessage
     goto(tarc3_MainDeck_EventScript_JojiBattleEnd)

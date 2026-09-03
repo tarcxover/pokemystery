@@ -313,11 +313,18 @@
       "notes": "to main deck east"
     },
     {
+      "x": 9,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_ELECTRICAL_ROOM",
+      "dest_warp_id": "0"
+    },
+    {
       "x": 17,
       "y": 20,
       "elevation": 0,
       "dest_map": "MAP_TARC3_HOLD",
-      "dest_warp_id": "3",
+      "dest_warp_id": "4",
       "notes": "to storage"
     },
     {
@@ -325,15 +332,8 @@
       "y": 20,
       "elevation": 0,
       "dest_map": "MAP_TARC3_HOLD",
-      "dest_warp_id": "2",
+      "dest_warp_id": "3",
       "notes": "to hold"
-    },
-    {
-      "x": 9,
-      "y": 19,
-      "elevation": 0,
-      "dest_map": "MAP_TARC3_ELECTRICAL_ROOM",
-      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],
@@ -341,7 +341,7 @@
     {
       "type": "sign",
       "x": 9,
-      "y": 15,
+      "y": 13,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_Hold_EventScript_EvdManifest"
@@ -349,10 +349,26 @@
     {
       "type": "sign",
       "x": 17,
-      "y": 20,
+      "y": 22,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_Hold_EventScript_EvdStorageDoor"
+    },
+    {
+      "type": "sign",
+      "x": 17,
+      "y": 21,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Hold_EventScript_StorageDoor"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 20,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Hold_EventScript_ElectricalDoor"
     }
   ]
 }

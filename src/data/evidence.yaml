@@ -2,8 +2,8 @@ evidence:
   - id: BREADCRUMBS
     name: Breadcrumbs
     icon: BloodyBreadCrust
-    # question: [gozo]
-    # implicates: []
+    question: [gozo]
+    suspects: []
     recipes: NULL
     description: |
       Crumbs of bread
@@ -15,8 +15,8 @@ evidence:
   - id: DARK_RESIDUE
     name: Dark Residue
     icon: CharcoalDust
-    # question: [gozo]
-    # implicates: []
+    question: [gozo]
+    suspects: []
     recipes: NULL
     description: |
       The crumbs carry a
@@ -27,8 +27,8 @@ evidence:
   - id: DROPPED_FLOWER
     name: Dropped Flower
     icon: LapelFlower
-    # question: [gozo]
-    # implicates: []
+    question: [gozo]
+    suspects: []
     recipes: NULL
     description: |
       Suzuki saw Takeshi's
@@ -40,9 +40,9 @@ evidence:
 
   - id: SKETCHBOOK
     name: Sketchbook
-    icon: Testimony
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: Sketchbook
+    question: [gozo]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Dozens of drawings.
@@ -53,9 +53,9 @@ evidence:
 
   - id: REFUSED_SUITOR
     name: Refused Suitor
-    icon: Testimony
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: RefusedSuitor
+    question: [gozo]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Someone asked Gozo
@@ -66,9 +66,9 @@ evidence:
 
   - id: TUITION_FUNDS
     name: Tuition Funds
-    icon: Testimony
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: TuitionFunds
+    question: [gozo]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Gozo said he was
@@ -79,9 +79,9 @@ evidence:
 
   - id: ICHIRO_SPONSORSHIP
     name: Sponsorship
-    icon: Testimony
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: Sponsorship
+    question: [gozo]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Gozo paid for
@@ -92,9 +92,9 @@ evidence:
 
   - id: BREAD_ERASER
     name: Bread Eraser
-    icon: BloodyBreadCrust
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: BreadEraser
+    question: [gozo]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       A dry loaf in the
@@ -105,9 +105,9 @@ evidence:
 
   - id: TAKESHIS_MEETING
     name: Requested Meeting
-    icon: LapelFlower
-    # question: [gozo]
-    # implicates: [TAKESHI]
+    icon: RequestedMeeting
+    question: [gozo]
+    suspects: [Takeshi]
     recipes: NULL
     description: |
       Gozo asked Takeshi
@@ -119,8 +119,8 @@ evidence:
   - id: TAKESHIS_HISTORY
     name: Takeshi's History
     icon: Testimony
-    # question: [gozo]
-    # implicates: [TAKESHI]
+    question: [gozo]
+    suspects: [Takeshi]
     recipes: NULL
     description: |
       Gozo ruined Takeshi's
@@ -131,9 +131,9 @@ evidence:
 
   - id: FAMILY_PICTURE
     name: Family Picture
-    icon: PlantedFlower
-    # question: [gozo]
-    # implicates: [TAKESHI]
+    icon: FamilyPicture
+    question: [gozo]
+    suspects: [Takeshi]
     recipes: NULL
     description: |
       Takeshi as a boy,
@@ -144,9 +144,9 @@ evidence:
 
   - id: OVERHEARD_ARGUMENT
     name: Overheard Row
-    icon: Testimony
-    # question: [gozo]
-    # implicates: [TAKESHI]
+    icon: OverheardArgument
+    question: [gozo]
+    suspects: [Takeshi]
     recipes: NULL
     description: |
       Mariko heard Gozo
@@ -157,9 +157,9 @@ evidence:
 
   - id: UNREQUITED_LOVE
     name: Unrequited Love
-    icon: Testimony
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: UnrequitedLove
+    question: [gozo]
+    suspects: [Ichiro]
     recipes:
       - [SKETCHBOOK, REFUSED_SUITOR]
     description: |
@@ -171,9 +171,9 @@ evidence:
 
   - id: SPONSORSHIP_WITHDRAWAL
     name: Withdrawn Funds
-    icon: Testimony
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: SponsorshipWithdrawal
+    question: [gozo]
+    suspects: [Ichiro]
     recipes:
       - [TUITION_FUNDS, ICHIRO_SPONSORSHIP]
     description: |
@@ -185,9 +185,9 @@ evidence:
 
   - id: ARTIST_AT_THE_DOOR
     name: Artist at the Door
-    icon: BloodyBreadCrust
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: ArtistAtTheDoor
+    question: [gozo]
+    suspects: [Ichiro]
     recipes:
       - [BREADCRUMBS, BREAD_ERASER]
       - [BREADCRUMBS, DARK_RESIDUE]
@@ -201,10 +201,10 @@ evidence:
   - id: GOZOS_FINAL_MEETING
     name: Final Meeting
     icon: PlantedFlower
-    # question: [gozo]
-    # implicates: [TAKESHI]
+    question: [gozo]
+    suspects: [Takeshi]
     recipes:
-      - [DROPPED_FLOWER, TAKESHIS_MEETING]
+     - [DROPPED_FLOWER, TAKESHIS_MEETING]
     description: |
       Takeshi was summoned
       to the cabin, and
@@ -214,9 +214,9 @@ evidence:
 
   - id: TAKESHIS_REVENGE
     name: Takeshi's Revenge
-    icon: PlantedFlower
-    # question: [gozo]
-    # implicates: [TAKESHI]
+    icon: TakeshisRevenge
+    question: [gozo]
+    suspects: [Takeshi]
     recipes:
       - [TAKESHIS_HISTORY, FAMILY_PICTURE]
     description: |
@@ -228,9 +228,9 @@ evidence:
 
   - id: TWIN_REFUSAL
     name: Twin Refusal
-    icon: Testimony
-    # question: [gozo]
-    # implicates: [ICHIRO]
+    icon: TwinRefusal
+    question: [gozo]
+    suspects: [Ichiro]
     recipes:
       - [UNREQUITED_LOVE, SPONSORSHIP_WITHDRAWAL]
     description: |
@@ -242,9 +242,9 @@ evidence:
 
   - id: TWO_SOUNDS
     name: Two Sounds
-    icon: Testimony
-    # question: [tatsuo]
-    # implicates: []
+    icon: TwoSounds
+    question: [tatsuo]
+    suspects: []
     recipes: NULL
     description: |
       A splash. Then,
@@ -255,9 +255,9 @@ evidence:
 
   - id: BLOODY_CLOTH
     name: Bloody Cloth
-    icon: BloodyKnife
-    # question: [tatsuo]
-    # implicates: []
+    icon: BloodyCloth
+    question: [tatsuo]
+    suspects: []
     recipes: NULL
     description: |
       A bloodied cloth,
@@ -268,9 +268,9 @@ evidence:
 
   - id: UNLOCKED_CELL
     name: Unlocked Cell
-    icon: LockedDoor
-    # question: [tatsuo]
-    # implicates: []
+    icon: UnlockedCell
+    question: [tatsuo]
+    suspects: []
     recipes: NULL
     description: |
       Takeshi heard his
@@ -281,9 +281,9 @@ evidence:
 
   - id: CHARCOAL_ON_BOLT
     name: Charcoal on Bolt
-    icon: CharcoalDust
-    # question: [tatsuo]
-    # implicates: [ICHIRO]
+    icon: CharcoalOnBolt
+    question: [tatsuo]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Black dust smeared
@@ -294,9 +294,9 @@ evidence:
 
   - id: LONG_ABSENCE
     name: Long Absence
-    icon: Testimony
-    # question: [tatsuo, lights]
-    # implicates: [ICHIRO]
+    icon: IchirosAbsence
+    question: [tatsuo, lights]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Ichiro left the table
@@ -307,9 +307,9 @@ evidence:
 
   - id: AN_ACCOMPLICE
     name: An Accomplice
-    icon: Testimony
-    # question: [tatsuo, ichiro]
-    # implicates: [TAKESHI]
+    icon: Accomplice
+    question: [tatsuo, ichiro]
+    suspects: [Takeshi]
     recipes: NULL
     description: |
       Mariko says Takeshi
@@ -320,9 +320,9 @@ evidence:
 
   - id: OPEN_SERVICE_DOOR
     name: Open Service Door
-    icon: LockedDoor
-    # question: [tatsuo, lights, ichiro]
-    # implicates: [TAKESHI]
+    icon: OpenServiceDoor
+    question: [tatsuo, lights, ichiro]
+    suspects: [Takeshi]
     recipes: NULL
     description: |
       The deck door by the
@@ -332,9 +332,9 @@ evidence:
 
   - id: BLOOD_ON_THE_STAIR
     name: Blood on the Stair
-    icon: BloodyDoorframe
-    # question: [tatsuo]
-    # implicates: [ICHIRO]
+    icon: BloodOnTheStair
+    question: [tatsuo]
+    suspects: [ICHIRO]
     recipes: NULL
     description: |
       A smear of blood and
@@ -345,7 +345,7 @@ evidence:
 
   - id: HIDDEN_PIPE
     name: Hidden Pipe
-    icon: Testimony
+    icon: HiddenPipe
     # question: [tatsuo]
     # implicates: []
     recipes: NULL
@@ -359,8 +359,8 @@ evidence:
   - id: SILENCED_WITNESS
     name: Silenced Witness
     icon: BloodyKnife
-    # question: [tatsuo]
-    # implicates: [ICHIRO]
+    question: [tatsuo]
+    suspects: [Ichiro]
     recipes:
       - [TWO_SOUNDS, BLOODY_CLOTH]
       - [TWO_SOUNDS, HIDDEN_PIPE]
@@ -373,9 +373,9 @@ evidence:
 
   - id: THE_ACCOMPLICE_THEORY
     name: Accomplice Theory
-    icon: LockedDoor
-    # question: [tatsuo, ichiro]
-    # implicates: [TAKESHI]
+    icon: AccompliceTheory
+    question: [tatsuo, ichiro]
+    suspects: [Takeshi]
     recipes:
       - [AN_ACCOMPLICE, UNLOCKED_CELL]
     description: |
@@ -387,9 +387,9 @@ evidence:
 
   - id: SCORCHED_PANEL
     name: Scorched Panel
-    icon: CharcoalDust
-    # question: [lights]
-    # implicates: []
+    icon: ScorchedPanel
+    question: [lights]
+    suspects: []
     recipes: NULL
     description: |
       Burns around the
@@ -400,9 +400,9 @@ evidence:
 
   - id: SMEARGLE_REPERTOIRE
     name: Smeargle's Moves
-    icon: Testimony
-    # question: [lights]
-    # implicates: [ICHIRO]
+    icon: SmeargleRepertoire
+    question: [lights]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Ichiro's Smeargle
@@ -413,9 +413,9 @@ evidence:
 
   - id: THE_ODD_BATTLE
     name: Odd Battle
-    icon: Testimony
-    # question: [lights]
-    # implicates: [ICHIRO]
+    icon: OddBattle
+    question: [lights]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Ichiro battled Kitaro
@@ -426,9 +426,9 @@ evidence:
 
   - id: FOCUSED_BURN
     name: Focused Burn
-    icon: CharcoalDust
-    # question: [lights]
-    # implicates: [ICHIRO]
+    icon: FocusedBurn
+    question: [lights]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       The burn is narrow.
@@ -439,9 +439,9 @@ evidence:
 
   - id: THE_HOLD_ADJOINS
     name: Adjoining Hold
-    icon: LockedDoor
-    # question: [lights]
-    # implicates: [TAKESHI]
+    icon: AdjoiningHold
+    question: [lights]
+    suspects: [Takeshi]
     recipes: NULL
     description: |
       The storeroom is on
@@ -452,9 +452,9 @@ evidence:
 
   - id: SMEARGLE_KNOWS_DISCHARGE
     name: Copied Discharge
-    icon: Testimony
-    # question: [lights]
-    # implicates: [ICHIRO]
+    icon: CopiedDischarge
+    question: [lights]
+    suspects: [Ichiro]
     recipes:
       - [SMEARGLE_REPERTOIRE, THE_ODD_BATTLE]
     description: |
@@ -466,9 +466,9 @@ evidence:
 
   - id: PANEL_STRUCK
     name: Panel Struck
-    icon: CharcoalDust
-    # question: [lights]
-    # implicates: [ICHIRO]
+    icon: PanelStruck
+    question: [lights]
+    suspects: [Ichiro]
     recipes:
       - [SCORCHED_PANEL, FOCUSED_BURN]
     description: |
@@ -481,8 +481,8 @@ evidence:
   - id: THE_NEAREST_HAND
     name: Nearest Hand
     icon: LockedDoor
-    # question: [lights]
-    # implicates: [TAKESHI]
+    question: [lights]
+    suspects: [Takeshi]
     recipes:
       - [THE_HOLD_ADJOINS, OPEN_SERVICE_DOOR]
     description: |
@@ -494,9 +494,9 @@ evidence:
 
   - id: SKETCHED_DISCHARGE
     name: Sketched Discharge
-    icon: CharcoalDust
-    # question: [lights]
-    # implicates: [ICHIRO]
+    icon: SketchedDischarge
+    question: [lights]
+    suspects: [Ichiro]
     recipes:
       - [SMEARGLE_KNOWS_DISCHARGE, PANEL_STRUCK]
     description: |
@@ -508,9 +508,9 @@ evidence:
 
   - id: INJURED_LEG
     name: Injured Leg
-    icon: BloodyDoorframe
-    # question: [ichiro]
-    # implicates: []
+    icon: InjuredLeg
+    question: [ichiro]
+    suspects: []
     recipes: NULL
     description: |
       One clean wound to
@@ -520,9 +520,9 @@ evidence:
 
   - id: BATHROOM_BLACKOUT
     name: Total Darkness
-    icon: Testimony
-    # question: [ichiro]
-    # implicates: []
+    icon: TotalDarkness
+    question: [ichiro]
+    suspects: []
     recipes: NULL
     description: |
       Ichiro says the lights
@@ -534,8 +534,8 @@ evidence:
   - id: BATHROOM_KNIFE
     name: Bathroom Knife
     icon: KitchenKnife
-    # question: [ichiro]
-    # implicates: []
+    question: [ichiro]
+    suspects: []
     recipes: NULL
     description: |
       Joji's knife, on the
@@ -545,7 +545,7 @@ evidence:
 
   - id: KNIVES_COUNTED
     name: Knives Counted
-    icon: KitchenKnife
+    icon: KnivesCounted
     # question: [ichiro]
     # implicates: []
     recipes: NULL
@@ -558,9 +558,9 @@ evidence:
 
   - id: MISSING_KNIVES
     name: Missing Knives
-    icon: KitchenKnife
-    # question: [ichiro]
-    # implicates: []
+    icon: MissingKnives
+    question: [ichiro]
+    suspects: []
     recipes: NULL
     description: |
       Eight slots in the
@@ -571,9 +571,9 @@ evidence:
 
   - id: NO_DEFENSIVE_WOUNDS
     name: No Defence
-    icon: BloodyDoorframe
-    # question: [ichiro]
-    # implicates: [ICHIRO]
+    icon: NoDefensiveWounds
+    question: [ichiro]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       No cuts to his hands
@@ -583,9 +583,9 @@ evidence:
 
   - id: THE_SECOND_STORY
     name: The Second Story
-    icon: Testimony
-    # question: [ichiro]
-    # implicates: [ICHIRO]
+    icon: SecondStory
+    question: [ichiro]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Pressed on the dark,
@@ -596,9 +596,9 @@ evidence:
 
   - id: IMPOSSIBLE_PRECISION
     name: Impossible Aim
-    icon: BloodyKnife
-    # question: [ichiro]
-    # implicates: [ICHIRO]
+    icon: ImpossiblePrecision
+    question: [ichiro]
+    suspects: [Ichiro]
     recipes:
       - [BATHROOM_BLACKOUT, INJURED_LEG]
     description: |
@@ -611,8 +611,8 @@ evidence:
   - id: INCONSISTENT_DISPOSAL
     name: Left Behind
     icon: KitchenKnife
-    # question: [ichiro]
-    # implicates: [ICHIRO]
+    question: [ichiro]
+    suspects: [Ichiro]
     recipes:
       - [BATHROOM_KNIFE, MISSING_KNIVES]
     description: |
@@ -624,9 +624,9 @@ evidence:
 
   - id: SELF_INFLICTED_WOUND
     name: Self-Inflicted
-    icon: BloodyKnife
-    # question: [ichiro]
-    # implicates: [ICHIRO]
+    icon: SelfInflicted
+    question: [ichiro]
+    suspects: [Ichiro]
     recipes:
       - [IMPOSSIBLE_PRECISION, INCONSISTENT_DISPOSAL]
     description: |
@@ -635,4 +635,19 @@ evidence:
       it himself.
     details: |
       tba
+
+questions:
+  - id: GOZO
+    text: |
+      Who killed Gozo?
+  - id: ICHIRO
+    text: |
+      Who stabbed Ichiro?
+  - id: TATSUO
+    text: |
+      Who killed Tatsuo?
+  - id: LIGHTS
+    text: |
+      How was the blackout caused?
+
 
