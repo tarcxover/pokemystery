@@ -292,10 +292,10 @@ script tarc3_MainDeck_EventScript_JojiBattle {
     setspeaker("Joji")
     msgbox(format("Beautifully done!"))
     msgbox(format("Father wouldn't lend me the money for my restaurant. He bought me a set of knives instead.\pThe cheapest he could find with a name on it."))
-    msgbox(format("I even used them when cooking dinner tonight. Spite sharpens beautifully."))
+    msgbox(format("I even used them when preparing dinner tonight. Spite sharpens beautifully."))
     setspeaker(NULL)
     closemessage
-    msgbox(format("{FONT_NARROW}(.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Hmm. A set of chef's knives, stashed in Joji's luggage.", "1_latin_rse_narrow"))
     giveevidence(EVD_KNIVES_COUNTED)
     closemessage
     goto(tarc3_MainDeck_EventScript_JojiBattleEnd)
