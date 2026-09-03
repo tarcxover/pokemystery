@@ -608,7 +608,7 @@ script tarc3_Foredeck_EventScript_EvdPipe {
 }
 
 script tarc3_Foredeck_EventScript_EvdPipeSacking {
-    msgbox(format("{FONT_NARROW}Tatsuo hid the broken pipes here. He told me so himself, and he was pleased about it.)\pWhich means the pipe he broke off is still under the sacking.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Tatsuo hid the broken pipes here. He told me so himself, and he was pleased about it.\pWhich means the pipe he broke off is still under the sacking.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_DECK2_FOUND_PIPE)
     releaseall
