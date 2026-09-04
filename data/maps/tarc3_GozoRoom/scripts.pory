@@ -210,22 +210,14 @@ script tarc3_GozoRoom_EventScript_Ran {
     }
     setspeaker(NULL)
     closemessage
-    msgbox(format("{FONT_NARROW}(PLACEHOLDER: Investigation & deduction?)", "1_latin_rse_narrow"))
-    closemessage
-    delay(20)
     setspeaker("{RIVAL}")
     msgbox(format("...You are certain. All of it?"))
-    setspeaker(NULL)
-    closemessage
-    setvar(VAR_TARC3_ACT1, TARC3_ACT1_JAIL_TAKESHI)
-    setspeaker("{RIVAL}")
-    msgbox(format("Silence, all of you.\pYou will listen to him."))
     setspeaker(NULL)
     closemessage
     delay(20)
     fadescreen(FADE_TO_BLACK)
     call(tarc3_GozoRoom_EventScript_ClearEvidence)
-    setobjectxy(OBJ_EVENT_ID_PLAYER, 11, 11)
+    setobjectxy(OBJ_EVENT_ID_PLAYER, 10, 11)
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     setobjectxy(LOCALID_GOZOROOM_SUZUKI, 9, 11)
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(face_down))
@@ -234,6 +226,13 @@ script tarc3_GozoRoom_EventScript_Ran {
     hidefollower
     fadescreen(FADE_FROM_BLACK)
     delay(20)
+    setspeaker("{RIVAL}")
+    msgbox(format("Silence, all of you.\pYou will listen to him."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    call(tarc3_Recon_EventScript_Begin)
+    setvar(VAR_TARC3_ACT1, TARC3_ACT1_JAIL_TAKESHI)
     goto(tarc3_GozoRoom_EventScript_MarikosRevelation)
 }
 
@@ -241,7 +240,9 @@ script tarc3_GozoRoom_EventScript_Ran {
 
 script tarc3_GozoRoom_EventScript_MarikosRevelation {
     delay(30)
-    applymovement(LOCALID_GOZOROOM_MARIKO, moves(walk_up, face_left))
+    applymovement(LOCALID_GOZOROOM_MARIKO, moves(walk_up, face_down))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
     waitmovement(0)
     delay(20)
     setspeaker("Mariko")
@@ -251,7 +252,7 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     setspeaker(NULL)
     closemessage
     delay(20)
-    applymovement(LOCALID_GOZOROOM_MARIKO, moves(face_down))
+    applymovement(LOCALID_GOZOROOM_MARIKO, moves(face_left))
     waitmovement(0)
     delay(20)
     setspeaker("Mariko")
@@ -262,6 +263,7 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     playse(SE_PIN)
     applymovement(LOCALID_GOZOROOM_TAKESHI, moves(emote_exclamation_mark))
     waitmovement(0)
+    applymovement(LOCALID_GOZOROOM_MARIKO, moves(face_down))
     delay(100)
     setspeaker("Mariko")
     msgbox(format("Ten years ago, Father orchestrated a hostile takeover of a company called Zaiki."))
@@ -269,6 +271,8 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     setspeaker(NULL)
     closemessage
     applymovement(LOCALID_GOZOROOM_SUZUKI, moves(walk_in_place_slow_down))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
     waitmovement(0)
     setspeaker("Suzuki")
     msgbox(format("Zaiki Research Institute."))
@@ -280,6 +284,8 @@ script tarc3_GozoRoom_EventScript_MarikosRevelation {
     waitmovement(0)
     delay(30)
     applymovement(LOCALID_GOZOROOM_TAKESHI, moves(walk_in_place_slow_right))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
     setspeaker("Takeshi")
     msgbox(format("Zaiki. My name is Takeshi Zaiki."))
@@ -460,7 +466,8 @@ script tarc3_GozoRoom_EventScript_FollowerMagnezoneSearch {
 }
 
 script tarc3_GozoRoom_EventScript_FollowerStoutlandSniff {
-    goto_if_set(FLAG_TARC3_GOZO_FOUND_CRUMBS, tarc3_EventScript_FollowerHookEnd)
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_RESIDUE, tarc3_EventScript_FollowerHookEnd)
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_CRUMBS, tarc3_GozoRoom_EventScript_FollowerStoutlandResidue)
     applymovement(OBJ_EVENT_ID_FOLLOWER, moves(walk_in_place_fast_up, walk_in_place_fast_left, walk_in_place_fast_down, walk_in_place_fast_right))
     waitmovement(0)
     getobjectxy(OBJ_EVENT_ID_FOLLOWER, CURRENT_POSITION, VAR_0x8004, VAR_0x8005)
@@ -476,6 +483,22 @@ script tarc3_GozoRoom_EventScript_FollowerStoutlandSniff {
     delay(20)
     msgbox(format("Stoutland puts its nose to the carpet and stops dead, facing the doorway.\pIt can sniff out a clue!"))
     closemessage
+    goto(tarc3_EventScript_FollowerHandled)
+}
+
+// once the crumbs are documented, Stoutland can tell what is on them
+
+script tarc3_GozoRoom_EventScript_FollowerStoutlandResidue {
+    applymovement(OBJ_EVENT_ID_FOLLOWER, moves(walk_in_place_fast_down, walk_in_place_fast_down))
+    waitmovement(0)
+    delay(20)
+    msgbox(format("Stoutland works its nose over the breadcrumbs and sneezes."))
+    closemessage
+    msgbox(format("{FONT_NARROW}There is a fine black dust worked through them.", "1_latin_rse_narrow"))
+    closemessage
+    giveevidence(EVD_DARK_RESIDUE)
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_RESIDUE)
     goto(tarc3_EventScript_FollowerHandled)
 }
 
@@ -518,6 +541,60 @@ script tarc3_GozoRoom_EventScript_EvdCarpetSeen {
     end
 }
 
+// investigation - the door itself
+
+script tarc3_GozoRoom_EventScript_EvdDoorframe {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_FRAME, tarc3_GozoRoom_EventScript_EvdDoorframeSeen)
+    msgbox(format("Blood across the doorframe, thrown high and wide. Chest height, and above it."))
+    msgbox(format("{FONT_NARROW}This door was standing open when that landed.\pA closed door cannot be painted on its own frame.", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_FRAME)
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdDoorframeSeen {
+    msgbox(format("Blood on the frame itself. The door was open when he was cut."))
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdLatch {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_LATCH, tarc3_GozoRoom_EventScript_EvdLatchSeen)
+    msgbox(format("A door lock, set into the inner face of the door. It turns without resistance."))
+    msgbox(format("{FONT_NARROW}From the corridor, this door requires Suzuki's key.\pFrom in here, it requires the slip of a thumb.", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_LATCH)
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdLatchSeen {
+    msgbox(format("The latch on the inner face. No key is needed from this side."))
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdTrail {
+    lockall
+    goto_if_set(FLAG_TARC3_GOZO_FOUND_TRAIL, tarc3_GozoRoom_EventScript_EvdTrailSeen)
+    msgbox(format("A smear runs from the threshold to the place where he came to rest."))
+    msgbox(format("{FONT_NARROW}Not a drag mark. Too even, and nothing has pooled at the door.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}He crossed this floor on his own feet, already bleeding.", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_GOZO_FOUND_TRAIL)
+    releaseall
+    end
+}
+
+script tarc3_GozoRoom_EventScript_EvdTrailSeen {
+    msgbox(format("The trail leads inward, from the doorway to the body."))
+    releaseall
+    end
+}
+
 // investigation - Suzuki
 
 script tarc3_GozoRoom_EventScript_Suzuki {
@@ -552,6 +629,7 @@ script tarc3_GozoRoom_EventScript_SuzukiBeat1 {
     msgbox(format("Gozo must have invited the assailant into his cabin.\pBut we found the door locked, and there was no one else in the room.\pHow could that be?"))
     setspeaker(NULL)
     closemessage
+    setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_1)
     goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
 }
 
@@ -561,6 +639,10 @@ script tarc3_GozoRoom_EventScript_SuzukiBeat2 {
     msgbox(format("Gozo's room requires extra security.\pOther cabins can be entered freely."))
     setspeaker(NULL)
     closemessage
+    msgbox(format("{FONT_NARROW}From the corridor, then. But he was inside it.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}I should look at the inner face of that door.", "1_latin_rse_narrow"))
+    closemessage
+    setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_2)
     goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
 }
 
@@ -776,18 +858,18 @@ script tarc3_GozoRoom_EventScript_RevealRoom {
     setmetatile(6, 3, 0x08E, TRUE)
     setmetatile(7, 3, 0x017, TRUE)
     setmetatile(8, 3, 0x017, TRUE)
-    setmetatile(9, 3, 0x10B, TRUE)
-    setmetatile(10, 3, 0x017, TRUE)
-    setmetatile(11, 3, 0x10B, TRUE)
+    setmetatile(9, 3, 0x017, TRUE)
+    setmetatile(10, 3, 0x10B, TRUE)
+    setmetatile(11, 3, 0x017, TRUE)
     setmetatile(12, 3, 0x0BB, TRUE)
     setmetatile(13, 3, 0x017, TRUE)
     setmetatile(14, 3, 0x08F, TRUE)
     setmetatile(6, 4, 0x096, TRUE)
     setmetatile(7, 4, 0x090, TRUE)
     setmetatile(8, 4, 0x0C4, TRUE)
-    setmetatile(9, 4, 0x113, TRUE)
-    setmetatile(10, 4, 0x01F, TRUE)
-    setmetatile(11, 4, 0x113, TRUE)
+    setmetatile(9, 4, 0x01F, TRUE)
+    setmetatile(10, 4, 0x113, TRUE)
+    setmetatile(11, 4, 0x01F, TRUE)
     setmetatile(12, 4, 0x0C3, TRUE)
     setmetatile(13, 4, 0x01F, TRUE)
     setmetatile(14, 4, 0x097, TRUE)

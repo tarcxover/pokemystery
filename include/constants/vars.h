@@ -442,9 +442,9 @@
 
 // VAR_TARC3_ACT2
 #define TARC3_ACT2_DECK_DOOR       1  // CS7: MainDeck west lobby
-#define TARC3_ACT2_BODY_ON_DECK    2  // CS8: Foredeck
-#define TARC3_ACT2_HOLD_SEARCH     3  // CS8 continues: Hold
-#define TARC3_ACT2_INVESTIGATE_2A  4  // free roam; Franziska waits on the Foredeck
+#define TARC3_ACT2_BODY_ON_DECK    2  // CS8a: Foredeck, the body is found
+#define TARC3_ACT2_DECK_INVESTIGATE 3 // free roam; family on deck, Franziska waits
+#define TARC3_ACT2_HOLD_SEARCH     4  // CS8b: Hold
 #define TARC3_ACT2_ROOM_SETTLES    5  // CS9: dining room
 #define TARC3_ACT2_GATHER          6  // free talk; dining room sealed
 #define TARC3_ACT2_BLACKOUT        7  // CS10: Bathroom cut, then MainDeck return

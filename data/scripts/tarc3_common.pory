@@ -54,6 +54,7 @@ script tarc3_EventScript_FollowerMagnezone {
 
 script tarc3_EventScript_FollowerStoutland {
     goto_if_eq(VAR_TARC3_ACT1, TARC3_ACT1_INVESTIGATE_1, tarc3_GozoRoom_EventScript_FollowerStoutlandSniff)
+    goto_if_eq(VAR_TARC3_ACT2, TARC3_ACT2_DECK_INVESTIGATE, tarc3_Foredeck_EventScript_FollowerStoutlandSack)
     goto(tarc3_EventScript_FollowerHookEnd)
 }
 
@@ -78,4 +79,20 @@ script tarc3_EventScript_FollowerHandled {
 script tarc3_EventScript_FollowerHookEnd {
     setvar(VAR_RESULT, FALSE)
     return
+}
+
+script tarc3_EventScript_ToDiningRoom {
+    setflag(FLAG_HIDE_TARC3_DECK2_RAN)
+    clearflag(FLAG_HIDE_TARC3_DINING_RAN)
+    clearflag(FLAG_HIDE_TARC3_DINING_NATSUE)
+    clearflag(FLAG_HIDE_TARC3_DINING_JOJI)
+    clearflag(FLAG_HIDE_TARC3_DINING_MARIKO)
+    clearflag(FLAG_HIDE_TARC3_DINING_KITARO)
+    clearflag(FLAG_HIDE_TARC3_DINING_AKIE)
+    clearflag(FLAG_HIDE_TARC3_DINING_ICHIRO)
+    clearflag(FLAG_HIDE_TARC3_DINING_SUZUKI)
+    setvar(VAR_TARC3_ACT2, TARC3_ACT2_ROOM_SETTLES)
+    warp(MAP_TARC3_MAIN_DECK, 41, 12)
+    waitstate
+    end
 }

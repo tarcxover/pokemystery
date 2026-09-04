@@ -1,0 +1,494 @@
+// act 2 - the reconstruction of Tatsuo's murder
+// begins via tarc3_Foredeck_EventScript_DeckInvestigateRan
+
+script tarc3_TatsuoRecon_EventScript_Begin {
+    setvar(VAR_TEMP_8, 0)
+    setvar(VAR_TEMP_9, 3)
+    setspeaker("{PLAYER}")
+    msgbox(format("I do not know the identity of the murderer. Yet."))
+    msgbox(format("However, I believe I can give you a reason for this cruelty."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q1)
+}
+
+// Q1 - the splash came first. what does that forbid?
+
+script tarc3_TatsuoRecon_EventScript_Q1 {
+    setvar(VAR_TEMP_7, 0)
+    setspeaker("Kitaro")
+    msgbox(format("You heard it, then. The two of them, one after the other."))
+    setspeaker("{PLAYER}")
+    msgbox(format("A splash. Then, some seconds after it, a heavy thing striking this deck."))
+    msgbox(format("The second of those was Tatsuo. Nobody in this family disputes that."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q1Ask)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q1Ask {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}Then what was the splash?", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("The weapon, thrown over afterwards", 0)
+    dynmultipush("A Pelipper out in the water", 1)
+    dynmultipush("Something he was already disposing of", 2)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_TatsuoRecon_EventScript_Q1WrongAfter)
+        case 1:
+            goto(tarc3_TatsuoRecon_EventScript_Q1WrongMon)
+        default:
+            goto(tarc3_TatsuoRecon_EventScript_Q1Right)
+    }
+}
+
+script tarc3_TatsuoRecon_EventScript_Q1WrongAfter {
+    setspeaker("{RIVAL}")
+    msgbox(format("Afterwards. You have put the disposal after the killing."))
+    msgbox(format("The splash was first. Either that order means something or you have wasted an hour of my evening."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_TatsuoRecon_EventScript_Q1Miss)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q1WrongMon {
+    setspeaker("{RIVAL}")
+    msgbox(format("So a Pelipper struck the water.\pAnd four seconds later, by mere coincidence, a man died on this deck?"))
+    msgbox(format("Coincidence is what people reach for when they have stopped thinking.\pReach further."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_TatsuoRecon_EventScript_Q1Miss)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q1Miss {
+    addvar(VAR_TEMP_7, 1)
+    goto_if_ge(VAR_TEMP_7, 2, tarc3_TatsuoRecon_EventScript_Q1Give)
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q1Ask)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q1Right {
+    if (var(VAR_TEMP_7) == 0) {
+        addvar(VAR_TEMP_8, 1)
+    }
+    setspeaker("{PLAYER}")
+    msgbox(format("Something he was already getting rid of."))
+    msgbox(format("A man who comes out here to kill strikes first and drops the weapon after.\pThat gives you a thud, and then a splash."))
+    msgbox(format("We heard the reverse. Whoever stood at this rail was disposing of something before Tatsuo was ever touched."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q1React)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q1React {
+    playse(SE_PIN)
+    applymovement(LOCALID_FOREDECK_SUZUKI_2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    setspeaker("Suzuki")
+    msgbox(format("...Of course."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q2Gate)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q1Give {
+    setspeaker("{RIVAL}")
+    msgbox(format("The splash came first, so it cannot have been the weapon that killed him. He was already disposing of something."))
+    msgbox(format("That is one sentence, {PLAYER} Edgeworth, and you had all of the pieces of it."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q2Gate)
+}
+
+// Q2 - only askable with the cloth off the rail
+
+script tarc3_TatsuoRecon_EventScript_Q2Gate {
+    checkevidence(EVD_BLOODY_CLOTH)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_TatsuoRecon_EventScript_Q2)
+    goto(tarc3_TatsuoRecon_EventScript_Q3)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q2 {
+    setvar(VAR_TEMP_7, 0)
+    setvar(VAR_TEMP_9, 4)
+    setspeaker("Mariko")
+    msgbox(format("Then say what went into the sea, if you are so certain of the order of it."))
+    setspeaker("{PLAYER}")
+    msgbox(format("I intend to. Cramorant brought a piece of it back."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q2Ask)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q2Ask {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}What went over that rail?", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("The pipe that killed him", 0)
+    dynmultipush("Something of Tatsuo's", 1)
+    dynmultipush("The knife that killed Gozo", 2)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_TatsuoRecon_EventScript_Q2WrongPipe)
+        case 1:
+            goto(tarc3_TatsuoRecon_EventScript_Q2WrongHis)
+        default:
+            goto(tarc3_TatsuoRecon_EventScript_Q2Right)
+    }
+}
+
+script tarc3_TatsuoRecon_EventScript_Q2WrongPipe {
+    setspeaker("{RIVAL}")
+    msgbox(format("The order, again. A splash was heard first. The thud followed.\pA murder weapon can only become a murder weapon after it has murdered."))
+    msgbox(format("You have established one fact tonight. Kindly stop walking back over it."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_TatsuoRecon_EventScript_Q2Miss)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q2WrongHis {
+    setspeaker("Akie")
+    msgbox(format("He... He is lying there. Nothing of his went anywhere."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Contradicted by his widow, and by your own eyes. Think before you speak."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_TatsuoRecon_EventScript_Q2Miss)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q2Miss {
+    addvar(VAR_TEMP_7, 1)
+    goto_if_ge(VAR_TEMP_7, 2, tarc3_TatsuoRecon_EventScript_Q2Give)
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q2Ask)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q2Right {
+    if (var(VAR_TEMP_7) == 0) {
+        addvar(VAR_TEMP_8, 1)
+    }
+    setspeaker("{PLAYER}")
+    msgbox(format("The knife that killed Gozo Hatamoto."))
+    msgbox(format("There is no blade in that cabin. I expect that blade is no longer anywhere on this ship."))
+    msgbox(format("What caught on this rail is not a weapon. It is a cloth, dark along one edge.\pI submit that this bloody rag was wrapped around the blade as it went over the side."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    playse(SE_PIN)
+    applymovement(LOCALID_FOREDECK_JOJI_2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    setspeaker("Joji")
+    msgbox(format("...No one should have been able to access my knives."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q3)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q2Give {
+    setspeaker("{RIVAL}")
+    msgbox(format("The knife, you fool. Gozo's knife, missing since the cabin was opened.\pA bloodied cloth snagged on this rail."))
+    msgbox(format("Two facts that were never more than a sentence apart, and you could not bridge them."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q3)
+}
+
+// Q3 - where the pipe came from
+
+script tarc3_TatsuoRecon_EventScript_Q3 {
+    setvar(VAR_TEMP_7, 0)
+    setspeaker("Kitaro")
+    msgbox(format("Then he came out here armed. He came out here intending to kill."))
+    setspeaker("{PLAYER}")
+    msgbox(format("No. Look deeper at the evidence."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q3Ask)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q3Ask {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}Where did the thing that killed him come from?", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("He carried it out with him", 0)
+    dynmultipush("He used his bare hands", 1)
+    dynmultipush("It was already lying on this deck", 2)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_TatsuoRecon_EventScript_Q3WrongCarried)
+        case 1:
+            goto(tarc3_TatsuoRecon_EventScript_Q3Hands)
+        default:
+            goto(tarc3_TatsuoRecon_EventScript_Q3Right)
+    }
+}
+
+script tarc3_TatsuoRecon_EventScript_Q3WrongCarried {
+    setspeaker("{RIVAL}")
+    msgbox(format("A man disposing of one murder weapon, with a second in his other hand."))
+    msgbox(format("Say that sentence aloud and hear what is wrong with it."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_TatsuoRecon_EventScript_Q3Miss)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q3Hands {
+    setspeaker("{RIVAL}")
+    msgbox(format("Tatsuo's cause of death was blunt force trauma.\pBare fists do not produce wounds of that severity."))
+    msgbox(format("That answer was beneath you, {PLAYER} Edgeworth."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_TatsuoRecon_EventScript_Q3Miss)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q3Miss {
+    addvar(VAR_TEMP_7, 1)
+    goto_if_ge(VAR_TEMP_7, 2, tarc3_TatsuoRecon_EventScript_Q3Give)
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q3Ask)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q3Right {
+    if (var(VAR_TEMP_7) == 0) {
+        addvar(VAR_TEMP_8, 1)
+    }
+    setspeaker("{PLAYER}")
+    msgbox(format("It was already out here. In the equipment sack, four paces from where he was standing."))
+    setspeaker(NULL)
+    closemessage
+    checkevidence(EVD_HIDDEN_PIPE)
+    goto_if_eq(VAR_RESULT, TRUE, tarc3_TatsuoRecon_EventScript_Q3Hidden)
+    goto(tarc3_TatsuoRecon_EventScript_Q3React)
+}
+
+// Tatsuo told the player himself, in the afternoon
+
+script tarc3_TatsuoRecon_EventScript_Q3Hidden {
+    setspeaker("{PLAYER}")
+    msgbox(format("And it was Tatsuo who put it there. He broke some deck fittings this afternoon.\pHe hid the pieces in that sack, where they would pass for ship's equipment.\pHe told me so himself, and was proud of it."))
+    setspeaker("Akie")
+    msgbox(format("...That is exactly the sort of thing he would do."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q3React)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q3React {
+    playse(SE_PIN)
+    applymovement(LOCALID_FOREDECK_AKIE_2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    setspeaker("{PLAYER}")
+    msgbox(format("Nothing was carried onto this deck. He took up the first heavy thing he stumbled over.\pWhich is what a man does when he did not come out here to kill."))
+    setspeaker(NULL)
+    closemessage
+    goto_if_set(FLAG_TARC3_DECK2_FOUND_WEAPON, tarc3_TatsuoRecon_EventScript_Q3Weapon)
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q4)
+}
+
+// the pipe is back in the sack, if the player went through it
+
+script tarc3_TatsuoRecon_EventScript_Q3Weapon {
+    setspeaker("{PLAYER}")
+    msgbox(format("And it is still aboard. Back in the equipment sack, with his blood dried along it. Whoever used it put it back."))
+    setspeaker("Kitaro")
+    msgbox(format("...He put it back. He stood out here afterwards and he put it back."))
+    setspeaker("{PLAYER}")
+    msgbox(format("He carried the knife the length of this deck to drown it.\pThe pipe he left where he found it.\pThe knife was the errand. The pipe was the accident, and he heard us coming."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q4)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q3Give {
+    setspeaker("{RIVAL}")
+    msgbox(format("It was already on this deck, in that equipment sack.\pHe snatched it up where he stood."))
+    msgbox(format("Nothing about this was prepared. The most useful thing this deck has told us.\pAnd you walked past it twice."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q4)
+}
+
+// Q4 - why Tatsuo is dead at all
+
+script tarc3_TatsuoRecon_EventScript_Q4 {
+    setvar(VAR_TEMP_7, 0)
+    setspeaker("Mariko")
+    msgbox(format("Unprepared. Improvised. You are describing an unlucky man, not a reason."))
+    setspeaker("{PLAYER}")
+    msgbox(format("Then let me give you a reason. You will not like how small it is."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q4Ask)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q4Ask {
+    setspeaker(NULL)
+    message(format("{FONT_NARROW}Then why is Tatsuo Kaneko dead?", "1_latin_rse_narrow"))
+    waitmessage
+    dynmultipush("For his share of the estate", 0)
+    dynmultipush("He was mistaken for somebody else", 1)
+    dynmultipush("He was nearby", 2)
+    dynmultistack(0, 0, TRUE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(tarc3_TatsuoRecon_EventScript_Q4WrongEstate)
+        case 1:
+            goto(tarc3_TatsuoRecon_EventScript_Q4WrongMistake)
+        default:
+            goto(tarc3_TatsuoRecon_EventScript_Q4Right)
+    }
+}
+
+script tarc3_TatsuoRecon_EventScript_Q4WrongEstate {
+    setspeaker("Akie")
+    msgbox(format("His share. The murderer wanted a larger share for themselves."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Killing him does not alter any distribution by a single dollar. You should know that."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_TatsuoRecon_EventScript_Q4Miss)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q4WrongMistake {
+    setspeaker("{RIVAL}")
+    msgbox(format("Mistaken identity. On a ship where every soul aboard knows every other by name."))
+    msgbox(format("Absurd."))
+    setspeaker(NULL)
+    closemessage
+    goto(tarc3_TatsuoRecon_EventScript_Q4Miss)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q4Miss {
+    addvar(VAR_TEMP_7, 1)
+    goto_if_ge(VAR_TEMP_7, 2, tarc3_TatsuoRecon_EventScript_Q4Give)
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Q4Ask)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q4Right {
+    if (var(VAR_TEMP_7) == 0) {
+        addvar(VAR_TEMP_8, 1)
+    }
+    setspeaker("{PLAYER}")
+    msgbox(format("Because he was watching."))
+    setspeaker(NULL)
+    closemessage
+    delay(30)
+    setspeaker("{PLAYER}")
+    msgbox(format("He was at that rail when a man threw a bloody rag into the sea.\pThey saw each other."))
+    msgbox(format("He was not a target. He was struck before he had finished turning round."))
+    if (flag(FLAG_TARC3_DECK2_FOUND_BODY)) {
+        msgbox(format("He did not turn, he did not get an arm up, and he did not run.\pHe was not given the time to do any of it."))
+    }
+    setspeaker(NULL)
+    closemessage
+    giveevidence(EVD_SILENCED_WITNESS)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Closing)
+}
+
+script tarc3_TatsuoRecon_EventScript_Q4Give {
+    setspeaker("{RIVAL}")
+    msgbox(format("He saw it. That is the whole of it."))
+    setspeaker(NULL)
+    closemessage
+    giveevidence(EVD_SILENCED_WITNESS)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_Closing)
+}
+
+// the reconstruction
+
+script tarc3_TatsuoRecon_EventScript_Closing {
+    setspeaker("{PLAYER}")
+    msgbox(format("So. A man came out onto this deck tonight with the knife that killed Gozo Hatamoto.\pWrapped, and meant for the sea."))
+    msgbox(format("He did that first. The sea has it, and the wrapping tore off on the rail on the way down."))
+    msgbox(format("Tatsuo was already out here. He saw it happen."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setspeaker("{PLAYER}")
+    msgbox(format("Nobody planned this death.\pHe died for standing in the wrong place at the wrong minute.\pThe man who did it escaped afterwards."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    goto(tarc3_TatsuoRecon_EventScript_ClosingGrade)
+}
+
+script tarc3_TatsuoRecon_EventScript_ClosingGrade {
+    goto_if_eq(VAR_TEMP_9, 4, tarc3_TatsuoRecon_EventScript_ClosingGrade4)
+    goto_if_ge(VAR_TEMP_8, 3, tarc3_TatsuoRecon_EventScript_ClosingBest)
+    goto_if_ge(VAR_TEMP_8, 2, tarc3_TatsuoRecon_EventScript_ClosingFair)
+    goto(tarc3_TatsuoRecon_EventScript_ClosingPoor)
+}
+
+script tarc3_TatsuoRecon_EventScript_ClosingGrade4 {
+    goto_if_ge(VAR_TEMP_8, 4, tarc3_TatsuoRecon_EventScript_ClosingBest)
+    goto_if_ge(VAR_TEMP_8, 2, tarc3_TatsuoRecon_EventScript_ClosingFair)
+    goto(tarc3_TatsuoRecon_EventScript_ClosingPoor)
+}
+
+script tarc3_TatsuoRecon_EventScript_ClosingBest {
+    fadeoutbgm(4)
+    delay(60)
+    setspeaker("Akie")
+    msgbox(format("He was standing there minding his own business and somebody killed him for it."))
+    msgbox(format("For nothing. For being in the way."))
+    setspeaker("{RIVAL}")
+    msgbox(format("Adequate, {PLAYER} Edgeworth. Twice in one night."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_TARC3_TATSUO_RECONSTRUCTED)
+    return
+}
+
+script tarc3_TatsuoRecon_EventScript_ClosingFair {
+    setspeaker("Kitaro")
+    msgbox(format("...It holds together."))
+    setspeaker("Mariko")
+    msgbox(format("It holds together and it names nobody. You have described a rail to us."))
+    setspeaker("{RIVAL}")
+    msgbox(format("He has described a man improvising.\pThis family decided first, and went looking for reasons after."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_TARC3_TATSUO_RECONSTRUCTED)
+    return
+}
+
+script tarc3_TatsuoRecon_EventScript_ClosingPoor {
+    setspeaker("Mariko")
+    msgbox(format("Most of that came out of her mouth again."))
+    setspeaker("{RIVAL}")
+    msgbox(format("The reconstruction is sound. How much of it I had to hand him is a matter between him and me."))
+    setspeaker(NULL)
+    closemessage
+    delay(20)
+    setflag(FLAG_TARC3_TATSUO_RECONSTRUCTED)
+    return
+}
