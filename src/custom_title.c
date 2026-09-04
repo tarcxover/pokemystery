@@ -61,6 +61,7 @@ struct CustomTitleState
 static EWRAM_DATA struct CustomTitleState *sCustomTitleState = NULL;
 static EWRAM_DATA u8 *sBg0TilemapBuffer = NULL;
 static EWRAM_DATA u8 *sBg1TilemapBuffer = NULL;
+static EWRAM_DATA u8 *sBg2TilemapBuffer = NULL;
 
 static const struct BgTemplate sCustomTitleBgTemplates[] =
 {
@@ -68,13 +69,19 @@ static const struct BgTemplate sCustomTitleBgTemplates[] =
         .bg = 0,
         .charBaseIndex = 0,
         .mapBaseIndex = 31,
-        .priority = 0
+        .priority = 1
     },
     {
         .bg = 1,
         .charBaseIndex = 3,
         .mapBaseIndex = 30,
         .priority = 2
+    },
+    {
+        .bg = 2,
+        .charBaseIndex = 1,
+        .mapBaseIndex = 29,
+        .priority = 0
     }
 };
 
@@ -85,6 +92,11 @@ static const u16 sCustomTitlePalette[] = INCBIN_U16("graphics/custom_title/night
 static const u32 sCustomTitleTextTiles[] = INCBIN_U32("graphics/custom_title/text/tiles.4bpp.smol");
 static const u32 sCustomTitleTextTilemap[] = INCBIN_U32("graphics/custom_title/text/map.bin.smolTM");
 static const u16 sCustomTitleTextPalette[] = INCBIN_U16("graphics/custom_title/text/palette_02.gbapal");
+
+static const u32 sCustomTitleSubtitleTiles[] = INCBIN_U32("graphics/custom_title/text/subtitle/tiles.4bpp.smol");
+static const u32 sCustomTitleSubtitleTilemap[] = INCBIN_U32("graphics/custom_title/text/subtitle/map.bin.smolTM");
+static const u16 sCustomTitleSubtitlePalette[] = INCBIN_U16("graphics/custom_title/text/palette_02.gbapal");
+
 
 static const u32 sCustomTitleShipGfx[] = INCGFX_U32("graphics/custom_title/ship.png", ".4bpp", "-mwidth 8 -mheight 4");
 static const u16 sCustomTitleShipPal[] = INCGFX_U16("graphics/custom_title/ship.png", ".gbapal");
@@ -124,6 +136,7 @@ static void Task_CustomTitleMainInput(u8 taskId);
 static void Task_CustomTitleScreenMoveText(u8 taskId);
 static void Task_CustomTitleWaitFadeAndBail(u8 taskId);
 static void Task_CustomTitleWaitFadeAndExitGracefully(u8 taskId);
+static void Task_CustomTitleScreenFadeSubtitle(u8 taskId);
 
 //Custom Title helper functions
 static void CustomTitle_Init(MainCallback callback);
@@ -195,13 +208,46 @@ static void CustomTitle_ResetGpuRegsAndBgs(void)
     SetGpuReg(REG_OFFSET_BLDALPHA, 0);
     SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(0, DISPLAY_WIDTH));
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(DISPLAY_HEIGHT - 32, DISPLAY_HEIGHT));
-    SetGpuReg(REG_OFFSET_WIN1H, 0);
-    SetGpuReg(REG_OFFSET_WIN1V, 0);
+    SetGpuReg(REG_OFFSET_WIN1V, WIN_RANGE(71, 95));
     SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_ALL & ~WININ_WIN0_BG0);
-    SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_ALL);
-    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP | DISPCNT_WIN0_ON);
+    SetGpuRegBits(REG_OFFSET_WININ, WININ_WIN1_ALL);
+    SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_ALL & ~ WINOUT_WIN01_BG2);
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON);
     CpuFill16(0, (void*)VRAM, VRAM_SIZE);
     CpuFill32(0, (void*)OAM, OAM_SIZE);
+}
+
+static u32 CustomTitle_InitSubtitleFadeAnim()
+{
+    struct ComfyAnimEasingConfig config;
+    InitComfyAnimConfig_Easing(&config);
+    config.from = Q_24_8(0);
+    config.to = Q_24_8(16);
+    config.durationFrames = 75;
+    config.easingFunc = ComfyAnimEasing_EaseInCubic;
+    return CreateComfyAnim_Easing(&config);
+}
+
+static u32 CustomTitle_InitMoveTextAnim()
+{
+    struct ComfyAnimEasingConfig config;
+    InitComfyAnimConfig_Easing(&config);
+    config.from = Q_24_8(TITLE_TEXT_INITIAL_OFFSET);
+    config.to = Q_24_8(0);
+    config.durationFrames = 90;
+    config.easingFunc = ComfyAnimEasing_EaseInOutBack;
+    return CreateComfyAnim_Easing(&config);
+}
+
+static u32 CustomTitle_InitWindowAnim()
+{
+    struct ComfyAnimEasingConfig config;
+    InitComfyAnimConfig_Easing(&config);
+    config.from = Q_24_8(0);
+    config.to = Q_24_8(57);
+    config.durationFrames = 75;
+    config.easingFunc = ComfyAnimEasing_EaseInCubic;
+    return CreateComfyAnim_Easing(&config);
 }
 
 static void CustomTitle_SetupCB(void)
@@ -252,15 +298,9 @@ static void CustomTitle_SetupCB(void)
     case 5:
         ScanlineEffect_InitWave(0, 92, 2, 3, 0, SCANLINE_EFFECT_REG_BG1HOFS, FALSE);
         ScanlineEffect_InitScroll(92, DISPLAY_HEIGHT, 3, -1, 0, SCANLINE_EFFECT_REG_BG1HOFS, FALSE);
-        struct ComfyAnimEasingConfig config;
-        InitComfyAnimConfig_Easing(&config);
-        config.from = Q_24_8(TITLE_TEXT_INITIAL_OFFSET);
-        config.to = Q_24_8(0);
-        config.durationFrames = 90;
-        config.easingFunc = ComfyAnimEasing_EaseInOutBack;
         BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
         u8 taskId = CreateTask(Task_CustomTitleWaitFadeIn, 0);
-        gTasks[taskId].data[0] = CreateComfyAnim_Easing(&config);
+        gTasks[taskId].data[0] = CustomTitle_InitMoveTextAnim();
         gMain.state++;
         break;
     case 6:
@@ -309,8 +349,35 @@ static void Task_CustomTitleScreenMoveText(u8 taskId)
     if (gComfyAnims[animId].completed)
     {
         ReleaseComfyAnim(animId);
+        gTasks[taskId].data[0] = CustomTitle_InitSubtitleFadeAnim();
+        gTasks[taskId].data[1] = CustomTitle_InitWindowAnim();
+        gTasks[taskId].func = Task_CustomTitleScreenFadeSubtitle;
+    }
+}
+
+static void Task_CustomTitleScreenFadeSubtitle(u8 taskId)
+{
+    int animId = gTasks[taskId].data[0];
+    int x = ReadComfyAnimValueSmooth(&gComfyAnims[animId]);
+
+    int winAnimId = gTasks[taskId].data[1];
+    int v = ReadComfyAnimValueSmooth(&gComfyAnims[winAnimId]);
+    int x1 = 120 - v;
+    int x2 = 120 + v;
+    {
+        SetGpuReg(REG_OFFSET_WIN1H, WIN_RANGE(x1, x2));
+    }
+
+    SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(x, 16-x));
+
+    if (gComfyAnims[animId].completed && gComfyAnims[winAnimId].completed)
+    {
+        ReleaseComfyAnim(animId);
+        ReleaseComfyAnim(winAnimId);
+        PlaySE(SE_RG_SS_ANNE_HORN);
         struct Sprite* ship = &gSprites[sCustomTitleState->shipId];
         StartSpriteAnim(ship, 1);
+        gTasks[taskId].data[0] = CustomTitle_InitWindowAnim();
         gTasks[taskId].func = Task_CustomTitleMainInput;
     }
 }
@@ -321,7 +388,7 @@ static void Task_CustomTitleMainInput(u8 taskId)
     {
         FadeOutBGM(2);
         PlaySE(SE_M_CUT);
-        FadeScreen(FADE_TO_WHITE, 0);
+        FadeScreen(FADE_TO_BLACK, 0);
         gTasks[taskId].func = Task_CustomTitleWaitFadeAndExitGracefully;
     }
 }
@@ -350,6 +417,12 @@ static bool8 CustomTitle_InitBgs(void)
 {
     ResetAllBgsCoordinates();
 
+    sBg2TilemapBuffer = AllocZeroed(TILEMAP_BUFFER_SIZE);
+
+    if (sBg2TilemapBuffer == NULL) {
+        return  FALSE; 
+    }
+
     sBg1TilemapBuffer = AllocZeroed(TILEMAP_BUFFER_SIZE);
 
     if (sBg1TilemapBuffer == NULL)
@@ -363,16 +436,20 @@ static bool8 CustomTitle_InitBgs(void)
         return  FALSE; 
     }
 
+
     ResetBgsAndClearDma3BusyFlags(0);
     InitBgsFromTemplates(0, sCustomTitleBgTemplates, NELEMS(sCustomTitleBgTemplates));
 
+    SetBgTilemapBuffer(2, sBg2TilemapBuffer);
     SetBgTilemapBuffer(1, sBg1TilemapBuffer);
     SetBgTilemapBuffer(0, sBg0TilemapBuffer);
+    ScheduleBgCopyTilemapToVram(2);
     ScheduleBgCopyTilemapToVram(1);
     ScheduleBgCopyTilemapToVram(0);
 
     ShowBg(0);
     ShowBg(1);
+    ShowBg(2);
 
     return TRUE;
 }
@@ -394,11 +471,13 @@ static bool8 CustomTitle_LoadGraphics(void)
         ResetTempTileDataBuffers();
         DecompressAndLoadBgGfxUsingHeap(1, sCustomTitleTiles, 0, 0, 0);
         DecompressAndLoadBgGfxUsingHeap(0, sCustomTitleTextTiles, 0, 0, 0);
+        DecompressAndLoadBgGfxUsingHeap(2, sCustomTitleSubtitleTiles, 0, 0, 0);
         sCustomTitleState->loadState++;
         break;
     case 1:
         DecompressAndCopyToBgTilemapBuffer(1, sCustomTitleTilemap, BG_SCREEN_SIZE, 0);
         DecompressAndCopyToBgTilemapBuffer(0, sCustomTitleTextTilemap, BG_SCREEN_SIZE, 0);
+        DecompressAndCopyToBgTilemapBuffer(2, sCustomTitleSubtitleTilemap, BG_SCREEN_SIZE, 0);
         sCustomTitleState->loadState++;
         break;
     case 2:
@@ -406,6 +485,9 @@ static bool8 CustomTitle_LoadGraphics(void)
         LoadPalette(sCustomTitleTextPalette, BG_PLTT_ID(2), PLTT_SIZE_4BPP);
         LoadPalette(gMessageBox_Pal, BG_PLTT_ID(15), PLTT_SIZE_4BPP);
         sCustomTitleState->loadState++;
+    case 3:
+        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG2 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_ALL);
+        SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(0, 16));
     default:
         sCustomTitleState->loadState = 0;
         return TRUE;
