@@ -1772,7 +1772,7 @@
 #define FLAG_TARC3_DECK2_FOUND_WEAPON               (TARC3_RESERVED_FLAGS_START + 0x83)
 #define FLAG_TARC3_DECK2_PIPE_SCENT                 (TARC3_RESERVED_FLAGS_START + 0x84)
 #define FLAG_TARC3_TATSUO_RECONSTRUCTED             (TARC3_RESERVED_FLAGS_START + 0x85)
-#define FLAG_UNUSED_0x9E6                           (TARC3_RESERVED_FLAGS_START + 0x86) // Unused Flag
+#define FLAG_TARC3_ACCUSE_SEEN_HELP                  (TARC3_RESERVED_FLAGS_START + 0x86)
 #define FLAG_UNUSED_0x9E7                           (TARC3_RESERVED_FLAGS_START + 0x87) // Unused Flag
 #define FLAG_UNUSED_0x9E8                           (TARC3_RESERVED_FLAGS_START + 0x88) // Unused Flag
 #define FLAG_UNUSED_0x9E9                           (TARC3_RESERVED_FLAGS_START + 0x89) // Unused Flag
