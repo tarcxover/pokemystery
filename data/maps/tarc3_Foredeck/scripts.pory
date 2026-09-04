@@ -345,7 +345,7 @@ script tarc3_Foredeck_EventScript_TatsuoBattle {
     msgbox(format("Don't tell the old man. He'd find a way to bill me for it."))
     setspeaker(NULL)
     closemessage
-    msgbox(format("{FONT_NARROW}Tatsuo damaged the boat and hid the broken pipes. His character doesn't surprise me.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Broken fittings - lengths of pipe, from the look of them - hidden in the equipment sack rather than reported.\pHis approach to consequences does not surprise me.", "1_latin_rse_narrow"))
     giveevidence(EVD_HIDDEN_PIPE)
     closemessage
     goto(tarc3_Foredeck_EventScript_TatsuoBattleEnd)
@@ -633,7 +633,7 @@ script tarc3_Foredeck_EventScript_EvdPipe {
         goto(tarc3_Foredeck_EventScript_EvdPipeQuiet)
     }
     goto_if_set(FLAG_TARC3_DECK2_FOUND_WEAPON, tarc3_Foredeck_EventScript_EvdPipeSeen)
-    msgbox(format("A burlap sack of ship equipment.\pTwo lengths of pipe jut out of the top."))
+    msgbox(format("An equipment sack. Two lengths of pipe jut out of the top."))
     closemessage
     delay(20)
     msgbox(format("One is clean. The other is dark and tacky along its length."))
@@ -641,10 +641,9 @@ script tarc3_Foredeck_EventScript_EvdPipe {
     delay(20)
     checkevidence(EVD_HIDDEN_PIPE)
     if (var(VAR_RESULT) == TRUE) {
-        msgbox(format("{FONT_NARROW}These are the fittings Tatsuo broke this afternoon. He dropped them in here himself so they would pass for ship's equipment.", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}These are the fittings Tatsuo broke this afternoon. He hid them in here to pass for ship's equipment.", "1_latin_rse_narrow"))
     }
-    msgbox(format("{FONT_NARROW}This is what killed him, and it never left this deck.", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}Whoever used it did not carry it away and did not put it over the side. He pushed it back into the sack and walked off.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Something blunt and heavy, with blood on it, four paces from where he fell.\pAnd it is still sitting in the sack.", "1_latin_rse_narrow"))
     closemessage
     // EVD_DISPLACED_PIPE cut
     closemessage
@@ -654,13 +653,18 @@ script tarc3_Foredeck_EventScript_EvdPipe {
 }
 
 script tarc3_Foredeck_EventScript_EvdPipeQuiet {
-    msgbox(format("A burlap sack of ship equipment.\pTwo lengths of pipe jut out of the top."))
+    msgbox(format("An equipment sack. Two lengths of pipe jut out of the top."))
+    checkevidence(EVD_HIDDEN_PIPE)
+    if (var(VAR_RESULT) == TRUE) {
+        msgbox(format("{FONT_NARROW}Tatsuo's handiwork. The broken fittings he stuffed in here look no different from the rest.", "1_latin_rse_narrow"))
+        closemessage
+    }
     releaseall
     end
 }
 
 script tarc3_Foredeck_EventScript_EvdPipeSeen {
-    msgbox(format("Two lengths of pipe in an equipment sack. One of them is bloodied."))
+    msgbox(format("The equipment sack. Two lengths of pipe, one of them bloodied."))
     releaseall
     end
 }
@@ -724,7 +728,7 @@ script tarc3_Foredeck_EventScript_Deck2Kitaro {
     lock
     faceplayer
     setspeaker("Kitaro")
-    msgbox(format("We all went to our own cabins after Father. Every one of us, alone."))
+    msgbox(format("PLACEHOLDER: was somewhere > if battle watched > yes i battled ichiro."))
     setspeaker(NULL)
     release
     end
@@ -734,7 +738,7 @@ script tarc3_Foredeck_EventScript_Deck2Joji {
     lock
     faceplayer
     setspeaker("Joji")
-    msgbox(format("I was in the galley cleaning up. I heard nothing at all."))
+    msgbox(format("PLACEHOLDER: was in my room?."))
     setspeaker(NULL)
     release
     end

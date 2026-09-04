@@ -138,7 +138,7 @@ script tarc3_Recon_EventScript_Q2WrongMotive {
     setspeaker("Mariko")
     msgbox(format("You met my father this afternoon. Do not tell this family what he did and did not have reason to do."))
     setspeaker("{RIVAL}")
-    msgbox(format("She is right. A reason is not a proof."))
+    msgbox(format("She is correct, and I did not ask you for speculation. Show this room evidence."))
     setspeaker(NULL)
     closemessage
     goto(tarc3_Recon_EventScript_Q2Miss)
@@ -147,7 +147,7 @@ script tarc3_Recon_EventScript_Q2WrongMotive {
 script tarc3_Recon_EventScript_Q2WrongFrail {
     setspeaker("{RIVAL}")
     msgbox(format("A cabinet of medicine bottles tells you he was ill. It does not tell you what his arms could do."))
-    msgbox(format("Argue from what is in this room, not from what is missing from the man."))
+    msgbox(format("You are guessing at what he could not do. Argue from what is in this room."))
     setspeaker(NULL)
     closemessage
     goto(tarc3_Recon_EventScript_Q2Miss)
@@ -238,7 +238,7 @@ script tarc3_Recon_EventScript_Q3WrongWall {
 
 script tarc3_Recon_EventScript_Q3WrongCorridor {
     setspeaker("{RIVAL}")
-    msgbox(format("Close, and therefore useless. In the corridor he is nowhere near that frame."))
+    msgbox(format("Close is not correct. In the corridor he is nowhere near that frame."))
     msgbox(format("The blood is on the frame itself, {PLAYER} Edgeworth. Be exact."))
     setspeaker(NULL)
     closemessage
@@ -276,8 +276,8 @@ script tarc3_Recon_EventScript_Q3Right {
 
 script tarc3_Recon_EventScript_Q3Give {
     setspeaker("{RIVAL}")
-    msgbox(format("The doorway. He was cut standing in the open doorway."))
-    msgbox(format("Blood on the frame, with the door found shut."))
+    msgbox(format("In the doorway, you fool. Look at the frame."))
+    msgbox(format("Blood at chest height, and the door found shut. The wound came before the lock."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -328,7 +328,7 @@ script tarc3_Recon_EventScript_Q4WrongOpen {
     setspeaker("Suzuki")
     msgbox(format("Forgive me, but it was locked. I put the key to it myself, in front of everyone here."))
     setspeaker("{RIVAL}")
-    msgbox(format("Contradicted by the only witness who touched it. Try again."))
+    msgbox(format("Contradicted by the man standing in front of you. I expect better, {PLAYER} Edgeworth."))
     setspeaker(NULL)
     closemessage
     goto(tarc3_Recon_EventScript_Q4Miss)

@@ -949,7 +949,9 @@ tarc3_Recon_EventScript_Q2WrongMotive_Text_0:
 
 tarc3_Recon_EventScript_Q2WrongMotive_Text_1:
 # 141 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "She is right. A reason is not a proof.$"
+	.string "She is correct, and I did not ask you\n"
+	.string "for speculation. Show this room\l"
+	.string "evidence.$"
 
 tarc3_Recon_EventScript_Q2WrongFrail_Text_0:
 # 149 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -959,8 +961,8 @@ tarc3_Recon_EventScript_Q2WrongFrail_Text_0:
 
 tarc3_Recon_EventScript_Q2WrongFrail_Text_1:
 # 150 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "Argue from what is in this room, not\n"
-	.string "from what is missing from the man.$"
+	.string "You are guessing at what he could not\n"
+	.string "do. Argue from what is in this room.$"
 
 tarc3_Recon_EventScript_Q2Right_Text_0:
 # 168 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -1045,8 +1047,8 @@ tarc3_Recon_EventScript_Q3WrongWall_Text_1:
 
 tarc3_Recon_EventScript_Q3WrongCorridor_Text_0:
 # 241 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "Close, and therefore useless. In the\n"
-	.string "corridor he is nowhere near that frame.$"
+	.string "Close is not correct. In the corridor he\n"
+	.string "is nowhere near that frame.$"
 
 tarc3_Recon_EventScript_Q3WrongCorridor_Text_1:
 # 242 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -1081,13 +1083,14 @@ tarc3_Recon_EventScript_Q3Right_Text_4:
 
 tarc3_Recon_EventScript_Q3Give_Text_0:
 # 279 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "The doorway. He was cut standing in the\n"
-	.string "open doorway.$"
+	.string "In the doorway, you fool. Look at the\n"
+	.string "frame.$"
 
 tarc3_Recon_EventScript_Q3Give_Text_1:
 # 280 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "Blood on the frame, with the door found\n"
-	.string "shut.$"
+	.string "Blood at chest height, and the door\n"
+	.string "found shut. The wound came before the\l"
+	.string "lock.$"
 
 tarc3_Recon_EventScript_Q4_Text_0:
 # 291 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -1134,8 +1137,9 @@ tarc3_Recon_EventScript_Q4WrongOpen_Text_0:
 
 tarc3_Recon_EventScript_Q4WrongOpen_Text_1:
 # 331 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "Contradicted by the only witness who\n"
-	.string "touched it. Try again.$"
+	.string "Contradicted by the man standing in\n"
+	.string "front of you. I expect better,\l"
+	.string "{PLAYER} Edgeworth.$"
 
 tarc3_Recon_EventScript_Q4Right_Text_0:
 # 349 "data/scripts/tarc3_gozo_reconstruction.pory"

@@ -58,7 +58,7 @@ script tarc3_TatsuoRecon_EventScript_Q1WrongAfter {
 
 script tarc3_TatsuoRecon_EventScript_Q1WrongMon {
     setspeaker("{RIVAL}")
-    msgbox(format("So a Pelipper struck the water.\pAnd four seconds later, by pure chance, a man died on this deck?"))
+    msgbox(format("So a Pelipper struck the water.\pAnd four seconds later, by mere coincidence, a man died on this deck?"))
     msgbox(format("Coincidence is what people reach for when they have stopped thinking.\pReach further."))
     setspeaker(NULL)
     closemessage
@@ -161,7 +161,7 @@ script tarc3_TatsuoRecon_EventScript_Q2WrongHis {
     setspeaker("Akie")
     msgbox(format("He... He is lying there. Nothing of his went anywhere."))
     setspeaker("{RIVAL}")
-    msgbox(format("Contradicted by his widow, and by your own eyes. Try again."))
+    msgbox(format("Contradicted by his widow, and by your own eyes. Think before you speak."))
     setspeaker(NULL)
     closemessage
     goto(tarc3_TatsuoRecon_EventScript_Q2Miss)
@@ -180,7 +180,7 @@ script tarc3_TatsuoRecon_EventScript_Q2Right {
     }
     setspeaker("{PLAYER}")
     msgbox(format("The knife that killed Gozo Hatamoto."))
-    msgbox(format("There is no blade in that cabin. I wager that blade is no longer anywhere on this ship."))
+    msgbox(format("There is no blade in that cabin. I expect that blade is no longer anywhere on this ship."))
     msgbox(format("What caught on this rail is not a weapon. It is a cloth, dark along one edge.\pI submit that this bloody rag was wrapped around the blade as it went over the side."))
     setspeaker(NULL)
     closemessage
@@ -198,8 +198,8 @@ script tarc3_TatsuoRecon_EventScript_Q2Right {
 
 script tarc3_TatsuoRecon_EventScript_Q2Give {
     setspeaker("{RIVAL}")
-    msgbox(format("The knife used to murder Gozo. Missing since the moment that cabin was opened.\pAnd a bloodied cloth is snagged on this rail."))
-    msgbox(format("Two facts, {PLAYER} Edgeworth."))
+    msgbox(format("The knife, you fool. Gozo's knife, missing since the cabin was opened.\pA bloodied cloth snagged on this rail."))
+    msgbox(format("Two facts that were never more than a sentence apart, and you could not bridge them."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -250,8 +250,8 @@ script tarc3_TatsuoRecon_EventScript_Q3WrongCarried {
 
 script tarc3_TatsuoRecon_EventScript_Q3Hands {
     setspeaker("{RIVAL}")
-    msgbox(format("Tatsuo's cause of death was blunt force trauma.\pThere is simply no way one's bare fists can do that damage."))
-    msgbox(format("You can do better than that."))
+    msgbox(format("Tatsuo's cause of death was blunt force trauma.\pBare fists do not produce wounds of that severity."))
+    msgbox(format("That answer was beneath you, {PLAYER} Edgeworth."))
     setspeaker(NULL)
     closemessage
     goto(tarc3_TatsuoRecon_EventScript_Q3Miss)
@@ -269,7 +269,7 @@ script tarc3_TatsuoRecon_EventScript_Q3Right {
         addvar(VAR_TEMP_8, 1)
     }
     setspeaker("{PLAYER}")
-    msgbox(format("It was already out here. In that sack, a couple of steps from where he was standing."))
+    msgbox(format("It was already out here. In the equipment sack, four paces from where he was standing."))
     setspeaker(NULL)
     closemessage
     checkevidence(EVD_HIDDEN_PIPE)
@@ -281,7 +281,7 @@ script tarc3_TatsuoRecon_EventScript_Q3Right {
 
 script tarc3_TatsuoRecon_EventScript_Q3Hidden {
     setspeaker("{PLAYER}")
-    msgbox(format("And it was Tatsuo who put it there. He broke some deck fittings this afternoon.\pHe hid the pieces in that sack, where they would pass for ship's equipment.\pHe told me so himself, pleased about it."))
+    msgbox(format("And it was Tatsuo who put it there. He broke some deck fittings this afternoon.\pHe hid the pieces in that sack, where they would pass for ship's equipment.\pHe told me so himself, and was proud of it."))
     setspeaker("Akie")
     msgbox(format("...That is exactly the sort of thing he would do."))
     setspeaker(NULL)
@@ -307,7 +307,7 @@ script tarc3_TatsuoRecon_EventScript_Q3React {
 
 script tarc3_TatsuoRecon_EventScript_Q3Weapon {
     setspeaker("{PLAYER}")
-    msgbox(format("And it is still aboard. It is back in that sack, four paces from where he fell, with his blood dried along it."))
+    msgbox(format("And it is still aboard. Back in the equipment sack, with his blood dried along it. Whoever used it put it back."))
     setspeaker("Kitaro")
     msgbox(format("...He put it back. He stood out here afterwards and he put it back."))
     setspeaker("{PLAYER}")
@@ -373,8 +373,8 @@ script tarc3_TatsuoRecon_EventScript_Q4WrongEstate {
 
 script tarc3_TatsuoRecon_EventScript_Q4WrongMistake {
     setspeaker("{RIVAL}")
-    msgbox(format("Mistaken identity? By somebody who has known him for years?"))
-    msgbox(format("I doubt that, {PLAYER} Edgeworth."))
+    msgbox(format("Mistaken identity. On a ship where every soul aboard knows every other by name."))
+    msgbox(format("Absurd."))
     setspeaker(NULL)
     closemessage
     goto(tarc3_TatsuoRecon_EventScript_Q4Miss)

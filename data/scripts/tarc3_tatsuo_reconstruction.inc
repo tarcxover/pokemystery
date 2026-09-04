@@ -952,8 +952,7 @@ tarc3_TatsuoRecon_EventScript_Q1WrongAfter_Text_0:
 tarc3_TatsuoRecon_EventScript_Q1WrongAfter_Text_1:
 # 52 "data/scripts/tarc3_tatsuo_reconstruction.pory"
 	.string "Afterwards. You have put the disposal\n"
-	.string "after the killing.\p"
-	.string "The sea heard it the other way round.$"
+	.string "after the killing.$"
 
 tarc3_TatsuoRecon_EventScript_Q1WrongAfter_Text_2:
 # 53 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -964,8 +963,8 @@ tarc3_TatsuoRecon_EventScript_Q1WrongAfter_Text_2:
 tarc3_TatsuoRecon_EventScript_Q1WrongMon_Text_0:
 # 61 "data/scripts/tarc3_tatsuo_reconstruction.pory"
 	.string "So a Pelipper struck the water.\p"
-	.string "And four seconds later, by pure chance,\n"
-	.string "a man died on this deck.$"
+	.string "And four seconds later, by mere\n"
+	.string "coincidence, a man died on this deck?$"
 
 tarc3_TatsuoRecon_EventScript_Q1WrongMon_Text_1:
 # 62 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -1065,7 +1064,7 @@ tarc3_TatsuoRecon_EventScript_Q2WrongHis_Text_1:
 tarc3_TatsuoRecon_EventScript_Q2WrongHis_Text_2:
 # 164 "data/scripts/tarc3_tatsuo_reconstruction.pory"
 	.string "Contradicted by his widow, and by your\n"
-	.string "own eyes. Try again.$"
+	.string "own eyes. Think before you speak.$"
 
 tarc3_TatsuoRecon_EventScript_Q2Right_Text_0:
 # 182 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -1073,9 +1072,9 @@ tarc3_TatsuoRecon_EventScript_Q2Right_Text_0:
 
 tarc3_TatsuoRecon_EventScript_Q2Right_Text_1:
 # 183 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "There is no blade in that cabin. I wager\n"
-	.string "that blade is no longer anywhere on\l"
-	.string "this ship.$"
+	.string "There is no blade in that cabin. I\n"
+	.string "expect that blade is no longer anywhere\l"
+	.string "on this ship.$"
 
 tarc3_TatsuoRecon_EventScript_Q2Right_Text_2:
 # 184 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -1097,15 +1096,15 @@ tarc3_TatsuoRecon_EventScript_Q2Right_Text_4:
 
 tarc3_TatsuoRecon_EventScript_Q2Give_Text_0:
 # 201 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "The knife used to murder Gozo. Missing\n"
-	.string "since the moment that cabin was\l"
-	.string "opened.\p"
-	.string "And a bloodied cloth is snagged on this\n"
-	.string "rail.$"
+	.string "The knife, you fool. Gozo's knife,\n"
+	.string "missing since the cabin was opened.\p"
+	.string "A bloodied cloth snagged on this rail.$"
 
 tarc3_TatsuoRecon_EventScript_Q2Give_Text_1:
 # 202 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "Two facts, {PLAYER} Edgeworth.$"
+	.string "Two facts that were never more than a\n"
+	.string "sentence apart, and you could not\l"
+	.string "bridge them.$"
 
 tarc3_TatsuoRecon_EventScript_Q3_Text_0:
 # 214 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -1146,18 +1145,19 @@ tarc3_TatsuoRecon_EventScript_Q3Hands_Text_0:
 # 253 "data/scripts/tarc3_tatsuo_reconstruction.pory"
 	.string "Tatsuo's cause of death was blunt\n"
 	.string "force trauma.\p"
-	.string "There is simply no way one's bare fists\n"
-	.string "can do that damage.$"
+	.string "Bare fists do not produce wounds of\n"
+	.string "that severity.$"
 
 tarc3_TatsuoRecon_EventScript_Q3Hands_Text_1:
 # 254 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "You can do better than that.$"
+	.string "That answer was beneath you,\n"
+	.string "{PLAYER} Edgeworth.$"
 
 tarc3_TatsuoRecon_EventScript_Q3Right_Text_0:
 # 272 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "It was already out here. In that sack, a\n"
-	.string "couple of steps from where he was\l"
-	.string "standing.$"
+	.string "It was already out here. In the\n"
+	.string "equipment sack, four paces from where\l"
+	.string "he was standing.$"
 
 tarc3_TatsuoRecon_EventScript_Q3Hidden_Text_0:
 # 284 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -1166,7 +1166,8 @@ tarc3_TatsuoRecon_EventScript_Q3Hidden_Text_0:
 	.string "afternoon.\p"
 	.string "He hid the pieces in that sack, where\n"
 	.string "they would pass for ship's equipment.\p"
-	.string "He told me so himself, pleased about it.$"
+	.string "He told me so himself, and was proud of\n"
+	.string "it.$"
 
 tarc3_TatsuoRecon_EventScript_Q3Hidden_Text_1:
 # 286 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -1183,9 +1184,9 @@ tarc3_TatsuoRecon_EventScript_Q3React_Text_0:
 
 tarc3_TatsuoRecon_EventScript_Q3Weapon_Text_0:
 # 310 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "And it is still aboard. It is back in that\n"
-	.string "sack, four paces from where he fell,\l"
-	.string "with his blood dried along it.$"
+	.string "And it is still aboard. Back in the\n"
+	.string "equipment sack, with his blood dried\l"
+	.string "along it. Whoever used it put it back.$"
 
 tarc3_TatsuoRecon_EventScript_Q3Weapon_Text_1:
 # 312 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -1251,12 +1252,13 @@ tarc3_TatsuoRecon_EventScript_Q4WrongEstate_Text_1:
 
 tarc3_TatsuoRecon_EventScript_Q4WrongMistake_Text_0:
 # 376 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "Mistaken identity? By somebody who has\n"
-	.string "known him for years?$"
+	.string "Mistaken identity. On a ship where\n"
+	.string "every soul aboard knows every other by\l"
+	.string "name.$"
 
 tarc3_TatsuoRecon_EventScript_Q4WrongMistake_Text_1:
 # 377 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "I doubt that, {PLAYER} Edgeworth.$"
+	.string "Absurd.$"
 
 tarc3_TatsuoRecon_EventScript_Q4Right_Text_0:
 # 395 "data/scripts/tarc3_tatsuo_reconstruction.pory"
