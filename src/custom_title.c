@@ -208,11 +208,11 @@ static void CustomTitle_ResetGpuRegsAndBgs(void)
     SetGpuReg(REG_OFFSET_BLDALPHA, 0);
     SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(0, DISPLAY_WIDTH));
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(DISPLAY_HEIGHT - 32, DISPLAY_HEIGHT));
-    SetGpuReg(REG_OFFSET_WIN1H, 0);
-    SetGpuReg(REG_OFFSET_WIN1V, 0);
+    SetGpuReg(REG_OFFSET_WIN1V, WIN_RANGE(71, 95));
     SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_ALL & ~WININ_WIN0_BG0);
-    SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_ALL);
-    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP | DISPCNT_WIN0_ON);
+    SetGpuRegBits(REG_OFFSET_WININ, WININ_WIN1_ALL);
+    SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_ALL & ~ WINOUT_WIN01_BG2);
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON);
     CpuFill16(0, (void*)VRAM, VRAM_SIZE);
     CpuFill32(0, (void*)OAM, OAM_SIZE);
 }
@@ -223,20 +223,31 @@ static u32 CustomTitle_InitSubtitleFadeAnim()
     InitComfyAnimConfig_Easing(&config);
     config.from = Q_24_8(0);
     config.to = Q_24_8(16);
-    config.durationFrames = 60;
+    config.durationFrames = 75;
     config.easingFunc = ComfyAnimEasing_EaseInCubic;
     return CreateComfyAnim_Easing(&config);
 }
 
 static u32 CustomTitle_InitMoveTextAnim()
 {
-        struct ComfyAnimEasingConfig config;
-        InitComfyAnimConfig_Easing(&config);
-        config.from = Q_24_8(TITLE_TEXT_INITIAL_OFFSET);
-        config.to = Q_24_8(0);
-        config.durationFrames = 90;
-        config.easingFunc = ComfyAnimEasing_EaseInOutBack;
-        return CreateComfyAnim_Easing(&config);
+    struct ComfyAnimEasingConfig config;
+    InitComfyAnimConfig_Easing(&config);
+    config.from = Q_24_8(TITLE_TEXT_INITIAL_OFFSET);
+    config.to = Q_24_8(0);
+    config.durationFrames = 90;
+    config.easingFunc = ComfyAnimEasing_EaseInOutBack;
+    return CreateComfyAnim_Easing(&config);
+}
+
+static u32 CustomTitle_InitWindowAnim()
+{
+    struct ComfyAnimEasingConfig config;
+    InitComfyAnimConfig_Easing(&config);
+    config.from = Q_24_8(0);
+    config.to = Q_24_8(57);
+    config.durationFrames = 75;
+    config.easingFunc = ComfyAnimEasing_EaseInCubic;
+    return CreateComfyAnim_Easing(&config);
 }
 
 static void CustomTitle_SetupCB(void)
@@ -339,6 +350,7 @@ static void Task_CustomTitleScreenMoveText(u8 taskId)
     {
         ReleaseComfyAnim(animId);
         gTasks[taskId].data[0] = CustomTitle_InitSubtitleFadeAnim();
+        gTasks[taskId].data[1] = CustomTitle_InitWindowAnim();
         gTasks[taskId].func = Task_CustomTitleScreenFadeSubtitle;
     }
 }
@@ -348,14 +360,24 @@ static void Task_CustomTitleScreenFadeSubtitle(u8 taskId)
     int animId = gTasks[taskId].data[0];
     int x = ReadComfyAnimValueSmooth(&gComfyAnims[animId]);
 
+    int winAnimId = gTasks[taskId].data[1];
+    int v = ReadComfyAnimValueSmooth(&gComfyAnims[winAnimId]);
+    int x1 = 120 - v;
+    int x2 = 120 + v;
+    {
+        SetGpuReg(REG_OFFSET_WIN1H, WIN_RANGE(x1, x2));
+    }
+
     SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(x, 16-x));
 
-    if (gComfyAnims[animId].completed)
+    if (gComfyAnims[animId].completed && gComfyAnims[winAnimId].completed)
     {
         ReleaseComfyAnim(animId);
+        ReleaseComfyAnim(winAnimId);
         PlaySE(SE_RG_SS_ANNE_HORN);
         struct Sprite* ship = &gSprites[sCustomTitleState->shipId];
         StartSpriteAnim(ship, 1);
+        gTasks[taskId].data[0] = CustomTitle_InitWindowAnim();
         gTasks[taskId].func = Task_CustomTitleMainInput;
     }
 }
@@ -366,7 +388,7 @@ static void Task_CustomTitleMainInput(u8 taskId)
     {
         FadeOutBGM(2);
         PlaySE(SE_M_CUT);
-        FadeScreen(FADE_TO_WHITE, 0);
+        FadeScreen(FADE_TO_BLACK, 0);
         gTasks[taskId].func = Task_CustomTitleWaitFadeAndExitGracefully;
     }
 }
