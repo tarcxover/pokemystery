@@ -736,7 +736,7 @@ static void Task_CmmWaitFadeIn(u8 taskId)
 {
     if (!gPaletteFade.active) {
         CpuFastCopy(sCmmMemory->sTempPaletteBuffer, gPlttBufferUnfaded, sizeof(gPlttBufferUnfaded));
-        PlayBGM(MUS_BLACK_SUN);
+        PlayBGM(MUS_INVESTIGATION);
         gTasks[taskId].func = Task_CmmInput;
     }
 }
