@@ -365,7 +365,7 @@ script tarc3_TatsuoRecon_EventScript_Q4WrongEstate {
     setspeaker("Akie")
     msgbox(format("His share. The murderer wanted a larger share for themselves."))
     setspeaker("{RIVAL}")
-    msgbox(format("Killing him does not alter any distribution by a single dollar. You should know that."))
+    msgbox(format("Killing him does not alter any distribution by a single dollar.\pYou should know that."))
     setspeaker(NULL)
     closemessage
     goto(tarc3_TatsuoRecon_EventScript_Q4Miss)
@@ -373,7 +373,7 @@ script tarc3_TatsuoRecon_EventScript_Q4WrongEstate {
 
 script tarc3_TatsuoRecon_EventScript_Q4WrongMistake {
     setspeaker("{RIVAL}")
-    msgbox(format("Mistaken identity. On a ship where every soul aboard knows every other by name."))
+    msgbox(format("Mistaken identity.\pOn a ship where every soul aboard knows every other by name."))
     msgbox(format("Absurd."))
     setspeaker(NULL)
     closemessage
@@ -398,7 +398,7 @@ script tarc3_TatsuoRecon_EventScript_Q4Right {
     delay(30)
     setspeaker("{PLAYER}")
     msgbox(format("He was at that rail when a man threw a bloody rag into the sea.\pThey saw each other."))
-    msgbox(format("He was not a target. He was struck before he had finished turning round."))
+    msgbox(format("He was not a target.\pHe was struck before he had finished turning round."))
     if (flag(FLAG_TARC3_DECK2_FOUND_BODY)) {
         msgbox(format("He did not turn, he did not get an arm up, and he did not run.\pHe was not given the time to do any of it."))
     }

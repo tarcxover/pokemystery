@@ -24,6 +24,8 @@ script tarc3_Recon_EventScript_Q1 {
     setspeaker(NULL)
     closemessage
     delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    waitmovement(0)
     goto(tarc3_Recon_EventScript_Q1Ask)
 }
 
