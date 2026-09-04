@@ -1,4 +1,5 @@
 #include "global.h"
+#include "constants/characters.h"
 #include "option_plus_menu.h"
 #include "main.h"
 #include "menu.h"
@@ -178,7 +179,7 @@ EWRAM_DATA static struct OptionMenu *sOptions = NULL;
 
 // const data
 static const u8 sEqualSignGfx[] = INCGFX_U8("graphics/interface/option_menu_equals_sign.png", ".4bpp"); // note: this is only used in the Japanese release
-static const u16 sOptionMenuBg_Pal[] = {RGB(17, 18, 31)};
+static const u16 sOptionMenuBg_Pal[] = {RGB2GBA(74, 74, 106)};
 static const u16 sOptionMenuText_Pal[] = INCGFX_U16("graphics/interface/option_menu_text_custom.pal", ".gbapal");
 
 #define TEXT_COLOR_OPTIONS_WHITE 1
@@ -427,9 +428,9 @@ static const u8 sText_TopBar_Custom[] = _("CUSTOM");
 static const u8 sText_TopBar_Custom_Left[] = _("{L_BUTTON}GENERAL");
 static void DrawTopBarText(void)
 {
-    const u8 color[3] = {TEXT_DYNAMIC_COLOR_6, TEXT_COLOR_WHITE, TEXT_COLOR_OPTIONS_GRAY_FG};
+    const u8 color[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE, TEXT_COLOR_OPTIONS_GRAY_FG};
 
-    FillWindowPixelBuffer(WIN_TOPBAR, PIXEL_FILL(15));
+    FillWindowPixelBuffer(WIN_TOPBAR, PIXEL_FILL(0));
     switch (sOptions->submenu)
     {
     case MENU_MAIN:
