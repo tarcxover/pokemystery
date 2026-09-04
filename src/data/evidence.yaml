@@ -347,8 +347,8 @@ evidence:
   - id: HIDDEN_PIPE
     name: Hidden Pipe
     icon: HiddenPipe
-    # question: [tatsuo]
-    # implicates: []
+    question: [tatsuo]
+    suspects: [Ichiro]
     recipes: NULL
     description: |
       Tatsuo hid the pipes
