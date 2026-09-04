@@ -78,3 +78,8 @@
   .macro destroyprogressbar
 	callnative ScrCmd_destroyprogressbar
   .endm
+
+  .macro showcredits cb=CB2_ReturnToFieldContinueScriptPlayMapMusic
+	callnative ScrCmd_showcredits
+	.4byte \cb
+  .endm

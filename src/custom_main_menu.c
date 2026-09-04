@@ -4,12 +4,14 @@
 #include "constants/characters.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
+#include "constants/field_weather.h"
 #include "constants/flags.h"
 #include "constants/global.h"
 #include "constants/pokedex.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/species.h"
+#include "custom_credits.h"
 #include "data.h"
 #include "decompress.h"
 #include "even_sprite.h"
@@ -17,6 +19,7 @@
 #include "event_object_movement.h"
 #include "evidence.h"
 #include "field_player_avatar.h"
+#include "field_weather.h"
 #include "gba/defines.h"
 #include "gba/io_reg.h"
 #include "gba/macro.h"
@@ -97,7 +100,7 @@ enum CmmTileTags {
 enum CmmButtonIds {
     CMM_BUTTON_NEWGAME,
     CMM_BUTTON_OPTIONS,
-    CMM_BUTTON_MYSTERY,
+    CMM_BUTTON_CREDITS,
     CMM_BUTTON_INFOBOX,
     CMM_BUTTON_COUNT,
 };
@@ -619,7 +622,7 @@ static const union TextColor sButtonTextColor = {.background = 0, .foreground = 
 
 static const u8* const sButtonTexts[3] = {
     [CMM_BUTTON_NEWGAME] = COMPOUND_STRING("New Game"),   [CMM_BUTTON_OPTIONS] = COMPOUND_STRING("Options"),
-    [CMM_BUTTON_MYSTERY] = COMPOUND_STRING("Mystery Gift"), };
+    [CMM_BUTTON_CREDITS] = COMPOUND_STRING("Credits"), };
 
 static void Cmm_PrintButtonLabels(void)
 {
@@ -657,7 +660,7 @@ static void Cmm_MoveSelection(enum CmmDirs direction)
             if (cur == CMM_BUTTON_INFOBOX)
                 break;
             if (cur == CMM_BUTTON_NEWGAME)
-                Cmm_SetActiveButton(CMM_BUTTON_MYSTERY);
+                Cmm_SetActiveButton(CMM_BUTTON_CREDITS);
             else
                 Cmm_SetActiveButton(cur - 1);
             break;
@@ -665,7 +668,7 @@ static void Cmm_MoveSelection(enum CmmDirs direction)
         case CMM_DIR_RIGHT:
             if (cur == CMM_BUTTON_INFOBOX)
                 break;
-            if (cur == CMM_BUTTON_MYSTERY)
+            if (cur == CMM_BUTTON_CREDITS)
                 Cmm_SetActiveButton(CMM_BUTTON_NEWGAME);
             else
                 Cmm_SetActiveButton(cur + 1);
@@ -791,6 +794,10 @@ static void Cmm_HandleButtonPressA(void)
         case CMM_BUTTON_OPTIONS:
             gMain.savedCallback = CB2_InitCustomMainMenuFromOptionsMenu;
             Cmm_ExitOnSelect(CB2_InitOptionMenu);
+            break;
+
+        case CMM_BUTTON_CREDITS:
+            Cmm_ExitOnSelect(CB2_OpenCustomCredits);
             break;
 
         default:
