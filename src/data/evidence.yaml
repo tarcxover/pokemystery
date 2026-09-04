@@ -547,8 +547,8 @@ evidence:
   - id: KNIVES_COUNTED
     name: Knives Counted
     icon: KnivesCounted
-    # question: [ichiro]
-    # implicates: []
+    question: [ichiro]
+    suspects: []
     recipes: NULL
     description: |
       All knives counted
