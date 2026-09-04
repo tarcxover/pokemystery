@@ -100,3 +100,27 @@ script tarc3_ElectricalRoom_EventScript_BreakerSeen {
     releaseall
     end
 }
+
+script tarc3_ElectricalRoom_EventScript_EvdBin {
+    lockall
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_SEARCH_TAKESHI) {
+        msgbox(format("A waste bin beside the breaker housing."))
+        releaseall
+        end
+    }
+    goto_if_set(FLAG_TARC3_ELEC_FOUND_LATCH, tarc3_ElectricalRoom_EventScript_EvdBinSeen)
+    msgbox(format("A waste bin beside the breaker housing. There is something metal inside it."))
+    msgbox(format("{FONT_NARROW}A latch, snapped clean off. The screws are still in the housing.", "1_latin_rse_narrow"))
+    closemessage
+    giveevidence(EVD_BROKEN_LATCH)
+    closemessage
+    setflag(FLAG_TARC3_ELEC_FOUND_LATCH)
+    releaseall
+    end
+}
+
+script tarc3_ElectricalRoom_EventScript_EvdBinSeen {
+    msgbox(format("The breaker's latch, snapped off and thrown away."))
+    releaseall
+    end
+}

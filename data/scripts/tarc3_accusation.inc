@@ -658,7 +658,7 @@ tarc3_Accusation_EventScript_Q2Loop::
 # 331 "data/scripts/tarc3_accusation.pory"
 	case EVD_AN_ACCOMPLICE, tarc3_Accusation_EventScript_Q2Loop_7
 # 333 "data/scripts/tarc3_accusation.pory"
-	case EVD_OPEN_SERVICE_DOOR, tarc3_Accusation_EventScript_Q2Loop_8
+	case EVD_OPEN_STORAGE_DOOR, tarc3_Accusation_EventScript_Q2Loop_8
 # 335 "data/scripts/tarc3_accusation.pory"
 	case EVD_BLOOD_ON_THE_STAIR, tarc3_Accusation_EventScript_Q2Loop_9
 # 337 "data/scripts/tarc3_accusation.pory"
@@ -707,7 +707,7 @@ tarc3_Accusation_EventScript_Q2Loop_7:
 
 tarc3_Accusation_EventScript_Q2Loop_8:
 # 334 "data/scripts/tarc3_accusation.pory"
-	call tarc3_Accusation_EventScript_Ev_OpenServiceDoor
+	call tarc3_Accusation_EventScript_Ev_OpenStorageDoor
 	goto tarc3_Accusation_EventScript_Q2Loop_1
 
 tarc3_Accusation_EventScript_Q2Loop_9:
@@ -887,13 +887,13 @@ tarc3_Accusation_EventScript_Q3Loop::
 # 440 "data/scripts/tarc3_accusation.pory"
 	case EVD_THE_ODD_BATTLE, tarc3_Accusation_EventScript_Q3Loop_8
 # 442 "data/scripts/tarc3_accusation.pory"
-	case EVD_FOCUSED_BURN, tarc3_Accusation_EventScript_Q3Loop_9
+	case EVD_BROKEN_LATCH, tarc3_Accusation_EventScript_Q3Loop_9
 # 444 "data/scripts/tarc3_accusation.pory"
 	case EVD_LONG_ABSENCE, tarc3_Accusation_EventScript_Q3Loop_10
 # 446 "data/scripts/tarc3_accusation.pory"
 	case EVD_THE_HOLD_ADJOINS, tarc3_Accusation_EventScript_Q3Loop_11
 # 448 "data/scripts/tarc3_accusation.pory"
-	case EVD_OPEN_SERVICE_DOOR, tarc3_Accusation_EventScript_Q3Loop_12
+	case EVD_OPEN_STORAGE_DOOR, tarc3_Accusation_EventScript_Q3Loop_12
 # 450 "data/scripts/tarc3_accusation.pory"
 	case EVD_SCORCHED_PANEL, tarc3_Accusation_EventScript_Q3Loop_13
 # 453 "data/scripts/tarc3_accusation.pory"
@@ -939,7 +939,7 @@ tarc3_Accusation_EventScript_Q3Loop_8:
 
 tarc3_Accusation_EventScript_Q3Loop_9:
 # 443 "data/scripts/tarc3_accusation.pory"
-	call tarc3_Accusation_EventScript_Ev_FocusedBurn
+	call tarc3_Accusation_EventScript_Ev_BrokenLatch
 	goto tarc3_Accusation_EventScript_Q3Loop_1
 
 tarc3_Accusation_EventScript_Q3Loop_10:
@@ -954,7 +954,7 @@ tarc3_Accusation_EventScript_Q3Loop_11:
 
 tarc3_Accusation_EventScript_Q3Loop_12:
 # 449 "data/scripts/tarc3_accusation.pory"
-	call tarc3_Accusation_EventScript_Ev_OpenServiceDoor
+	call tarc3_Accusation_EventScript_Ev_OpenStorageDoor
 	goto tarc3_Accusation_EventScript_Q3Loop_1
 
 tarc3_Accusation_EventScript_Q3Loop_13:
@@ -1140,7 +1140,7 @@ tarc3_Accusation_EventScript_Q4Loop::
 # 562 "data/scripts/tarc3_accusation.pory"
 	case EVD_AN_ACCOMPLICE, tarc3_Accusation_EventScript_Q4Loop_9
 # 564 "data/scripts/tarc3_accusation.pory"
-	case EVD_OPEN_SERVICE_DOOR, tarc3_Accusation_EventScript_Q4Loop_10
+	case EVD_OPEN_STORAGE_DOOR, tarc3_Accusation_EventScript_Q4Loop_10
 # 566 "data/scripts/tarc3_accusation.pory"
 	case EVD_KNIVES_COUNTED, tarc3_Accusation_EventScript_Q4Loop_11
 # 568 "data/scripts/tarc3_accusation.pory"
@@ -1199,7 +1199,7 @@ tarc3_Accusation_EventScript_Q4Loop_9:
 
 tarc3_Accusation_EventScript_Q4Loop_10:
 # 565 "data/scripts/tarc3_accusation.pory"
-	call tarc3_Accusation_EventScript_Ev_OpenServiceDoor
+	call tarc3_Accusation_EventScript_Ev_OpenStorageDoor
 	goto tarc3_Accusation_EventScript_Q4Loop_1
 
 tarc3_Accusation_EventScript_Q4Loop_11:
