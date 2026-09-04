@@ -114,7 +114,6 @@ script tarc3_Bathroom_EventScript_EvdKnife {
     goto_if_set(FLAG_TARC3_BATH_FOUND_KNIFE, tarc3_Bathroom_EventScript_EvdKnifeSeen)
     msgbox(format("A cook's knife on the tiles, off to Ichiro's right. The blade points away from him."))
     msgbox(format("{FONT_NARROW}Handle nearest his own hand, and barely a stride from where he's sitting.", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}An attacker running for the door doesn't set it down at his victim's fingertips.", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_BATHROOM_KNIFE)
     closemessage
@@ -124,7 +123,7 @@ script tarc3_Bathroom_EventScript_EvdKnife {
 }
 
 script tarc3_Bathroom_EventScript_EvdKnifeSeen {
-    msgbox(format("Joji's knife, lying to Ichiro's right with the handle turned back towards him."))
+    msgbox(format("Joji's knife, lying a short distance away from where Ichiro was attacked."))
     releaseall
     end
 }

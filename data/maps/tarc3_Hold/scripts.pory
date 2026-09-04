@@ -72,6 +72,8 @@ script tarc3_Hold_EventScript_JailTakeshi {
     delay(20)
     setspeaker("Tatsuo")
     msgbox(format("You'd have to be an idiot to drop it right outside his door."))
+    applymovement(LOCALID_HOLD_TAKESHI_LOCKUP, moves(walk_in_place_slow_right))
+    waitmovement(0)
     setspeaker("Takeshi")
     msgbox(format("I didn't drop it there.\pI lost it somewhere... I don't know where."))
     setspeaker(NULL)
@@ -380,7 +382,7 @@ script tarc3_Hold_EventScript_TakeshiGone {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(Could someone outside this room have opened it for him..?)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Could someone outside this room have opened it for him..?", "1_latin_rse_narrow"))
     closemessage
     delay(30)
     fadescreen(FADE_TO_BLACK)
