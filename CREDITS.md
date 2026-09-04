@@ -5,6 +5,16 @@ TARC ENTRY:
   - Morlock-Liam (Bathroom & Mirror) - https://www.deviantart.com/morlock-liam
   - Ekat99 (Cupboards, Plates & Cups) - https://www.deviantart.com/ekat99/art/Tea-Time-Interior-Revised-1233496953
   - Aveontrainer (Art easles) - https://www.deviantart.com/aveontrainer/art/School-Tileset-829646135
+  - Fisham (various small edits)
+- Overworlds:
+  - Miri Franziska/Edgeworth
+  - Aveontrainer (Natsue, Mariko)
+  - Mashirosakura (Akie, Tatsuo)
+  - Delta321 (Gozo)
+  - Fisham (various small edits)
+- Misc:
+  - Miri (Edgeworth backsprite)
+  - Top_Kec (Octillery profile picture)
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/en/reference/emoji-key/)):
 
