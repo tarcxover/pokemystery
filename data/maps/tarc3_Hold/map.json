@@ -341,15 +341,15 @@
     {
       "type": "sign",
       "x": 9,
-      "y": 13,
+      "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_Hold_EventScript_EvdManifest"
     },
     {
       "type": "sign",
-      "x": 17,
-      "y": 22,
+      "x": 14,
+      "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_Hold_EventScript_EvdStorageDoor"
@@ -357,18 +357,26 @@
     {
       "type": "sign",
       "x": 17,
-      "y": 21,
+      "y": 20,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_Hold_EventScript_StorageDoor"
     },
     {
       "type": "sign",
-      "x": 9,
-      "y": 20,
+      "x": 6,
+      "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_Hold_EventScript_ElectricalDoor"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 15,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "tarc3_Hold_EventScript_EvdDeckPlan"
     }
   ]
 }

@@ -318,15 +318,16 @@ evidence:
     details: |
       tba
 
-  - id: OPEN_SERVICE_DOOR
-    name: Open Service Door
+  - id: OPEN_STORAGE_DOOR
+    name: Open Storage Door
     icon: OpenServiceDoor
     question: [tatsuo, lights, ichiro]
     suspects: [Takeshi]
     recipes: NULL
     description: |
-      The deck door by the
-      bathroom is unlatched.
+      The storeroom door
+      is open. Suzuki
+      bolted it shut.
     details: |
       tba
 
@@ -424,16 +425,16 @@ evidence:
     details: |
       tba
 
-  - id: FOCUSED_BURN
-    name: Focused Burn
-    icon: FocusedBurn
+  - id: BROKEN_LATCH
+    name: Broken Latch
+    icon: BrokenLatch
     question: [lights]
-    suspects: [Ichiro]
+    suspects: []
     recipes: NULL
     description: |
-      The burn is narrow.
-      One strike, not a
-      broad discharge.
+      A latch broken off
+      the breaker housing,
+      discarded in a bin.
     details: |
       tba
 
@@ -470,7 +471,7 @@ evidence:
     question: [lights]
     suspects: [Ichiro]
     recipes:
-      - [SCORCHED_PANEL, FOCUSED_BURN]
+      - [SCORCHED_PANEL, BROKEN_LATCH]
     description: |
       The breaker was hit
       by one focused
@@ -484,7 +485,7 @@ evidence:
     question: [lights]
     suspects: [Takeshi]
     recipes:
-      - [THE_HOLD_ADJOINS, OPEN_SERVICE_DOOR]
+      - [THE_HOLD_ADJOINS, OPEN_STORAGE_DOOR]
     description: |
       The escaped man was
       loose on the breaker

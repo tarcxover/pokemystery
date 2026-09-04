@@ -751,17 +751,17 @@ tarc3_Accusation_EventScript_Ev_AnAccomplice::
 	return
 
 
-tarc3_Accusation_EventScript_Ev_OpenServiceDoor::
+tarc3_Accusation_EventScript_Ev_OpenStorageDoor::
 # 433 "data/scripts/tarc3_accusation_evidence.pory"
 	call tarc3_Accusation_EventScript_ScoreTakeshiT1
 # 434 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker tarc3_Accusation_EventScript_Ev_RawClue_Text_0
 # 435 "data/scripts/tarc3_accusation_evidence.pory"
-	msgbox tarc3_Accusation_EventScript_Ev_OpenServiceDoor_Text_0
+	msgbox tarc3_Accusation_EventScript_Ev_OpenStorageDoor_Text_0
 # 436 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker tarc3_Accusation_EventScript_Ev_IchiroSponsorship_Text_1
 # 437 "data/scripts/tarc3_accusation_evidence.pory"
-	msgbox tarc3_Accusation_EventScript_Ev_OpenServiceDoor_Text_1
+	msgbox tarc3_Accusation_EventScript_Ev_OpenStorageDoor_Text_1
 # 438 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker NULL
 # 439 "data/scripts/tarc3_accusation_evidence.pory"
@@ -930,17 +930,17 @@ tarc3_Accusation_EventScript_Ev_TheOddBattle::
 	return
 
 
-tarc3_Accusation_EventScript_Ev_FocusedBurn::
+tarc3_Accusation_EventScript_Ev_BrokenLatch::
 # 536 "data/scripts/tarc3_accusation_evidence.pory"
 	call tarc3_Accusation_EventScript_ScoreIchiroT1
 # 537 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker tarc3_Accusation_EventScript_Ev_RawClue_Text_0
 # 538 "data/scripts/tarc3_accusation_evidence.pory"
-	msgbox tarc3_Accusation_EventScript_Ev_FocusedBurn_Text_0
+	msgbox tarc3_Accusation_EventScript_Ev_BrokenLatch_Text_0
 # 539 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker tarc3_Accusation_EventScript_Ev_TuitionFunds_Text_1
 # 540 "data/scripts/tarc3_accusation_evidence.pory"
-	msgbox tarc3_Accusation_EventScript_Ev_FocusedBurn_Text_1
+	msgbox tarc3_Accusation_EventScript_Ev_BrokenLatch_Text_1
 # 541 "data/scripts/tarc3_accusation_evidence.pory"
 	setspeaker NULL
 # 542 "data/scripts/tarc3_accusation_evidence.pory"
@@ -1798,17 +1798,15 @@ tarc3_Accusation_EventScript_Ev_AnAccomplice_Text_3:
 	.string "That is not deduction. That is\n"
 	.string "surrender.$"
 
-tarc3_Accusation_EventScript_Ev_OpenServiceDoor_Text_0:
+tarc3_Accusation_EventScript_Ev_OpenStorageDoor_Text_0:
 # 435 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "The service door beside the bathroom\n"
-	.string "does not latch.\p"
-	.string "Anyone at all could pass through it\n"
-	.string "unseen.$"
+	.string "The storeroom door was opened. Suzuki\n"
+	.string "bolted it in front of all of us, yet\l"
+	.string "someone drew it back.$"
 
-tarc3_Accusation_EventScript_Ev_OpenServiceDoor_Text_1:
+tarc3_Accusation_EventScript_Ev_OpenStorageDoor_Text_1:
 # 437 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "...That is true. I have asked twice for it\n"
-	.string "to be repaired.$"
+	.string "...Someone opened it from the outside.$"
 
 tarc3_Accusation_EventScript_Ev_BloodOnTheStair_Text_0:
 # 448 "data/scripts/tarc3_accusation_evidence.pory"
@@ -1929,15 +1927,14 @@ tarc3_Accusation_EventScript_Ev_TheOddBattle_Text_1:
 	.string "My Pawmot used Discharge in front of\n"
 	.string "it... But I didn't think anything of it.$"
 
-tarc3_Accusation_EventScript_Ev_FocusedBurn_Text_0:
+tarc3_Accusation_EventScript_Ev_BrokenLatch_Text_0:
 # 538 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "The burn on the breaker is narrow. A\n"
-	.string "single strike; a calculated discharge.$"
+	.string "The breaker housing had a latch. It was\n"
+	.string "broken off and thrown in a bin nearby.$"
 
-tarc3_Accusation_EventScript_Ev_FocusedBurn_Text_1:
+tarc3_Accusation_EventScript_Ev_BrokenLatch_Text_1:
 # 540 "data/scripts/tarc3_accusation_evidence.pory"
-	.string "...A focused jolt. That isn't faulty\n"
-	.string "wiring.$"
+	.string "...Someone forced it open deliberately.$"
 
 tarc3_Accusation_EventScript_Ev_TheHoldAdjoins_Text_0:
 # 551 "data/scripts/tarc3_accusation_evidence.pory"

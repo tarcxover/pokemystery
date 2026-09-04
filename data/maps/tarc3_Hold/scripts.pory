@@ -284,7 +284,7 @@ script tarc3_Hold_EventScript_EvdStorageDoor {
     msgbox(format("{FONT_NARROW}(It only works from out here. No handle on the inside, and Suzuki shot it across in front of everybody.)", "1_latin_rse_narrow"))
     msgbox(format("{FONT_NARROW}(So somebody stood where I'm standing and slid it open again.)", "1_latin_rse_narrow"))
     closemessage
-    // EVD_UNDAMAGED_DOOR cut
+    giveevidence(EVD_OPEN_STORAGE_DOOR)
     closemessage
     setflag(FLAG_TARC3_HOLD_FOUND_DOOR)
     releaseall
@@ -420,5 +420,29 @@ script tarc3_Hold_EventScript_Ran {
     msgbox(format("The stairs are there, {PLAYER} Edgeworth. They are all waiting above."))
     setspeaker(NULL)
     release
+    end
+}
+
+script tarc3_Hold_EventScript_EvdDeckPlan {
+    lockall
+    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_SEARCH_TAKESHI) {
+        msgbox(format("A deck plan of the lower level."))
+        releaseall
+        end
+    }
+    goto_if_set(FLAG_TARC3_HOLD_FOUND_DECKPLAN, tarc3_Hold_EventScript_EvdDeckPlanSeen)
+    msgbox(format("A deck plan pinned to the wall. The storeroom, the electrical room, and the corridor between them are all on this level."))
+    msgbox(format("{FONT_NARROW}The storeroom and the breaker are barely thirty paces apart.", "1_latin_rse_narrow"))
+    closemessage
+    giveevidence(EVD_THE_HOLD_ADJOINS)
+    closemessage
+    setflag(FLAG_TARC3_HOLD_FOUND_DECKPLAN)
+    releaseall
+    end
+}
+
+script tarc3_Hold_EventScript_EvdDeckPlanSeen {
+    msgbox(format("The deck plan. Storeroom and electrical room, side by side on the same level."))
+    releaseall
     end
 }

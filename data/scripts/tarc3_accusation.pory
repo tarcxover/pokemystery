@@ -330,8 +330,8 @@ script tarc3_Accusation_EventScript_Q2Loop {
             call(tarc3_Accusation_EventScript_Ev_LongAbsence)
         case EVD_AN_ACCOMPLICE:
             call(tarc3_Accusation_EventScript_Ev_AnAccomplice)
-        case EVD_OPEN_SERVICE_DOOR:
-            call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
+        case EVD_OPEN_STORAGE_DOOR:
+            call(tarc3_Accusation_EventScript_Ev_OpenStorageDoor)
         case EVD_BLOOD_ON_THE_STAIR:
             call(tarc3_Accusation_EventScript_Ev_BloodOnTheStair)
         case EVD_HIDDEN_PIPE:
@@ -439,14 +439,14 @@ script tarc3_Accusation_EventScript_Q3Loop {
             call(tarc3_Accusation_EventScript_Ev_SmeargleRepertoire)
         case EVD_THE_ODD_BATTLE:
             call(tarc3_Accusation_EventScript_Ev_TheOddBattle)
-        case EVD_FOCUSED_BURN:
-            call(tarc3_Accusation_EventScript_Ev_FocusedBurn)
+        case EVD_BROKEN_LATCH:
+            call(tarc3_Accusation_EventScript_Ev_BrokenLatch)
         case EVD_LONG_ABSENCE:
             call(tarc3_Accusation_EventScript_Ev_LongAbsence)
         case EVD_THE_HOLD_ADJOINS:
             call(tarc3_Accusation_EventScript_Ev_TheHoldAdjoins)
-        case EVD_OPEN_SERVICE_DOOR:
-            call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
+        case EVD_OPEN_STORAGE_DOOR:
+            call(tarc3_Accusation_EventScript_Ev_OpenStorageDoor)
         case EVD_SCORCHED_PANEL:
             call(tarc3_Accusation_EventScript_Ev_RawClue)
         default:
@@ -561,8 +561,8 @@ script tarc3_Accusation_EventScript_Q4Loop {
             call(tarc3_Accusation_EventScript_Ev_TheSecondStory)
         case EVD_AN_ACCOMPLICE:
             call(tarc3_Accusation_EventScript_Ev_AnAccomplice)
-        case EVD_OPEN_SERVICE_DOOR:
-            call(tarc3_Accusation_EventScript_Ev_OpenServiceDoor)
+        case EVD_OPEN_STORAGE_DOOR:
+            call(tarc3_Accusation_EventScript_Ev_OpenStorageDoor)
         case EVD_KNIVES_COUNTED:
             call(tarc3_Accusation_EventScript_Ev_KnivesCounted)
         case EVD_INJURED_LEG:

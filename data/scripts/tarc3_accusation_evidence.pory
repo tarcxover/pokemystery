@@ -429,12 +429,12 @@ script tarc3_Accusation_EventScript_Ev_AnAccomplice {
     return
 }
 
-script tarc3_Accusation_EventScript_Ev_OpenServiceDoor {
+script tarc3_Accusation_EventScript_Ev_OpenStorageDoor {
     call(tarc3_Accusation_EventScript_ScoreTakeshiT1)
     setspeaker("{PLAYER}")
-    msgbox(format("The service door beside the bathroom does not latch.\pAnyone at all could pass through it unseen."))
+    msgbox(format("The storeroom door was opened. Suzuki bolted it in front of all of us, yet someone drew it back."))
     setspeaker("Suzuki")
-    msgbox(format("...That is true. I have asked twice for it to be repaired."))
+    msgbox(format("...Someone opened it from the outside."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -532,12 +532,12 @@ script tarc3_Accusation_EventScript_Ev_TheOddBattle {
     return
 }
 
-script tarc3_Accusation_EventScript_Ev_FocusedBurn {
+script tarc3_Accusation_EventScript_Ev_BrokenLatch {
     call(tarc3_Accusation_EventScript_ScoreIchiroT1)
     setspeaker("{PLAYER}")
-    msgbox(format("The burn on the breaker is narrow. A single strike; a calculated discharge."))
+    msgbox(format("The breaker housing had a latch. It was broken off and thrown in a bin nearby."))
     setspeaker("Kitaro")
-    msgbox(format("...A focused jolt. That isn't faulty wiring."))
+    msgbox(format("...Someone forced it open deliberately."))
     setspeaker(NULL)
     closemessage
     delay(20)
