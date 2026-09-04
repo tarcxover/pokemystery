@@ -375,7 +375,7 @@ static void AccuseMenu_FadeAndBail(void);
 static bool8 AccuseMenu_LoadGraphics(void);
 static void AccuseMenu_InitWindows(void);
 static u32 CreateEvidenceListMenu(struct ListMenuTemplate* t);
-static u32 DrawAccuseMenuMsgWin(const struct WindowTemplate* t, const u8* string);
+static u32 DrawAccuseMenuMsgWin(const struct WindowTemplate* t, const u8* string, bool32 autoBreak);
 static void AccuseMenuPrintMsg(struct AccuseMenuPrint *p);
 static void AccuseMenuCenterText(struct AccuseMenuPrint *p);
 static u32 CreateEvidenceIcon(u32 pos, u32 input);
@@ -551,10 +551,16 @@ static void Task_AccuseMenuMainInput(u8 taskId)
     if (JOY_NEW(SELECT_BUTTON))
     {
         sAccuseMenuState->msgWinId = DrawAccuseMenuMsgWin(&sAccuseMsgWinTemplHelp, COMPOUND_STRING(
-            "Accuse the suspect by selecting upto 4 pieces of evidence that prove they did it. "
-            "The current issue under consideration is shown at the top. The stronger your evidence,"
-            "the better the accusation."
-        ));
+            "Select up to 4 pieces of evidence that\n"
+            "link the suspect to the question above.\n"
+            "Relevant evidence will build a better case.\n"
+            "Deductions are worth more than clues.\n"
+            "\n"
+            "{A_BUTTON} Toggle evidence on or off\n"
+            "{B_BUTTON} Clear all selections\n"
+            "{START_BUTTON} Submit your accusation\n"
+            "{SELECT_BUTTON} Open or close help menu"
+        ), FALSE);
         RemoveScrollIndicatorArrowPair(sAccuseMenuState->scrollIndicatorTask);
         gTasks[taskId].func = Task_MessagWinInput;
     }
@@ -628,7 +634,7 @@ static void Task_AccuseMenuHandleAccuse(u8 taskId)
     switch (tData->state)
     {
     case 0:
-        sAccuseMenuState->msgWinId = DrawAccuseMenuMsgWin(&sAccuseMsgWinTemplNotify, COMPOUND_STRING("Are you sure?"));
+        sAccuseMenuState->msgWinId = DrawAccuseMenuMsgWin(&sAccuseMsgWinTemplNotify, COMPOUND_STRING("Are you sure?"), TRUE);
         CreateYesNoMenu(&sAccuseMsgWinTemplYesNo, ACCUSE_MENU_BORDER_TILE, 14, 0);
         tData->state++;
         break;
@@ -719,9 +725,30 @@ static void Task_AccuseMenuInitList(u8 taskId)
         break;
     case 1: {
         u8 listTaskId = tData->listTaskId;
-        gTasks[taskId].func = Task_AccuseMenuMainInput;
         struct ListMenu *list = (void *)gTasks[listTaskId].data;
         ListMenuChangeSelectionFull(list, TRUE, FALSE, 0, TRUE);
+
+        if (!FlagGet(FLAG_TARC3_ACCUSE_SEEN_HELP))
+        {
+            FlagSet(FLAG_TARC3_ACCUSE_SEEN_HELP);
+            sAccuseMenuState->msgWinId = DrawAccuseMenuMsgWin(&sAccuseMsgWinTemplHelp, COMPOUND_STRING(
+                "Select up to 4 pieces of evidence that\n"
+                "link the suspect to the question above.\n"
+                "Relevant evidence will build a better case.\n"
+                "Deductions are worth more than clues.\n"
+                "\n"
+                "{A_BUTTON} Toggle evidence on or off\n"
+                "{B_BUTTON} Clear all selections\n"
+                "{START_BUTTON} Submit your accusation\n"
+                "{SELECT_BUTTON} Open or close help menu"
+            ), FALSE);
+            RemoveScrollIndicatorArrowPair(sAccuseMenuState->scrollIndicatorTask);
+            gTasks[taskId].func = Task_MessagWinInput;
+        }
+        else
+        {
+            gTasks[taskId].func = Task_AccuseMenuMainInput;
+        }
     }
     }
 }
@@ -1079,7 +1106,7 @@ static void AccuseMenu_InitWindows(void)
     }
 }
 
-static u32 DrawAccuseMenuMsgWin(const struct WindowTemplate *t, const u8 *string)
+static u32 DrawAccuseMenuMsgWin(const struct WindowTemplate *t, const u8 *string, bool32 autoBreak)
 {
     u32 msgWin = AddWindow(t);
     FillWindowPixelBuffer(msgWin, PIXEL_FILL(1));
@@ -1101,9 +1128,12 @@ static u32 DrawAccuseMenuMsgWin(const struct WindowTemplate *t, const u8 *string
     };
 
     StringCopy(gStringVar4, string);
-    StripLineBreaks(gStringVar4);
-    u32 w = GetWindowAttribute(p.window, WINDOW_WIDTH) * 8;
-    BreakStringAutomatic(gStringVar4, w, 8, p.font, HIDE_SCROLL_PROMPT);
+    if (autoBreak)
+    {
+        StripLineBreaks(gStringVar4);
+        u32 w = GetWindowAttribute(p.window, WINDOW_WIDTH) * 8;
+        BreakStringAutomatic(gStringVar4, w, 8, p.font, HIDE_SCROLL_PROMPT);
+    }
 
     AccuseMenuPrintMsg(&p);
     CopyWindowToVram(msgWin, COPYWIN_FULL);

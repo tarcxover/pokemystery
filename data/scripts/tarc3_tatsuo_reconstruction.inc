@@ -1247,14 +1247,14 @@ tarc3_TatsuoRecon_EventScript_Q4WrongEstate_Text_0:
 tarc3_TatsuoRecon_EventScript_Q4WrongEstate_Text_1:
 # 368 "data/scripts/tarc3_tatsuo_reconstruction.pory"
 	.string "Killing him does not alter any\n"
-	.string "distribution by a single dollar. You\l"
-	.string "should know that.$"
+	.string "distribution by a single dollar.\p"
+	.string "You should know that.$"
 
 tarc3_TatsuoRecon_EventScript_Q4WrongMistake_Text_0:
 # 376 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "Mistaken identity. On a ship where\n"
-	.string "every soul aboard knows every other by\l"
-	.string "name.$"
+	.string "Mistaken identity.\p"
+	.string "On a ship where every soul aboard knows\n"
+	.string "every other by name.$"
 
 tarc3_TatsuoRecon_EventScript_Q4WrongMistake_Text_1:
 # 377 "data/scripts/tarc3_tatsuo_reconstruction.pory"
@@ -1272,8 +1272,9 @@ tarc3_TatsuoRecon_EventScript_Q4Right_Text_1:
 
 tarc3_TatsuoRecon_EventScript_Q4Right_Text_2:
 # 401 "data/scripts/tarc3_tatsuo_reconstruction.pory"
-	.string "He was not a target. He was struck\n"
-	.string "before he had finished turning round.$"
+	.string "He was not a target.\p"
+	.string "He was struck before he had finished\n"
+	.string "turning round.$"
 
 tarc3_TatsuoRecon_EventScript_Q4Right_Text_3:
 # 403 "data/scripts/tarc3_tatsuo_reconstruction.pory"
