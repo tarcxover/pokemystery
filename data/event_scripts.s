@@ -78,6 +78,7 @@
 #include "constants/evidence.h"
 #include "constants/progress_bar.h"
 
+#include "constants/bxpy.h" 
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.include "constants/constants.inc"
@@ -1766,3 +1767,4 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/tarc3_GozoRoom/scripts.inc"
 
 	.include "data/maps/tarc3_ElectricalRoom/scripts.inc"
+	.include "data/scripts/bxpy.inc" 
