@@ -150,6 +150,8 @@ script tarc3_Cabins_EventScript_EvdSketchbook {
     closemessage
     delay(20)
     playse(SE_PIN)
+    applymovement(LOCALID_CABINS_TAKESHI_CLOSET, moves(emote_exclamation_mark))
+    waitmovement(0)
     delay(20)
     msgbox(format("{FONT_NARROW}There's a section of the book dedicated to the same girl.\pNatsue.", "1_latin_rse_narrow"))
     closemessage
