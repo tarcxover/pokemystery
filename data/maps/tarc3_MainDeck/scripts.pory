@@ -153,8 +153,11 @@ script tarc3_MainDeck_EventScript_MarikoBattle {
     msgbox(format("But I'll tell you what I will do.\pShow me you're worth the minutes."))
     setspeaker(NULL)
     closemessage
-    trainerbattle_earlyrival(TRAINER_TARC3_MARIKO, RIVAL_BATTLE_HEAL_AFTER, tarc3_MainDeck_Text_MarikoDefeat, tarc3_MainDeck_Text_MarikoVictory)
-    goto_if_eq(VAR_RESULT, TRUE, tarc3_MainDeck_EventScript_MarikoBattleLost)
+    setflag(FLAG_TARC3_NO_WHITEOUT)
+    trainerbattle_no_intro(TRAINER_TARC3_MARIKO, tarc3_MainDeck_Text_MarikoDefeat)
+    clearflag(FLAG_TARC3_NO_WHITEOUT)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    goto_if_ne(VAR_RESULT, B_OUTCOME_WON, tarc3_MainDeck_EventScript_MarikoBattleLost)
     delay(20)
     setspeaker("Mariko")
     msgbox(format("...Very well. The minutes are yours."))
@@ -169,6 +172,7 @@ script tarc3_MainDeck_EventScript_MarikoBattle {
 }
 
 script tarc3_MainDeck_EventScript_MarikoBattleLost {
+    settrainerflag(TRAINER_TARC3_MARIKO)
     delay(20)
     setspeaker("Mariko")
     msgbox(format("As I thought.\pGo and enjoy dinner."))
@@ -188,9 +192,6 @@ text tarc3_MainDeck_Text_MarikoDefeat {
     format("Then you were worth the minutes.")
 }
 
-text tarc3_MainDeck_Text_MarikoVictory {
-    format("I handle this family for a reason.")
-}
 
 script tarc3_MainDeck_EventScript_Akie {
     lock
@@ -307,8 +308,11 @@ script tarc3_MainDeck_EventScript_JojiBattle {
     msgbox(format("A kitchen is timing and nothing else, and so is this.\pIndulge me while the soup rests."))
     setspeaker(NULL)
     closemessage
-    trainerbattle_earlyrival(TRAINER_TARC3_JOJI, RIVAL_BATTLE_HEAL_AFTER, tarc3_MainDeck_Text_JojiDefeat, tarc3_MainDeck_Text_JojiVictory)
-    goto_if_eq(VAR_RESULT, TRUE, tarc3_MainDeck_EventScript_JojiBattleLost)
+    setflag(FLAG_TARC3_NO_WHITEOUT)
+    trainerbattle_no_intro(TRAINER_TARC3_JOJI, tarc3_MainDeck_Text_JojiDefeat)
+    clearflag(FLAG_TARC3_NO_WHITEOUT)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    goto_if_ne(VAR_RESULT, B_OUTCOME_WON, tarc3_MainDeck_EventScript_JojiBattleLost)
     delay(20)
     setspeaker("Joji")
     msgbox(format("Beautifully done!"))
@@ -323,6 +327,7 @@ script tarc3_MainDeck_EventScript_JojiBattle {
 }
 
 script tarc3_MainDeck_EventScript_JojiBattleLost {
+    settrainerflag(TRAINER_TARC3_JOJI)
     delay(20)
     setspeaker("Joji")
     msgbox(format("Timing! I told you.\pSit them down, I'll have them right in a moment."))
@@ -341,9 +346,6 @@ text tarc3_MainDeck_Text_JojiDefeat {
     format("Ah! Off the heat, off the heat.")
 }
 
-text tarc3_MainDeck_Text_JojiVictory {
-    format("Timing. It is always timing.")
-}
 
 script tarc3_MainDeck_EventScript_JojiReflectEnd {
     release
