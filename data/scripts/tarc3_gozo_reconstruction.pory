@@ -203,7 +203,7 @@ script tarc3_Recon_EventScript_Q3 {
     setspeaker("Mariko")
     msgbox(format("Then somebody was in that room with him, and the room was locked. You are talking in circles."))
     setspeaker("{PLAYER}")
-    msgbox(format("Only because every one of you is looking at the wrong side of that door."))
+    msgbox(format("Only because you are all looking at the wrong side of that door."))
     setspeaker(NULL)
     closemessage
     delay(20)
@@ -423,7 +423,7 @@ script tarc3_Recon_EventScript_ClosingFair {
     setspeaker("Mariko")
     msgbox(format("It holds and it tells us nothing. You have described a door to us."))
     setspeaker("{RIVAL}")
-    msgbox(format("He has described a murder to you, and every one of you was calling it a suicide four minutes ago."))
+    msgbox(format("He has described a murder to you, while some of you had characterised it as suicide moments earlier."))
     setspeaker(NULL)
     closemessage
     delay(20)
