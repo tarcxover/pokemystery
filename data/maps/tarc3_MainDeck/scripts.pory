@@ -162,7 +162,7 @@ script tarc3_MainDeck_EventScript_MarikoBattle {
     msgbox(format("I don't need to say more than that to you."))
     setspeaker(NULL)
     closemessage
-    msgbox(format("{FONT_NARROW}(She was at that door. And she has decided, already, what the shouting meant.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}She was at that door. And she has decided, already, what the shouting meant.", "1_latin_rse_narrow"))
     giveevidence(EVD_OVERHEARD_ARGUMENT)
     closemessage
     goto(tarc3_MainDeck_EventScript_MarikoBattleEnd)
@@ -208,8 +208,8 @@ script tarc3_MainDeck_EventScript_Akie {
     delay(20)
     applymovement(LOCALID_MAINDECK_AKIE, moves(face_left))
     waitmovement(0)
-    msgbox(format("{FONT_NARROW}(She lowers her voice and turns back to Mariko. Only fragments carry.)", "1_latin_rse_narrow"))
-    msgbox(format("{FONT_NARROW}(...everything goes to... not to the eldest...)", "1_latin_rse_narrow"))
+    msgbox(format("She lowers her voice and turns back to Mariko. Only fragments carry.", "1_latin_rse_narrow"))
+    msgbox(format("...everything goes to... not to the eldest...)", "1_latin_rse_narrow"))
     release
     end
 }
@@ -240,7 +240,7 @@ script tarc3_MainDeck_EventScript_Suzuki {
 script tarc3_MainDeck_EventScript_SuzukiReflect {
     goto_if_set(FLAG_TARC3_REFLECT_SUZUKI, tarc3_MainDeck_EventScript_SuzukiReflectEnd)
     setspeaker(NULL)
-    message(format("{FONT_NARROW}(He chose every one of those words. What should I jot down?)", "1_latin_rse_narrow"))
+    message(format("{FONT_NARROW}He chose every one of those words. What should I jot down?", "1_latin_rse_narrow"))
     waitmessage
     dynmultipush("Ichiro is a gifted artist", 0)
     dynmultipush("Suzuki is very observant", 1)
@@ -256,7 +256,7 @@ script tarc3_MainDeck_EventScript_SuzukiReflect {
 }
 
 script tarc3_MainDeck_EventScript_SuzukiReflectSponsorship {
-    msgbox(format("{FONT_NARROW}(Ichiro's whole education came out of Gozo's pocket. And Gozo counts what he's owed.)\pThat one goes in the notes.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Ichiro's whole education came out of Gozo's pocket. And Gozo counts what he's owed.\pThat one goes in the notes.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_SUZUKI)
     giveevidence(EVD_ICHIRO_SPONSORSHIP)
@@ -265,7 +265,7 @@ script tarc3_MainDeck_EventScript_SuzukiReflectSponsorship {
 }
 
 script tarc3_MainDeck_EventScript_SuzukiReflectIrrelevant {
-    msgbox(format("{FONT_NARROW}(Probably true. I can't do anything with it, though.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Probably true. I can't do anything with it, though.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_SUZUKI)
     goto(tarc3_MainDeck_EventScript_SuzukiReflectEnd)
@@ -789,7 +789,7 @@ script tarc3_MainDeck_EventScript_DiningIchiro {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(He glances down the table at Natsue, then back at his plate.)", "1_latin_rse_narrow"))
+    msgbox(format("He glances down the table at Natsue, then back at his plate.", "1_latin_rse_narrow"))
     closemessage
     if (!flag(FLAG_TARC3_DINNER_TALK_ICHIRO)) {
         setflag(FLAG_TARC3_DINNER_TALK_ICHIRO)
@@ -800,15 +800,15 @@ script tarc3_MainDeck_EventScript_DiningIchiro {
 
 script tarc3_MainDeck_EventScript_DiningIchiroEvidence {
     if (!flag(FLAG_TARC3_ICHIRO_FOUND_LIE)) {
-        msgbox(format("{FONT_NARROW}(Dark the whole time, by his own account. He never saw a single thing.)", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}Dark the whole time, by his own account. He never saw a single thing.", "1_latin_rse_narrow"))
         closemessage
         giveevidence(EVD_BATHROOM_BLACKOUT)
         closemessage
         setflag(FLAG_TARC3_ICHIRO_FOUND_LIE)
     }
     if (!flag(FLAG_TARC3_ICHIRO_FOUND_LEG)) {
-        msgbox(format("{FONT_NARROW}(The bandage is wrapped around his thigh.)", "1_latin_rse_narrow"))
-        msgbox(format("{FONT_NARROW}(Not a cut on his palms. Nothing on his forearms either.)", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}The bandage is wrapped around his thigh.", "1_latin_rse_narrow"))
+        msgbox(format("{FONT_NARROW}Not a cut on his palms. Nothing on his forearms either.", "1_latin_rse_narrow"))
         closemessage
         giveevidence(EVD_INJURED_LEG)
         giveevidence(EVD_NO_DEFENSIVE_WOUNDS)
@@ -1212,7 +1212,7 @@ script tarc3_MainDeck_EventScript_KitaroSmeargleBody {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(Ichiro does not ask anyone for anything. And then he did not throw a single move.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Ichiro does not ask anyone for anything. And then he did not throw a single move.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_KITARO_SMEARGLE)
     giveevidence(EVD_THE_ODD_BATTLE)
@@ -1270,7 +1270,7 @@ script tarc3_MainDeck_EventScript_GatherNatsue {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(That bolt only works from the outside. And nobody forced it.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}That bolt only works from the outside. And nobody forced it.", "1_latin_rse_narrow"))
     closemessage
     setspeaker("Natsue")
     msgbox(format("Takeshi couldn't have let himself out.\pSomeone opened that door for him."))
@@ -1694,7 +1694,7 @@ script tarc3_MainDeck_EventScript_SuzukiSearchService {
     setspeaker(NULL)
     closemessage
     delay(20)
-    msgbox(format("{FONT_NARROW}(...He is telling me he knows more than he has said.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}...He is telling me he knows more than he has said.", "1_latin_rse_narrow"))
     closemessage
     delay(20)
     goto(tarc3_MainDeck_EventScript_SuzukiSearchTopics)
@@ -1719,7 +1719,7 @@ script tarc3_MainDeck_EventScript_SuzukiSuitor {
     setspeaker(NULL)
     closemessage
     delay(30)
-    msgbox(format("{FONT_NARROW}(Ichiro's wedding invitation wasn't graciousness. It was calculated, silent torture.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Ichiro's wedding invitation wasn't graciousness. It was calculated, silent torture.", "1_latin_rse_narrow"))
     closemessage
     giveevidence(EVD_REFUSED_SUITOR)
     closemessage
