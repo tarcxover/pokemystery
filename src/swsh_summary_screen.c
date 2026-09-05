@@ -1,4 +1,7 @@
 #include "global.h"
+#include "assertf.h"
+#include "battle_util.h"
+#include "constants/pokemon.h"
 #include "main.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -7,6 +10,7 @@
 #include "battle_tent.h"
 #include "battle_factory.h"
 #include "bg.h"
+#include "move.h"
 #include "swsh_summary_screen.h"
 #include "comfy_anim.h"
 #include "contest.h"
@@ -5747,6 +5751,16 @@ static void PrintHMMovesCantBeForgotten(void)
     PrintTextOnWindowWithFont(windowId, message, 0, 4, 0, 2, msgFontId);
 }
 
+static enum SwShCategoryIcon GetMoveCategoryIcon(enum Move move)
+{
+    enum DamageCategory category = GetBattleMoveCategory(move);
+    assertf(category != DAMAGE_CATEGORY_NONE, "Move %S has no damage category", GetMoveName(move))
+    {
+        category = DAMAGE_CATEGORY_STATUS;
+    }
+    return  category - 1;
+}
+
 static void ShowCategoryIcon(enum Move move)
 {
     if (sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_CATEGORY] == SPRITE_NONE)
@@ -5754,7 +5768,7 @@ static void ShowCategoryIcon(enum Move move)
 
     gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_CATEGORY]].invisible = FALSE;
 
-    StartSpriteAnim(&gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_CATEGORY]], GetBattleMoveCategory(move));
+    StartSpriteAnim(&gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_CATEGORY]], GetMoveCategoryIcon(move));
 }
 
 static void DestroyCategoryIcon(void)
