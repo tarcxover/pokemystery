@@ -218,7 +218,7 @@ script tarc3_Foredeck_EventScript_Departure {
     setvar(VAR_TARC3_ACT1, TARC3_ACT1_DEPARTED)
     fadescreenswapbuffers(FADE_FROM_BLACK)
     delay(20)
-    msgbox(format("{FONT_NARROW}(Hmm.\pThis family is at each other's throats.)", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Hmm.\pThis family is at each other's throats.", "1_latin_rse_narrow"))
     closemessage
     releaseall
     end
