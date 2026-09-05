@@ -444,14 +444,14 @@ static void CustomCredits_PrintLine(struct CreditEntry entry)
 static void Task_ScrollCredits(u8 taskId)
 {
     TASK_DATA(scrollOffset, countDown);
-    u32 yMultiplier = 16;
+    u32 yMultiplier = Q_8_8(16);
 
     bool32 isCreditsOver =
         !gCreditStrings[sCustomCreditsState->scrollOffset].creditText;
 
     bool32 isCountDownActive = tData->countDown > 0;
 
-    tData->scrollOffset++;
+    tData->scrollOffset += Q_8_8(0.5);
 
     if (tData->scrollOffset >= yMultiplier)
     {
@@ -473,21 +473,12 @@ static void Task_ScrollCredits(u8 taskId)
         }
     }
 
-    ChangeBgY(0, Q_8_8(1), BG_COORD_ADD);
+    ChangeBgY(0, Q_8_8(0.5), BG_COORD_ADD);
 }
 
 static void Task_CustomCreditsScrollBg(u8 taskId)
 {
-    s16* tAccumulator = &gTasks[taskId].data[0];
-
-    *tAccumulator += 104;
-
-    s16 pixels = *tAccumulator >> 8;
-    *tAccumulator &= 0xFF;
-
-    if (pixels != 0) {
-        ChangeBgY(1, pixels << 8, BG_COORD_SUB);
-    }
+    ChangeBgY(1, Q_8_8(0.4), BG_COORD_SUB);
 }
 
 static void CustomCredits_FreeResources(void)
