@@ -1593,6 +1593,15 @@ script tarc3_MainDeck_EventScript_ScreamNoExitStairs {
     end
 }
 
+script tarc3_MainDeck_EventScript_BlackoutNoExitHold {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)
+    msgbox(format("{FONT_NARROW}Suzuki has gone downstairs. I need to get to the bathrooms.", "1_latin_rse_narrow"))
+    releaseall
+    end
+}
+
 script tarc3_MainDeck_EventScript_CorridorRan {
     lock
     faceplayer

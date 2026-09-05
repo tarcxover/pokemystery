@@ -766,6 +766,42 @@
       "var": "VAR_TARC3_ACT2",
       "var_value": "TARC3_ACT2_TO_BATHROOM",
       "script": "tarc3_MainDeck_EventScript_ScreamNoExitStairs"
+    },
+    {
+      "type": "trigger",
+      "x": 34,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_SUZUKI_BELOW",
+      "script": "tarc3_MainDeck_EventScript_BlackoutNoExitHold"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_SUZUKI_BELOW",
+      "script": "tarc3_MainDeck_EventScript_BlackoutNoExitHold"
+    },
+    {
+      "type": "trigger",
+      "x": 34,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_TO_BATHROOM",
+      "script": "tarc3_MainDeck_EventScript_ScreamNoExitStairs"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TARC3_ACT2",
+      "var_value": "TARC3_ACT2_TO_BATHROOM",
+      "script": "tarc3_MainDeck_EventScript_ScreamNoExitStairs"
     }
   ],
   "bg_events": [
