@@ -164,7 +164,7 @@ script tarc3_Foredeck_EventScript_Departure {
     delay(20)
     applymovement(LOCALID_FOREDECK_RAN, moves(walk_down, face_up))
     waitmovement(0)
-    applymovement(LOCALID_FOREDECK_TAKESHI, moves(walk_right * 3, walk_up * 2, walk_right))
+    applymovement(LOCALID_FOREDECK_TAKESHI, moves(walk_right * 2, walk_up * 2, walk_right * 2))
     waitmovement(0)
     playse(SE_EXIT)
     setflag(FLAG_HIDE_TARC3_FOREDECK_TAKESHI)
