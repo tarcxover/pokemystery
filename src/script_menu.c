@@ -83,7 +83,6 @@ static void MultichoiceDynamicEventDebug_OnSelectionChanged(struct DynamicListMe
 static void MultichoiceDynamicEventDebug_OnDestroy(struct DynamicListMenuEventArgs *eventArgs);
 static void MultichoiceDynamicEventShowSprite_OnInit(struct DynamicListMenuEventArgs *eventArgs);
 static void MultichoiceDynamicEventShowItem_OnSelectionChanged(struct DynamicListMenuEventArgs *eventArgs);
-static void MultichoiceDynamicEventShowItem_OnDestroy(struct DynamicListMenuEventArgs *eventArgs);
 static void MultichoiceDynamicEventMultiSelect_OnDestroy(struct DynamicListMenuEventArgs *eventArgs);
 static void MultiChoiceDynamicPrintFunc_MultiSelect(const struct ListMenu *list, u32 index, u8 y);
 static void MultichoiceDynamicEventShowPkmn_OnSelectionChanged(struct DynamicListMenuEventArgs *eventArgs);
@@ -102,7 +101,8 @@ static const struct DynamicListMenuEventCollection sDynamicListMenuEventCollecti
     {
         .OnInit = MultichoiceDynamicEventShowSprite_OnInit,
         .OnSelectionChanged = MultichoiceDynamicEventShowItem_OnSelectionChanged,
-        .OnDestroy = MultichoiceDynamicEventShowSprite_OnDestroy
+        .OnDestroy = MultichoiceDynamicEventShowSprite_OnDestroy,
+        .itemPrintCB = NULL,
     },
     [DYN_MULTICHOICE_CB_EVIDENCE] = 
     {
@@ -115,7 +115,8 @@ static const struct DynamicListMenuEventCollection sDynamicListMenuEventCollecti
     {
         .OnInit = MultichoiceDynamicEventShowSprite_OnInit,
         .OnSelectionChanged = MultichoiceDynamicEventShowPkmn_OnSelectionChanged,
-        .OnDestroy = MultichoiceDynamicEventShowSprite_OnDestroy
+        .OnDestroy = MultichoiceDynamicEventShowSprite_OnDestroy,
+        .itemPrintCB =  NULL
     }
 };
 
