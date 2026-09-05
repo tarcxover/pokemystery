@@ -9162,10 +9162,10 @@ void BS_ItemCureStatus(void)
 #if SWSH_ITEM_MENU_IN_BATTLE_USE
     if (ItemUseTargetsPartnerParty(gBattlerAttacker))
     {
-        if (gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerAttacker)])
+        if (gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[GetPartnerBattler(gBattlerAttacker)])
         {
-            statusChanged = ItemHealMonVolatile(BATTLE_PARTNER(gBattlerAttacker), gLastUsedItem);
-            targetBattler = BATTLE_PARTNER(gBattlerAttacker);
+            statusChanged = ItemHealMonVolatile(GetPartnerBattler(gBattlerAttacker), gLastUsedItem);
+            targetBattler = GetPartnerBattler(gBattlerAttacker);
         }
     }
     else
@@ -9214,7 +9214,7 @@ void BS_ItemIncreaseStat(void)
 
 #if SWSH_ITEM_MENU_IN_BATTLE_USE
     if (ItemUseTargetsPartnerParty(gBattlerAttacker))
-        gBattlerAttacker = BATTLE_PARTNER(gBattlerAttacker);
+        gBattlerAttacker = GetPartnerBattler(gBattlerAttacker);
     else
 #endif
     if (gBattlerPartyIndexes[gBattlerAttacker] != gBattleStruct->itemPartyIndex[gBattlerAttacker])
@@ -9266,8 +9266,8 @@ void BS_ItemRestorePP(void)
 #if SWSH_ITEM_MENU_IN_BATTLE_USE
     if (ItemUseTargetsPartnerParty(gBattlerAttacker))
     {
-        if (gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerAttacker)])
-            battler = BATTLE_PARTNER(gBattlerAttacker);
+        if (gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[GetPartnerBattler(gBattlerAttacker)])
+            battler = GetPartnerBattler(gBattlerAttacker);
     }
     else
 #endif
