@@ -425,7 +425,7 @@ script tarc3_Hold_EventScript_Ran {
 
 script tarc3_Hold_EventScript_EvdDeckPlan {
     lockall
-    if (var(VAR_TARC3_ACT2) < TARC3_ACT2_SEARCH_TAKESHI) {
+    if (var(VAR_TARC3_ACT1) < TARC3_ACT1_JAIL_TAKESHI) {
         msgbox(format("A deck plan of the lower level."))
         releaseall
         end
