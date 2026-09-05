@@ -682,7 +682,7 @@ script tarc3_GozoRoom_EventScript_SuzukiReflect3Flower {
 }
 
 script tarc3_GozoRoom_EventScript_SuzukiReflect3Irrelevant {
-    msgbox(format("{FONT_NARROW}True. It isn't evidence, though.", "1_latin_rse_narrow"))
+    msgbox(format("{FONT_NARROW}Perhaps. But that isn't what he walked past.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_3)
     goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
