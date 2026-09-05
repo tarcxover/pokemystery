@@ -1009,7 +1009,7 @@ script tarc3_MainDeck_EventScript_GatherTalkDone {
     if (var(VAR_TARC3_GATHER_TALKED) == 3) {
         goto(tarc3_MainDeck_EventScript_IchiroExcusesHimself)
     }
-    if (var(VAR_TARC3_GATHER_TALKED) >= 8) {
+    if (var(VAR_TARC3_GATHER_TALKED) >= 6) {
         goto(tarc3_MainDeck_EventScript_Blackout)
     }
     release
