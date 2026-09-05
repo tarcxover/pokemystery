@@ -248,8 +248,11 @@ script tarc3_Foredeck_EventScript_IchiroBattle {
     msgbox(format("I'm looking for a new source of inspiration.\pMay we battle?"))
     setspeaker(NULL)
     closemessage
-    trainerbattle_earlyrival(TRAINER_TARC3_ICHIRO, RIVAL_BATTLE_HEAL_AFTER, tarc3_Foredeck_Text_IchiroDefeat, tarc3_Foredeck_Text_IchiroVictory)
-    goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_IchiroBattleLost)
+    setflag(FLAG_TARC3_NO_WHITEOUT)
+    trainerbattle_no_intro(TRAINER_TARC3_ICHIRO, tarc3_Foredeck_Text_IchiroDefeat)
+    clearflag(FLAG_TARC3_NO_WHITEOUT)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    goto_if_ne(VAR_RESULT, B_OUTCOME_WON, tarc3_Foredeck_EventScript_IchiroBattleLost)
     delay(20)
     setspeaker("Ichiro")
     msgbox(format("Thank you.\pI... I tend to fixate on my drawing subjects. Battles help break that up."))
@@ -263,6 +266,7 @@ script tarc3_Foredeck_EventScript_IchiroBattle {
 }
 
 script tarc3_Foredeck_EventScript_IchiroBattleLost {
+    settrainerflag(TRAINER_TARC3_ICHIRO)
     delay(20)
     setspeaker("Ichiro")
     msgbox(format("Looks can be deceiving, I suppose.\pHere, let me put your team right before you go."))
@@ -282,9 +286,6 @@ text tarc3_Foredeck_Text_IchiroDefeat {
     format("Still can't focus.")
 }
 
-text tarc3_Foredeck_Text_IchiroVictory {
-    format("Huh.")
-}
 
 script tarc3_Foredeck_EventScript_Sketchbook {
     lockall
@@ -331,8 +332,11 @@ script tarc3_Foredeck_EventScript_TatsuoBattle {
     msgbox(format("Then make yourself useful. Let's kill some time."))
     setspeaker(NULL)
     closemessage
-    trainerbattle_earlyrival(TRAINER_TARC3_TATSUO, RIVAL_BATTLE_HEAL_AFTER, tarc3_Foredeck_Text_TatsuoDefeat, tarc3_Foredeck_Text_TatsuoVictory)
-    goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_TatsuoBattleLost)
+    setflag(FLAG_TARC3_NO_WHITEOUT)
+    trainerbattle_no_intro(TRAINER_TARC3_TATSUO, tarc3_Foredeck_Text_TatsuoDefeat)
+    clearflag(FLAG_TARC3_NO_WHITEOUT)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    goto_if_ne(VAR_RESULT, B_OUTCOME_WON, tarc3_Foredeck_EventScript_TatsuoBattleLost)
     delay(20)
     setspeaker("Tatsuo")
     msgbox(format("Fine. Fine!\pYou've had more practice than you let on."))
@@ -352,6 +356,7 @@ script tarc3_Foredeck_EventScript_TatsuoBattle {
 }
 
 script tarc3_Foredeck_EventScript_TatsuoBattleLost {
+    settrainerflag(TRAINER_TARC3_TATSUO)
     delay(20)
     setspeaker("Tatsuo")
     msgbox(format("Ha! And they call me the freeloader."))
@@ -371,9 +376,6 @@ text tarc3_Foredeck_Text_TatsuoDefeat {
     format("Of course. Of course!")
 }
 
-text tarc3_Foredeck_Text_TatsuoVictory {
-    format("Something in this family I'm good at.")
-}
 
 script tarc3_Foredeck_EventScript_Kitaro {
     lock
@@ -397,8 +399,11 @@ script tarc3_Foredeck_EventScript_KitaroBattle {
     msgbox(format("Would you humour me instead?\pOne battle. It would quell some nerves."))
     setspeaker(NULL)
     closemessage
-    trainerbattle_earlyrival(TRAINER_TARC3_KITARO, RIVAL_BATTLE_HEAL_AFTER, tarc3_Foredeck_Text_KitaroDefeat, tarc3_Foredeck_Text_KitaroVictory)
-    goto_if_eq(VAR_RESULT, TRUE, tarc3_Foredeck_EventScript_KitaroBattleLost)
+    setflag(FLAG_TARC3_NO_WHITEOUT)
+    trainerbattle_no_intro(TRAINER_TARC3_KITARO, tarc3_Foredeck_Text_KitaroDefeat)
+    clearflag(FLAG_TARC3_NO_WHITEOUT)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    goto_if_ne(VAR_RESULT, B_OUTCOME_WON, tarc3_Foredeck_EventScript_KitaroBattleLost)
     delay(20)
     setspeaker("Kitaro")
     msgbox(format("Well fought.\pIt has been a while since anybody made us work for it. Thank you for that."))
@@ -410,6 +415,7 @@ script tarc3_Foredeck_EventScript_KitaroBattle {
 }
 
 script tarc3_Foredeck_EventScript_KitaroBattleLost {
+    settrainerflag(TRAINER_TARC3_KITARO)
     delay(20)
     setspeaker("Kitaro")
     msgbox(format("Thank you.\pLet me see to your team. It's the least I can do."))
@@ -429,9 +435,6 @@ text tarc3_Foredeck_Text_KitaroDefeat {
     format("You certainly have some aptitude as a trainer.")
 }
 
-text tarc3_Foredeck_Text_KitaroVictory {
-    format("Twenty-two years of practice.")
-}
 
 // CS8
 
