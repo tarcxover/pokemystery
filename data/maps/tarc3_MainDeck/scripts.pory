@@ -83,6 +83,11 @@ script tarc3_MainDeck_EventScript_CabinDoorOpen {
     end
 }
 
+script tarc3_MainDeck_EventScript_GozoCabinDoor {
+    goto_if_ge(VAR_TARC3_ACT1, TARC3_ACT1_THE_BODY, tarc3_GozoRoom_EventScript_EvdDoorframe)
+    goto(tarc3_MainDeck_EventScript_CabinDoor)
+}
+
 script tarc3_MainDeck_EventScript_ShowRoom {
     lockall
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
