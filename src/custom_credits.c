@@ -417,46 +417,27 @@ struct CreditEntry {
 
 #include "data/credits_list.h"
 
-static void CustomCredits_PrintLine()
+static void CustomCredits_PrintLine(struct CreditEntry entry)
 {
     u32 winPixelWidth = GetWindowAttribute(WIN_CREDITS_MAIN, WINDOW_WIDTH) * 8;
     u32 y = Q_8_8_TO_INT(GetBgY(0)) % 512;
     u8 yMultiplier = 16;
-    u32 yPos = (DISPLAY_HEIGHT + y) % 256;
-    u32 remainingWindowLines = GetWindowAttribute(WIN_CREDITS_MAIN, WINDOW_HEIGHT) * 8 - yPos;
+    u32 yPos = (DISPLAY_HEIGHT + y + 1) % 256;
 
-    const u8 *text = COMPOUND_STRING("Credits Entry {STR_VAR_1}");
-    ConvertIntToDecimalStringN( gStringVar1, sCustomCreditsState->scrollOffset, STR_CONV_MODE_LEADING_ZEROS, 3);
-    StringExpandPlaceholders(gStringVar4, text);
+    FillWindowPixelRect(WIN_CREDITS_MAIN, PIXEL_FILL(TEXT_COLOR_TRANSPARENT), 0, yPos, winPixelWidth, yMultiplier);
 
-    if (remainingWindowLines < yMultiplier)
+    if (entry.creditText == 0)
     {
-        FillWindowPixelRect(WIN_CREDITS_MAIN, PIXEL_FILL(TEXT_COLOR_TRANSPARENT), 0, yPos, winPixelWidth, remainingWindowLines);
-        FillWindowPixelRect(WIN_CREDITS_MAIN, PIXEL_FILL(TEXT_COLOR_TRANSPARENT), 0, 0, winPixelWidth, yMultiplier - remainingWindowLines);
-    }
-    else
-        FillWindowPixelRect(WIN_CREDITS_MAIN, PIXEL_FILL(TEXT_COLOR_TRANSPARENT), 0, yPos, winPixelWidth, yMultiplier);
-
-    if (gCreditStrings[sCustomCreditsState->scrollOffset].creditText == 0)
-    {
-        FillWindowPixelRect(WIN_CREDITS_MAIN, PIXEL_FILL(TEXT_COLOR_TRANSPARENT), 0, yPos, winPixelWidth, yMultiplier);
-        PutWindowTilemap(WIN_CREDITS_MAIN);
-        CopyWindowToVram(WIN_CREDITS_MAIN, COPYWIN_FULL);
+        CopyWindowToVram(WIN_CREDITS_MAIN, COPYWIN_GFX);
         return;
     }
 
-    u32 fontId = gCreditStrings[sCustomCreditsState->scrollOffset].isHeader ? FONT_NORMAL : FONT_SMALL_NARROWER;
+    u32 fontId = entry.isHeader ? FONT_NORMAL : FONT_SMALL_NARROWER;
+    const u8* color = entry.isHeader ? sCustomCreditsWindowFontColors[FONT_RED] : sCustomCreditsWindowFontColors[FONT_WHITE];
+    u32 x = GetStringCenterAlignXOffset(fontId, entry.creditText, GetWindowAttribute(WIN_CREDITS_MAIN, WINDOW_WIDTH) * 8);
+    AddTextPrinterParameterized4(WIN_CREDITS_MAIN, fontId, x, yPos, 0, 0, color, TEXT_SKIP_DRAW, entry.creditText);
 
-    const u8* color = gCreditStrings[sCustomCreditsState->scrollOffset].isHeader ? sCustomCreditsWindowFontColors[FONT_RED] : sCustomCreditsWindowFontColors[FONT_WHITE];
-
-    StringCopy(gStringVar4, gCreditStrings[sCustomCreditsState->scrollOffset].creditText);
-
-    u32 x = GetStringCenterAlignXOffset(fontId, gStringVar4, GetWindowAttribute(WIN_CREDITS_MAIN, WINDOW_WIDTH) * 8);
-
-    AddTextPrinterParameterized4(WIN_CREDITS_MAIN, fontId, x, yPos + 1, 0, 0, color, TEXT_SKIP_DRAW, gStringVar4);
-
-    PutWindowTilemap(WIN_CREDITS_MAIN);
-    CopyWindowToVram(WIN_CREDITS_MAIN, COPYWIN_FULL);
+    CopyWindowToVram(WIN_CREDITS_MAIN, COPYWIN_GFX);
     sCustomCreditsState->scrollOffset++;
 }
 
@@ -480,7 +461,7 @@ static void Task_ScrollCredits(u8 taskId)
         }
 
         tData->scrollOffset -= yMultiplier;
-        CustomCredits_PrintLine();
+        CustomCredits_PrintLine(gCreditStrings[sCustomCreditsState->scrollOffset]);
 
         if (tData->countDown > 0)
             tData->countDown--;
@@ -493,8 +474,6 @@ static void Task_ScrollCredits(u8 taskId)
     }
 
     ChangeBgY(0, Q_8_8(1), BG_COORD_ADD);
-    u32 y = GetBgY(0);
-    y = Q_8_8_TO_INT(y) % 512;
 }
 
 static void Task_CustomCreditsScrollBg(u8 taskId)
