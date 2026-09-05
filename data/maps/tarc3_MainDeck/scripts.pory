@@ -1209,7 +1209,7 @@ script tarc3_MainDeck_EventScript_DiningKitaroSmeargle {
 script tarc3_MainDeck_EventScript_KitaroSmeargleBody {
     setspeaker("Kitaro")
     msgbox(format("Ichiro asked me for a battle, right as they were calling us in. He never asks."))
-    msgbox(format("Odd sort of battle. He didn't attack once.\pHis Smeargle just kept dodging, until I hit it with a well-aimed Discharged."))
+    msgbox(format("Odd sort of battle. He didn't attack once.\pHis Smeargle just kept dodging, until I hit it with a well-aimed Discharge."))
     msgbox(format("Then he thanked me and put his sketchbook back under his arm."))
     setspeaker(NULL)
     closemessage

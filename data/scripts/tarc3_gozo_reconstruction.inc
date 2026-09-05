@@ -1024,8 +1024,8 @@ tarc3_Recon_EventScript_Q3_Text_0:
 
 tarc3_Recon_EventScript_Q3_Text_1:
 # 206 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "Only because every one of you is\n"
-	.string "looking at the wrong side of that door.$"
+	.string "Only because you are all looking at the\n"
+	.string "wrong side of that door.$"
 
 tarc3_Recon_EventScript_Q3Ask_Text_0:
 # 215 "data/scripts/tarc3_gozo_reconstruction.pory"
@@ -1240,9 +1240,9 @@ tarc3_Recon_EventScript_ClosingFair_Text_1:
 
 tarc3_Recon_EventScript_ClosingFair_Text_2:
 # 426 "data/scripts/tarc3_gozo_reconstruction.pory"
-	.string "He has described a murder to you, and\n"
-	.string "every one of you was calling it a\l"
-	.string "suicide four minutes ago.$"
+	.string "He has described a murder to you, while\n"
+	.string "some of you had characterised it as\l"
+	.string "suicide moments earlier.$"
 
 tarc3_Recon_EventScript_ClosingPoor_Text_0:
 # 436 "data/scripts/tarc3_gozo_reconstruction.pory"
