@@ -616,7 +616,7 @@ script tarc3_GozoRoom_EventScript_EvdGarland {
     msgbox(format("A garland is lying in the corridor a step from the door."))
     msgbox(format("{FONT_NARROW}Not a mark on it. Amongst the blood spilled here, this came away clean.", "1_latin_rse_narrow"))
     closemessage
-    // EVD_UNSTAINED_GARLAND cut
+    giveevidence(EVD_DROPPED_FLOWER)
     closemessage
     call(tarc3_GozoRoom_EventScript_ClearEvidence)
     special(DrawWholeMapView)
@@ -652,6 +652,8 @@ script tarc3_GozoRoom_EventScript_SuzukiBeat3 {
     msgbox(format("The corridor was empty. There was nothing on the floor at all, except that flower."))
     setspeaker(NULL)
     closemessage
+    giveevidence(EVD_DROPPED_FLOWER)
+    closemessage
     goto(tarc3_GozoRoom_EventScript_SuzukiReflect3)
 }
 
@@ -676,8 +678,6 @@ script tarc3_GozoRoom_EventScript_SuzukiReflect3Flower {
     msgbox(format("{FONT_NARROW}Lying there half an hour before anyone knew he was dead.\pTakeshi's garland, on the floor, waiting to be found.", "1_latin_rse_narrow"))
     closemessage
     setflag(FLAG_TARC3_REFLECT_GOZO_SUZUKI_3)
-    giveevidence(EVD_DROPPED_FLOWER)
-    closemessage
     goto(tarc3_GozoRoom_EventScript_SuzukiReflectEnd)
 }
 
