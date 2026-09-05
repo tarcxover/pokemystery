@@ -227,7 +227,7 @@
     },
     {
       "type": "sign",
-      "x": 10,
+      "x": 9,
       "y": 10,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
@@ -244,7 +244,7 @@
     {
       "type": "sign",
       "x": 9,
-      "y": 10,
+      "y": 9,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "tarc3_GozoRoom_EventScript_EvdTrail"

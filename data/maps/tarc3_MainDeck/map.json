@@ -811,8 +811,8 @@
       "y": 8,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "tarc3_MainDeck_EventScript_CabinDoor",
-      "notes": "gozo cabin door"
+      "script": "tarc3_MainDeck_EventScript_GozoCabinDoor",
+      "notes": "gozo cabin door - blood across the doorframe after his death"
     },
     {
       "type": "sign",
