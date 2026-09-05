@@ -2,7 +2,7 @@
 #include "test/battle.h"
 #include "pokemon_animation.h"
 
-WILD_BATTLE_TEST("Front anims work")
+SINGLE_BATTLE_TEST("Front anims work")
 {
     enum Species species = SPECIES_WOBBUFFET;
     for (enum AnimFunctionIDs animId = 0; animId < ANIM_COUNT; animId++)
