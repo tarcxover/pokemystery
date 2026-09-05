@@ -118,7 +118,6 @@ static void Task_CustomCreditsWaitFadeIn(u8 taskId);
 static void Task_CustomCreditsMainInput(u8 taskId);
 static void Task_CustomCreditsWaitFadeAndBail(u8 taskId);
 static void Task_CustomCreditsWaitFadeAndExitGracefully(u8 taskId);
-static void Task_ScrollCreditsTillEnd(u8 taskId);
 static void Task_ScrollCredits(u8 taskId);
 
 //Custom Credits helper functions
@@ -293,6 +292,8 @@ static void Task_CustomCreditsWaitFadeIn(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        TASK_DATA(scrollOffset, countDown);
+        tData->countDown = -1;
         gTasks[taskId].func = Task_ScrollCredits;
         CreateTask(Task_CustomCreditsMainInput, 0);
     }
@@ -461,60 +462,39 @@ static void CustomCredits_PrintLine()
 
 static void Task_ScrollCredits(u8 taskId)
 {
-    TASK_DATA(scrollOffset, currLine, lastLine);
+    TASK_DATA(scrollOffset, countDown);
     u32 yMultiplier = 16;
+
+    bool32 isCreditsOver =
+        !gCreditStrings[sCustomCreditsState->scrollOffset].creditText;
+
+    bool32 isCountDownActive = tData->countDown > 0;
 
     tData->scrollOffset++;
 
     if (tData->scrollOffset >= yMultiplier)
     {
-        if (gCreditStrings[sCustomCreditsState->scrollOffset].creditText == 0)
+        if (isCreditsOver && !isCountDownActive)
         {
-            tData->lastLine = tData->currLine;
-            gTasks[taskId].func = Task_ScrollCreditsTillEnd;
+            tData->countDown = 16;
         }
 
         tData->scrollOffset -= yMultiplier;
         CustomCredits_PrintLine();
 
-        tData->currLine++;
-        tData->currLine %= 16;
+        if (tData->countDown > 0)
+            tData->countDown--;
+
+        if (tData->countDown == 0)
+        {
+            FadeScreen(FADE_TO_BLACK, 1);
+            gTasks[taskId].func = Task_CustomCreditsWaitFadeAndExitGracefully;
+        }
     }
 
     ChangeBgY(0, Q_8_8(1), BG_COORD_ADD);
     u32 y = GetBgY(0);
     y = Q_8_8_TO_INT(y) % 512;
-}
-
-static void Task_ScrollCreditsTillEnd(u8 taskId)
-{
-    TASK_DATA(scrollOffset, currLine, lastLine);
-    u32 yMultiplier = 16;
-
-    if (TRUE)
-    {
-        tData->scrollOffset++;
-
-        if (tData->scrollOffset >= yMultiplier)
-        {
-            tData->scrollOffset -= yMultiplier;
-            CustomCredits_PrintLine();
-
-            tData->currLine++;
-            tData->currLine %= 16;
-            DebugPrintf("Printing %d", tData->currLine);
-        }
-
-        if (tData->currLine == tData->lastLine)
-        {
-            FadeScreen(FADE_TO_BLACK, 1);
-            gTasks[taskId].func = Task_CustomCreditsWaitFadeAndExitGracefully;
-        }
-
-        ChangeBgY(0, Q_8_8(1), BG_COORD_ADD);
-        u32 y = GetBgY(0);
-        y = Q_8_8_TO_INT(y) % 512;
-    }
 }
 
 static void Task_CustomCreditsScrollBg(u8 taskId)
